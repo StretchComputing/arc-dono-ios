@@ -329,7 +329,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
         
        
-        NSLog(@"RequestString: %@", requestString);
+       // NSLog(@"RequestString: %@", requestString);
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         //NSLog(@"getMerchantList requestString = %@", requestString);
@@ -348,9 +348,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];   
         
-      //  NSLog(@"Request: %@", requestString);
+        NSLog(@"Request: %@", requestString);
         
-       // NSLog(@"Auth Header: %@", [self authHeader]);
+       NSLog(@"Auth Header: %@", [self authHeader]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -2707,7 +2707,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [ tempDictionary setObject:@0.0 forKey:@"Longitude"];//optional
         [ tempDictionary setObject:measureType forKey:@"MeasureType"];//LABEL
         [ tempDictionary setObject:measureValue forKey:@"MeasureValue"];//VALUE
-        [ tempDictionary setObject:@"Holy Dutch" forKey:@"Application"];
+        [ tempDictionary setObject:@"Dono" forKey:@"Application"];
         
         //Location
         if ([mainDelegate.lastLongitude length] > 0) {
@@ -2818,7 +2818,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(NSString *)getLocalEndpoint{
     
     @try {
-        NSString *localEndpoint = @"dutch.ios";
+        NSString *localEndpoint = @"dono.ios";
         
         NSString *myString = @"prd.";
     #if DEBUG==1
@@ -2854,6 +2854,6 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(NSDictionary *)getAppInfoDictionary{
     
     NSString *version = ARC_VERSION_NUMBER;
-    return @{@"App": @"HOLY_DUTCH", @"OS":@"IOS", @"Version":version};
+    return @{@"App": @"DONO", @"OS":@"IOS", @"Version":version};
 }
 @end

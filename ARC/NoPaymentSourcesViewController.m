@@ -35,7 +35,7 @@
             [self.navigationController dismissModalViewControllerAnimated:YES];
             
         }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation Failed" message:@"dutch failed to validate your Dwolla credentials, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation Failed" message:@"dono failed to validate your Dwolla credentials, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }
@@ -61,7 +61,7 @@
   //  self.topLineView.layer.shadowRadius = 1;
   //  self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+   // self.backView.backgroundColor = dutchTopNavColor;
 
     
 }

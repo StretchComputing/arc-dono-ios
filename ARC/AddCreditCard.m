@@ -119,7 +119,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
    
         
         self.topLineView.backgroundColor = dutchTopLineColor;
-        self.backView.backgroundColor = dutchTopNavColor;
+       // self.backView.backgroundColor = dutchTopNavColor;
         
         
         if (!isIos7) {

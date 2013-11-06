@@ -18,8 +18,10 @@
 
 - (void)viewDidLoad
 {
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+
  
+    //[self setNeedsStatusBarAppearanceUpdate];
     self.navigationBarHidden = YES;
     
     
@@ -28,6 +30,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    //return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleBlackOpaque;
+}
+
 
 - (void)viewDidUnload
 {

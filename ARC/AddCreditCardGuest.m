@@ -19,6 +19,8 @@
 #import "GuestCreateAccount.h"
 #import "MFSideMenu.h"
 #import "LeftViewController.h"
+#import "ConfirmPaymentViewController.h"
+#import "MyCreditCard.h"
 
 @interface AddCreditCardGuest ()
 
@@ -53,7 +55,6 @@
     //self.navigationController.navigationBarHidden = NO;
    // self.navigationController.navigationBar.clipsToBounds = YES;
     
-    NSLog(@"Donation AMount: %f", self.donationAmount);
     
     self.totalPaymentLabel.text = [NSString stringWithFormat:@"Total Payment: $%.2f", self.donationAmount];
 
@@ -148,7 +149,7 @@
         
    
         
-        self.addCardButton.text = @"Confirm Payment";
+        self.addCardButton.text = @"Continue";
 
         
         
@@ -157,18 +158,18 @@
         self.addCardButton.textColor = [UIColor whiteColor];
         
         self.topLineView.backgroundColor = dutchTopLineColor;
-        self.backView.backgroundColor = dutchTopNavColor;
+      //  self.backView.backgroundColor = dutchTopNavColor;
         
         
         if (!isIos7 && !self.isIphone5) {
             CGRect frame = self.myTableView.frame;
-            frame.origin.y += 30;
+            frame.origin.y += 15;
             self.myTableView.frame = frame;
         }
         
         if (!isIos7 && self.isIphone5) {
             CGRect frame = self.bottomView.frame;
-            frame.origin.y -= 30;
+            frame.origin.y -= 15;
             self.bottomView.frame = frame;
         }
         
@@ -533,18 +534,18 @@
                 
                 if ([self luhnCheck:self.creditCardNumberText.text]) {
                     
-                    [self createPayment];
+                    [self performSegueWithIdentifier:@"payCard" sender:self];
                     
                 }else{
                     
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card" message:@"Please enter a valid card number." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card" message:@"Please enter a valid card number." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                     [alert show];
                     
                 }
                 
                 
             }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
             }
             
@@ -711,6 +712,10 @@
     
 }
 
+
+
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {
         
@@ -723,6 +728,29 @@
             next.ccExpiration = self.expirationText.text;
             next.askSaveCard = YES;
 
+        }else if ([[segue identifier] isEqualToString:@"payCard"]) {
+            
+            ConfirmPaymentViewController *confirm = [segue destinationViewController];
+            confirm.donationAmount = self.donationAmount;
+            confirm.justAddedCard = YES;
+            
+            MyCreditCard *tmp = [[MyCreditCard alloc] init];
+            tmp.expiration = self.expirationText.text;
+            tmp.number = [self.creditCardNumberText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+            tmp.sample =  [NSString stringWithFormat:@"****%@", [tmp.number substringFromIndex:[tmp.number length]-4]];
+                        
+            tmp.securityCode = self.creditCardSecurityCodeText.text;
+            tmp.cardType = [ArcUtility getCardTypeForNumber:tmp.number];
+            
+            
+
+            
+            confirm.mySelectedCard = tmp;
+            confirm.myMerchant = self.myMerchant;
+            
+            NSLog(@"Count: %d", [self.myItemsArray count]);
+            confirm.myItemsArray = [NSMutableArray arrayWithArray:self.myItemsArray];
+            
         }
         
         
@@ -835,12 +863,12 @@
             }else if (errorCode == NETWORK_ERROR){
                 
                 networkError = YES;
-                errorMsg = @"dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                errorMsg = @"dono is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                 
             }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
                 
                 networkError = YES;
-                errorMsg = @"dutch experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+                errorMsg = @"dono experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
                 
             }else if (errorCode == PAYMENT_POSSIBLE_SUCCESS){
                 errorMsg = @"error";
@@ -889,7 +917,7 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Please verify your information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [alert show];
         }else if (duplicateTransaction){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dutch has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dono has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }
@@ -922,7 +950,7 @@
 -(void)showHighVolumeOverlay{
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.loadingViewController.displayText.text = @"dutch is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.text = @"dono is experiencing high volume, or a weak internet connection, please be patient...";
         self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:14];
         
         self.loadingViewController.displayText.numberOfLines = 3;
@@ -1422,6 +1450,10 @@
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
     
+    if (isIos7) {
+        doneButton.tintColor = [UIColor whiteColor];
+    }
+    
     NSArray *itemsArray = [NSArray arrayWithObjects:flexButton, doneButton, nil];
     
     
@@ -1437,6 +1469,9 @@
     UIBarButtonItem *flexButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneButton1 =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
     
+    if (isIos7) {
+        doneButton1.tintColor = [UIColor whiteColor];
+    }
     NSArray *itemsArray1 = [NSArray arrayWithObjects:flexButton1, doneButton1, nil];
     
     
@@ -1453,6 +1488,9 @@
     UIBarButtonItem *flexButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneButton2 =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
     
+    if (isIos7) {
+        doneButton2.tintColor = [UIColor whiteColor];
+    }
     NSArray *itemsArray2 = [NSArray arrayWithObjects:flexButton2, doneButton2, nil];
     
     

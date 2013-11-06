@@ -31,6 +31,10 @@
 @property (strong, nonatomic) IBOutlet UIView *bottomLine;
 @property (strong, nonatomic) IBOutlet UIView *vertLine1;
 @property (strong, nonatomic) IBOutlet UIView *vertLine2;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *termsButton;
+- (IBAction)termsAction;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *privacyButton;
+- (IBAction)privacyAction;
 
 -(IBAction)startUsingAction;
 @end

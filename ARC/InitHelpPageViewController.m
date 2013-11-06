@@ -85,6 +85,13 @@
 - (void)viewDidLoad
 {
     
+    self.termsButton.text = @"Terms of Use";
+    self.termsButton.tintColor = dutchDarkBlueColor;
+    self.privacyButton.text = @"Privacy Policy";
+    self.privacyButton.tintColor = dutchDarkBlueColor;
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+
     
     
     self.helpView.layer.cornerRadius = 7.0;
@@ -95,12 +102,11 @@
     self.myScrollView.delegate = self;
     self.startUsingButton.text = @"Start Donating!";
     
-    self.startUsingButton.tintColor =  dutchDarkBlueColor;
-    self.startUsingButton.textColor = [UIColor whiteColor];
+    self.startUsingButton.tintColor =  dutchRedColor;
     
     @try {
         self.pageControl.pageIndicatorTintColor = dutchTopLineColor;
-        self.pageControl.currentPageIndicatorTintColor = dutchDarkBlueColor;
+        self.pageControl.currentPageIndicatorTintColor = dutchRedColor;
     }
     @catch (NSException *exception) {
         
@@ -143,8 +149,8 @@
   //  self.topLine.layer.shadowOffset = CGSizeMake(0, 1);
  //   self.topLine.layer.shadowRadius = 1;
  //   self.topLine.layer.shadowOpacity = 0.2;
-    self.topLine.backgroundColor = dutchTopLineColor;
-    self.view.backgroundColor = dutchTopNavColor;
+   // self.topLine.backgroundColor = dutchTopLineColor;
+   // self.view.backgroundColor = dutchTopNavColor;
     
     
   //  self.bottomLine.layer.shadowOffset = CGSizeMake(0, 1);
@@ -219,6 +225,15 @@
 
 
 
+- (IBAction)termsAction {
+    [self performSegueWithIdentifier:@"goTerms" sender:self];
+}
+
+- (IBAction)privacyAction {
+    [self performSegueWithIdentifier:@"goPrivacy" sender:self];
+
+}
+
 -(void)startUsingAction{
     
     if (self.didFailToken) {
@@ -226,7 +241,7 @@
         NSString *identifier = [ArcIdentifier getArcIdentifier];
         
         self.loadingViewController.view.hidden = NO;
-        self.loadingViewController.displayText.text = @"Starting dutch...";
+        self.loadingViewController.displayText.text = @"Starting dono...";
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -255,7 +270,7 @@
                     
                     self.didPushStart = YES;
                     self.loadingViewController.view.hidden = NO;
-                    self.loadingViewController.displayText.text = @"Loading dutch...";
+                    self.loadingViewController.displayText.text = @"Loading dono...";
                     
                     NSString *identifier = [ArcIdentifier getArcIdentifier];
                     
@@ -282,7 +297,7 @@
                 //Call is still loading
                 self.didPushStart = YES;
                 self.loadingViewController.view.hidden = NO;
-                self.loadingViewController.displayText.text = @"Loading dutch...";
+                self.loadingViewController.displayText.text = @"Loading dono...";
             }
         }
 

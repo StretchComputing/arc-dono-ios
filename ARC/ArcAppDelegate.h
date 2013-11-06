@@ -37,6 +37,7 @@ extern BOOL isIos7;
     Reachability* wifiReach;
 }
 
+@property (nonatomic, strong) NSMutableDictionary *imageDictionary;
 @property (nonatomic, strong) NSMutableArray *allMerchants;
 //TrackEvent
 @property (nonatomic, strong) NSMutableArray *trackEventArray;

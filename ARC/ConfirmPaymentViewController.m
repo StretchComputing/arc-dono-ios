@@ -28,13 +28,77 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    
+    if (self.justAddedCard) {
+        self.hiddenText.hidden = YES;
+        self.pinPrompt.hidden = YES;
+    }else{
+        self.pinPrompt.hidden = NO;
+        self.hiddenText.hidden = NO;
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
 
-    [self.hiddenText becomeFirstResponder];
 
+}
+
+-(void)resignKeyboard{
+    [self.hiddenText resignFirstResponder];
+    
+    [UIView animateWithDuration:0.3 animations:^(void){
+        CGRect frame = self.view.frame;
+        frame.origin.y = 0;
+        self.view.frame = frame;
+    }];
+    
 }
 - (void)viewDidLoad
 {
+    
+    
+    self.numSelected = [self.myMerchant.donationTypes count];
+    
+    self.chargeFee = 0.0;
+
+    if (self.myMerchant.chargeFee) {
+        
+        if (self.donationAmount <= self.myMerchant.convenienceFeeCap) {
+            self.chargeFee = self.myMerchant.convenienceFee;
+        }
+    }
+    
+    [self.myTableView reloadData];
+    self.isDefault = YES;
+    self.isAnonymous = NO;
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"] length] > 0) {
+        self.anonymousView.hidden = NO;
+    }else{
+        self.anonymousView.hidden = YES;
+    }
+    
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+    [toolbar sizeToFit];
+    
+    UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
+    
+    if (isIos7) {
+        doneButton.tintColor = [UIColor whiteColor];
+    }
+    
+    
+    doneButton.tintColor = [UIColor whiteColor];
+
+    NSArray *itemsArray = [NSArray arrayWithObjects:flexButton, doneButton, nil];
+    
+    
+    [toolbar setItems:itemsArray];
+    
+    [self.hiddenText setInputAccessoryView:toolbar];
+    
     
     [rSkybox addEventToSession:@"viewConfirmPaymentViewController"];
 
@@ -44,19 +108,24 @@
    // self.topLineView.layer.shadowRadius = 1;
    // self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+   // self.backView.backgroundColor = dutchTopNavColor;
     
     
     
-    NSString *ccSample = [self.selectedCard.sample stringByReplacingOccurrencesOfString:@"Credit Card" withString:@""];
-    self.paymentLabel.text = [NSString stringWithFormat:@"Payment:  %@", ccSample];
+    
     
     
     self.confirmButton.text = @"Confirm Payment";
     self.confirmButton.textColor = [UIColor whiteColor];
     self.confirmButton.tintColor = dutchGreenColor;
     
-    self.myTotalLabel.text = [NSString stringWithFormat:@"My Total: $%.2f", self.donationAmount];
+    self.myTotalLabel.text = [NSString stringWithFormat:@"$%.2f", self.donationAmount + self.chargeFee];
+    if (self.selectedCard) {
+        self.paymentLabel.text = [NSString stringWithFormat:@"****%@", [self.selectedCard.sample substringFromIndex:[self.selectedCard.sample length]-4]];
+    }else{
+        self.paymentLabel.text = [NSString stringWithFormat:@"%@", self.mySelectedCard.sample];
+
+    }
     
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
@@ -67,7 +136,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.hiddenText = [[UITextField alloc] init];
     self.hiddenText.keyboardType = UIKeyboardTypeNumberPad;
     self.hiddenText.delegate = self;
     self.hiddenText.text = @"";
@@ -162,14 +230,21 @@
         
         self.errorLabel.text = @"";
         
-        if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
-            
-            self.errorLabel.text = @"*Please enter your full pin.";
-        }else{
-            
+        if (self.justAddedCard) {
             [self performSelector:@selector(createPayment)];
-            
+
+        }else{
+            if ([self.hiddenText.text length] == 0) {
+                
+                self.errorLabel.text = @"*Please enter your full pin.";
+            }else{
+                
+                [self performSelector:@selector(createPayment)];
+                
+            }
         }
+        
+        
         
     }
     @catch (NSException *e) {
@@ -182,11 +257,26 @@
 -(void)createPayment{
     @try{
         
+        
+        if (self.isDefault) {
+            [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId] forKey:@"defaultChurchId"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
         NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
         
-        NSString *ccNumber = [FBEncryptorAES decryptBase64String:self.selectedCard.number keyString:pinNumber];
+
+        NSString *ccNumber;
+        NSString *ccSecurityCode;
         
-        NSString *ccSecurityCode = [FBEncryptorAES decryptBase64String:self.selectedCard.securityCode keyString:pinNumber];
+        if (self.selectedCard) {
+            ccNumber = [FBEncryptorAES decryptBase64String:self.selectedCard.number keyString:pinNumber];
+           ccSecurityCode = [FBEncryptorAES decryptBase64String:self.selectedCard.securityCode keyString:pinNumber];
+        }else{
+            ccNumber = self.mySelectedCard.number;
+            ccSecurityCode = self.mySelectedCard.securityCode;
+        }
+
         
         
         if (ccNumber && ([ccNumber length] > 0)) {
@@ -221,7 +311,13 @@
             
             [ tempDictionary setObject:guestId forKey:@"CustomerId"];
             
-            [ tempDictionary setObject:self.selectedCard.expiration forKey:@"Expiration"];
+            if (self.selectedCard) {
+                [ tempDictionary setObject:self.selectedCard.expiration forKey:@"Expiration"];
+
+            }else{
+                [ tempDictionary setObject:self.mySelectedCard.expiration forKey:@"Expiration"];
+
+            }
             
             NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myMerchant.invoiceId];
             [ tempDictionary setObject:invoiceIdString forKey:@"InvoiceId"];
@@ -231,6 +327,10 @@
             [ tempDictionary setObject:ccSecurityCode forKey:@"Pin"];
             
             [ tempDictionary setObject:@"CREDIT" forKey:@"Type"];
+            
+            if (self.isAnonymous) {
+                [tempDictionary setObject:[NSNumber numberWithBool:YES] forKey:@"Anonymous"];
+            }
             
             
             NSString *cardType = [ArcUtility getCardTypeForNumber:ccNumber];
@@ -310,7 +410,7 @@
 -(void)showHighVolumeOverlay{
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.loadingViewController.displayText.text = @"dutch is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.text = @"dono is experiencing high volume, or a weak internet connection, please be patient...";
         self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:14];
         
         self.loadingViewController.displayText.numberOfLines = 3;
@@ -427,12 +527,12 @@
                 }else if (errorCode == NETWORK_ERROR){
                     
                     networkError = YES;
-                    errorMsg = @"dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                    errorMsg = @"dono is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                     
                 }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
                     
                     networkError = YES;
-                    errorMsg = @"dutch experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+                    errorMsg = @"dono experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
                     
                 }else if (errorCode == PAYMENT_POSSIBLE_SUCCESS){
                     errorMsg = @"error";
@@ -478,10 +578,13 @@
             }
             
             if (editCardOption) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
+                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Please verify your payment details and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                
                 [alert show];
             }else if (duplicateTransaction){
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dutch has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dono has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
             }
     }
@@ -510,12 +613,27 @@
         
         if ([[segue identifier] isEqualToString:@"saveInfo"]) {
             
-            GuestCreateAccount *next = [segue destinationViewController];
-            next.myInvoice = self.myInvoice;
-            next.ccNumber = self.selectedCard.number;
-            next.ccSecurityCode = self.selectedCard.securityCode;
-            next.ccExpiration = self.selectedCard.expiration;
-            next.askSaveCard = NO;
+            if (self.selectedCard) {
+                GuestCreateAccount *next = [segue destinationViewController];
+                next.myInvoice = self.myInvoice;
+                next.ccNumber = self.selectedCard.number;
+                next.ccSecurityCode = self.selectedCard.securityCode;
+                next.ccExpiration = self.selectedCard.expiration;
+                
+                
+                next.askSaveCard = NO;
+            }else{
+                GuestCreateAccount *next = [segue destinationViewController];
+                next.myInvoice = self.myInvoice;
+                next.ccNumber = self.mySelectedCard.number;
+                next.ccSecurityCode = self.mySelectedCard.securityCode;
+                next.ccExpiration = self.mySelectedCard.expiration;
+                next.askSaveCard = NO;
+                
+                next.askSaveCard = YES;
+                
+            }
+           
         }
         
         
@@ -529,4 +647,116 @@
 
 
 
+- (IBAction)anonymousClicked {
+    
+    if (self.isAnonymous) {
+        self.isAnonymous = NO;
+        [self.anonymousImageView setImage:[UIImage imageNamed:@"homeunchecked"]];
+
+    }else{
+        self.isAnonymous = YES;
+        [self.anonymousImageView setImage:[UIImage imageNamed:@"homechecked"]];
+    }
+}
+
+- (IBAction)defaultClicked {
+    
+    
+    if (self.isDefault) {
+        self.isDefault = NO;
+        [self.defaultImageView setImage:[UIImage imageNamed:@"homeunchecked"]];
+        
+    }else{
+        self.isDefault = YES;
+        [self.defaultImageView setImage:[UIImage imageNamed:@"homechecked"]];
+    }
+    
+    
+}
+
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        
+        
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"subCell"];
+        
+        UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
+        UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:2];
+        UIImageView *helpImage = (UIImageView *)[cell.contentView viewWithTag:3];
+        
+        helpImage.hidden = YES;
+  
+        if (self.chargeFee > 0) {
+            
+            if (indexPath.row == 0) {
+                helpImage.hidden = NO;
+                nameLabel.text = @"Processing Fee";
+                priceLabel.text = [NSString stringWithFormat:@"%.2f", self.chargeFee];
+            }else{
+                NSDictionary *donationType = [self.myItemsArray objectAtIndex:indexPath.row-1];
+                nameLabel.text = [donationType valueForKey:@"Description"];
+                priceLabel.text = [donationType valueForKey:@"Value"];
+            }
+        }else{
+            
+            NSDictionary *donationType = [self.myItemsArray objectAtIndex:indexPath.row];
+            nameLabel.text = [donationType valueForKey:@"Description"];
+            priceLabel.text = [donationType valueForKey:@"Value"];
+            
+        }
+ 
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ConfirmPayment.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 33;
+}
+
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    
+    int x = 0;
+    
+    if (self.chargeFee > 0) {
+        x = 1;
+    }
+    return [self.myItemsArray count] + x;
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.chargeFee > 0 && indexPath.row == 0) {
+        
+        NSString *message = [NSString stringWithFormat:@"Due to the cost of processing credit card transactions, a $%.2f processing fee will be added to all donations of $%.2f or less.", self.chargeFee, self.myMerchant.convenienceFeeCap];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Processing Fee" message:message delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+        
+    }
+}
+
+
+- (IBAction)pinBegan:(id)sender {
+    
+    [UIView animateWithDuration:0.3 animations:^(void){
+        CGRect frame = self.view.frame;
+        frame.origin.y = -116;
+        self.view.frame = frame;
+    }];
+}
 @end

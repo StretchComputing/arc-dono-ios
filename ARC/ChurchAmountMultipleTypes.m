@@ -26,16 +26,35 @@
 - (IBAction)moveRight {
     
     if (self.currentIndex < [self.selectedDonations count] - 1) {
+        self.leftButton.hidden = NO;
         self.currentIndex++;
-        [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:YES];
+        if (self.currentIndex == [self.selectedDonations count] -1) {
+            self.rightButton.hidden = YES;
+        }
+        
+        [UIView animateWithDuration:0.8 animations:^(void){
+            [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:NO];
+
+        }];
+        
     }
 }
 
 - (IBAction)moveLeft {
     
     if (self.currentIndex > 0) {
+    
+        self.rightButton.hidden = NO;
         self.currentIndex--;
-        [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:YES];
+        
+        if (self.currentIndex == 0) {
+            self.leftButton.hidden = YES;
+        }
+        
+        [UIView animateWithDuration:0.7 animations:^(void){
+            [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:NO];
+            
+        }];
     }
 }
 
@@ -45,6 +64,7 @@
 
 - (void)viewDidLoad
 {
+    self.leftButton.hidden = YES;
     
     self.typeLabel.text = self.myMerchant.name;
 
@@ -79,7 +99,7 @@
     
     self.payButton.textColor = [UIColor whiteColor];
     self.payButton.tintColor = dutchGreenColor;
-    self.payButton.text = @"Pay";
+    self.payButton.text = @"Donate";
     
     self.amountText.text = @"My Total: $0.00";
     self.amountText.hidden = YES;
@@ -93,6 +113,15 @@
 
 - (IBAction)payAction {
     
+    
+    double amount = [[self.amountText.text stringByReplacingOccurrencesOfString:@"My Total: $" withString:@""] doubleValue];
+
+    
+    if (amount == 0.0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"Your total donation amount must be greater than 0." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
@@ -236,14 +265,23 @@
             MultiDonationView *tmp = [self.multiDonationViews objectAtIndex:i];
             NSDictionary *donation = [self.selectedDonations objectAtIndex:i];
             
+            NSLog(@"Donation: %@", donation);
+            
             NSString *itemId = [donation valueForKey:@"Id"];
             
             double percentDouble = [tmp.amountText.text doubleValue]/amount;
             
             NSString *percent = [NSString stringWithFormat:@"%.2f", percentDouble];
             
+            NSString *value = [NSString stringWithFormat:@"%.2f", [tmp.amountText.text doubleValue]];
             
-            NSDictionary *item = @{@"Amount":@"1", @"Percent":percent, @"Id":itemId};
+            NSLog(@"Value: %@", value);
+            
+            
+            NSDictionary *item = @{@"Amount":@"1", @"Percent":percent, @"ItemId":itemId, @"Value":value, @"Description":[donation valueForKey:@"Description"]};
+            
+            
+            NSLog(@"Item: %@", item);
             
             [itemArray addObject:item];
 
@@ -276,6 +314,7 @@
         
     }
     @catch (NSException *e) {
+        NSLog(@"E: %@", e);
         [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
@@ -295,10 +334,7 @@
     
     NSLog(@"Amoutn Text: %@", self.amountText.text);
     
-    if (self.currentIndex < [self.selectedDonations count] - 1) {
-        self.currentIndex++;
-        [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:YES];
-    }
+    [self moveRight];
 }
 
 @end

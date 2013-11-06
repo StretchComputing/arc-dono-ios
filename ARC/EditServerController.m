@@ -75,7 +75,7 @@
             
         } else {
             // must be failure -- user notification handled by ArcClient
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Getting Servers" message:@"dutch could not get the list of serveres at this time, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Getting Servers" message:@"dono could not get the list of serveres at this time, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
         
@@ -103,7 +103,7 @@
   //  self.topLineView.layer.shadowRadius = 1;
   //  self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+   // self.backView.backgroundColor = dutchTopNavColor;
     
     
     //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Edit Server"];

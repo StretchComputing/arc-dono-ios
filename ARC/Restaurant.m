@@ -437,7 +437,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
        // self.topLineView.layer.shadowRadius = 1;
        // self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
-        self.backView.backgroundColor = dutchTopNavColor;
+        //self.backView.backgroundColor = dutchTopNavColor;
         
         
         self.leftTopLineView.layer.shadowOffset = CGSizeMake(-1, 0);
@@ -645,7 +645,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 errorMsg = @"Invoice being accessed by your waiter.  Try again in a few minutes.";
             } else if (errorCode == NETWORK_ERROR){
                 displayAlert = YES;
-                errorMsg = @"dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                errorMsg = @"dono is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                 
             } else {
                 errorMsg = ARC_ERROR_MSG;

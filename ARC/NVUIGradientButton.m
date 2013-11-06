@@ -62,7 +62,7 @@
 
 #pragma mark - Creation
 
-#define NVUIGradientButtonDefaultCorderRadius	3.0
+#define NVUIGradientButtonDefaultCorderRadius	4.0
 #define NVUIGradientButtonDefaultBorderWidth	0.5
 
 
@@ -128,6 +128,7 @@
 			
 		case NVUIGradientButtonStyleDefault:
 		{
+            /*
 			CGFloat gray = 220.0/255.0;
 			self.tintColor = [UIColor colorWithRed:gray green:gray blue:gray alpha:1];
 			self.highlightedTintColor = [UIColor colorWithRed:0 green:(CGFloat)157/255 blue:1 alpha:1];
@@ -138,6 +139,23 @@
 			self.textShadowColor = [UIColor clearColor];
 			self.highlightedTextShadowColor = [UIColor darkGrayColor];
 			break;
+             */
+            
+            /*
+            CGFloat gray = 220.0/255.0;
+			self.tintColor = dutchRedColor;
+			self.highlightedTintColor = [UIColor colorWithRed:0 green:(CGFloat)157/255 blue:1 alpha:1];
+			self.borderColor = dutchRedColor;
+            self.tintColor = [UIColor whiteColor];
+			self.highlightedBorderColor = [UIColor whiteColor];
+			self.textColor = dutchRedColor;
+			self.highlightedTextColor = [UIColor whiteColor];
+			self.textShadowColor = [UIColor clearColor];
+			self.highlightedTextShadowColor = [UIColor darkGrayColor];
+			break;
+            */
+            break;
+            
 		}
 	}
 }
@@ -213,6 +231,23 @@
 
 - (void)setTintColor:(UIColor *)tintColor
 {
+    
+
+    self.textColor = tintColor;
+    self.borderColor = tintColor;
+    self.borderWidth = 2.0;
+    
+    
+    self.highlightedTintColor = tintColor;
+    self.highlightedBorderColor = tintColor;
+    self.highlightedTextColor = [UIColor whiteColor];
+    self.textShadowColor = [UIColor clearColor];
+    self.highlightedTextShadowColor = [UIColor clearColor];
+    
+    
+    _highlightedTintColor = tintColor;
+    
+    /*
 	if (tintColor != _tintColor)
 	{
 #if !OBJC_ARC_ENABLED
@@ -225,11 +260,15 @@
 		if (self.state == UIControlStateNormal)
 			[self setNeedsDisplay];
 	}
+     */
 }
 
 
 - (void)setHighlightedTintColor:(UIColor *)highlightedTintColor
 {
+    
+    NSLog(@"color: %@", highlightedTintColor);
+    
 	if (highlightedTintColor != _highlightedTintColor)
 	{
 #if !OBJC_ARC_ENABLED
@@ -281,6 +320,9 @@
 
 - (void)setTextColor:(UIColor *)textColor
 {
+    if (textColor == [UIColor whiteColor]) {
+        return;
+    }
 	if (textColor != _textColor)
 	{
 #if !OBJC_ARC_ENABLED
@@ -491,7 +533,7 @@
 - (void)setTextColor:(UIColor *)textColor forState:(UIControlState)state
 {
 	if (state == UIControlStateNormal)
-		self.textColor = textColor;
+		//self.textColor = textColor;
 	
 	if (state & UIControlStateHighlighted || state & UIControlStateSelected)
 		self.highlightedTextColor = textColor;
@@ -543,7 +585,7 @@
 
 - (UIColor *)tintColorAccordingToCurrentState
 {
-	UIColor *tintColor = _tintColor;
+	UIColor *tintColor = [UIColor whiteColor];
 	
 	if([self isHighlightedOrSelected])
 		tintColor = _highlightedTintColor;
@@ -627,11 +669,13 @@
 
 - (CGGradientRef)newGradientAccordingToCurrentState
 {
+    
 	CGGradientRef gradient = NULL;
 	
 	// Compute the colors of the gradient
 	UIColor *middleColor = [self tintColorAccordingToCurrentState];
 	
+    
 	CGFloat red = 0, green = 0, blue = 0, alpha = 0;
 	if ([middleColor respondsToSelector:@selector(getRed:green:blue:alpha:)]) // iOS 5+
 	{
@@ -648,8 +692,8 @@
 	}
 	
 	CGFloat offsetColor = 50.0f/255.0f;
-	UIColor *topColor = [UIColor colorWithRed:fminf(1, red+offsetColor) green:fminf(1, green+offsetColor) blue:fminf(1, blue+offsetColor) alpha:alpha];
-	UIColor *bottomColor = [UIColor colorWithRed:fminf(1, red-offsetColor) green:fminf(1, green-offsetColor) blue:fminf(1, blue-offsetColor) alpha:alpha];
+	UIColor *topColor = middleColor;
+	UIColor *bottomColor = middleColor;
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 	

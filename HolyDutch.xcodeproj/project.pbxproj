@@ -19,11 +19,13 @@
 		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
 		906D108A160FC87100561C31 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D1089160FC87100561C31 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		906EAA071829B1E600086D0A /* MyCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EAA061829B1E600086D0A /* MyCreditCard.m */; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
 		907A406C15AA072300090452 /* ViewCreditCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406B15AA072200090452 /* ViewCreditCards.m */; };
 		907A406F15AA072F00090452 /* EditCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406E15AA072F00090452 /* EditCreditCard.m */; };
 		907A407215AA073C00090452 /* AddCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A407115AA073C00090452 /* AddCreditCard.m */; };
+		907E239918299496001E9BC8 /* DefaultChurchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 907E239818299496001E9BC8 /* DefaultChurchView.m */; };
 		9081521515E7D10900211C37 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081521315E7D10900211C37 /* Reachability.m */; };
 		9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081521615E7D26500211C37 /* SystemConfiguration.framework */; };
 		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
@@ -68,6 +70,13 @@
 		9096DD101633088400106A25 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096DD0F1633088400106A25 /* Customer.m */; };
 		9097099D1610B3270092A970 /* CreatePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9097099C1610B3270092A970 /* CreatePinView.m */; };
 		909709A41610E6B30092A970 /* ValidatePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909709A31610E6B30092A970 /* ValidatePinView.m */; };
+		9097F55A182165E1004F930E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9097F559182165E1004F930E /* Accelerate.framework */; };
+		9097F55D1821660E004F930E /* RNFrostedSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9097F55C1821660E004F930E /* RNFrostedSidebar.m */; };
+		9097F55F18217180004F930E /* menuProfileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9097F55E18217180004F930E /* menuProfileIcon.png */; };
+		9097F5611821728D004F930E /* menuSettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9097F5601821728D004F930E /* menuSettingsIcon.png */; };
+		9097F56418218127004F930E /* menuIconWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9097F56218218127004F930E /* menuIconWhite.png */; };
+		9097F56518218127004F930E /* searchIconWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9097F56318218127004F930E /* searchIconWhite.png */; };
+		9097F5671821870C004F930E /* newDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 9097F5661821870C004F930E /* newDefault.png */; };
 		90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F35159777BC00FC1D49 /* UIKit.framework */; };
 		90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F37159777BC00FC1D49 /* Foundation.framework */; };
 		90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F39159777BC00FC1D49 /* CoreGraphics.framework */; };
@@ -117,7 +126,6 @@
 		90AD3FE617CE61140053239E /* UINavigationController+MFSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AD3FDA17CE61140053239E /* UINavigationController+MFSideMenu.m */; };
 		90AD3FE917CE622B0053239E /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AD3FE817CE622B0053239E /* SupportViewController.m */; };
 		90AD402B17CE63090053239E /* addCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AD3FEB17CE63090053239E /* addCard.png */; };
-		90AD402C17CE63090053239E /* addCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AD3FEC17CE63090053239E /* addCard@2x.png */; };
 		90AD402D17CE63090053239E /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AD3FED17CE63090053239E /* arcLogo.png */; };
 		90AD402E17CE63090053239E /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AD3FEE17CE63090053239E /* arrow.png */; };
 		90AD402F17CE63090053239E /* backarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AD3FEF17CE63090053239E /* backarrow.png */; };
@@ -257,6 +265,8 @@
 		906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone5.storyboard; sourceTree = "<group>"; };
 		906D1089160FC87100561C31 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		906D108C160FE03600561C31 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		906EAA051829B1E600086D0A /* MyCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCreditCard.h; sourceTree = "<group>"; };
+		906EAA061829B1E600086D0A /* MyCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCreditCard.m; sourceTree = "<group>"; };
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -266,6 +276,8 @@
 		907A406E15AA072F00090452 /* EditCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCreditCard.m; sourceTree = "<group>"; };
 		907A407015AA073C00090452 /* AddCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCreditCard.h; sourceTree = "<group>"; };
 		907A407115AA073C00090452 /* AddCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCard.m; sourceTree = "<group>"; };
+		907E239718299496001E9BC8 /* DefaultChurchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultChurchView.h; sourceTree = "<group>"; };
+		907E239818299496001E9BC8 /* DefaultChurchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultChurchView.m; sourceTree = "<group>"; };
 		9081521315E7D10900211C37 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9081521415E7D10900211C37 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9081521615E7D26500211C37 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -338,6 +350,14 @@
 		9097099C1610B3270092A970 /* CreatePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePinView.m; sourceTree = "<group>"; };
 		909709A21610E6B30092A970 /* ValidatePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidatePinView.h; sourceTree = "<group>"; };
 		909709A31610E6B30092A970 /* ValidatePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidatePinView.m; sourceTree = "<group>"; };
+		9097F559182165E1004F930E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		9097F55B1821660E004F930E /* RNFrostedSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFrostedSidebar.h; sourceTree = "<group>"; };
+		9097F55C1821660E004F930E /* RNFrostedSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFrostedSidebar.m; sourceTree = "<group>"; };
+		9097F55E18217180004F930E /* menuProfileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuProfileIcon.png; sourceTree = "<group>"; };
+		9097F5601821728D004F930E /* menuSettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuSettingsIcon.png; sourceTree = "<group>"; };
+		9097F56218218127004F930E /* menuIconWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIconWhite.png; sourceTree = "<group>"; };
+		9097F56318218127004F930E /* searchIconWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchIconWhite.png; sourceTree = "<group>"; };
+		9097F5661821870C004F930E /* newDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newDefault.png; sourceTree = "<group>"; };
 		90993F31159777BC00FC1D49 /* HolyDutch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HolyDutch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90993F35159777BC00FC1D49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90993F37159777BC00FC1D49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -421,7 +441,6 @@
 		90AD3FE717CE622B0053239E /* SupportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportViewController.h; sourceTree = "<group>"; };
 		90AD3FE817CE622B0053239E /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
 		90AD3FEB17CE63090053239E /* addCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addCard.png; sourceTree = "<group>"; };
-		90AD3FEC17CE63090053239E /* addCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addCard@2x.png"; sourceTree = "<group>"; };
 		90AD3FED17CE63090053239E /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
 		90AD3FEE17CE63090053239E /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		90AD3FEF17CE63090053239E /* backarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrow.png; sourceTree = "<group>"; };
@@ -603,6 +622,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9097F55A182165E1004F930E /* Accelerate.framework in Frameworks */,
 				90A9AD021785D70D0096BA41 /* AdSupport.framework in Frameworks */,
 				90A9ACFF1785D6BC0096BA41 /* libsqlite3.0.dylib in Frameworks */,
 				90A9AD001785D6BC0096BA41 /* libsqlite3.dylib in Frameworks */,
@@ -718,6 +738,7 @@
 		90993F34159777BC00FC1D49 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9097F559182165E1004F930E /* Accelerate.framework */,
 				9FE9DFA5162BB48300115E97 /* libCrashReporter-iphoneos.a */,
 				9FA68D0915E0880B0048789D /* CrashReporter.framework */,
 				907A405915A8D9C400090452 /* CoreData.framework */,
@@ -763,9 +784,15 @@
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
 				90B06CC018103A940085424A /* MultiDonationView.h */,
 				90B06CC118103A940085424A /* MultiDonationView.m */,
+				906EAA051829B1E600086D0A /* MyCreditCard.h */,
+				906EAA061829B1E600086D0A /* MyCreditCard.m */,
 				9084F7CD180EF96900244282 /* ChurchDontationTypeSelector.h */,
 				9084F7CE180EF96900244282 /* ChurchDontationTypeSelector.m */,
+				907E239718299496001E9BC8 /* DefaultChurchView.h */,
+				907E239818299496001E9BC8 /* DefaultChurchView.m */,
 				9084F7D0180EF98700244282 /* ChurchAmountSingleType.h */,
+				9097F55B1821660E004F930E /* RNFrostedSidebar.h */,
+				9097F55C1821660E004F930E /* RNFrostedSidebar.m */,
 				9084F7D1180EF98700244282 /* ChurchAmountSingleType.m */,
 				9084F7D3180EF99500244282 /* ChurchAmountMultipleTypes.h */,
 				9084F7D4180EF99500244282 /* ChurchAmountMultipleTypes.m */,
@@ -953,7 +980,12 @@
 		90AD3FEA17CE63090053239E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9097F56218218127004F930E /* menuIconWhite.png */,
+				9097F56318218127004F930E /* searchIconWhite.png */,
+				9097F5601821728D004F930E /* menuSettingsIcon.png */,
 				9022B9801811C3CE00BC1CE8 /* rightArrow.png */,
+				9097F5661821870C004F930E /* newDefault.png */,
+				9097F55E18217180004F930E /* menuProfileIcon.png */,
 				9022B9811811C3CE00BC1CE8 /* leftArrow.png */,
 				9084F7D6180F46E300244282 /* dollar.png */,
 				9084F7C9180EF3AF00244282 /* homechecked.png */,
@@ -968,7 +1000,6 @@
 				90A0FE1617E3730100D27931 /* IconLarge.png */,
 				9034226617D624F200346954 /* rokaLogo.png */,
 				90AD3FEB17CE63090053239E /* addCard.png */,
-				90AD3FEC17CE63090053239E /* addCard@2x.png */,
 				90AD3FED17CE63090053239E /* arcLogo.png */,
 				90AD3FEE17CE63090053239E /* arrow.png */,
 				90AD3FEF17CE63090053239E /* backarrow.png */,
@@ -1169,7 +1200,6 @@
 				90F0782F17C25B0E00B7ABE7 /* Lato-Lig.ttf in Resources */,
 				903CCD96180C30750032B0FC /* serverImage.png in Resources */,
 				90AD402B17CE63090053239E /* addCard.png in Resources */,
-				90AD402C17CE63090053239E /* addCard@2x.png in Resources */,
 				90AD402D17CE63090053239E /* arcLogo.png in Resources */,
 				90A0FE1F17E373C700D27931 /* Default@2x.png in Resources */,
 				90AD402E17CE63090053239E /* arrow.png in Resources */,
@@ -1178,6 +1208,7 @@
 				90A0FE1917E3730100D27931 /* SpotlightLarge.png in Resources */,
 				90AD403117CE63090053239E /* blueArrow.png in Resources */,
 				90AD403217CE63090053239E /* blueCheck.jpg in Resources */,
+				9097F5671821870C004F930E /* newDefault.png in Resources */,
 				90AD403317CE63090053239E /* blueCheck.png in Resources */,
 				90AD403417CE63090053239E /* boxChecked.png in Resources */,
 				90AD403517CE63090053239E /* boxEmpty.png in Resources */,
@@ -1205,6 +1236,7 @@
 				9084F7CC180EF3AF00244282 /* homeunchecked.png in Resources */,
 				90AD404B17CE63090053239E /* helpImage2.png in Resources */,
 				90AD404C17CE63090053239E /* helpImage3.png in Resources */,
+				9097F56518218127004F930E /* searchIconWhite.png in Resources */,
 				90A0FE1E17E373C700D27931 /* Default.png in Resources */,
 				90AD404D17CE63090053239E /* Icon.png in Resources */,
 				90AD404E17CE63090053239E /* Icon@2x.png in Resources */,
@@ -1218,12 +1250,14 @@
 				90AD405617CE63090053239E /* menuHomeIcon.png in Resources */,
 				90A0FE1817E3730100D27931 /* SpotlightMedium.png in Resources */,
 				90AD405717CE63090053239E /* menuIcon.png in Resources */,
+				9097F5611821728D004F930E /* menuSettingsIcon.png in Resources */,
 				90A0FE1A17E3730100D27931 /* IconLarge.png in Resources */,
 				90AD405917CE63090053239E /* menuShareIcon.png in Resources */,
 				90AD405A17CE63090053239E /* newBackground.png in Resources */,
 				90AD405B17CE63090053239E /* plainArc.png in Resources */,
 				90AD405C17CE63090053239E /* profileDefault.png in Resources */,
 				90AD405D17CE63090053239E /* qmark.png in Resources */,
+				9097F56418218127004F930E /* menuIconWhite.png in Resources */,
 				90AD405E17CE63090053239E /* receipt.png in Resources */,
 				90AD405F17CE63090053239E /* receiptBack.png in Resources */,
 				90AD406017CE63090053239E /* rowButton.png in Resources */,
@@ -1239,6 +1273,7 @@
 				90AD406917CE63090053239E /* untitledReceipt.png in Resources */,
 				90AD406A17CE63090053239E /* upChalkArrow.png in Resources */,
 				9034226717D624F200346954 /* rokaLogo.png in Resources */,
+				9097F55F18217180004F930E /* menuProfileIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,6 +1328,7 @@
 				90FBDC45159CE2E80051609A /* RegisterDwollaView.m in Sources */,
 				90FBDC48159CE4FA0051609A /* PushSegueNoAnimation.m in Sources */,
 				90B01D1915A1308E005FCCCF /* FBEncryptorAES.m in Sources */,
+				906EAA071829B1E600086D0A /* MyCreditCard.m in Sources */,
 				90B01D1A15A1308E005FCCCF /* NSData+Base64.m in Sources */,
 				90B01D2215A4CB95005FCCCF /* CreditCardPayment.m in Sources */,
 				90C9736A15A8CC4B00667FF8 /* ArcData.xcdatamodeld in Sources */,
@@ -1337,6 +1373,7 @@
 				909A500B17244BF100D70811 /* GuestCardObject.m in Sources */,
 				909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */,
 				909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */,
+				9097F55D1821660E004F930E /* RNFrostedSidebar.m in Sources */,
 				9038AA931784653B00B5DF60 /* InvoiceHelpOverlay.m in Sources */,
 				9038AAB517847E7800B5DF60 /* CheckHelpOverlay.m in Sources */,
 				909CF09B17B3DA18004300D0 /* SteelfishLabel.m in Sources */,
@@ -1363,6 +1400,7 @@
 				90AD3FE317CE61140053239E /* LeftViewController.m in Sources */,
 				90AD3FE417CE61140053239E /* MFSideMenu.m in Sources */,
 				90AD3FE517CE61140053239E /* RightViewController.m in Sources */,
+				907E239918299496001E9BC8 /* DefaultChurchView.m in Sources */,
 				90C2E6DE17E269B40090E201 /* LeftTestViewController.m in Sources */,
 				90AD3FE617CE61140053239E /* UINavigationController+MFSideMenu.m in Sources */,
 				90AD3FE917CE622B0053239E /* SupportViewController.m in Sources */,

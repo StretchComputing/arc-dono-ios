@@ -32,6 +32,7 @@
 
 @property BOOL isEditingTip;
 
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *donationHistoryButton;
 
 @property (strong, nonatomic) IBOutlet UITextField *defaultTipText;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *defaultTipClearButton;

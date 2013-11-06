@@ -24,6 +24,15 @@
 
 @implementation ViewCreditCards
 
+- (IBAction)viewHistory:(id)sender {
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+        [self performSegueWithIdentifier:@"goHistory" sender:self];
+        
+    }else{
+        self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users view their payment history. Select 'Go Profile' to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
+        [self.logInAlert show];
+    }
+}
 
 -(void)viewWillDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -183,6 +192,9 @@
         
         self.defaultTipClearButton.text = @"Clear";
         
+        self.donationHistoryButton.text = @"View Donation History";
+        self.donationHistoryButton.tintColor = dutchRedColor;
+        
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         [self.loadingViewController stopSpin];
@@ -193,7 +205,7 @@
       //  self.topLineView.layer.shadowRadius = 1;
      //   self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
-        self.backView.backgroundColor = dutchTopNavColor;
+       // self.backView.backgroundColor = dutchTopNavColor;
         
         
         

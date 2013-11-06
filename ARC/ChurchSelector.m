@@ -24,6 +24,7 @@
 #import "SteelfishLabel.h"
 #import "ChurchDontationTypeSelector.h"
 #import "ChurchAmountSingleType.h"
+#import "RNFrostedSidebar.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -104,6 +105,7 @@
     
     }
 
+   
     
 
 }
@@ -166,11 +168,11 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     
-    
+  
     
     @try {
         
-      
+    
         
         //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Home"];
         // self.navigationItem.titleView = navLabel;
@@ -189,7 +191,7 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out.  You may continue to use dutch as a guest." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out.  You may continue to use dono as a guest." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
             mainDelegate.logout = @"";
@@ -215,72 +217,8 @@
             
         }
         
-        if (self.skipReview || self.successReview) {
-            
-            NSString *message = @"";
-            
-            NSString *points = [[NSUserDefaults standardUserDefaults] valueForKey:@"pointsEarned"];
-            
-            if (self.successReview) {
-                message = @"Your transaction has completed successfully!  Thank you for your review!";
-                
-                if (points && [points length] > 0) {
-                    message = @"Your transaction has been completed successfully!  Thank you for your review!";
-                    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"pointsTotal"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    
-                }
-                
-            }else{
-                message = @"Your transaction has completed successfully!  Thank you for your purchase!";
-            }
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank You!" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            
-            self.skipReview = NO;
-            self.successReview = NO;
-        }
-        
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didJustLogin"] isEqualToString:@"yes"]) {
-            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"didJustLogin"];
-            [self checkPayment];
-        }
-        
-        //Home Alert
-        
-        if (!self.didShowPayment) {
-            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertHome"] length] == 0) {
-                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertHome"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                
-                self.overlayTextView.layer.masksToBounds = YES;
-                self.overlayTextView.layer.cornerRadius = 10.0;
-                self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
-                self.overlayTextView.layer.borderWidth = 2.0;
-                
-                CAGradientLayer *gradient = [CAGradientLayer layer];
-                gradient.frame = self.overlayTextView.bounds;
-                self.overlayTextView.backgroundColor = [UIColor clearColor];
-                double x = 1.4;
-                UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
-                //UIColor *myColor = [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.0];
-                gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-                [self.overlayTextView.layer insertSublayer:gradient atIndex:0];
-                
-                //[self showHintOverlay];
-                
-                //NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
-                
-                //if (tmp) {
-                    
-              //  }
-                
-                
-                
-            }
-        }
-        self.didShowPayment = NO;
+      
+
         
         
         
@@ -314,6 +252,15 @@
 }
 - (void)viewDidLoad
 {
+    @try {
+        [self setNeedsStatusBarAppearanceUpdate];
+
+    }
+    @catch (NSException *exception) {
+        
+    }
+    
+    
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
     [self.loadingViewController stopSpin];
@@ -393,71 +340,7 @@
     
     @try {
         
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarLogo.png"]
-                                                      forBarMetrics:UIBarMetricsDefault];
-        
-        UIView *verticalLine = [[UIView alloc] initWithFrame:CGRectMake(162, 0, 1, 44)];
-        verticalLine.backgroundColor = [UIColor whiteColor];
-        //[self.navigationController.navigationBar addSubview:verticalLine];
-        
-        UIView *verticalLine1 = [[UIView alloc] initWithFrame:CGRectMake(215, 0, 1, 44)];
-        verticalLine1.backgroundColor = [UIColor whiteColor];
-       // [self.navigationController.navigationBar addSubview:verticalLine1];
-        
-        UIView *verticalLine2 = [[UIView alloc] initWithFrame:CGRectMake(263, 0, 1, 44)];
-        verticalLine2.backgroundColor = [UIColor whiteColor];
-        //[self.navigationController.navigationBar addSubview:verticalLine2];
-        
-        UIView *horizLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
-        horizLine.backgroundColor = [UIColor whiteColor];
-       // [self.navigationController.navigationBar addSubview:horizLine];
-        
-        UIView *horizLine2 = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-        horizLine2.backgroundColor = [UIColor whiteColor];
-        horizLine2.layer.shadowOffset = CGSizeMake(-1, 1);
-        horizLine2.layer.shadowRadius = 1;
-        horizLine2.layer.shadowOpacity = 0.5;
-       // [self.navigationController.navigationBar addSubview:horizLine2];
-        
-        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImageView *gearImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 8, 39, 28)];
-        gearImage.image = [UIImage imageNamed:@"newgear.png"];
-        gearImage.contentMode = UIViewContentModeScaleAspectFit;
-        [tmpButton addSubview:gearImage];
-        tmpButton.frame = CGRectMake(263, 0, 53, 44);
-       // [tmpButton addTarget:self action:@selector(fakeSelection) forControlEvents:UIControlEventTouchUpInside];
-        // [tmpButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
-        //[self.navigationController.navigationBar addSubview:tmpButton];
-        
-        
-        UIButton *tmpButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImageView *lockImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 8, 39, 28)];
-        lockImage.image = [UIImage imageNamed:@"newlock.png"];
-        lockImage.contentMode = UIViewContentModeScaleAspectFit;
-        [tmpButton1 addSubview:lockImage];
-        tmpButton1.frame = CGRectMake(162, 0, 53, 44);
-        // [tmpButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
-       // [self.navigationController.navigationBar addSubview:tmpButton1];
-        
-        
-        
-        UIButton *tmpButton2 = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImageView *friendImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 8, 39, 28)];
-        friendImage.image = [UIImage imageNamed:@"newprofile.png"];
-        friendImage.contentMode = UIViewContentModeScaleAspectFit;
-        [tmpButton2 addSubview:friendImage];
-        tmpButton2.frame = CGRectMake(215, 0, 53, 44);
-        // [tmpButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
-       // [self.navigationController.navigationBar addSubview:tmpButton2];
-        
-        
-        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Arc"];
-        navLabel.frame = CGRectMake(0, 0, 100, 44);
-        //[self.navigationController.navigationBar addSubview:navLabel];
-        
-        self.checkImage.layer.cornerRadius = 6.0;
-        self.checkNumberView.layer.masksToBounds = YES;
-        self.checkNumberView.layer.cornerRadius = 6.0;
+ 
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goMerchantRefresh:) name:@"RefreshMerchants" object:nil];
 
@@ -504,8 +387,8 @@
         footer.backgroundColor = [UIColor clearColor];
         
         self.myTableView.tableFooterView = footer;
-        self.myTableView.backgroundColor = [UIColor clearColor];
-        self.myTableView.backgroundView.backgroundColor = [UIColor clearColor];
+        //self.myTableView.backgroundColor = [UIColor clearColor];
+        //self.myTableView.backgroundView.backgroundColor = [UIColor clearColor];
         
         self.myTableView.separatorColor = [UIColor darkGrayColor];
         
@@ -532,9 +415,6 @@
         
         //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
         
-        double color = 230.0/255.0;
-        self.view.backgroundColor = [UIColor colorWithRed:color green:color blue:color alpha:1.0];
-        self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
         
         //refresh controller
         //check if refresh control is available
@@ -557,6 +437,14 @@
         self.payBillButton.enabled = NO;
         self.moreInfoButton.enabled = NO;
         
+        
+        NSArray *images = @[[UIImage imageNamed:@"menuHomeIcon.png"], [UIImage imageNamed:@"menuProfileIcon"], [UIImage imageNamed:@"menuBillingIcon"], [UIImage imageNamed:@"menuSettingsIcon"]];
+        
+        
+        self.callout = [[RNFrostedSidebar alloc] initWithImages:images];
+        self.callout.itemBackgroundColor = [UIColor colorWithRed:232.0/255.0 green:45.0/255.0 blue:7.0/255.0 alpha:0.9];
+
+        self.callout.delegate = self;
        
     }
     @catch (NSException *e) {
@@ -603,8 +491,7 @@
             self.payBillButton.enabled = NO;
         }
         
-        NSLog(@"Count: %d", [self.matchingMerchants count]);
-        [self.carousel reloadData];
+        [self.myTableView reloadData];
         
     }
     @catch (NSException *e) {
@@ -655,9 +542,8 @@
             [tempDictionary setValue:[NSNumber numberWithDouble:[mainDelegate.lastLongitude doubleValue]] forKey:@"Longitude"];
         }
         
-        //For limiting number of Merchants retrieved
-        //[tempDictionary setValue:[NSNumber numberWithInt:25] forKey:@"Top"];
         
+        self.loadingLocationsLabel.text = @"Loading Locations...";
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];
@@ -700,7 +586,12 @@
             if ([merchants count] > 0) {
                 self.allMerchants = [NSMutableArray array];
                 self.matchingMerchants = [NSMutableArray array];
+                self.loadingLocationsLabel.text = @"";
+
                 
+            }else{
+                self.loadingLocationsLabel.text = @"No locations found...";
+
             }
             
             for (int i = 0; i < [merchants count]; i++) {
@@ -722,7 +613,11 @@
                 tmpMerchant.paymentsAccepted = [theMerchant valueForKey:@"PaymentAccepted"];
                 tmpMerchant.invoiceId = [[theMerchant valueForKey:@"InvoiceId"] intValue];
                 
-
+                tmpMerchant.chargeFee = [[theMerchant valueForKey:@"ChargeConvenienceFee"] boolValue];
+                tmpMerchant.convenienceFee = [[theMerchant valueForKey:@"ConvenienceFee"] doubleValue];
+                tmpMerchant.convenienceFeeCap = [[theMerchant valueForKey:@"ConvenienceFeeCap"] doubleValue];
+            
+                
                 if ([theMerchant valueForKey:@"InvoiceDetails"]) {
                     tmpMerchant.donationTypes = [NSMutableArray arrayWithArray:[theMerchant valueForKey:@"InvoiceDetails"]];
          
@@ -753,6 +648,10 @@
                 if ([status length] > 0 && [status isEqualToString:@"A"]) {
                     [self.allMerchants addObject:tmpMerchant];
                     [self.matchingMerchants addObject:tmpMerchant];
+                    
+                    //TODO remove: adding everyone twice
+                   // [self.allMerchants addObject:tmpMerchant];
+                   // [self.matchingMerchants addObject:tmpMerchant];
                 }
                 
              
@@ -763,25 +662,31 @@
             if ([self.allMerchants count] == 0) {
                 self.errorLabel.text = @"*No nearbly restaurants found";
             }else{
-                //self.myTableView.hidden = NO;
-                //[self.myTableView reloadData];
+                self.myTableView.hidden = NO;
+                [self.myTableView reloadData];
                 [self.carousel reloadData];
             }
             
             
-            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-
-            mainDelegate.allMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
-            
             if (!self.didGoDefault) {
                 self.didGoDefault = YES;
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"defaultChurchId"] length] > 0 ) {
-                    self.loadingViewController.displayText.text = @"Finding Default...";
-                    [self.loadingViewController startSpin];
-                    [self performSelector:@selector(goToDefault) withObject:Nil afterDelay:1.0];
-                   
+                    
+                    if ([[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 1] == self) {
+                        self.loadingViewController.displayText.text = @"Finding Default...";
+                        [self.loadingViewController startSpin];
+                        [self performSelector:@selector(goToDefault) withObject:Nil afterDelay:1.0];
+                    }
+                
+                    
                 }
             }
+            
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            mainDelegate.allMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
+            
+       
             
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
@@ -844,43 +749,76 @@
     @try {
         
         NSUInteger row = [indexPath row];
-        static NSString *FirstLevelCell=@"FirstLevelCell";
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FirstLevelCell];
-        
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier: FirstLevelCell];
-        }
-        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"churchCell"];
+       
         Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:row];
         
-        UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
-        UILabel *adrLabel = (UILabel *)[cell.contentView viewWithTag:2];
-        UIView *backView = (UIView *)[cell.contentView viewWithTag:5];
-        
-        UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:6];
+        SteelfishBoldLabel *nameLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
+        SteelfishLabel *adrLabel = (SteelfishLabel *)[cell.contentView viewWithTag:3];
+        UIImageView *merchImage = (UIImageView *)[cell.contentView viewWithTag:1];
         
         
-        backView.layer.cornerRadius = 5.0;
-        backView.layer.borderWidth = 1.0;
-        backView.layer.borderColor = [[UIColor colorWithRed:150.0/255.0 green:150.0/255.0 blue:150.0/255.0 alpha:1.0] CGColor];
-        
-        backView.layer.shadowOffset = CGSizeMake(-1, 1);
-        backView.layer.shadowRadius = 1;
-        backView.layer.shadowOpacity = 0.5;
+     
+    
         
         nameLabel.text = tmpMerchant.name;
         
+        merchImage.layer.masksToBounds = YES;
+        merchImage.layer.cornerRadius = 3.0;
         
-        imageView.layer.shadowOffset = CGSizeMake(-1, 3);
-        imageView.layer.shadowRadius = 1;
-        imageView.layer.shadowOpacity = 0.5;
+        merchImage.image = [UIImage imageNamed:@"defaultLogo"];
+       // merchImage.layer.borderColor = [[UIColor colorWithRed:30.0/255.0 green:30.0/255.0 blue:30.0/255.0 alpha:1.0] CGColor];
+        //merchImage.layer.borderWidth = 1.0;
+        merchImage.layer.cornerRadius = 1.0;
         
-        UIImage *buttonImageNormal = [UIImage imageNamed:@"gradient.png"];
-        UIImage *stretch = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
-        imageView.image = stretch;
+        
+        //Images
+        ArcClient *tmp = [[ArcClient alloc] init];
+        NSString *serverUrl = [tmp getCurrentUrl];
+     
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]]) {
+            
+            NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
+            
+            merchImage.image = [UIImage imageWithData:imageData];
+            
+        }else{
+            
+            
+            NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, tmpMerchant.merchantId];
+            logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
+            
+            dispatch_async(dispatch_get_global_queue(0,0), ^{
+                
+                NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
+                
+                if ( data == nil ){
+                    return;
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    UIImage *logoImage = [UIImage imageWithData:data];
+                    
+                    if (logoImage) {
+                        merchImage.image = logoImage;
+                        
+                        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                        [mainDelegate.imageDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
+                    }
+                });
+            });
+            
+        }
+        
+        
+        
+        
+        
+        
         
         if (tmpMerchant.address) {
             adrLabel.text = [NSString stringWithFormat:@"%@, %@, %@ %@", tmpMerchant.address, tmpMerchant.city, tmpMerchant.state, tmpMerchant.zipCode];
@@ -909,19 +847,47 @@
  }
  
  */
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    if ([self.matchingMerchants count] > 0) {
+        self.selectedRow = indexPath.row;
+        
+        Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:indexPath.row];
+        
+        if ([tmpMerchant.donationTypes count] > 1) {
+            
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"skipDonationOptions"] length] > 0) {
+                [self performSegueWithIdentifier:@"single" sender:self];
+                
+            }else{
+                [self performSegueWithIdentifier:@"multiple" sender:self];
+                
+            }
+            
+        }else{
+            
+            [self performSegueWithIdentifier:@"single" sender:self];
+            
+        }
+        
+        
+    }
+    
+    
+    
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     
     @try {
         
-        Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:self.carousel.currentItemIndex];
+        Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:self.selectedRow];
 
-        NSString *stringId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
         
-        if (self.isChecked) {
-            [[NSUserDefaults standardUserDefaults] setValue:stringId forKey:@"defaultChurchId"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+    
+
         
         if ([[segue identifier] isEqualToString:@"single"]) {
             
@@ -1260,7 +1226,8 @@
    // self.placeNameLabel.text = @"";
     self.payBillButton.enabled = YES;
     
-    [self.carousel reloadData];
+    [self.myTableView reloadData];
+   // [self.carousel reloadData];
 }
 
 -(void)searchEditDidBegin{
@@ -1470,6 +1437,9 @@
           //  [view addSubview:tmpLabel];
             
             [view addSubview:selectButton];
+            
+            
+    
 
             
         }
@@ -1572,10 +1542,10 @@
     self.searchBar.hidden = NO;
     
     
-    int newy = 51;
+    int newy = 71;
     
     if (isIos7) {
-        newy = 71;
+        newy = 91;
     }
     if (isIpad) {
         newy = 75;
@@ -1583,9 +1553,22 @@
     if (self.searchBar.frame.origin.y == newy) {
         newy = 7;
         [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:NO] afterDelay:0.0];
+        
+        CGRect frame = self.myTableView.frame;
+        frame.origin.y -= 40;
+        frame.size.height += 40;
+        self.myTableView.frame = frame;
+        
+        self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
+        [self.myTableView reloadData];
 
     }else{
         [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.0];
+        
+        CGRect frame = self.myTableView.frame;
+        frame.origin.y += 40;
+        frame.size.height -= 40;
+        self.myTableView.frame = frame;
     }
     
     
@@ -1613,14 +1596,12 @@
 }
 
 -(IBAction)menuAction{
-    [self.navigationController.sideMenu toggleLeftSideMenu];
-    
+   [self.navigationController.sideMenu toggleLeftSideMenu];
+    //[self.callout show];
 }
 
 -(void)menuBackAction{
-    
-  
-    
+
     [UIView animateWithDuration:1.0 animations:^{
         
         self.topImageView.frame = CGRectMake(90, 106, 140, 140);
@@ -1704,5 +1685,16 @@
         [self.checkboxImage setImage:[UIImage imageNamed:@"homechecked"]];
 
     }
+}
+
+
+- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index{
+    
+    [self.callout dismissAnimated:YES];
+}
+
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 @end

@@ -46,7 +46,7 @@
    // self.topLineView.layer.shadowRadius = 1;
   //  self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+   // self.backView.backgroundColor = dutchTopNavColor;
     
     
     
@@ -269,7 +269,7 @@
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.mailComposeDelegate = self;
             [mailViewController setToRecipients:@[[[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]]];
-            [mailViewController setSubject:@"dutch Feedback"];
+            [mailViewController setSubject:@"dono Feedback"];
             
             [self presentModalViewController:mailViewController animated:YES];
             

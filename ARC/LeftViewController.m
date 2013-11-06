@@ -15,6 +15,7 @@
 #import "Merchant.h"
 #import "ChurchAmountSingleType.h"
 #import "ChurchDontationTypeSelector.h"
+#import "DefaultChurchView.h"
 
 @interface LeftViewController ()
 
@@ -89,39 +90,14 @@
             }
         }
         
+        
         if (foundMerchant) {
             
+            DefaultChurchView *defaultView = [self.storyboard instantiateViewControllerWithIdentifier:@"default"];
+            defaultView.myMerchant = foundMerchant;
             [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
-            
-            if ([foundMerchant.donationTypes count] > 1) {
-                
-                
-                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"skipDonationOptions"] length] > 0) {
-                    
-                    ChurchAmountSingleType *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"singleType"];
-                    tmp.myMerchant = foundMerchant;
-                    tmp.isHome = YES;
-                    [self.sideMenu.navigationController pushViewController:tmp animated:NO];
-                    
-                }else{
-                    ChurchDontationTypeSelector *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"typeSelector"];
-                    tmp.myMerchant = foundMerchant;
-                    tmp.isHome = YES;
-                    [self.sideMenu.navigationController pushViewController:tmp animated:NO];
-                }
-               
-                
-                
-            }else{
-             
-    
-                ChurchAmountSingleType *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"singleType"];
-                tmp.myMerchant = foundMerchant;
-                tmp.isHome = YES;
-                tmp.donationType = [foundMerchant.donationTypes objectAtIndex:0];
-                [self.sideMenu.navigationController pushViewController:tmp animated:NO];
-
-            }
+            [self.sideMenu.navigationController pushViewController:defaultView animated:NO];
+           
 
             
             

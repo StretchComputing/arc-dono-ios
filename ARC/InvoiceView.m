@@ -247,7 +247,7 @@
       //  self.topLineView.layer.shadowRadius = 1;
      //   self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
-        self.backView.backgroundColor = dutchTopNavColor;
+      //  self.backView.backgroundColor = dutchTopNavColor;
 
      
         

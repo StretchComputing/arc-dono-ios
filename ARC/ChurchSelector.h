@@ -6,17 +6,22 @@
 #import "NVUIGradientButton.h"
 #import "MFSideMenu.h"
 #import "LoadingViewController.h"
+#import "RNFrostedSidebar.h"
+#import "SteelfishLabel.h"
 
 @class LoadingViewController;
 
-@interface ChurchSelector : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate, iCarouselDataSource, iCarouselDelegate, UISearchBarDelegate>
+@interface ChurchSelector : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate, iCarouselDataSource, iCarouselDelegate, UISearchBarDelegate, RNFrostedSidebarDelegate>
 
 
+@property int selectedRow;
+@property (nonatomic, strong) RNFrostedSidebar *callout;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet UIImageView *checkboxImage;
 @property BOOL isChecked;
 -(IBAction)checkAction;
 
+@property (strong, nonatomic) IBOutlet SteelfishLabel *loadingLocationsLabel;
 @property BOOL didGoDefault;
 @property (nonatomic, strong) MFSideMenu *sideMenu;
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;

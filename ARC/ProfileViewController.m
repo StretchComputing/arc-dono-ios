@@ -34,9 +34,13 @@
         self.isLoggedIn = YES;
     }
     self.createAccountButton.text = @"Create";
+    self.createAccountButton.tintColor = dutchRedColor;
+
     self.logInButton.text = @"Log In";
+    self.logInButton.tintColor = dutchRedColor;
     self.signOutButton.text = @"Sign Out";
-    
+    self.signOutButton.tintColor = dutchRedColor;
+
     if (self.isLoggedIn) {
         
         self.viewPaymentHistoryButton.hidden = NO;
@@ -80,7 +84,7 @@
   //  self.topLineView.layer.shadowRadius = 1;
   //  self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+   // self.backView.backgroundColor = dutchTopNavColor;
     
     self.signOutButton.tintColor = [UIColor redColor];
     self.signOutButton.textColor = [UIColor whiteColor];

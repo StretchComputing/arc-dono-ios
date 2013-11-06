@@ -331,6 +331,13 @@ typedef enum {
         [self postDidOpenNotification];
     }
     
+    if (self.rootViewController.view.frame.origin.x >= 210.0) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }else{
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+
+    }
+    
     UIView *view = self.rootViewController.view;
     
     CGPoint translatedPoint = [recognizer translationInView:view];
@@ -607,8 +614,8 @@ typedef enum {
 - (void)closeSideMenu {
     // notify that the menu state event is starting
     [self sendMenuStateEventNotification:MFSideMenuStateEventMenuWillClose];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"RightMenuClose" object:self userInfo:@{}];
 
+    [self postDidCloseNotification];
     
     CGFloat navigationControllerXPosition = ABS([self pointAdjustedForInterfaceOrientation:self.rootViewController.view.frame.origin].x);
     CGFloat duration = [self animationDurationFromStartPosition:navigationControllerXPosition toEndPosition:0];
@@ -678,8 +685,23 @@ typedef enum {
 
 -(void)postDidOpenNotification{
     
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftMenuDidBeginOpen" object:self userInfo:@{}];
 
+
+}
+
+-(void)postDidCloseNotification{
+    
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+  //  [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftMenuDidBeginClose" object:self userInfo:@{}];
+    
+    
+}
+
+-(void)menuOpened{
 
 }
 @end

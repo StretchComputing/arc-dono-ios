@@ -89,7 +89,7 @@
    // self.topLineView.layer.shadowRadius = 1;
    // self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+   // self.backView.backgroundColor = dutchTopNavColor;
     
     SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Credit Card Protection"];
     self.navigationItem.titleView = navLabel;

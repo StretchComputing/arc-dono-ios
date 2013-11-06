@@ -14,9 +14,9 @@
 
 @property int merchantId, typeId, invoiceExpiration, invoiceLength, invoiceId;
 
-@property BOOL acceptTerms;
+@property BOOL acceptTerms, chargeFee;
 
-@property double latitude, longitude;
+@property double latitude, longitude, convenienceFee, convenienceFeeCap;
 
 @property (nonatomic, strong) NSMutableArray *donationTypes;
 

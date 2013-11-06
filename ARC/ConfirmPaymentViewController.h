@@ -13,14 +13,38 @@
 #import "SteelfishBoldLabel.h"
 #import "CreditCard.h"
 #import "Merchant.h"
+#import "MyCreditCard.h"
+#import "SteelfishLabel.h"
 
 @class LoadingViewController;
 
-@interface ConfirmPaymentViewController : UIViewController <UITextFieldDelegate>
+@interface ConfirmPaymentViewController : UIViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
+
+- (IBAction)pinBegan:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
+
+@property (strong, nonatomic) IBOutlet SteelfishLabel *pinPrompt;
+
+@property (nonatomic, strong) NSMutableArray *selectedDonationTypes;
+@property double chargeFee;
+@property int numSelected;
+
+@property BOOL isDefault;
+@property BOOL isAnonymous;
+@property (strong, nonatomic) IBOutlet UIImageView *defaultImageView;
+
+@property (strong, nonatomic) IBOutlet UIImageView *anonymousImageView;
+
+- (IBAction)anonymousClicked;
+- (IBAction)defaultClicked;
+
+@property (strong, nonatomic) IBOutlet UIView *anonymousView;
+@property (nonatomic, strong) MyCreditCard *mySelectedCard;
 @property (nonatomic, strong) CreditCard *selectedCard;
 @property double donationAmount;
-
+@property BOOL justAddedCard;
 @property (nonatomic, strong) Merchant *myMerchant;
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
@@ -37,7 +61,7 @@
 
 
 @property (nonatomic, strong) IBOutlet UILabel *errorLabel;
-@property (nonatomic, strong) UITextField *hiddenText;
+@property (nonatomic, strong) IBOutlet UITextField *hiddenText;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFour;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumThree;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;

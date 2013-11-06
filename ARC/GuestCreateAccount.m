@@ -40,7 +40,7 @@
    // self.topLineView.layer.shadowRadius = 1;
    // self.topLineView.layer.shadowOpacity = 0.2;
    // self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+  //  self.backView.backgroundColor = dutchTopNavColor;
     
     
     self.backButton.hidden = YES;
@@ -54,7 +54,7 @@
     self.registerButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
     
     self.noThanksButton.text = @"No Thanks";
-    
+    self.noThanksButton.tintColor = dutchRedColor;
     
     self.username = [[SteelfishInputText alloc] initWithFrame:CGRectMake(10, 6, 290, 40)];
     self.username.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -266,7 +266,7 @@
             fieldLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];
             fieldLabel.textAlignment = UITextAlignmentCenter;
             
-            fieldLabel.text = @"How dutch Works";
+            fieldLabel.text = @"How dono Works";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         

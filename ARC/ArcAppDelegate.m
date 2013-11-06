@@ -132,6 +132,16 @@ BOOL isIos7;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.imageDictionary = [NSMutableDictionary dictionary];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"savedImageDictionary"]) {
+        self.imageDictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedImageDictionary"];
+    }
+   
+    
+    
+   
+    
+    
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
     {
         isIpad = YES;
@@ -146,8 +156,11 @@ BOOL isIos7;
     }
     
     
-    dutchDarkBlueColor = [UIColor colorWithRed:14.0/255.0 green:71.0/255.0 blue:136.0/255.0 alpha:1.0];
-    dutchGreenColor = [UIColor colorWithRed:19.0/255.0 green:151.0/255.0 blue:76.0/215.0 alpha:1];
+   // dutchDarkBlueColor = [UIColor colorWithRed:14.0/255.0 green:71.0/255.0 blue:136.0/255.0 alpha:1.0];
+     dutchDarkBlueColor = [UIColor colorWithRed:10.0/255.0 green:108.0/255.0 blue:146.0/255.0 alpha:1.0];
+
+    
+    dutchGreenColor = [UIColor colorWithRed:5.0/255.0 green:168.0/255.0 blue:66.0/225.0 alpha:1];
     dutchOrangeColor = [UIColor colorWithRed:233.0/255.0 green:117.0/255.0 blue:8.0/255.0 alpha:1.0];
     dutchRedColor = [UIColor colorWithRed:232.0/255.0 green:45.0/255.0 blue:7.0/255.0 alpha:1.0];
 
@@ -184,6 +197,8 @@ BOOL isIos7;
     }
     
     self.logout = @"";
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
     [[UIApplication sharedApplication]
      setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:NO];
@@ -407,6 +422,10 @@ BOOL isIos7;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.imageDictionary forKey:@"savedImageDictionary"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [FBSession.activeSession close];
 
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

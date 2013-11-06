@@ -11,6 +11,7 @@
 #import "ChurchAmountSingleType.h"
 #import "ChurchAmountMultipleTypes.h"
 #import "MFSideMenu.h"
+#import "ArcAppDelegate.h"
 
 @interface ChurchDontationTypeSelector ()
 
@@ -46,6 +47,7 @@
     [self.myTableView reloadData];
     
     self.nextButton.text = @"Continue";
+    self.nextButton.tintColor = dutchRedColor;
 }
 
 

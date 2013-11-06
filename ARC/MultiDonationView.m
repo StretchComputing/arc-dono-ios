@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad
 {
+
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
@@ -25,19 +26,19 @@
     self.mainView.layer.borderColor = [[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0] CGColor];
     self.mainView.layer.borderWidth = 1.0;
     
-    self.quickDonateButtonOne.text = @"$15";
+    self.quickDonateButtonOne.text = @"$5";
     self.quickDonateButtonOne.textColor = [UIColor whiteColor];
     self.quickDonateButtonOne.tintColor = dutchDarkBlueColor;
     
-    self.quickDonateButtonTwo.text = @"$25";
+    self.quickDonateButtonTwo.text = @"$10";
     self.quickDonateButtonTwo.textColor = [UIColor whiteColor];
     self.quickDonateButtonTwo.tintColor = dutchDarkBlueColor;
     
-    self.quickDonateButtonThree.text = @"$50";
+    self.quickDonateButtonThree.text = @"$15";
     self.quickDonateButtonThree.textColor = [UIColor whiteColor];
     self.quickDonateButtonThree.tintColor = dutchDarkBlueColor;
     
-    self.quickDonateButtonFour.text = @"$75";
+    self.quickDonateButtonFour.text = @"$25";
     self.quickDonateButtonFour.textColor = [UIColor whiteColor];
     self.quickDonateButtonFour.tintColor = dutchDarkBlueColor;
     
@@ -51,6 +52,10 @@
    // UIBarButtonItem *payButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pay)];
     UIBarButtonItem *payButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(pay)];
     
+    if (isIos7) {
+        payButton.tintColor = [UIColor whiteColor];
+        cancelButton.tintColor = [UIColor whiteColor];
+    }
     NSArray *itemsArray = [NSArray arrayWithObjects:cancelButton, flexButton, payButton, nil];
     
     
@@ -95,25 +100,25 @@
     [self.parentVc calculateTotal];
 }
 -(IBAction)quickDonateActionOne{
-    self.amountText.text = @"15.00";
+    self.amountText.text = @"5.00";
     [self.parentVc calculateTotal];
 
     
 }
 -(IBAction)quickDonateActionTwo{
-    self.amountText.text = @"25.00";
+    self.amountText.text = @"10.00";
     [self.parentVc calculateTotal];
 
 
 }
 -(IBAction)quickDonateActionThree{
-    self.amountText.text = @"50.00";
+    self.amountText.text = @"15.00";
     [self.parentVc calculateTotal];
 
 
 }
 -(IBAction)quickDonateActionFour{
-    self.amountText.text = @"75.00";
+    self.amountText.text = @"25.00";
     [self.parentVc calculateTotal];
 
 

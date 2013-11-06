@@ -73,7 +73,7 @@
 }
 
 -(void)noUsersFound:(NSNotification *)notification{
-    [self performSegueWithIdentifier:@"goRegister" sender:self];
+    //[self performSegueWithIdentifier:@"goRegister" sender:self];
 }
 
 -(void)selectPassword{
@@ -121,12 +121,12 @@
 {
     @try {
         
+
+        
         [rSkybox addEventToSession:@"viewViewController"];
         
         self.signInButton.text = @"Sign In";
-        self.signInButton.textColor = [UIColor whiteColor];
-        self.signInButton.textShadowColor = [UIColor darkGrayColor];
-        self.signInButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
+        self.signInButton.tintColor = dutchRedColor;
         //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
         
         
@@ -134,7 +134,7 @@
       //  self.topLineView.layer.shadowRadius = 1;
       //  self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
-        self.backView.backgroundColor = dutchTopNavColor;
+       // self.backView.backgroundColor = dutchTopNavColor;
 
         
         
@@ -192,7 +192,7 @@
         gradient.frame = self.view.bounds;
         UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-        [self.view.layer insertSublayer:gradient atIndex:0];
+      //  [self.view.layer insertSublayer:gradient atIndex:0];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewController.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -295,7 +295,7 @@
             fieldLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];
             fieldLabel.textAlignment = UITextAlignmentCenter;
             
-            fieldLabel.text = @"How dutch Works";
+            fieldLabel.text = @"How dono Works";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         

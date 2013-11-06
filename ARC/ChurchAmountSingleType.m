@@ -40,10 +40,12 @@
 
 - (void)viewDidLoad
 {
+    self.view.clipsToBounds = YES;
+    self.amountSlider.value = 0.0;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.merchantNameText.text = self.myMerchant.name;
+    self.merchantNameText.text = [NSString stringWithFormat:@"to %@", self.myMerchant.name];
 
     NSString *toward = [self.donationType valueForKey:@"Description"];
     
@@ -52,30 +54,29 @@
     }
     self.typeLabel.text = [NSString stringWithFormat:@"toward %@", toward];
     
-    self.amountText.text = @"25.00";
+    self.amountText.text = @"0.00";
     
-    self.quickButtonOne.text = @"$50";
-    self.quickButtonTwo.text = @"$75";
-    self.quickButtonThree.text = @"$100";
-    self.quickButtonFour.text = @"$200";
-    self.payButton.text = @"Pay";
+    self.quickButtonOne.text = @"$10";
+    self.quickButtonTwo.text = @"$25";
+    self.quickButtonThree.text = @"$50";
+    self.quickButtonFour.text = @"$75";
+    self.payButton.text = @"Donate Now!";
     
-    self.quickButtonOne.textColor = [UIColor whiteColor];
+   // self.quickButtonOne.textColor = [UIColor whiteColor];
     self.quickButtonOne.tintColor = dutchDarkBlueColor;
 
-    self.quickButtonTwo.textColor = [UIColor whiteColor];
+   // self.quickButtonTwo.textColor = [UIColor whiteColor];
     self.quickButtonTwo.tintColor = dutchDarkBlueColor;
     
-    self.quickButtonThree.textColor = [UIColor whiteColor];
+   // self.quickButtonThree.textColor = [UIColor whiteColor];
     self.quickButtonThree.tintColor = dutchDarkBlueColor;
     
-    self.quickButtonFour.textColor = [UIColor whiteColor];
+  //  self.quickButtonFour.textColor = [UIColor whiteColor];
     self.quickButtonFour.tintColor = dutchDarkBlueColor;
     
-    self.payButton.textColor = [UIColor whiteColor];
+  //  self.payButton.textColor = [UIColor whiteColor];
     self.payButton.tintColor = dutchGreenColor;
     
-    self.amountSlider.value = 25.00/500.0;
     
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
@@ -85,6 +86,13 @@
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
     
+    if (isIos7) {
+        doneButton.tintColor = [UIColor whiteColor];
+    }
+    
+    
+    doneButton.tintColor = [UIColor whiteColor];
+
     NSArray *itemsArray = [NSArray arrayWithObjects:flexButton, doneButton, nil];
     
     
@@ -92,7 +100,6 @@
     
     [self.amountText setInputAccessoryView:toolbar];
     
-    [self.amountSlider setThumbImage:[UIImage imageNamed:@"dollar"] forState:UIControlStateNormal];
 
     
 
@@ -105,7 +112,7 @@
     
     self.amountText.text = [NSString stringWithFormat:@"%.2f", amountDouble];
     
-    self.amountSlider.value = amountDouble / 500.0;
+    self.amountSlider.value = amountDouble / 100.0;
     [self.amountText resignFirstResponder];
 }
 
@@ -122,7 +129,14 @@
 - (IBAction)payAction {
     
     double amountDouble = [self.amountText.text doubleValue];
-    self.amountSlider.value = amountDouble / 500.0;
+    
+    
+    if (amountDouble == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"Please enter a donation amount greater than 0." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    self.amountSlider.value = amountDouble / 100.0;
 
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -260,10 +274,9 @@
     @try {
         
         NSMutableArray *itemArray = [NSMutableArray array];
-        
-        NSLog(@"Donation Type: %@", self.donationType);
-    
-        NSDictionary *item = @{@"Amount":@"1", @"Percent":@"1.0", @"ItemId":[self.donationType valueForKey:@"Id"]};
+            
+        NSString *value = [NSString stringWithFormat:@"%.2f", [self.amountText.text doubleValue]];
+        NSDictionary *item = @{@"Amount":@"1", @"Percent":@"1.0", @"ItemId":[self.donationType valueForKey:@"Id"], @"Value":value, @"Description":[self.donationType valueForKey:@"Description"]};
         
         [itemArray addObject:item];
         
@@ -298,20 +311,20 @@
 
 
 - (IBAction)quickActionOne {
-    self.amountText.text = @"50.00";
+    self.amountText.text = @"10.00";
     [self payAction];
 }
 
 - (IBAction)quickActionTwo{
-    self.amountText.text = @"75.00";
+    self.amountText.text = @"25.00";
     [self payAction];
 }
 - (IBAction)quickActionThree{
-    self.amountText.text = @"100.00";
+    self.amountText.text = @"50.00";
     [self payAction];
 }
 - (IBAction)quickActionFour{
-    self.amountText.text = @"200.00";
+    self.amountText.text = @"75.00";
     [self payAction];
 }
 
@@ -320,9 +333,9 @@
     
     double value = self.amountSlider.value;
     
-    double amount = value * 500.0 * 100.0;
+    double amount = value * 100.0 * 100.0;
     
-    amount = 1000 * floor((amount/1000));
+    amount = 500 * floor((amount/500));
     
     amount = amount/100.0;
     

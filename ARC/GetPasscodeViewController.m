@@ -50,9 +50,8 @@
     
     self.navigationController.navigationBarHidden = YES;
     self.submitButton.text = @"Submit";
-    self.submitButton.textColor = [UIColor whiteColor];
-    self.submitButton.textShadowColor = [UIColor darkGrayColor];
-    self.submitButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
+ 
+    self.submitButton.tintColor = dutchRedColor;
     ////self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
     
     
@@ -60,7 +59,7 @@
   //  self.topLineView.layer.shadowRadius = 1;
   //  self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+  //  self.backView.backgroundColor = dutchTopNavColor;
     
     
     
@@ -77,12 +76,12 @@
 
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.view.bounds;
-    self.view.backgroundColor = [UIColor clearColor];
+  //  self.view.backgroundColor = [UIColor clearColor];
     //UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
     double x = 1.8;
     UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    //[self.view.layer insertSublayer:gradient atIndex:0];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"getPasscodeNotification" object:nil];

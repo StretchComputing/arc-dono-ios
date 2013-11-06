@@ -180,7 +180,7 @@
         
         
         self.topLineView.backgroundColor = dutchTopLineColor;
-        self.backView.backgroundColor = dutchTopNavColor;
+       // self.backView.backgroundColor = dutchTopNavColor;
         
         [self.myTableView reloadData];
         

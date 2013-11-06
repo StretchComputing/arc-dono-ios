@@ -18,6 +18,8 @@
 - (IBAction)goBack;
 
 @property BOOL isHome;
+@property (strong, nonatomic) IBOutlet UIButton *leftButton;
+@property (strong, nonatomic) IBOutlet UIButton *rightButton;
 
 @property int currentIndex;
 @property (nonatomic, strong) IBOutlet UIScrollView *middleView;

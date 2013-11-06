@@ -52,7 +52,7 @@
    // self.topLineView.layer.shadowRadius = 1;
    // self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
-    self.backView.backgroundColor = dutchTopNavColor;
+  //  self.backView.backgroundColor = dutchTopNavColor;
     
    
     
@@ -84,7 +84,7 @@
             if (indexPath.row == 0) {
                 supportLabel.text = @"Invite Friends";
             }else{
-                supportLabel.text = @"Rate dutch!";
+                supportLabel.text = @"Rate dono!";
             }
 
         }else{
@@ -220,7 +220,7 @@
                 
                 
             }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"dutch only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"dono only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
                 self.facebookSwitch.on = NO;
             }
@@ -284,7 +284,7 @@
                 
                 
             }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"dutch only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"dono only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
                 self.twitterSwitch.on = NO;
                 
