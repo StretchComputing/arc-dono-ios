@@ -19,8 +19,8 @@ static NSString *basicAuthUserName = @"token";
 static NSString *baseUrl = @"https://rskybox-stretchcom.appspot.com/rest/v1";
 //TODO: rSkybox ids - replace the current basicAuthToken and applicationId with the token and application id you
 //      received when you registered for rSkybox
-static NSString *basicAuthToken = @"598ejqo2gefqm5qt0s4fphhcf";
-static NSString *applicationId = @"ahRzfnJza3lib3gtc3RyZXRjaGNvbXIYCxILQXBwbGljYXRpb24YgICAgJ7lnQgM";
+static NSString *basicAuthToken = @"ekokq167k46gbrmr6hvbht9lab";
+static NSString *applicationId = @"ahRzfnJza3lib3gtc3RyZXRjaGNvbXITCxILQXBwbGljYXRpb24YgPYvDA";
 
 //Maximum number of App Actions to save
 #define NUMBER_EVENTS_STORED 40
@@ -38,7 +38,7 @@ static NSString *streamId;
 static NSString *streamName;
 
 
-NSString* const ARC_VERSION_NUMBER = @"1.0";
+NSString* const ARC_VERSION_NUMBER = @"0.9";
 
 NSString *const SUCCESS = @"100";
 NSString *const INVALID_STATUS = @"201";
@@ -175,8 +175,7 @@ NSString *const CLOSED_STATUS = @"closed";
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
-    return;
-        
+    
     @try {
 
         
@@ -329,7 +328,6 @@ NSString *const CLOSED_STATUS = @"closed";
 
 + (void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData{
 
-    return;
     
     @try {
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
