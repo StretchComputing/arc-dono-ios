@@ -319,6 +319,10 @@
 
             }
             
+            if (self.chargeFee > 0.0) {
+                [tempDictionary setObject:[NSNumber numberWithDouble:self.chargeFee] forKey:@"Gratuity"];
+            }
+            
             NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myMerchant.invoiceId];
             [ tempDictionary setObject:invoiceIdString forKey:@"InvoiceId"];
             NSString *merchantIdString = [NSString stringWithFormat:@"%d", self.myMerchant.merchantId];
