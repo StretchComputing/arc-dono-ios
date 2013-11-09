@@ -128,73 +128,81 @@
 }
 - (IBAction)payAction {
     
-    double amountDouble = [self.amountText.text doubleValue];
-    
-    
-    if (amountDouble == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"Please enter a donation amount greater than 0." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-        [alert show];
-        return;
-    }
-    self.amountSlider.value = amountDouble / 100.0;
-
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
-    
-    if ([self.creditCards count] > 0) {
-        //Have at least 1 card, present UIActionSheet
+    @try {
+        double amountDouble = [self.amountText.text doubleValue];
         
-        if ([self.creditCards count] == 1) {
-            
-            self.selectedCard = [self.creditCards objectAtIndex:0];
-            
-            NSLog(@"SelectedCard: %@", self.selectedCard);
-            
-            [self performSegueWithIdentifier:@"payCard" sender:self];
+        
+        if (amountDouble == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"Please enter a donation amount greater than 0." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
             return;
+        }
+        self.amountSlider.value = amountDouble / 100.0;
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+        
+        if ([self.creditCards count] > 0) {
+            //Have at least 1 card, present UIActionSheet
             
-        }else{
-            
-            self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-            
-            int x = 0;
-            if (self.haveDwolla) {
-                x++;
-                [self.actionSheet addButtonWithTitle:@"Dwolla"];
-            }
-            
-            for (int i = 0; i < [self.creditCards count]; i++) {
-                CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+            if ([self.creditCards count] == -1) {
                 
-                if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                self.selectedCard = [self.creditCards objectAtIndex:0];
+                
+                NSLog(@"SelectedCard: %@", self.selectedCard);
+                
+                [self performSegueWithIdentifier:@"payCard" sender:self];
+                return;
+                
+            }else{
+                
+                self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                
+                int x = 0;
+                if (self.haveDwolla) {
+                    x++;
+                    [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                }
+                
+                for (int i = 0; i < [self.creditCards count]; i++) {
+                    CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
                     
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                    if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                        
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                        
+                    }else{
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                        
+                    }
                     
-                }else{
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                    
+                    
                     
                 }
                 
-                
-                
-                
+                [self.actionSheet addButtonWithTitle:@"+ New Card"];
+                [self.actionSheet addButtonWithTitle:@"Cancel"];
+                self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
             }
             
-            [self.actionSheet addButtonWithTitle:@"+ New Card"];
-            [self.actionSheet addButtonWithTitle:@"Cancel"];
-            self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+            
+            [self.actionSheet showInView:self.view];
+            
+            
+            
+        }else{
+            //No cards, go to Add Card Screen
+            [self performSegueWithIdentifier:@"addCard" sender:self];
         }
-
-        
-        [self.actionSheet showInView:self.view];
-
-        
-        
-    }else{
-        //No cards, go to Add Card Screen
-        [self performSegueWithIdentifier:@"addCard" sender:self];
     }
+    @catch (NSException *exception) {
+        NSLog(@"E: %@", exception);
+        [rSkybox sendClientLog:@"ChurchAmountSingleType.payAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
 }
 
 
@@ -239,16 +247,16 @@
             
             
         }else {
-        
-            
+    
             
             if ([self.creditCards count] > 0) {
-                if (buttonIndex == [self.creditCards count] + 1 + x) {
+                
+                if (buttonIndex == ([self.creditCards count] + 1 + x)) {
                     //Cancel
                 }else if (buttonIndex == [self.creditCards count] + x){
                     //New Card
                     [self performSegueWithIdentifier:@"addCard" sender:self];
-                }
+                }else{
                     self.selectedCard = [self.creditCards objectAtIndex:buttonIndex - x];
                 
                     [self performSegueWithIdentifier:@"payCard" sender:self];
@@ -259,7 +267,9 @@
         }
         
     
-    @catch (NSException *e) {
+    }@catch (NSException *e) {
+        
+        NSLog(@"E: %@", e);
         [rSkybox sendClientLog:@"ChurchAmountSingleType.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     

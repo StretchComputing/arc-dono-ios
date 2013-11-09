@@ -392,7 +392,7 @@
                                 <rect key="frame" x="10" y="213" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <state key="normal" title="All Churches">
+                                <state key="normal" title="All Locations">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -617,7 +617,7 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="CC PIN" textAlignment="center" minimumFontSize="12" id="r9j-PZ-YZL">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="4 Digit PIN" textAlignment="center" minimumFontSize="12" id="r9j-PZ-YZL">
                                 <rect key="frame" x="186" y="281" width="112" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.98163777370000005" alpha="1" colorSpace="calibratedWhite"/>
@@ -648,6 +648,13 @@
                                 <rect key="frame" x="52" y="349" width="251" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="*Your PIN is the number you created when saving this card." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t74-St-0ec" customClass="SteelfishLabel">
+                                <rect key="frame" x="34" y="312" width="251" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -810,7 +817,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Credit Card PIN:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="8Ka-0N-BkU" customClass="SteelfishLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Card PIN:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="8Ka-0N-BkU" customClass="SteelfishLabel">
                                 <rect key="frame" x="29" y="288" width="149" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -831,6 +838,7 @@
                         <outlet property="myTableView" destination="fnk-YF-yyf" id="gB2-BC-ZQO"/>
                         <outlet property="myTotalLabel" destination="gFs-Gg-WmY" id="xDc-xd-M6m"/>
                         <outlet property="paymentLabel" destination="edL-8b-h4H" id="Yfu-x7-VuV"/>
+                        <outlet property="pinExplainText" destination="t74-St-0ec" id="quw-v3-AY4"/>
                         <outlet property="pinPrompt" destination="8Ka-0N-BkU" id="SH9-hT-aww"/>
                         <outlet property="topLineView" destination="57R-9c-CgK" id="cyb-yo-1Ee"/>
                         <segue destination="OQp-KH-wLI" kind="push" identifier="saveInfo" id="o49-i2-ccV"/>
@@ -878,7 +886,7 @@
                                         <rect key="frame" x="0.0" y="63" width="320" height="508"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BfW-Q8-jX3">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BfW-Q8-jX3">
                                         <rect key="frame" x="115" y="398" width="101" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="LiveDebug">
@@ -968,6 +976,7 @@
                     <connections>
                         <outlet property="backView" destination="QzJ-Ns-Pr8" id="3UC-qM-4MM"/>
                         <outlet property="displayLabel" destination="27n-d5-Cea" id="jC9-FF-uGe"/>
+                        <outlet property="liveDebugButton" destination="BfW-Q8-jX3" id="fF6-Ug-Emy"/>
                         <outlet property="recordButton" destination="JnK-YZ-hd5" id="YgH-20-TGS"/>
                         <outlet property="recordingActivity" destination="2Ea-y9-fC7" id="VSw-4p-fR1"/>
                         <outlet property="recordingLabel" destination="oV7-Gb-JXA" id="IDj-bE-vc0"/>
@@ -1205,7 +1214,7 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qe3-jv-EY2" customClass="SteelfishLabel">
                                 <rect key="frame" x="11" y="156" width="299" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <string key="text">Your PIN will be used to securely encrypt your credit card information.  We do not store your PIN, so please pick a number you will remember!</string>
+                                <string key="text">Your PIN will be used to securely encrypt your credit card information.  You will be asked for your PIN each time you make a purchase with this card.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2671,23 +2680,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hgN-9Z-xDz" customClass="SteelfishBoldLabel">
-                                                    <rect key="frame" x="9" y="6" width="304" height="30"/>
+                                                    <rect key="frame" x="5" y="6" width="310" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mbd-gb-Ee0" customClass="SteelfishBoldLabel">
-                                                    <rect key="frame" x="9" y="36" width="104" height="44"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mbd-gb-Ee0" customClass="SteelfishBoldLabel">
+                                                    <rect key="frame" x="197" y="36" width="109" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <color key="textColor" red="0.0" green="0.53804347829999999" blue="4.4127374239999998e-05" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0g5-eJ-A7j" customClass="SteelfishLabel">
-                                                    <rect key="frame" x="142" y="47" width="166" height="25"/>
+                                                    <rect key="frame" x="5" y="47" width="166" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2762,47 +2771,47 @@
                                         <color key="textColor" red="0.0" green="0.53804347829999999" blue="4.4127374239999998e-05" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZYq-Na-HtD" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="7" y="125" width="306" height="25"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZYq-Na-HtD" customClass="SteelfishBoldLabel">
+                                        <rect key="frame" x="7" y="116" width="306" height="65"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UBk-rD-l1G" customClass="SteelfishLabel">
-                                        <rect key="frame" x="7" y="155" width="306" height="25"/>
+                                        <rect key="frame" x="7" y="185" width="306" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="47E-3x-bRm" customClass="SteelfishLabel">
-                                        <rect key="frame" x="166" y="211" width="130" height="25"/>
+                                        <rect key="frame" x="166" y="229" width="130" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" red="0.090196078430000007" green="0.23529411759999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mmG-EI-904" customClass="SteelfishLabel">
-                                        <rect key="frame" x="166" y="237" width="130" height="25"/>
+                                        <rect key="frame" x="166" y="255" width="130" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" red="0.090196078430000007" green="0.23529411759999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9XQ-3S-Qrc" customClass="SteelfishLabel">
-                                        <rect key="frame" x="10" y="211" width="137" height="25"/>
+                                        <rect key="frame" x="10" y="229" width="137" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmation #:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VV3-dW-yeb" customClass="SteelfishLabel">
-                                        <rect key="frame" x="10" y="237" width="137" height="25"/>
+                                        <rect key="frame" x="10" y="255" width="137" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jkx-WC-pvh" customClass="SteelfishLabel">
-                                        <rect key="frame" x="10" y="262" width="137" height="25"/>
+                                        <rect key="frame" x="10" y="280" width="137" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="highlightedColor"/>
@@ -2814,7 +2823,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" id="Lqx-qy-rrZ" customClass="SteelfishTextView">
-                                        <rect key="frame" x="161" y="262" width="149" height="65"/>
+                                        <rect key="frame" x="161" y="280" width="149" height="65"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="0.090196078430000007" green="0.23529411759999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -3067,7 +3076,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="unique stream name" minimumFontSize="17" id="kgO-x8-EfJ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="unique stream name" minimumFontSize="17" id="kgO-x8-EfJ">
                                 <rect key="frame" x="25" y="130" width="258" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3080,7 +3089,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CvJ-8j-VVH">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CvJ-8j-VVH">
                                 <rect key="frame" x="89" y="173" width="126" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="Create Stream">
@@ -3091,7 +3100,7 @@
                                     <action selector="createStreamAction:" destination="wWU-Mi-Wzc" eventType="touchUpInside" id="8nE-ql-293"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="88V-B8-Jva">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="88V-B8-Jva">
                                 <rect key="frame" x="92" y="252" width="120" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="Close Stream">
@@ -4356,6 +4365,16 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wCB-rH-ZKV">
+                                        <rect key="frame" x="276" y="20" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="question.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="helpAction:" destination="EXn-6o-zVh" eventType="touchUpInside" id="6hp-8w-pD3"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -4398,24 +4417,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ftj-PW-AMz">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ftj-PW-AMz">
                                 <rect key="frame" x="1" y="17" width="52" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
                                 <connections>
                                     <action selector="openMenuNow:" destination="EXn-6o-zVh" eventType="touchUpInside" id="pTo-Fc-KP1"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quick Donate:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oIz-if-M2Q" customClass="SteelfishBoldLabel">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quick Donate:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oIz-if-M2Q" customClass="SteelfishBoldLabel">
                                 <rect key="frame" x="13" y="313" width="213" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" id="etJ-tq-80P" customClass="NVUIGradientButton">
+                            <view hidden="YES" contentMode="scaleToFill" id="etJ-tq-80P" customClass="NVUIGradientButton">
                                 <rect key="frame" x="14" y="364" width="60" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -4424,7 +4440,7 @@
                                     <action selector="quickActionOne" destination="Ge1-GO-ndQ" eventType="touchUpInside" id="THa-ww-VD2"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" id="YbI-ca-tAx" customClass="NVUIGradientButton">
+                            <view hidden="YES" contentMode="scaleToFill" id="YbI-ca-tAx" customClass="NVUIGradientButton">
                                 <rect key="frame" x="94" y="364" width="60" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -4433,7 +4449,7 @@
                                     <action selector="quickActionTwo" destination="Ge1-GO-ndQ" eventType="touchUpInside" id="wfq-J2-vij"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" id="6TF-mQ-gv3" customClass="NVUIGradientButton">
+                            <view hidden="YES" contentMode="scaleToFill" id="6TF-mQ-gv3" customClass="NVUIGradientButton">
                                 <rect key="frame" x="173" y="364" width="60" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -4442,7 +4458,7 @@
                                     <action selector="quickActionThree" destination="Ge1-GO-ndQ" eventType="touchUpInside" id="UCz-gX-so2"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" id="Ra2-4N-LtL" customClass="NVUIGradientButton">
+                            <view hidden="YES" contentMode="scaleToFill" id="Ra2-4N-LtL" customClass="NVUIGradientButton">
                                 <rect key="frame" x="253" y="364" width="60" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -4451,7 +4467,7 @@
                                     <action selector="quickActionFour" destination="EXn-6o-zVh" eventType="touchUpInside" id="sK3-hO-FOZ"/>
                                 </connections>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Usp-Of-mtE">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Usp-Of-mtE">
                                 <rect key="frame" x="63" y="236" width="181" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="Repeat my last donation">
@@ -4522,6 +4538,7 @@
         <image name="menuShareIcon.png" width="70" height="70"/>
         <image name="newBackground.png" width="640" height="1200"/>
         <image name="profileDefault.png" width="225" height="224"/>
+        <image name="question.png" width="88" height="88"/>
         <image name="rightArrow.png" width="250" height="250"/>
         <image name="searchIconWhite.png" width="128" height="128"/>
         <image name="spinner.png" width="1024" height="1024"/>
@@ -4533,12 +4550,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Lwz-DE-kMQ"/>
-        <segue reference="oA8-T9-RBW"/>
-        <segue reference="AG5-Yg-Dak"/>
-        <segue reference="cH4-tZ-2B7"/>
         <segue reference="UfQ-py-orq"/>
-        <segue reference="OxU-p2-m3q"/>
-        <segue reference="wi9-8S-seJ"/>
+        <segue reference="cH4-tZ-2B7"/>
+        <segue reference="1YU-Ek-CUs"/>
+        <segue reference="ogG-SN-hLn"/>
+        <segue reference="4b1-ab-nua"/>
+        <segue reference="o49-i2-ccV"/>
+        <segue reference="WTk-yE-Wk3"/>
     </inferredMetricsTieBreakers>
 </document>

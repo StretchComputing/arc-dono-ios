@@ -129,7 +129,7 @@
     if ([self.creditCards count] > 0) {
         //Have at least 1 card, present UIActionSheet
         
-        if ([self.creditCards count] == 1) {
+        if ([self.creditCards count] == -1) {
             
             self.selectedCard = [self.creditCards objectAtIndex:0];
             [self performSegueWithIdentifier:@"payCard" sender:self];
@@ -182,6 +182,7 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     
+    
     @try {
         
         
@@ -222,25 +223,27 @@
         }else {
             
             
-            
             if ([self.creditCards count] > 0) {
-                if (buttonIndex == [self.creditCards count] + 1 + x) {
+                
+                if (buttonIndex == ([self.creditCards count] + 1 + x)) {
                     //Cancel
                 }else if (buttonIndex == [self.creditCards count] + x){
                     //New Card
                     [self performSegueWithIdentifier:@"addCard" sender:self];
+                }else{
+                    self.selectedCard = [self.creditCards objectAtIndex:buttonIndex - x];
+                    
+                    [self performSegueWithIdentifier:@"payCard" sender:self];
+                    
                 }
-                self.selectedCard = [self.creditCards objectAtIndex:buttonIndex - x];
-                
-                [self performSegueWithIdentifier:@"payCard" sender:self];
-                
             }
+            
         }
         
-    }
-    
-    
-    @catch (NSException *e) {
+        
+    }@catch (NSException *e) {
+        
+        NSLog(@"E: %@", e);
         [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
