@@ -91,7 +91,6 @@
     }
     
     
-    doneButton.tintColor = [UIColor whiteColor];
 
     NSArray *itemsArray = [NSArray arrayWithObjects:flexButton, doneButton, nil];
     

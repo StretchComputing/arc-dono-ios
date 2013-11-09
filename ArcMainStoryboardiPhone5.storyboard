@@ -2947,7 +2947,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Support" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8zo-AY-VZ5" customClass="SteelfishLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8zo-AY-VZ5" customClass="SteelfishLabel">
                                         <rect key="frame" x="75" y="26" width="170" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -4582,11 +4582,19 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" id="Rs8-fi-J8l" customClass="NVUIGradientButton">
-                                <rect key="frame" x="51" y="504" width="216" height="44"/>
+                                <rect key="frame" x="170" y="473" width="140" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="goDonationHistory" destination="htE-Un-nM6" eventType="touchUpInside" id="L21-d4-aNB"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" id="Ycx-fB-4Cc" customClass="NVUIGradientButton">
+                                <rect key="frame" x="11" y="473" width="140" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="goAllChurches" destination="htE-Un-nM6" eventType="touchUpInside" id="Hix-M4-pZ4"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -4603,6 +4611,7 @@
                         <outlet property="quickButtonOne" destination="18l-z1-RdN" id="4gg-7d-mQ3"/>
                         <outlet property="quickButtonThree" destination="nGR-KR-VQK" id="2SN-Jb-WhU"/>
                         <outlet property="quickButtonTwo" destination="mAI-IA-Dtw" id="YZa-mT-7ov"/>
+                        <outlet property="viewAllLocationsButton" destination="Ycx-fB-4Cc" id="Nm3-oF-rKJ"/>
                         <segue destination="E2e-yE-eUC" kind="push" identifier="multiple" id="6Bf-rA-mtD"/>
                         <segue destination="us0-vD-CQT" kind="push" identifier="single" id="lCQ-nl-zf2"/>
                         <segue destination="uyG-ak-uom" kind="push" identifier="addCard" id="AcI-7f-4Nr"/>

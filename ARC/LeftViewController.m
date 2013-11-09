@@ -175,7 +175,7 @@
         
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"turnOffDefault" object:self userInfo:@{}];
+   // [[NSNotificationCenter defaultCenter] postNotificationName:@"turnOffDefault" object:self userInfo:@{}];
 
 
 }

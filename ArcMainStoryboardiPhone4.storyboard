@@ -1748,7 +1748,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9cX-SW-WUV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2295" y="-1282"/>
+            <point key="canvasLocation" x="-2533" y="-1088"/>
         </scene>
         <!--Privacy Terms View Controller-->
         <scene sceneID="mzB-S3-Drx">
@@ -1759,7 +1759,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="PCV-Ba-tiC">
-                                <rect key="frame" x="0.0" y="-88" width="320" height="591"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="591"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Create Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wcY-we-wZH" customClass="SteelfishLabel">
@@ -1773,17 +1773,17 @@
                                 <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <webView multipleTouchEnabled="YES" contentMode="scaleToFill" scalesPageToFit="YES" id="c2F-U4-xAm">
-                                <rect key="frame" x="0.0" y="-22" width="320" height="502"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="502"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                             <view contentMode="scaleToFill" id="hkD-Uk-oIs">
-                                <rect key="frame" x="0.0" y="-22" width="320" height="1"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ilw-ya-Owy">
-                                <rect key="frame" x="0.0" y="-68" width="44" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="backarrow.png">
@@ -2189,7 +2189,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="termsAction" destination="3PA-PN-8o6" eventType="touchUpInside" id="bjr-X1-bKk"/>
+                                    <action selector="termsAction" destination="3PA-PN-8o6" eventType="touchUpInside" id="nOO-gc-jHy"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" id="vUU-XT-hbD" customClass="NVUIGradientButton">
@@ -2197,7 +2197,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="privacyAction" destination="3PA-PN-8o6" eventType="touchUpInside" id="7YO-iN-Nub"/>
+                                    <action selector="privacyAction" destination="3PA-PN-8o6" eventType="touchUpInside" id="4Cs-cw-THM"/>
                                 </connections>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="N50-q7-ccg">
@@ -2303,8 +2303,12 @@
                         <outlet property="helpView" destination="yt5-PM-gtN" id="va9-L0-cel"/>
                         <outlet property="myScrollView" destination="N50-q7-ccg" id="cXy-5M-4ns"/>
                         <outlet property="pageControl" destination="ukc-N2-1el" id="z3b-lH-mcb"/>
+                        <outlet property="privacyButton" destination="vUU-XT-hbD" id="NPd-ZB-uAJ"/>
                         <outlet property="startUsingButton" destination="miI-5h-RSN" id="hDI-PF-NPm"/>
+                        <outlet property="termsButton" destination="hiX-X8-AGl" id="aXe-V4-bhi"/>
                         <outlet property="topLine" destination="cz7-3c-8eM" id="1gd-XY-Kk6"/>
+                        <segue destination="xdj-q7-1zd" kind="modal" identifier="goTerms" modalTransitionStyle="flipHorizontal" id="hTD-vI-iAs"/>
+                        <segue destination="xdj-q7-1zd" kind="modal" identifier="goPrivacy" modalTransitionStyle="flipHorizontal" id="Yic-t2-bi4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qDg-aF-q27" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2868,7 +2872,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Support" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uMN-we-3sQ" customClass="SteelfishLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uMN-we-3sQ" customClass="SteelfishLabel">
                                         <rect key="frame" x="75" y="26" width="170" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -4484,11 +4488,19 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" id="q8q-m1-Eqt" customClass="NVUIGradientButton">
-                                <rect key="frame" x="54" y="422" width="216" height="44"/>
+                                <rect key="frame" x="168" y="387" width="140" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="goDonationHistory" destination="EXn-6o-zVh" eventType="touchUpInside" id="aZW-ur-BUi"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" id="5Y9-WD-Wwe" customClass="NVUIGradientButton">
+                                <rect key="frame" x="13" y="387" width="140" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="goAllChurches" destination="EXn-6o-zVh" eventType="touchUpInside" id="mwP-CZ-mde"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -4505,6 +4517,7 @@
                         <outlet property="quickButtonOne" destination="etJ-tq-80P" id="UHZ-QW-gEm"/>
                         <outlet property="quickButtonThree" destination="6TF-mQ-gv3" id="EnB-GB-PUf"/>
                         <outlet property="quickButtonTwo" destination="YbI-ca-tAx" id="qeC-W8-I7s"/>
+                        <outlet property="viewAllLocationsButton" destination="5Y9-WD-Wwe" id="Ew7-ke-nwe"/>
                         <segue destination="K8s-s7-Ah8" kind="push" identifier="multiple" id="4b1-ab-nua"/>
                         <segue destination="Ge1-GO-ndQ" kind="push" identifier="single" id="ogG-SN-hLn"/>
                         <segue destination="4Tf-7v-IbX" kind="push" identifier="addCard" id="UfQ-py-orq"/>
@@ -4550,12 +4563,13 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="UfQ-py-orq"/>
         <segue reference="cH4-tZ-2B7"/>
-        <segue reference="1YU-Ek-CUs"/>
         <segue reference="ogG-SN-hLn"/>
         <segue reference="4b1-ab-nua"/>
+        <segue reference="1YU-Ek-CUs"/>
+        <segue reference="UfQ-py-orq"/>
         <segue reference="o49-i2-ccV"/>
+        <segue reference="hTD-vI-iAs"/>
         <segue reference="WTk-yE-Wk3"/>
     </inferredMetricsTieBreakers>
 </document>

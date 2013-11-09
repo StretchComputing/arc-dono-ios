@@ -284,9 +284,10 @@
             NSDictionary *item = @{@"Amount":@"1", @"Percent":percent, @"ItemId":itemId, @"Value":value, @"Description":[donation valueForKey:@"Description"]};
             
             
-            NSLog(@"Item: %@", item);
-            
-            [itemArray addObject:item];
+            if (percent > 0) {
+                [itemArray addObject:item];
+
+            }
 
             
         }
