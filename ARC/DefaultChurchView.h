@@ -37,5 +37,7 @@
 - (IBAction)quickActionThree;
 - (IBAction)quickActionFour;
 - (IBAction)goDonationHistory;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *viewAllLocationsButton;
+- (IBAction)goAllChurches;
 
 @end

@@ -43,6 +43,10 @@
     self.donationHistoryButton.text = @"View Donation History";
     self.donationHistoryButton.tintColor = dutchRedColor;
     
+    self.viewAllLocationsButton.text = @"View Other Locations";
+    self.viewAllLocationsButton.tintColor = dutchRedColor;
+    
+    
     self.makeDonationButton.text = @"Make Donation";
     self.makeDonationButton.tintColor = dutchGreenColor;
     
@@ -383,4 +387,11 @@
 
 
 
+- (IBAction)goAllChurches {
+    
+    LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+    [tmp newChurchAction];
+    
+    
+}
 @end
