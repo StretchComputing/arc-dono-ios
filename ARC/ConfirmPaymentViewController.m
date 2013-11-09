@@ -209,8 +209,8 @@
         if (newLength > 4) {
             return FALSE;
         }else{
-            self.errorLabel.text = @"";
-            [self setValues:[self.hiddenText.text stringByReplacingCharactersInRange:range withString:string]];
+
+     [self setValues:[self.hiddenText.text stringByReplacingCharactersInRange:range withString:string]];
             return TRUE;
             
         }
@@ -232,7 +232,7 @@
     @try {
         
         
-        self.errorLabel.text = @"";
+
         
         if (self.justAddedCard) {
             [self performSelector:@selector(createPayment)];
@@ -240,7 +240,9 @@
         }else{
             if ([self.hiddenText.text length] == 0) {
                 
-                self.errorLabel.text = @"*Please enter your full pin.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Pin" message:@"Please enter your full credit card PIN.  Your PIN is the 4 digit number you created when you saved this card." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                
             }else{
                 
                 [self performSelector:@selector(createPayment)];
@@ -372,7 +374,9 @@
             if (self.incorrectPinCount < 3) {
                 self.incorrectPinCount ++;
                 
-                self.errorLabel.text = @"*Invalid PIN.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Pin" message:@"Please enter your correct credit card PIN.  Your PIN is the 4 digit number you created when you saved this card." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                
                 
                 self.checkNumOne.text = @"";
                 self.checkNumTwo.text = @"";
@@ -401,7 +405,11 @@
         
     }
     @catch (NSException *e) {
-        self.errorLabel.text = @"*Error retreiving credit card.";
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Error" message:@"We were unable to process your payment at this time, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
         
         [rSkybox sendClientLog:@"CreditCardPayment.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }

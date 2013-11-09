@@ -25,7 +25,7 @@
 
 -(void)didBeginOpen:(NSNotification *)notification{
     
-    self.defaultChurchLabel.text = @"No default church found...";
+    self.defaultChurchLabel.text = @"No default location found...";
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"defaultChurchId"] length] > 0) {
         
         int merchId = [[[NSUserDefaults standardUserDefaults] valueForKey:@"defaultChurchId"] intValue];
@@ -56,7 +56,7 @@
     
     self.profileLabel.text = @"My Profile";
     
-    self.newChurchButton.text = @"Select New Church";
+    self.newChurchButton.text = @"Select New Location";
 }
 
 

@@ -342,7 +342,7 @@
 - (IBAction)defaultChurchChanged {
     
     if (self.defaultChurchSwitch.on) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Adding A Default" message:@"To add a default church, select 'Make this my default donation location' next time you pick a church to donate to. Would you like to go there now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Yes", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Adding A Default" message:@"To add a default location, select 'Make this my default donation location' next time you pick a location to donate to. Would you like to go there now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Yes", nil];
         [alert show];
         self.defaultChurchSwitch.on = NO;
     }else{
@@ -350,7 +350,7 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"defaultChurchId"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Default Church Removed" message:@"Your default church has been successfully removed." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Default Location Removed" message:@"Your default location has been successfully removed." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
     }
 }
