@@ -49,6 +49,7 @@
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) Invoice *myInvoice;
+@property (strong, nonatomic) IBOutlet SteelfishLabel *pinExplainText;
 
 @property int incorrectPinCount;
 

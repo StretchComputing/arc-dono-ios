@@ -21,6 +21,14 @@
 
 -(void)viewDidLoad{
     
+    
+    ArcClient *tmp = [[ArcClient alloc] init];
+    if (![tmp admin]) {
+        self.liveDebugButton.hidden = YES;
+    }else{
+        self.liveDebugButton.hidden = NO;
+    }
+    
     self.recordButton.text = @"Record";
     self.sendButton.text = @"Send Feedback";
     

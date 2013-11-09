@@ -40,5 +40,6 @@
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *sendingActivity;
 
 - (IBAction)liveDebug;
+@property (strong, nonatomic) IBOutlet UIButton *liveDebugButton;
 
 @end

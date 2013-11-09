@@ -33,9 +33,11 @@
     if (self.justAddedCard) {
         self.hiddenText.hidden = YES;
         self.pinPrompt.hidden = YES;
+        self.pinExplainText.hidden = YES;
     }else{
         self.pinPrompt.hidden = NO;
         self.hiddenText.hidden = NO;
+        self.pinExplainText.hidden = NO;
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
 
@@ -137,7 +139,7 @@
 	// Do any additional setup after loading the view.
     
     self.hiddenText.keyboardType = UIKeyboardTypeNumberPad;
-    self.hiddenText.delegate = self;
+   // self.hiddenText.delegate = self;
     self.hiddenText.text = @"";
     [self.view addSubview:self.hiddenText];
 
@@ -191,6 +193,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
+    /*
     NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
     
     @try {
@@ -215,6 +218,7 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ConfirmPayment.testField" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+     */
 }
 
 
@@ -263,7 +267,7 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
-        NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
+        NSString *pinNumber = self.hiddenText.text;
         
 
         NSString *ccNumber;
@@ -696,12 +700,12 @@
   
         if (self.chargeFee > 0) {
             
-            if (indexPath.row == 0) {
+            if (indexPath.row == [self.myItemsArray count]) {
                 helpImage.hidden = NO;
                 nameLabel.text = @"Processing Fee";
                 priceLabel.text = [NSString stringWithFormat:@"%.2f", self.chargeFee];
             }else{
-                NSDictionary *donationType = [self.myItemsArray objectAtIndex:indexPath.row-1];
+                NSDictionary *donationType = [self.myItemsArray objectAtIndex:indexPath.row];
                 nameLabel.text = [donationType valueForKey:@"Description"];
                 priceLabel.text = [donationType valueForKey:@"Value"];
             }
@@ -744,7 +748,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.chargeFee > 0 && indexPath.row == 0) {
+    if (self.chargeFee > 0 && indexPath.row == [self.myItemsArray count]) {
         
         NSString *message = [NSString stringWithFormat:@"Due to the cost of processing credit card transactions, a $%.2f processing fee will be added to all donations of $%.2f or less.", self.chargeFee, self.myMerchant.convenienceFeeCap];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Processing Fee" message:message delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];

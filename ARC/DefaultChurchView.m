@@ -26,7 +26,18 @@
 - (IBAction)openMenuNow:(id)sender {
     [self.navigationController.sideMenu toggleLeftSideMenu];
 }
+- (IBAction)helpAction:(id)sender {
+    [self help];
+}
+- (IBAction)helpAction2:(id)sender {
+    [self help];
+}
 
+-(void)help{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Default Location" message:@"You have selected this as your default location.  This page will show when the app loads, or when you click 'Home' from the left menu.  \n \n  If you would like to view other locations, please select 'All Locations' from the left menu.  \n \n  If you would like to remove your default location, you can do so from the 'Settings' page." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+}
 - (void)viewDidLoad
 {
     self.donationHistoryButton.text = @"View Donation History";
@@ -233,7 +244,7 @@
 
 - (IBAction)payAction {
     
-    double amountDouble = [self.amount doubleValue];
+    //double amountDouble = [self.amount doubleValue];
     
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -242,7 +253,7 @@
     if ([self.creditCards count] > 0) {
         //Have at least 1 card, present UIActionSheet
         
-        if ([self.creditCards count] == 1) {
+        if ([self.creditCards count] == -1) {
             
             self.selectedCard = [self.creditCards objectAtIndex:0];
             
@@ -301,6 +312,7 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     
+    
     @try {
         
         
@@ -341,26 +353,28 @@
         }else {
             
             
-            
             if ([self.creditCards count] > 0) {
-                if (buttonIndex == [self.creditCards count] + 1 + x) {
+                
+                if (buttonIndex == ([self.creditCards count] + 1 + x)) {
                     //Cancel
                 }else if (buttonIndex == [self.creditCards count] + x){
                     //New Card
                     [self performSegueWithIdentifier:@"addCard" sender:self];
+                }else{
+                    self.selectedCard = [self.creditCards objectAtIndex:buttonIndex - x];
+                    
+                    [self performSegueWithIdentifier:@"payCard" sender:self];
+                    
                 }
-                self.selectedCard = [self.creditCards objectAtIndex:buttonIndex - x];
-                
-                [self performSegueWithIdentifier:@"payCard" sender:self];
-                
             }
+            
         }
         
-    }
-    
-    
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"DefaultChurch.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+    }@catch (NSException *e) {
+        
+        NSLog(@"E: %@", e);
+        [rSkybox sendClientLog:@"DefaultChurchView.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
