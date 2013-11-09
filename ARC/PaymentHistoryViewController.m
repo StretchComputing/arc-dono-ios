@@ -79,9 +79,13 @@
         NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
             
-            self.paymentsArray = [NSMutableArray arrayWithArray:[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"]];
+            NSMutableArray *thePaymentArray = [NSMutableArray arrayWithArray:[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"]];
             
-            NSLog(@"Count: %d", [self.paymentsArray count]);
+            
+            NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"DateCreated" ascending:NO];
+            NSArray *sortDescriptors = [NSArray arrayWithObject:sorter];
+            self.paymentsArray = [NSMutableArray arrayWithArray:[thePaymentArray sortedArrayUsingDescriptors:sortDescriptors]];
+            
             
             if ([self.paymentsArray count] > 0) {
                 [self.myTableView reloadData];
