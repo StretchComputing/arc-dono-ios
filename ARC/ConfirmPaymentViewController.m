@@ -122,9 +122,25 @@
     
     self.myTotalLabel.text = [NSString stringWithFormat:@"$%.2f", self.donationAmount + self.chargeFee];
     if (self.selectedCard) {
-        self.paymentLabel.text = [NSString stringWithFormat:@"****%@", [self.selectedCard.sample substringFromIndex:[self.selectedCard.sample length]-4]];
+       // self.paymentLabel.text = [NSString stringWithFormat:@"****%@", [self.selectedCard.sample substringFromIndex:[self.selectedCard.sample length]-4]];
+        //self.paymentLabel.text = self.selectedCard.sample;
+        
+        if ([self.selectedCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [self.selectedCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+            
+            self.paymentLabel.text = [NSString stringWithFormat:@"%@", self.selectedCard.sample];
+            
+        }else{
+            self.paymentLabel.text = [NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:self.selectedCard.cardType], [self.selectedCard.sample substringFromIndex:[self.selectedCard.sample length] - 8] ];
+            
+        }
+        
+        
+        
     }else{
         self.paymentLabel.text = [NSString stringWithFormat:@"%@", self.mySelectedCard.sample];
+        
+        self.paymentLabel.text = [NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:self.mySelectedCard.cardType], [self.mySelectedCard.sample substringFromIndex:[self.mySelectedCard.sample length] - 8] ];
+        
 
     }
     
