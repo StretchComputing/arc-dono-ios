@@ -35,7 +35,7 @@
 
 -(void)help{
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Default Location" message:@"You have selected this as your default location.  This page will show when the app loads, or when you click 'Home' from the left menu.  \n \n  If you would like to view other locations, please select 'All Locations' from the left menu.  \n \n  If you would like to remove your default location, you can do so from the 'Settings' page." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Default Location" message:@"You have selected this as your default location.  This page will show when the app loads, or when you click 'Home' from the left menu.  \n \n  If you would like to view other locations, please select 'View All Locations'.  \n \n  If you would like to remove your default location, you can do so from the 'Settings' page." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"View All Locations", @"Go Settings", nil];
     [alert show];
 }
 - (void)viewDidLoad
@@ -234,6 +234,21 @@
                 
                 LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
                 [tmp profileSelected];
+            }
+        }else{
+            //Help Alert
+            
+            if (buttonIndex == 1) {
+                
+                LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+                [tmp newChurchAction];
+                
+            }else if (buttonIndex == 2){
+                
+                LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+                [tmp supportSelected];
+                
+                
             }
         }
         
