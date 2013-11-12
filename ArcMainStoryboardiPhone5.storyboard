@@ -287,7 +287,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" id="YnP-0s-Pdr">
                                 <rect key="frame" x="0.0" y="478" width="320" height="88"/>
@@ -761,7 +761,7 @@
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" id="N17-zU-IFk">
                                 <rect key="frame" x="18" y="156" width="280" height="146"/>
@@ -970,7 +970,7 @@
                                 <rect key="frame" x="110" y="450" width="101" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="LiveDebug">
-                                    <color key="titleColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -2176,7 +2176,7 @@
                                         <rect key="frame" x="20" y="8" width="280" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" id="hWK-pI-0By" customClass="NVUIGradientButton">
@@ -2333,7 +2333,7 @@
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="L3W-2q-0kW">
                                 <rect key="frame" x="141" y="424" width="38" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="pageIndicatorTintColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="pageIndicatorTintColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                             <view contentMode="scaleToFill" id="t8q-wS-X3u">
                                 <rect key="frame" x="-261" y="129" width="261" height="160"/>
@@ -2539,7 +2539,7 @@
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90980392156862744" green="0.1764705882352941" blue="0.027450980392156862" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2587,7 +2587,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Server">
-                                            <color key="titleColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -3018,7 +3018,7 @@
                                             <rect key="frame" x="242" y="12" width="51" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <inset key="insetFor6xAndEarlier" minX="15" minY="0.0" maxX="-15" maxY="0.0"/>
-                                            <color key="onTintColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="onTintColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="showDonationOptionsChanged" destination="S2y-Ly-oWJ" eventType="valueChanged" id="WKu-8m-qKL"/>
                                             </connections>
@@ -3027,7 +3027,7 @@
                                             <rect key="frame" x="242" y="109" width="51" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-15" maxY="0.0"/>
-                                            <color key="onTintColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="onTintColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="defaultChurchChanged" destination="S2y-Ly-oWJ" eventType="valueChanged" id="ySU-Hy-QWd"/>
                                             </connections>
@@ -3071,7 +3071,7 @@
                                                     <rect key="frame" x="101" y="6" width="178" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                    <color key="textColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
@@ -3172,7 +3172,7 @@
                                 <rect key="frame" x="89" y="173" width="126" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="Create Stream">
-                                    <color key="titleColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -3183,7 +3183,7 @@
                                 <rect key="frame" x="92" y="252" width="120" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="Close Stream">
-                                    <color key="titleColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -3418,7 +3418,7 @@
                                         <rect key="frame" x="37" y="2" width="187" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="camera.png" id="YYh-K9-VcX">
@@ -3770,7 +3770,7 @@
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="lID-Qb-X45">
                                 <rect key="frame" x="0.0" y="227" width="320" height="360"/>
@@ -3984,7 +3984,7 @@
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4130,7 +4130,7 @@
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="SKV-YV-TWK" customClass="NVUIGradientButton">
                                 <rect key="frame" x="80" y="409" width="161" height="42"/>
@@ -4394,7 +4394,7 @@
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4500,7 +4500,7 @@
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6Ky-kP-fY4">
                                 <rect key="frame" x="7" y="99" width="60" height="60"/>
@@ -4657,13 +4657,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AcI-7f-4Nr"/>
-        <segue reference="6Bf-rA-mtD"/>
-        <segue reference="lCQ-nl-zf2"/>
-        <segue reference="oO3-8W-5jw"/>
-        <segue reference="HfN-Yx-vMe"/>
-        <segue reference="Ri0-dl-LlT"/>
         <segue reference="C7C-NV-eEl"/>
+        <segue reference="60R-Rf-IDS"/>
+        <segue reference="R2w-A0-Oa5"/>
+        <segue reference="mkv-K3-rkY"/>
+        <segue reference="woG-51-cWo"/>
+        <segue reference="lDG-qj-6WW"/>
         <segue reference="e0y-kO-3zF"/>
+        <segue reference="HfN-Yx-vMe"/>
     </inferredMetricsTieBreakers>
 </document>
