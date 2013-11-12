@@ -3259,9 +3259,10 @@
                                     <outlet property="delegate" destination="eVh-gd-LKE" id="lKv-6Y-m4v"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter an email and password to allow us to send you an email receipt of your transaction." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Kp9-8l-aCH" customClass="SteelfishLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Kp9-8l-aCH" customClass="SteelfishLabel">
                                 <rect key="frame" x="2" y="288" width="316" height="91"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <string key="text">Enter an email and password to allow us to send you an email receipt of your donation.                     If you choose to not enter an email address, your donation will be sent anonymously</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

@@ -516,16 +516,35 @@
                 if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
                     //errorMsg = @"Credit card not approved.";
                     editCardOption = YES;
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your credit card could not be authorized.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    return;
+                    
+                    
                 } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your credit card could not be authorized.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    return;
                     // TODO need explanation from Jim to put proper error msg
                     //errorMsg = @"Failed to validate credit card";
                     editCardOption = YES;
                 } else if (errorCode == FIELD_FORMAT_ERROR){
                     // errorMsg = @"Invalid Credit Card Field Format";
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your credit card could not be authorized.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    return;
                     editCardOption = YES;
                 }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
                     // TODO need explanation from Jim to put proper error msg
                     // errorMsg = @"Invalid credit/debit card number";
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card Number" message:@"The number you entered for this credit card is inavlid.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    return;
+                    
+                    
                     editCardOption = YES;
                 } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
                     // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
@@ -536,6 +555,12 @@
                     errorMsg = @"Invalid amount. Please re-enter payment and try again.";
                 } else if(errorCode == INVALID_EXPIRATION_DATE) {
                     //errorMsg = @"Invalid expiration date.";
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Expiration Date" message:@"The expiration date you entered for this credit card is inavlid.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    return;
+                    
+                    
                     editCardOption = YES;
                 }  else if (errorCode == UNKOWN_ISIS_ERROR){
                     //editCardOption = YES;
