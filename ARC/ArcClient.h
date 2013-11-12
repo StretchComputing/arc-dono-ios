@@ -36,6 +36,7 @@ extern int const NO_AUTHORIZATION_PROVIDED;
 extern int const NETWORK_ERROR_CONFIRM_PAYMENT;
 extern int const NETWORK_ERROR;
 extern int const PAYMENT_POSSIBLE_SUCCESS;
+extern int const INVALID_SECURITY_PIN;
 
 extern NSString *const ARC_ERROR_MSG;
 
