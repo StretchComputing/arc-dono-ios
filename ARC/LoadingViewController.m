@@ -38,7 +38,7 @@
     circularSpinner.hidesWhenStopped = NO;
     circularSpinner.radius = 10;
     circularSpinner.pathColor = [UIColor whiteColor];
-    circularSpinner.fillColor = [UIColor redColor];
+    circularSpinner.fillColor = [UIColor orangeColor];
     circularSpinner.thickness = 4;
     [circularSpinner startAnimating];
 

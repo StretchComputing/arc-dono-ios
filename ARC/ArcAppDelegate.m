@@ -162,7 +162,7 @@ BOOL isIos7;
     
     dutchGreenColor = [UIColor colorWithRed:5.0/255.0 green:168.0/255.0 blue:66.0/225.0 alpha:1];
     dutchOrangeColor = [UIColor colorWithRed:233.0/255.0 green:117.0/255.0 blue:8.0/255.0 alpha:1.0];
-    dutchRedColor = [UIColor colorWithRed:232.0/255.0 green:45.0/255.0 blue:7.0/255.0 alpha:1.0];
+    dutchRedColor = [UIColor colorWithRed:245.0/255.0 green:117.0/255.0 blue:22.0/255.0 alpha:1.0];
 
     dutchTopLineColor = [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0];
     dutchTopNavColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1.0];
