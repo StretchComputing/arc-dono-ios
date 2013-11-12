@@ -253,7 +253,7 @@
 - (void)viewDidLoad
 {
     @try {
-        [self setNeedsStatusBarAppearanceUpdate];
+     //   [self setNeedsStatusBarAppearanceUpdate];
 
     }
     @catch (NSException *exception) {

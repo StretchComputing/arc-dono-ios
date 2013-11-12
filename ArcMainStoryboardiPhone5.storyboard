@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="58r-7R-ELZ">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Initial Controller-->
@@ -20,19 +20,6 @@
                             <view contentMode="scaleToFill" id="PyN-Pp-sSf">
                                 <rect key="frame" x="15" y="420" width="291" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AUL-te-o6S" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="111" y="36" width="94" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="mTx-CH-MHG">
-                                        <rect key="frame" x="85" y="40" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -229,7 +216,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Help" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Op-vC-o9d" customClass="SteelfishBoldLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Help" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Op-vC-o9d" customClass="SteelfishLabel">
                                 <rect key="frame" x="73" y="26" width="170" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -630,28 +617,50 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" id="UdR-fK-Rhf">
+                                <rect key="frame" x="20" y="349" width="278" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="4 Digit PIN" textAlignment="center" minimumFontSize="12" id="i4B-eL-0Ft">
+                                        <rect key="frame" x="178" y="0.0" width="92" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" white="0.98163777372262773" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <action selector="pinBegan:" destination="ciO-yO-rPd" eventType="editingDidBegin" id="XXq-qq-xRU"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Card PIN:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="wyn-e0-Ts5" customClass="SteelfishLabel">
+                                        <rect key="frame" x="15" y="7" width="149" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menuHelpIcon.png" id="ndX-8L-hp5">
+                                        <rect key="frame" x="92" y="7" width="26" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="E6J-84-k4N">
+                                        <rect key="frame" x="0.0" y="-6" width="178" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showPinHelp" destination="ciO-yO-rPd" eventType="touchUpInside" id="9UV-ex-VRl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hI5-dD-VTS" customClass="SteelfishLabel">
                                 <rect key="frame" x="9" y="393" width="303" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="4 Digit PIN" textAlignment="center" minimumFontSize="12" id="i4B-eL-0Ft">
-                                <rect key="frame" x="186" y="349" width="112" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="0.98163777372262773" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
-                                <connections>
-                                    <action selector="pinBegan:" destination="ciO-yO-rPd" eventType="editingDidBegin" id="XXq-qq-xRU"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="*Your PIN is the number you created when saving this card." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dZX-9Q-Ol9" customClass="SteelfishLabel">
-                                <rect key="frame" x="0.0" y="380" width="320" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" id="gRq-1v-N2P">
@@ -802,21 +811,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Processing Fee" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="tF0-fz-gXW" customClass="SteelfishLabel">
-                                                    <rect key="frame" x="18" y="5" width="149" height="24"/>
+                                                    <rect key="frame" x="15" y="5" width="170" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="0.30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="dBF-4R-rZD" customClass="SteelfishLabel">
-                                                    <rect key="frame" x="163" y="5" width="107" height="24"/>
+                                                    <rect key="frame" x="193" y="5" width="77" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menuHelpIcon.png" id="mOD-Ap-Bgw">
-                                                    <rect key="frame" x="129" y="5" width="26" height="17"/>
+                                                    <rect key="frame" x="126" y="5" width="26" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -837,13 +846,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Card PIN:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="wyn-e0-Ts5" customClass="SteelfishLabel">
-                                <rect key="frame" x="29" y="356" width="149" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -851,6 +853,7 @@
                     <connections>
                         <outlet property="anonymousImageView" destination="HEK-bQ-dBW" id="YBL-px-CJW"/>
                         <outlet property="anonymousView" destination="c72-pu-X8K" id="kKa-aS-O8x"/>
+                        <outlet property="ccPinView" destination="UdR-fK-Rhf" id="gBW-7k-tmt"/>
                         <outlet property="confirmButton" destination="NO9-XR-JCS" id="hrE-5i-okV"/>
                         <outlet property="defaultImageView" destination="Vgs-Dx-fcD" id="rud-fr-vx4"/>
                         <outlet property="errorLabel" destination="hI5-dD-VTS" id="1tn-qu-cWK"/>
@@ -858,7 +861,6 @@
                         <outlet property="myTableView" destination="N17-zU-IFk" id="rsG-ad-Zcb"/>
                         <outlet property="myTotalLabel" destination="uaZ-yk-Jj6" id="Itq-6l-jSU"/>
                         <outlet property="paymentLabel" destination="w9d-4v-gwc" id="cvY-Cq-hXv"/>
-                        <outlet property="pinExplainText" destination="dZX-9Q-Ol9" id="qON-kz-Sx2"/>
                         <outlet property="pinPrompt" destination="wyn-e0-Ts5" id="9nf-u7-qQB"/>
                         <outlet property="topLineView" destination="gRq-1v-N2P" id="Idz-o6-Xq5"/>
                         <segue destination="eVh-gd-LKE" kind="push" identifier="saveInfo" id="Ri0-dl-LlT"/>
@@ -4657,13 +4659,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="e0y-kO-3zF"/>
+        <segue reference="woG-51-cWo"/>
+        <segue reference="R2w-A0-Oa5"/>
         <segue reference="C7C-NV-eEl"/>
         <segue reference="60R-Rf-IDS"/>
-        <segue reference="R2w-A0-Oa5"/>
         <segue reference="mkv-K3-rkY"/>
-        <segue reference="woG-51-cWo"/>
-        <segue reference="lDG-qj-6WW"/>
-        <segue reference="e0y-kO-3zF"/>
+        <segue reference="Ri0-dl-LlT"/>
         <segue reference="HfN-Yx-vMe"/>
     </inferredMetricsTieBreakers>
 </document>
