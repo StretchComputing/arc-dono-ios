@@ -566,7 +566,7 @@
     @try{        
         
         //[self.activity startAnimating];
-        self.loadingViewController.displayText.text = @"Sending Payment...";
+        self.loadingViewController.displayText.text = @"Sending Donation...";
         [self.loadingViewController startSpin];
         self.loadingTopView.hidden = NO;
         self.loadingTopView.alpha = 0.2;

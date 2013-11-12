@@ -588,7 +588,7 @@
     @try{        
         //[self.activity startAnimating];
         
-        self.loadingViewController.displayText.text = @"Sending Payment...";
+        self.loadingViewController.displayText.text = @"Sending Donation...";
         [self.loadingViewController startSpin];
 
          NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];

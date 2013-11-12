@@ -312,7 +312,7 @@
             
             
             //[self.activity startAnimating];
-            self.loadingViewController.displayText.text = @"Sending Payment...";
+            self.loadingViewController.displayText.text = @"Sending Donation...";
             [self.loadingViewController startSpin];
 
 
