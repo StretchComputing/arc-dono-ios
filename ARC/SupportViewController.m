@@ -102,11 +102,11 @@
             NSString *emailAddress = @"";
             
             if (![prefs valueForKey:@"arcPhoneNumber"]) {
-                [prefs setValue:@"630-215-6979" forKey:@"arcPhoneNumber"];
+                [prefs setValue:@"201-838-3410" forKey:@"arcPhoneNumber"];
             }
             
             if (![prefs valueForKey:@"arcMail"]) {
-                [prefs setValue:@"support@godutch.io" forKey:@"arcMail"];
+                [prefs setValue:@"support@arcmobile.co" forKey:@"arcMail"];
             }
             
             phoneNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"];

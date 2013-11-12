@@ -143,7 +143,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return 1;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -157,7 +157,7 @@
     NSURL *movieURL;
     
     if (indexPath.row == 0) {
-        movieURL = [NSURL URLWithString:@"http://dagher.net.co/videos/arcVidMain.mp4"];
+        movieURL = [NSURL URLWithString:@"http://dagher.net.co/videos/donoVidMain.mp4"];
     }else{
         movieURL = [NSURL URLWithString:@"http://dagher.net.co/videos/arcVidSplit.mp4"];
     }

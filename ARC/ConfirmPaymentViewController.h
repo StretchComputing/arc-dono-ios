@@ -52,6 +52,7 @@
 @property (strong, nonatomic) IBOutlet SteelfishLabel *pinExplainText;
 
 @property int incorrectPinCount;
+- (IBAction)showPinHelp;
 
 @property (nonatomic, strong) NSString *creditCardNumber;
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
@@ -60,6 +61,7 @@
 @property (nonatomic, strong) NSString *transactionNotes;
 @property int paymentPointsReceived;
 
+@property (strong, nonatomic) IBOutlet UIView *ccPinView;
 
 @property (nonatomic, strong) IBOutlet UILabel *errorLabel;
 @property (nonatomic, strong) IBOutlet UITextField *hiddenText;

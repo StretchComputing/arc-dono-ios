@@ -34,10 +34,12 @@
         self.hiddenText.hidden = YES;
         self.pinPrompt.hidden = YES;
         self.pinExplainText.hidden = YES;
+        self.ccPinView.hidden = YES;
     }else{
         self.pinPrompt.hidden = NO;
         self.hiddenText.hidden = NO;
         self.pinExplainText.hidden = NO;
+        self.ccPinView.hidden = NO;
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
 
@@ -64,13 +66,19 @@
 
     if (self.myMerchant.chargeFee) {
         
-        if (self.donationAmount <= self.myMerchant.convenienceFeeCap) {
+        if (self.donationAmount < self.myMerchant.convenienceFeeCap) {
             self.chargeFee = self.myMerchant.convenienceFee;
         }
     }
     
     [self.myTableView reloadData];
     self.isDefault = YES;
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"defaultChurchId"] length] > 0) {
+        //if there already is a default church, uncheck this one
+        [self defaultClicked];
+    }
+    
     self.isAnonymous = NO;
     
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"] length] > 0) {
@@ -100,7 +108,7 @@
     
     [self.hiddenText setInputAccessoryView:toolbar];
     
-    
+    self.hiddenText.delegate = self;
     [rSkybox addEventToSession:@"viewConfirmPaymentViewController"];
 
     self.incorrectPinCount = 0;
@@ -156,7 +164,7 @@
     self.hiddenText.keyboardType = UIKeyboardTypeNumberPad;
    // self.hiddenText.delegate = self;
     self.hiddenText.text = @"";
-    [self.view addSubview:self.hiddenText];
+   // [self.view addSubview:self.hiddenText];
 
 }
 
@@ -208,24 +216,16 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    /*
     NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
     
     @try {
         
-        
-        if (newLength == 0) {
-            //[self.hideKeyboardView removeFromSuperview];
-            //self.hideKeyboardView = nil;
-        }else{
-            //[self showDoneButton];
-        }
+      
         
         if (newLength > 4) {
             return FALSE;
         }else{
 
-     [self setValues:[self.hiddenText.text stringByReplacingCharactersInRange:range withString:string]];
             return TRUE;
             
         }
@@ -233,7 +233,6 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ConfirmPayment.testField" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-     */
 }
 
 
@@ -789,5 +788,10 @@
         frame.origin.y = -116;
         self.view.frame = frame;
     }];
+}
+- (IBAction)showPinHelp {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card PIN" message:@"Your card pin is the 4 digit number you entered when saving this card.  If you do not remember your PIN, please add a new form of payment." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
 }
 @end

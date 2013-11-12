@@ -127,7 +127,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
-       // self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getServer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -1085,8 +1085,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
     
-   // NSLog(@"Server Call: %d", api);
-   // NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
+    NSLog(@"Server Call: %d", api);
+    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
     
     
     NSString *eventString = [NSString stringWithFormat:@"didRecieveResponse - server call: %@, http status: %d", [self apiToString], self.httpStatusCode];
@@ -2600,7 +2600,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
                         [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowVersionWarning"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                        [mainDelegate showNewVersionAlert];
+                       // [mainDelegate showNewVersionAlert];
                     }
                     
                     
