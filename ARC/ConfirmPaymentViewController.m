@@ -567,6 +567,10 @@
                 }else if (errorCode == PAYMENT_POSSIBLE_SUCCESS){
                     errorMsg = @"error";
                     possibleError = YES;
+                }else if (errorCode == INVALID_SECURITY_PIN){
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Security PIN" message:@"The CCV you entered for this credit card is inavlid.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    return;
                 }
                 else {
                     errorMsg = ARC_ERROR_MSG;
