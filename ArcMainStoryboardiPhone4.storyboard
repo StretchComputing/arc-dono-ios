@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gSw-uq-OjM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gSw-uq-OjM">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
@@ -3945,7 +3945,7 @@
                                             <action selector="goBack" destination="OUb-N5-ivo" eventType="touchUpInside" id="WMH-sT-J25"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Multipe Payments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8hn-01-UkY" customClass="SteelfishLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Multipe Donations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8hn-01-UkY" customClass="SteelfishLabel">
                                         <rect key="frame" x="35" y="26" width="250" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -4552,13 +4552,13 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WTk-yE-Wk3"/>
-        <segue reference="o49-i2-ccV"/>
-        <segue reference="1YU-Ek-CUs"/>
         <segue reference="4b1-ab-nua"/>
-        <segue reference="UfQ-py-orq"/>
         <segue reference="cH4-tZ-2B7"/>
         <segue reference="ogG-SN-hLn"/>
+        <segue reference="1vp-tk-BDj"/>
+        <segue reference="jvi-8h-haW"/>
+        <segue reference="o49-i2-ccV"/>
         <segue reference="hTD-vI-iAs"/>
+        <segue reference="WTk-yE-Wk3"/>
     </inferredMetricsTieBreakers>
 </document>

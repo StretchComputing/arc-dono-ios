@@ -302,7 +302,7 @@
         if (ccNumber && ([ccNumber length] > 0)) {
 
             //[self.activity startAnimating];
-            self.loadingViewController.displayText.text = @"Sending Payment...";
+            self.loadingViewController.displayText.text = @"Sending Donation...";
             [self.loadingViewController startSpin];
          
             
