@@ -124,7 +124,7 @@
     
     
     
-    self.confirmButton.text = @"Confirm Payment";
+    self.confirmButton.text = @"Confirm Donation";
     self.confirmButton.textColor = [UIColor whiteColor];
     self.confirmButton.tintColor = dutchGreenColor;
     
@@ -534,7 +534,7 @@
                     // errorMsg = @"Invalid Credit Card Field Format";
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your credit card could not be authorized.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                     [alert show];
-                    return;
+                    return; 
                     editCardOption = YES;
                 }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
                     // TODO need explanation from Jim to put proper error msg
