@@ -81,7 +81,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 - (id)init {
     if (self = [super init]) {
         
-        self.retryTimes = @[@(2),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10),@(11), @(15), @(15)];
+        self.retryTimes = @[@(3),@(2),@(2),@(2),@(2),@(5),@(6),@(7),@(8),@(9),@(10),@(11), @(15), @(15)];
         self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(6)];
         self.retryTimesInvoice = @[@(2),@(2),@(2),@(3),@(4),@(5)];
 
