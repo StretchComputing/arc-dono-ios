@@ -25,37 +25,56 @@
 
 - (IBAction)moveRight {
     
-    if (self.currentIndex < [self.selectedDonations count] - 1) {
-        self.leftButton.hidden = NO;
-        self.currentIndex++;
-        if (self.currentIndex == [self.selectedDonations count] -1) {
-            self.rightButton.hidden = YES;
+    @try {
+        if (self.currentIndex < [self.selectedDonations count] - 1) {
+            self.leftButton.hidden = NO;
+            self.currentIndex++;
+            if (self.currentIndex == [self.selectedDonations count] -1) {
+                self.rightButton.hidden = YES;
+            }
+            
+            [UIView animateWithDuration:0.8 animations:^(void){
+                [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:NO];
+                
+            }];
+            
         }
-        
-        [UIView animateWithDuration:0.8 animations:^(void){
-            [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:NO];
-
-        }];
-        
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.moveRight" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+  
+   
 }
 
 - (IBAction)moveLeft {
     
-    if (self.currentIndex > 0) {
     
-        self.rightButton.hidden = NO;
-        self.currentIndex--;
-        
-        if (self.currentIndex == 0) {
-            self.leftButton.hidden = YES;
-        }
-        
-        [UIView animateWithDuration:0.7 animations:^(void){
-            [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:NO];
+    @try {
+        if (self.currentIndex > 0) {
             
-        }];
+            self.rightButton.hidden = NO;
+            self.currentIndex--;
+            
+            if (self.currentIndex == 0) {
+                self.leftButton.hidden = YES;
+            }
+            
+            [UIView animateWithDuration:0.7 animations:^(void){
+                [self.middleView setContentOffset:CGPointMake(self.currentIndex * 320, 0) animated:NO];
+                
+            }];
+        }
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.moveLeft" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
+    
+ 
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -64,54 +83,63 @@
 
 - (void)viewDidLoad
 {
-    self.leftButton.hidden = YES;
     
-    self.typeLabel.text = self.myMerchant.name;
-
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    self.multiDonationViews = [NSMutableArray array];
-    
-    for (int i = 0; i < [self.selectedDonations count]; i++) {
+    @try {
+        self.leftButton.hidden = YES;
         
-        NSDictionary *selected = [self.selectedDonations objectAtIndex:i];
+        self.typeLabel.text = self.myMerchant.name;
         
-        NSLog(@"Selected: %@", selected);
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
         
-        MultiDonationView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"multiDonationView"];
-        tmp.view.frame = CGRectMake(i*320, 0, 320, 133);
-        tmp.titleLabel.text = [selected valueForKey:@"Description"];
-        tmp.parentVc = self;
-        tmp.myMerchant = self.myMerchant;
-        [tmp setQuickPays];
-        [self.multiDonationViews addObject:tmp];
-    }
-    
-    
-    for (int i = 0; i < [self.multiDonationViews count]; i++) {
+        self.multiDonationViews = [NSMutableArray array];
         
-        MultiDonationView *tmp = [self.multiDonationViews objectAtIndex:i];
-        [self.middleView addSubview:tmp.view];
+        for (int i = 0; i < [self.selectedDonations count]; i++) {
+            
+            NSDictionary *selected = [self.selectedDonations objectAtIndex:i];
+            
+            NSLog(@"Selected: %@", selected);
+            
+            MultiDonationView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"multiDonationView"];
+            tmp.view.frame = CGRectMake(i*320, 0, 320, 133);
+            tmp.titleLabel.text = [selected valueForKey:@"Description"];
+            tmp.parentVc = self;
+            tmp.myMerchant = self.myMerchant;
+            [tmp setQuickPays];
+            [self.multiDonationViews addObject:tmp];
+        }
         
-        self.middleView.contentSize = CGSizeMake(320 * i + 160 + 250, 133);
-    }
-    
-    self.middleView.scrollEnabled = NO;
-    
-    self.payButton.textColor = [UIColor whiteColor];
-    self.payButton.tintColor = dutchGreenColor;
-    self.payButton.text = @"Donate";
-    
-    self.amountText.text = @"My Total: $0.00";
-
-    
-      if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowMultipleOverlay"] length] == 0) {
-         [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowMultipleOverlay"];
-         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        for (int i = 0; i < [self.multiDonationViews count]; i++) {
+            
+            MultiDonationView *tmp = [self.multiDonationViews objectAtIndex:i];
+            [self.middleView addSubview:tmp.view];
+            
+            self.middleView.contentSize = CGSizeMake(320 * i + 160 + 250, 133);
+        }
+        
+        self.middleView.scrollEnabled = NO;
+        
+        self.payButton.textColor = [UIColor whiteColor];
+        self.payButton.tintColor = dutchGreenColor;
+        self.payButton.text = @"Donate";
+        
+        self.amountText.text = @"My Total: $0.00";
+        
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowMultipleOverlay"] length] == 0) {
+            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowMultipleOverlay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
             self.helpOverlayView.hidden = NO;
-     }
+        }
+
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+  
     
 }
 
@@ -133,69 +161,78 @@
 
 - (IBAction)payAction {
     
-    
-    double amount = [[self.amountText.text stringByReplacingOccurrencesOfString:@"My Total: $" withString:@""] doubleValue];
-
-    
-    if (amount == 0.0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"Your total donation amount must be greater than 0." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
-    
-    if ([self.creditCards count] > 0) {
-        //Have at least 1 card, present UIActionSheet
+    @try {
+        double amount = [[self.amountText.text stringByReplacingOccurrencesOfString:@"My Total: $" withString:@""] doubleValue];
         
-        if ([self.creditCards count] == -1) {
-            
-            self.selectedCard = [self.creditCards objectAtIndex:0];
-            [self performSegueWithIdentifier:@"payCard" sender:self];
+        
+        if (amount == 0.0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"Your total donation amount must be greater than 0." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
             return;
+        }
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+        
+        if ([self.creditCards count] > 0) {
+            //Have at least 1 card, present UIActionSheet
             
-        }else{
-            
-            self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-            
-            int x = 0;
-            if (self.haveDwolla) {
-                x++;
-                [self.actionSheet addButtonWithTitle:@"Dwolla"];
-            }
-            
-            for (int i = 0; i < [self.creditCards count]; i++) {
-                CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+            if ([self.creditCards count] == -1) {
                 
-                if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                self.selectedCard = [self.creditCards objectAtIndex:0];
+                [self performSegueWithIdentifier:@"payCard" sender:self];
+                return;
+                
+            }else{
+                
+                self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                
+                int x = 0;
+                if (self.haveDwolla) {
+                    x++;
+                    [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                }
+                
+                for (int i = 0; i < [self.creditCards count]; i++) {
+                    CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
                     
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                    if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                        
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                        
+                    }else{
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                        
+                    }
                     
-                }else{
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                    
+                    
                     
                 }
                 
-                
-                
-                
+                [self.actionSheet addButtonWithTitle:@"+ New Card"];
+                [self.actionSheet addButtonWithTitle:@"Cancel"];
+                self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
             }
             
-            [self.actionSheet addButtonWithTitle:@"+ New Card"];
-            [self.actionSheet addButtonWithTitle:@"Cancel"];
-            self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+            
+            [self.actionSheet showInView:self.view];
+            
+            
+            
+        }else{
+            //No cards, go to Add Card Screen
+            [self performSegueWithIdentifier:@"addCard" sender:self];
         }
-        
-        
-        [self.actionSheet showInView:self.view];
-        
-        
-        
-    }else{
-        //No cards, go to Add Card Screen
-        [self performSegueWithIdentifier:@"addCard" sender:self];
+
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.payAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+  
+    
+  
 }
 
 
@@ -346,19 +383,28 @@
 
 -(void)calculateTotal{
     
-    double total = 0.0;
-    for (int i = 0; i < [self.multiDonationViews count]; i++) {
-     
-        MultiDonationView *tmp = [self.multiDonationViews objectAtIndex:i];
+    
+    @try {
+        double total = 0.0;
+        for (int i = 0; i < [self.multiDonationViews count]; i++) {
+            
+            MultiDonationView *tmp = [self.multiDonationViews objectAtIndex:i];
+            
+            total += [tmp.amountText.text doubleValue];
+        }
         
-        total += [tmp.amountText.text doubleValue];
+        self.amountText.text = [NSString stringWithFormat:@"My Total: $%.2f", total];
+        
+        NSLog(@"Amoutn Text: %@", self.amountText.text);
+        
+        [self moveRight];
     }
-    
-    self.amountText.text = [NSString stringWithFormat:@"My Total: $%.2f", total];
-    
-    NSLog(@"Amoutn Text: %@", self.amountText.text);
-    
-    [self moveRight];
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.calculateTotal" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
+
 }
 
 @end

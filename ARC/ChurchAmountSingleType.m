@@ -41,73 +41,82 @@
 
 - (void)viewDidLoad
 {
-    self.view.clipsToBounds = YES;
-    self.amountSlider.value = 0.0;
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
-    self.merchantNameText.text = [NSString stringWithFormat:@"to %@", self.myMerchant.name];
+    @try {
+        self.view.clipsToBounds = YES;
+        self.amountSlider.value = 0.0;
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+        
+        self.merchantNameText.text = [NSString stringWithFormat:@"to %@", self.myMerchant.name];
+        
+        NSString *toward = [self.donationType valueForKey:@"Description"];
+        
+        if (!toward) {
+            toward = @"General Donation";
+        }
+        self.typeLabel.text = [NSString stringWithFormat:@"toward %@", toward];
+        
+        self.amountText.text = @"0.00";
+        
+        self.quickButtonOne.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayOne];
+        self.quickButtonTwo.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayTwo];
+        self.quickButtonThree.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayThree];
+        self.quickButtonFour.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayFour];
+        self.payButton.text = @"Donate Now!";
+        
+        // self.quickButtonOne.textColor = [UIColor whiteColor];
+        self.quickButtonOne.tintColor = dutchDarkBlueColor;
+        
+        // self.quickButtonTwo.textColor = [UIColor whiteColor];
+        self.quickButtonTwo.tintColor = dutchDarkBlueColor;
+        
+        // self.quickButtonThree.textColor = [UIColor whiteColor];
+        self.quickButtonThree.tintColor = dutchDarkBlueColor;
+        
+        //  self.quickButtonFour.textColor = [UIColor whiteColor];
+        self.quickButtonFour.tintColor = dutchDarkBlueColor;
+        
+        //  self.payButton.textColor = [UIColor whiteColor];
+        self.payButton.tintColor = dutchGreenColor;
+        
+        
+        
+        UIToolbar *toolbar = [[UIToolbar alloc] init];
+        [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+        [toolbar sizeToFit];
+        
+        UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+        UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
+        
+        if (isIos7) {
+            doneButton.tintColor = [UIColor whiteColor];
+        }
+        
+        
+        
+        NSArray *itemsArray = [NSArray arrayWithObjects:flexButton, doneButton, nil];
+        
+        
+        [toolbar setItems:itemsArray];
+        
+        [self.amountText setInputAccessoryView:toolbar];
+        
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowSingleOverlay"] length] == 0) {
+            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowSingleOverlay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
+            self.helpOverlayView.hidden = NO;
+        }
 
-    NSString *toward = [self.donationType valueForKey:@"Description"];
-    
-    if (!toward) {
-        toward = @"General Donation";
     }
-    self.typeLabel.text = [NSString stringWithFormat:@"toward %@", toward];
-    
-    self.amountText.text = @"0.00";
-    
-    self.quickButtonOne.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayOne];
-    self.quickButtonTwo.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayTwo];
-    self.quickButtonThree.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayThree];
-    self.quickButtonFour.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayFour];
-    self.payButton.text = @"Donate Now!";
-    
-   // self.quickButtonOne.textColor = [UIColor whiteColor];
-    self.quickButtonOne.tintColor = dutchDarkBlueColor;
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchAmountSingleType.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
 
-   // self.quickButtonTwo.textColor = [UIColor whiteColor];
-    self.quickButtonTwo.tintColor = dutchDarkBlueColor;
-    
-   // self.quickButtonThree.textColor = [UIColor whiteColor];
-    self.quickButtonThree.tintColor = dutchDarkBlueColor;
-    
-  //  self.quickButtonFour.textColor = [UIColor whiteColor];
-    self.quickButtonFour.tintColor = dutchDarkBlueColor;
-    
-  //  self.payButton.textColor = [UIColor whiteColor];
-    self.payButton.tintColor = dutchGreenColor;
-    
-    
-    
-    UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
-    [toolbar sizeToFit];
-    
-    UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
-    
-    if (isIos7) {
-        doneButton.tintColor = [UIColor whiteColor];
     }
-    
-    
-
-    NSArray *itemsArray = [NSArray arrayWithObjects:flexButton, doneButton, nil];
-    
-    
-    [toolbar setItems:itemsArray];
-    
-    [self.amountText setInputAccessoryView:toolbar];
-    
-
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowSingleOverlay"] length] == 0) {
-        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowSingleOverlay"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-         NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
-        self.helpOverlayView.hidden = NO;
-    }
-
+   
+   
 }
 
 -(void)doneHelp{
@@ -119,14 +128,20 @@
 }
 
 -(void)resignKeyboard{
+    @try {
+        double amountDouble = [self.amountText.text doubleValue];
+        
+        self.amountText.text = [NSString stringWithFormat:@"%.2f", amountDouble];
+        
+        self.amountSlider.value = amountDouble / 100.0;
+        [self.amountText resignFirstResponder];
+    }
     
-    
-    double amountDouble = [self.amountText.text doubleValue];
-    
-    self.amountText.text = [NSString stringWithFormat:@"%.2f", amountDouble];
-    
-    self.amountSlider.value = amountDouble / 100.0;
-    [self.amountText resignFirstResponder];
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchAmountSingleType.resignKeyboard" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+   
 }
 
 
@@ -363,15 +378,27 @@
 
 - (IBAction)sliderChanged {
     
-    double value = self.amountSlider.value;
     
-    double amount = value * 100.0 * 100.0;
+    @try {
+        
+        double value = self.amountSlider.value;
+        
+        double amount = value * 100.0 * 100.0;
+        
+        amount = 500 * floor((amount/500));
+        
+        amount = amount/100.0;
+        
+        self.amountText.text = [NSString stringWithFormat:@"%.2f", amount];
+    }
     
-    amount = 500 * floor((amount/500));
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchAmountSingleType.sliderChanged" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
     
-    amount = amount/100.0;
     
-    self.amountText.text = [NSString stringWithFormat:@"%.2f", amount];
+ 
     
     
 }

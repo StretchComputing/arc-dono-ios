@@ -32,65 +32,96 @@
 }
 - (void)viewDidLoad
 {
+    @try{
+        UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+        tmpView.backgroundColor = [UIColor lightGrayColor];
+        
+        self.myTableView.tableFooterView = tmpView;
+        
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+        
+        self.merchantNameText.text = self.myMerchant.name;
+        
+        self.selectedRows = [NSMutableArray array];
+        [self.myTableView reloadData];
+        
+        self.nextButton.text = @"Continue";
+        self.nextButton.tintColor = dutchRedColor;
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchDonationTypeSelector.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
     
-    UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
-    tmpView.backgroundColor = [UIColor lightGrayColor];
     
-    self.myTableView.tableFooterView = tmpView;
     
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    self.merchantNameText.text = self.myMerchant.name;
-    
-    self.selectedRows = [NSMutableArray array];
-    [self.myTableView reloadData];
-    
-    self.nextButton.text = @"Continue";
-    self.nextButton.tintColor = dutchRedColor;
+
 }
 
 
 -(void)next{
     
-    if ([self.selectedRows count] > 0) {
-        
-        
-        if ([self.selectedRows count] == 1) {
+    @try{
+        if ([self.selectedRows count] > 0) {
             
-            [self performSegueWithIdentifier:@"single" sender:self];
+            
+            if ([self.selectedRows count] == 1) {
+                
+                [self performSegueWithIdentifier:@"single" sender:self];
+            }else{
+                [self performSegueWithIdentifier:@"multiple" sender:self];
+            }
         }else{
-            [self performSegueWithIdentifier:@"multiple" sender:self];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Select A Donation." message:@"You must select a donation area to continue.  If you wish to make a general donation, please select 'General'." delegate:self cancelButtonTitle:@"General" otherButtonTitles:@"Ok", nil];
+            [alert show];
         }
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Select A Donation." message:@"You must select a donation area to continue.  If you wish to make a general donation, please select 'General'." delegate:self cancelButtonTitle:@"General" otherButtonTitles:@"Ok", nil];
-        [alert show];
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchDonationTypeSelector.next" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
+
     
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    if (buttonIndex == 0) {
-       
-        NSLog(@"General Donation");
+    
+    
+    
+    @try{
         
-        NSString *rowString = [NSString stringWithFormat:@"%d", 0];
-        
-        
-        if ([self.selectedRows indexOfObject:rowString] == NSNotFound) {
-            [self.selectedRows addObject:rowString];
-        }else{
-            [self.selectedRows removeObjectAtIndex:[self.selectedRows indexOfObject:rowString]];
+        if (buttonIndex == 0) {
+            
+            NSLog(@"General Donation");
+            
+            NSString *rowString = [NSString stringWithFormat:@"%d", 0];
+            
+            
+            if ([self.selectedRows indexOfObject:rowString] == NSNotFound) {
+                [self.selectedRows addObject:rowString];
+            }else{
+                [self.selectedRows removeObjectAtIndex:[self.selectedRows indexOfObject:rowString]];
+                
+            }
+            
+            [self.myTableView reloadData];
+            
+            [self next];
+            
             
         }
-        
-        [self.myTableView reloadData];
-        
-        [self next];
-        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ChurchDonationTypeSelector.clickedButtonAtIndex" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
         
     }
+    
+    
+ 
     
 }
 
@@ -157,24 +188,30 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-
-    if (indexPath.row == -1) {
-        //Go to next screen
-        [self performSegueWithIdentifier:@"single" sender:self];
-    }else{
-        
-        NSString *rowString = [NSString stringWithFormat:@"%d", indexPath.row];
-        
-        
-        if ([self.selectedRows indexOfObject:rowString] == NSNotFound) {
-            [self.selectedRows addObject:rowString];
+    @try{
+        if (indexPath.row == -1) {
+            //Go to next screen
+            [self performSegueWithIdentifier:@"single" sender:self];
         }else{
-            [self.selectedRows removeObjectAtIndex:[self.selectedRows indexOfObject:rowString]];
             
+            NSString *rowString = [NSString stringWithFormat:@"%d", indexPath.row];
+            
+            
+            if ([self.selectedRows indexOfObject:rowString] == NSNotFound) {
+                [self.selectedRows addObject:rowString];
+            }else{
+                [self.selectedRows removeObjectAtIndex:[self.selectedRows indexOfObject:rowString]];
+                
+            }
+            
+            [self.myTableView reloadData];
         }
-        
-        [self.myTableView reloadData];
     }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ChurchDonationTypeSelector.didSelectRowAtIndexPath" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+
+
     
 }
 

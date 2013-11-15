@@ -40,71 +40,78 @@
 }
 - (void)viewDidLoad
 {
-    self.donationHistoryButton.text = @"View Donation History";
-    self.donationHistoryButton.tintColor = dutchRedColor;
-    
-    self.viewAllLocationsButton.text = @"View Other Locations";
-    self.viewAllLocationsButton.tintColor = dutchRedColor;
-    
-    
-    self.makeDonationButton.text = @"Make Donation";
-    self.makeDonationButton.tintColor = dutchGreenColor;
-    
-    self.donationType = [self.myMerchant.donationTypes objectAtIndex:0];
-    self.quickButtonOne.text = @"$10";
-    self.quickButtonTwo.text = @"$25";
-    self.quickButtonThree.text = @"$50";
-    self.quickButtonFour.text = @"$75";
-
-    self.quickButtonOne.tintColor = dutchDarkBlueColor;
-    self.quickButtonTwo.tintColor = dutchDarkBlueColor;
-    self.quickButtonThree.tintColor = dutchDarkBlueColor;
-    self.quickButtonFour.tintColor = dutchDarkBlueColor;
-
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    
-    self.merchantName.text = self.myMerchant.name;
-    
-    ArcClient *tmp = [[ArcClient alloc] init];
-    NSString *serverUrl = [tmp getCurrentUrl];
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]]) {
+    @try {
+        self.donationHistoryButton.text = @"View Donation History";
+        self.donationHistoryButton.tintColor = dutchRedColor;
         
-        NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]];
-        
-        self.merchantImage.image = [UIImage imageWithData:imageData];
-        
-    }else{
+        self.viewAllLocationsButton.text = @"View Other Locations";
+        self.viewAllLocationsButton.tintColor = dutchRedColor;
         
         
-        NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, self.myMerchant.merchantId];
-        logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
+        self.makeDonationButton.text = @"Make Donation";
+        self.makeDonationButton.tintColor = dutchGreenColor;
         
-        dispatch_async(dispatch_get_global_queue(0,0), ^{
+        self.donationType = [self.myMerchant.donationTypes objectAtIndex:0];
+        self.quickButtonOne.text = @"$10";
+        self.quickButtonTwo.text = @"$25";
+        self.quickButtonThree.text = @"$50";
+        self.quickButtonFour.text = @"$75";
+        
+        self.quickButtonOne.tintColor = dutchDarkBlueColor;
+        self.quickButtonTwo.tintColor = dutchDarkBlueColor;
+        self.quickButtonThree.tintColor = dutchDarkBlueColor;
+        self.quickButtonFour.tintColor = dutchDarkBlueColor;
+        
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+        
+        
+        self.merchantName.text = self.myMerchant.name;
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        NSString *serverUrl = [tmp getCurrentUrl];
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]]) {
             
-            NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
+            NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]];
             
-            if ( data == nil ){
-                return;
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
+            self.merchantImage.image = [UIImage imageWithData:imageData];
+            
+        }else{
+            
+            
+            NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, self.myMerchant.merchantId];
+            logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
+            
+            dispatch_async(dispatch_get_global_queue(0,0), ^{
                 
-                UIImage *logoImage = [UIImage imageWithData:data];
+                NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
                 
-                if (logoImage) {
-                    self.merchantImage.image = logoImage;
-                    
-                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                    [mainDelegate.imageDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]];
+                if ( data == nil ){
+                    return;
                 }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    UIImage *logoImage = [UIImage imageWithData:data];
+                    
+                    if (logoImage) {
+                        self.merchantImage.image = logoImage;
+                        
+                        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                        [mainDelegate.imageDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]];
+                    }
+                });
             });
-        });
-        
+            
+        }
+
     }
-    
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
     
 }
 
@@ -114,21 +121,30 @@
 
 - (IBAction)makeDonation:(id)sender {
     
-    if ([self.myMerchant.donationTypes count] > 1) {
-        
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"skipDonationOptions"] length] > 0) {
-            [self performSegueWithIdentifier:@"single" sender:self];
+    
+    @try {
+        if ([self.myMerchant.donationTypes count] > 1) {
+            
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"skipDonationOptions"] length] > 0) {
+                [self performSegueWithIdentifier:@"single" sender:self];
+                
+            }else{
+                [self performSegueWithIdentifier:@"multiple" sender:self];
+                
+            }
             
         }else{
-            [self performSegueWithIdentifier:@"multiple" sender:self];
+            
+            [self performSegueWithIdentifier:@"single" sender:self];
             
         }
-        
-    }else{
-        
-        [self performSegueWithIdentifier:@"single" sender:self];
-        
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.makeDonation" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+
+
 }
 
 
@@ -254,7 +270,7 @@
         
     }
     @catch (NSException *exception) {
-        [rSkybox sendClientLog:@"ViewCreditCards.clickedButtonAtIndex" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        [rSkybox sendClientLog:@"DefaultChurchView.clickedButtonAtIndex" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
     
 }
@@ -263,64 +279,74 @@
 
 - (IBAction)payAction {
     
-    //double amountDouble = [self.amount doubleValue];
     
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
-    
-    if ([self.creditCards count] > 0) {
-        //Have at least 1 card, present UIActionSheet
+    @try {
+        //double amountDouble = [self.amount doubleValue];
         
-        if ([self.creditCards count] == -1) {
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+        
+        if ([self.creditCards count] > 0) {
+            //Have at least 1 card, present UIActionSheet
             
-            self.selectedCard = [self.creditCards objectAtIndex:0];
-            
-            
-            [self performSegueWithIdentifier:@"payCard" sender:self];
-            return;
-            
-        }else{
-            
-            self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-            
-            int x = 0;
-            if (self.haveDwolla) {
-                x++;
-                [self.actionSheet addButtonWithTitle:@"Dwolla"];
-            }
-            
-            for (int i = 0; i < [self.creditCards count]; i++) {
-                CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+            if ([self.creditCards count] == -1) {
                 
-                if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                self.selectedCard = [self.creditCards objectAtIndex:0];
+                
+                
+                [self performSegueWithIdentifier:@"payCard" sender:self];
+                return;
+                
+            }else{
+                
+                self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                
+                int x = 0;
+                if (self.haveDwolla) {
+                    x++;
+                    [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                }
+                
+                for (int i = 0; i < [self.creditCards count]; i++) {
+                    CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
                     
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                    if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                        
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                        
+                    }else{
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                        
+                    }
                     
-                }else{
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                    
+                    
                     
                 }
                 
-                
-                
-                
+                [self.actionSheet addButtonWithTitle:@"+ New Card"];
+                [self.actionSheet addButtonWithTitle:@"Cancel"];
+                self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
             }
             
-            [self.actionSheet addButtonWithTitle:@"+ New Card"];
-            [self.actionSheet addButtonWithTitle:@"Cancel"];
-            self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+            
+            [self.actionSheet showInView:self.view];
+            
+            
+            
+        }else{
+            //No cards, go to Add Card Screen
+            [self performSegueWithIdentifier:@"addCard" sender:self];
         }
-        
-        
-        [self.actionSheet showInView:self.view];
-        
-        
-        
-    }else{
-        //No cards, go to Add Card Screen
-        [self performSegueWithIdentifier:@"addCard" sender:self];
+
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.payAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+  
+    
 }
 
 
