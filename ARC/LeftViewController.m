@@ -16,6 +16,7 @@
 #import "ChurchAmountSingleType.h"
 #import "ChurchDontationTypeSelector.h"
 #import "DefaultChurchView.h"
+#import "ILTranslucentView.h"
 
 @interface LeftViewController ()
 
@@ -45,7 +46,42 @@
    
 }
 
+-(void)downPressed:(UIButton *)button{
+    
+    
+    [self resetButtonFont];
+    [button.titleLabel setFont:[UIFont fontWithName:FONT_BOLD size:21]];
+
+    
+}
 -(void)viewDidLoad{
+    
+    [self.homeButton addTarget:self action:@selector(downPressed:) forControlEvents:UIControlEventTouchDown];
+    [self.profileButton addTarget:self action:@selector(downPressed:) forControlEvents:UIControlEventTouchDown];
+    [self.paymentButton addTarget:self action:@selector(downPressed:) forControlEvents:UIControlEventTouchDown];
+    [self.settingsButton addTarget:self action:@selector(downPressed:) forControlEvents:UIControlEventTouchDown];
+    [self.allLocationsButton addTarget:self action:@selector(downPressed:) forControlEvents:UIControlEventTouchDown];
+
+    ILTranslucentView *translucentView = [[ILTranslucentView alloc] initWithFrame:CGRectMake(0, -30, 320, 650)];
+    translucentView.translucentStyle = UIBarStyleBlack;
+    translucentView.translucentTintColor = [UIColor clearColor];
+    
+    if (isIos7) {
+        translucentView.translucentAlpha = 1.0;
+        translucentView.backgroundColor = [UIColor clearColor];
+
+    }else{
+        translucentView.translucentAlpha = 9.0;
+        translucentView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+        for (UIView *view in [self.orangeView subviews]) {
+            [view removeFromSuperview];
+        }
+
+    }
+    
+    
+    [self.view insertSubview:translucentView aboveSubview:self.orangeView];
+    
     
     self.versionLabel.text = [NSString stringWithFormat:@"version %@", ARC_VERSION_NUMBER];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBeginOpen:) name:@"LeftMenuDidBeginOpen" object:nil];
@@ -62,6 +98,8 @@
 
 -(IBAction)homeSelected{
     
+    [self resetButtonFont];
+    [self.homeButton.titleLabel setFont:[UIFont fontWithName:FONT_BOLD size:21]];
     
     if ([self.sideMenu.navigationController.viewControllers count] == 1) {
         //Home is only one on the stack
@@ -123,6 +161,9 @@
     }
 }
 -(IBAction)profileSelected{
+    [self resetButtonFont];
+
+    [self.profileButton.titleLabel setFont:[UIFont fontWithName:FONT_BOLD size:21]];
     
     [self goToScreenWithIdentifier:@"profile"];
 
@@ -130,6 +171,10 @@
     
 }
 -(IBAction)billingSelected{
+    [self resetButtonFont];
+
+    [self.paymentButton.titleLabel setFont:[UIFont fontWithName:FONT_BOLD size:21]];
+    
     
     [self goToScreenWithIdentifier:@"allCards"];
 
@@ -138,8 +183,9 @@
     
 }
 -(IBAction)supportSelected{
-    
+    [self resetButtonFont];
 
+    [self.settingsButton.titleLabel setFont:[UIFont fontWithName:FONT_BOLD size:21]];
     
     [self goToScreenWithIdentifier:@"supportVC"];
 
@@ -168,6 +214,9 @@
 }
 
 - (IBAction)newChurchAction {
+    [self resetButtonFont];
+
+    [self.allLocationsButton.titleLabel setFont:[UIFont fontWithName:FONT_BOLD size:21]];
     
     [self.sideMenu.navigationController popViewControllerAnimated:YES];
     if (self.sideMenu.menuState == MFSideMenuStateLeftMenuOpen) {
@@ -177,6 +226,16 @@
     
    // [[NSNotificationCenter defaultCenter] postNotificationName:@"turnOffDefault" object:self userInfo:@{}];
 
+
+}
+
+-(void)resetButtonFont{
+    
+    [self.homeButton.titleLabel setFont:[UIFont fontWithName:FONT_REGULAR size:21]];
+    [self.profileButton.titleLabel setFont:[UIFont fontWithName:FONT_REGULAR size:21]];
+    [self.paymentButton.titleLabel setFont:[UIFont fontWithName:FONT_REGULAR size:21]];
+    [self.settingsButton.titleLabel setFont:[UIFont fontWithName:FONT_REGULAR size:21]];
+    [self.allLocationsButton.titleLabel setFont:[UIFont fontWithName:FONT_REGULAR size:21]];
 
 }
 - (IBAction)learnDwolla {

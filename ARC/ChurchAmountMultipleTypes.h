@@ -38,4 +38,11 @@
 @property (nonatomic, strong) IBOutlet SteelfishBoldLabel *amountText;
 
 -(void)calculateTotal;
+
+
+@property (nonatomic, strong) IBOutlet UIView *helpOverlayView;
+-(IBAction)closeHelpOverlay;
+
+
+
 @end

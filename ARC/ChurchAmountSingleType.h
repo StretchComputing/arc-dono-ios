@@ -18,6 +18,11 @@
 @interface ChurchAmountSingleType : UIViewController <UIActionSheetDelegate>
 - (IBAction)goBack;
 
+- (IBAction)textEditDidBegin;
+
+
+@property (nonatomic, strong) IBOutlet UIView *helpOverlayView;
+-(IBAction)closeHelpOverlay;
 
 @property (nonatomic, strong) IBOutlet SteelfishBoldLabel *merchantNameText;
 @property IBOutlet UIButton *goBackButton;

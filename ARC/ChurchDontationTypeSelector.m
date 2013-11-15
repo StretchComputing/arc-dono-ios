@@ -75,6 +75,21 @@
        
         NSLog(@"General Donation");
         
+        NSString *rowString = [NSString stringWithFormat:@"%d", 0];
+        
+        
+        if ([self.selectedRows indexOfObject:rowString] == NSNotFound) {
+            [self.selectedRows addObject:rowString];
+        }else{
+            [self.selectedRows removeObjectAtIndex:[self.selectedRows indexOfObject:rowString]];
+            
+        }
+        
+        [self.myTableView reloadData];
+        
+        [self next];
+        
+        
     }
     
 }
