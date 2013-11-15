@@ -16,7 +16,7 @@
 
 @property BOOL acceptTerms, chargeFee;
 
-@property double latitude, longitude, convenienceFee, convenienceFeeCap;
+@property double latitude, longitude, convenienceFee, convenienceFeeCap, quickPayOne, quickPayTwo, quickPayThree, quickPayFour;
 
 @property (nonatomic, strong) NSMutableArray *donationTypes;
 

@@ -16,9 +16,49 @@
 @implementation MultiDonationView
 
 
+-(void)setQuickPays{
+    
+    if (self.myMerchant.quickPayFour <= 100) {
+        self.quickDoubleOne = 5.0;
+        self.quickDoubleTwo = 10.0;
+        self.quickDoubleThree = 15.0;
+        self.quickDoubleFour = 25.0;
+        
+    }else if (self.myMerchant.quickPayFour <= 200){
+        self.quickDoubleOne = 10.0;
+        self.quickDoubleTwo = 25.0;
+        self.quickDoubleThree = 50.0;
+        self.quickDoubleFour = 75.0;
+    }else{
+        self.quickDoubleOne = 25.0;
+        self.quickDoubleTwo = 50.0;
+        self.quickDoubleThree = 75.0;
+        self.quickDoubleFour = 100.0;
+    }
+    
+    self.quickDonateButtonOne.text = [NSString stringWithFormat:@"$%.0f", self.quickDoubleOne];
+    self.quickDonateButtonOne.textColor = [UIColor whiteColor];
+    self.quickDonateButtonOne.tintColor = dutchDarkBlueColor;
+    
+    self.quickDonateButtonTwo.text = [NSString stringWithFormat:@"$%.0f", self.quickDoubleTwo];
+    self.quickDonateButtonTwo.textColor = [UIColor whiteColor];
+    self.quickDonateButtonTwo.tintColor = dutchDarkBlueColor;
+    
+    self.quickDonateButtonThree.text = [NSString stringWithFormat:@"$%.0f", self.quickDoubleThree];
+    self.quickDonateButtonThree.textColor = [UIColor whiteColor];
+    self.quickDonateButtonThree.tintColor = dutchDarkBlueColor;
+    
+    self.quickDonateButtonFour.text = [NSString stringWithFormat:@"$%.0f", self.quickDoubleFour];
+    self.quickDonateButtonFour.textColor = [UIColor whiteColor];
+    self.quickDonateButtonFour.tintColor = dutchDarkBlueColor;
+    
+    
+}
 - (void)viewDidLoad
 {
 
+    
+   
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
@@ -26,21 +66,7 @@
     self.mainView.layer.borderColor = [[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0] CGColor];
     self.mainView.layer.borderWidth = 1.0;
     
-    self.quickDonateButtonOne.text = @"$5";
-    self.quickDonateButtonOne.textColor = [UIColor whiteColor];
-    self.quickDonateButtonOne.tintColor = dutchDarkBlueColor;
-    
-    self.quickDonateButtonTwo.text = @"$10";
-    self.quickDonateButtonTwo.textColor = [UIColor whiteColor];
-    self.quickDonateButtonTwo.tintColor = dutchDarkBlueColor;
-    
-    self.quickDonateButtonThree.text = @"$15";
-    self.quickDonateButtonThree.textColor = [UIColor whiteColor];
-    self.quickDonateButtonThree.tintColor = dutchDarkBlueColor;
-    
-    self.quickDonateButtonFour.text = @"$25";
-    self.quickDonateButtonFour.textColor = [UIColor whiteColor];
-    self.quickDonateButtonFour.tintColor = dutchDarkBlueColor;
+ 
     
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
@@ -89,6 +115,10 @@
     self.amountText.text = self.initialAmount;
     
     [self.amountText resignFirstResponder];
+    
+    if ([self.amountText.text isEqualToString:@""]) {
+        self.amountText.text = @"0.00";
+    }
 }
 
 -(void)pay{
@@ -100,29 +130,39 @@
     [self.parentVc calculateTotal];
 }
 -(IBAction)quickDonateActionOne{
-    self.amountText.text = @"5.00";
+    self.amountText.text = [NSString stringWithFormat:@"%.2f", self.quickDoubleOne];
     [self.parentVc calculateTotal];
 
     
 }
 -(IBAction)quickDonateActionTwo{
-    self.amountText.text = @"10.00";
+    self.amountText.text = [NSString stringWithFormat:@"%.2f", self.quickDoubleTwo];
     [self.parentVc calculateTotal];
 
 
 }
 -(IBAction)quickDonateActionThree{
-    self.amountText.text = @"15.00";
+    self.amountText.text = [NSString stringWithFormat:@"%.2f", self.quickDoubleThree];
     [self.parentVc calculateTotal];
 
 
 }
 -(IBAction)quickDonateActionFour{
-    self.amountText.text = @"25.00";
+    self.amountText.text = [NSString stringWithFormat:@"%.2f", self.quickDoubleFour];
     [self.parentVc calculateTotal];
 
 
     
 }
 
+- (IBAction)textEditDidBegin {
+    
+    double amountDouble = [self.amountText.text doubleValue];
+    
+    if (amountDouble == 0.0) {
+        self.amountText.text = @"";
+    }
+    
+    
+}
 @end

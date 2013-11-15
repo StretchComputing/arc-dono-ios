@@ -12,13 +12,19 @@
 #import "SteelfishBoldInputText.h"
 #import "NVUIGradientButton.h"
 #import "ChurchAmountMultipleTypes.h"
+#import "Merchant.h"
 
 @class ChurchAmountMultipleTypes;
 
 @interface MultiDonationView : UIViewController
 
-@property (nonatomic, strong) ChurchAmountMultipleTypes *parentVc;
+@property double quickDoubleOne;
+@property double quickDoubleTwo;
+@property double quickDoubleThree;
+@property double quickDoubleFour;
 
+@property (nonatomic, strong) ChurchAmountMultipleTypes *parentVc;
+@property (nonatomic, strong) Merchant *myMerchant;
 @property (nonatomic, strong) NSString *initialAmount;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (strong, nonatomic) IBOutlet SteelfishLabel *titleLabel;
@@ -33,5 +39,7 @@
 -(IBAction)quickDonateActionThree;
 -(IBAction)quickDonateActionFour;
 @property (strong, nonatomic) IBOutlet SteelfishBoldInputText *amountText;
+- (IBAction)textEditDidBegin;
+-(void)setQuickPays;
 
 @end

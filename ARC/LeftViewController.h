@@ -10,6 +10,7 @@
 #import "MFSideMenu.h"
 #import "SteelfishBoldLabel.h"
 #import "SteelfishLabel.h"
+#import "SteelfishButton.h"
 #import "NVUIGradientButton.h"
 @interface LeftViewController : UIViewController
 
@@ -29,6 +30,12 @@
 @property (strong, nonatomic, getter = anewChurch) IBOutlet NVUIGradientButton *newChurchButton;
 @property (strong, nonatomic) IBOutlet SteelfishBoldLabel *profileSubLabel;
 - (IBAction)learnDwolla;
+@property (strong, nonatomic) IBOutlet UIView *orangeView;
+@property (strong, nonatomic) IBOutlet SteelfishButton *homeButton;
+@property (strong, nonatomic) IBOutlet SteelfishButton *paymentButton;
+@property (strong, nonatomic) IBOutlet SteelfishButton *settingsButton;
+@property (strong, nonatomic) IBOutlet SteelfishButton *allLocationsButton;
 
+@property (strong, nonatomic) IBOutlet SteelfishButton *profileButton;
 @property (nonatomic, strong) IBOutlet SteelfishBoldLabel *defaultChurchLabel;
 @end

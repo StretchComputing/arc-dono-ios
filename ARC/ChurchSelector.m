@@ -577,6 +577,9 @@
         
         self.activityView.hidden = YES;
         NSString *errorMsg = @"";
+        
+        NSLog(@"ResponseInfo: %@", responseInfo);
+        
         if ([status isEqualToString:@"success"]) {
             //success
             self.errorLabel.text = @"";
@@ -629,6 +632,32 @@
                 tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
                 
                 
+                NSArray *quickpayArray = [theMerchant valueForKey:@"QuickPay"];
+                
+                for (int i = 0; i < [quickpayArray count]; i++){
+                    
+                    NSDictionary *quickPayDictionary = [quickpayArray objectAtIndex:i];
+                    
+                    if (i == 0) {
+                        tmpMerchant.quickPayOne = [[quickPayDictionary valueForKey:@"Value"] doubleValue];
+                    }else if (i == 1){
+                        tmpMerchant.quickPayTwo = [[quickPayDictionary valueForKey:@"Value"] doubleValue];
+
+                    }else if (i == 2){
+                        tmpMerchant.quickPayThree = [[quickPayDictionary valueForKey:@"Value"] doubleValue];
+
+                    }else if (i == 3){
+                        tmpMerchant.quickPayFour = [[quickPayDictionary valueForKey:@"Value"] doubleValue];
+
+                    }
+                }
+                
+                
+                NSLog(@"Double: %f", tmpMerchant.quickPayOne);
+                NSLog(@"Double: %f", tmpMerchant.quickPayTwo);
+                NSLog(@"Double: %f", tmpMerchant.quickPayThree);
+                NSLog(@"Double: %f", tmpMerchant.quickPayFour);
+
                 //For Test Videos:
                 
                 /*

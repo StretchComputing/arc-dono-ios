@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default" id="BC6-2f-TIg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default-568h@2x.png" id="BC6-2f-TIg">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
@@ -262,17 +262,10 @@
                                 <rect key="frame" x="0.0" y="-20" width="320" height="600"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zsh-ub-NLf">
-                                        <rect key="frame" x="10" y="232" width="250" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="newChurchAction" destination="ian-D9-KL2" eventType="touchUpInside" id="9gw-dT-3Xs"/>
-                                        </connections>
-                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default-568h@2x.png" id="vDc-18-AH4">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="589"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -335,8 +328,8 @@
                                 <rect key="frame" x="-320" y="254" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fCE-r1-iao" customClass="SteelfishButton">
-                                <rect key="frame" x="10" y="8" width="240" height="43"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fCE-r1-iao" customClass="SteelfishButton">
+                                <rect key="frame" x="26" y="12" width="240" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="Home">
@@ -350,8 +343,8 @@
                                     <action selector="homeSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="eBg-i1-2ix"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e6H-js-JG5" customClass="SteelfishButton">
-                                <rect key="frame" x="10" y="58" width="240" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e6H-js-JG5" customClass="SteelfishButton">
+                                <rect key="frame" x="26" y="60" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="My Profile">
@@ -365,8 +358,8 @@
                                     <action selector="profileSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="KGD-GR-UOT"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dpA-K9-jxk" customClass="SteelfishButton">
-                                <rect key="frame" x="10" y="109" width="240" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dpA-K9-jxk" customClass="SteelfishButton">
+                                <rect key="frame" x="26" y="109" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="Payment">
@@ -380,8 +373,8 @@
                                     <action selector="billingSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="f68-ft-rW7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Ud-qM-z7y" customClass="SteelfishButton">
-                                <rect key="frame" x="10" y="161" width="240" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Ud-qM-z7y" customClass="SteelfishButton">
+                                <rect key="frame" x="26" y="159" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="Settings">
@@ -395,8 +388,8 @@
                                     <action selector="supportSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="CfJ-CW-Pyc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gzL-yW-Dab" customClass="SteelfishButton">
-                                <rect key="frame" x="10" y="213" width="240" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gzL-yW-Dab" customClass="SteelfishButton">
+                                <rect key="frame" x="26" y="209" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="All Locations">
@@ -410,22 +403,22 @@
                                     <action selector="newChurchAction" destination="ian-D9-KL2" eventType="touchUpInside" id="i2A-mb-sj6"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" id="n2W-mc-nT8">
-                                <rect key="frame" x="10" y="54" width="240" height="1"/>
+                            <view hidden="YES" contentMode="scaleToFill" id="n2W-mc-nT8">
+                                <rect key="frame" x="10" y="53" width="240" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="vQr-ZZ-5x9">
+                            <view hidden="YES" contentMode="scaleToFill" id="vQr-ZZ-5x9">
                                 <rect key="frame" x="10" y="106" width="240" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="9Xl-iS-vrN">
+                            <view hidden="YES" contentMode="scaleToFill" id="9Xl-iS-vrN">
                                 <rect key="frame" x="10" y="157" width="240" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="ovy-1s-MB6">
+                            <view hidden="YES" contentMode="scaleToFill" id="ovy-1s-MB6">
                                 <rect key="frame" x="10" y="209" width="240" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -436,7 +429,13 @@
                     <navigationItem key="navigationItem" id="fvA-ef-Y9N"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="allLocationsButton" destination="gzL-yW-Dab" id="gBD-dK-AwX"/>
+                        <outlet property="homeButton" destination="fCE-r1-iao" id="dqa-lk-08w"/>
+                        <outlet property="orangeView" destination="GAt-2O-svL" id="7SP-io-5Rz"/>
+                        <outlet property="paymentButton" destination="dpA-K9-jxk" id="bZ8-BY-wMj"/>
+                        <outlet property="profileButton" destination="e6H-js-JG5" id="rD4-Zg-dyp"/>
                         <outlet property="profileImageView" destination="d1Y-1l-pVp" id="ksp-1A-vWi"/>
+                        <outlet property="settingsButton" destination="3Ud-qM-z7y" id="Yz5-WB-M6f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eb8-sA-xJ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3901,6 +3900,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
+                                <connections>
+                                    <action selector="textEditDidBegin" destination="us0-vD-CQT" eventType="editingDidBegin" id="zqt-Bk-8Ya"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="56b-3T-AJH" customClass="SteelfishLabel">
                                 <rect key="frame" x="51" y="145" width="42" height="65"/>
@@ -3989,6 +3991,89 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" id="6rN-NK-unl">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <view alpha="0.84999999999999998" contentMode="scaleToFill" id="5jW-Gh-RNC">
+                                        <rect key="frame" x="0.0" y="279" width="320" height="156"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.84999999999999998" contentMode="scaleToFill" id="a1d-c6-3Q1">
+                                        <rect key="frame" x="0.0" y="530" width="320" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can also select a default value for a 1 click donation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Oj1-3q-VC1" customClass="SteelfishLabel">
+                                        <rect key="frame" x="30" y="380" width="259" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pDk-VO-gLF" customClass="SteelfishBoldLabel">
+                                        <rect key="frame" x="123" y="278" width="73" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use the slider to change the amount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8q9-Ft-NuY" customClass="SteelfishLabel">
+                                        <rect key="frame" x="6" y="307" width="308" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view alpha="0.84999999999999998" contentMode="scaleToFill" id="KAt-gE-1UH">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="142"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.84999999999999998" contentMode="scaleToFill" id="cFl-fv-M7q">
+                                        <rect key="frame" x="0.0" y="142" width="52" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to donate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zWA-hd-YVj" customClass="SteelfishBoldLabel">
+                                        <rect key="frame" x="17" y="30" width="286" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your donation amount in this text box:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vlz-ew-3fp" customClass="SteelfishLabel">
+                                        <rect key="frame" x="30" y="76" width="259" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view alpha="0.84999999999999998" contentMode="scaleToFill" id="UU1-tt-GfA">
+                                        <rect key="frame" x="277" y="142" width="43" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.84999999999999998" contentMode="scaleToFill" id="qYb-za-Pvv">
+                                        <rect key="frame" x="52" y="213" width="225" height="19"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qpI-WA-zBk">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="561"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeHelpOverlay" destination="us0-vD-CQT" eventType="touchUpInside" id="hZs-4t-Oar"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -3998,6 +4083,7 @@
                         <outlet property="amountSlider" destination="SFj-BH-kAd" id="TvK-es-507"/>
                         <outlet property="amountText" destination="q60-ko-45y" id="Uvy-iZ-xNn"/>
                         <outlet property="goBackButton" destination="NhF-OG-wsl" id="HAu-9w-Zgy"/>
+                        <outlet property="helpOverlayView" destination="6rN-NK-unl" id="wJ8-0Y-osk"/>
                         <outlet property="merchantNameText" destination="4rf-7a-kaP" id="iDp-tC-MW2"/>
                         <outlet property="payButton" destination="J1r-MD-FcG" id="olz-Jq-obw"/>
                         <outlet property="quickButtonFour" destination="C7u-xb-XmD" id="MLX-6T-yF6"/>
@@ -4143,12 +4229,105 @@
                                     <action selector="payAction" destination="AYP-Ip-paa" eventType="touchUpInside" id="Cdf-nv-WEb"/>
                                 </connections>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" id="6b6-FE-wUq">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="YMD-y6-Pds">
+                                        <rect key="frame" x="0.0" y="338" width="320" height="63"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="d58-m9-mbW">
+                                        <rect key="frame" x="0.0" y="275" width="261" height="63"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="Rch-fv-b7Q">
+                                        <rect key="frame" x="0.0" y="460" width="320" height="108"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you are done, click here to continue." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="66I-xr-vjI" customClass="SteelfishLabel">
+                                        <rect key="frame" x="30" y="466" width="259" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use these arrows to switch between causes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CQJ-Cd-zga" customClass="SteelfishLabel">
+                                        <rect key="frame" x="6" y="275" width="236" height="63"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="9Yz-fZ-JaF">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="ocE-XP-B3I">
+                                        <rect key="frame" x="0.0" y="123" width="10" height="152"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="Flb-EJ-smW">
+                                        <rect key="frame" x="0.0" y="401" width="67" height="59"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="r0o-R6-rLy">
+                                        <rect key="frame" x="258" y="401" width="62" height="59"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to donate to multiple causes:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="du3-yb-ZwE" customClass="SteelfishBoldLabel">
+                                        <rect key="frame" x="35" y="24" width="254" height="51"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For each cause, enter an amount in the text box, or choose a default." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Xq-Nf-n8J" customClass="SteelfishLabel">
+                                        <rect key="frame" x="10" y="73" width="300" height="52"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="Lx8-Ny-0zf">
+                                        <rect key="frame" x="310" y="123" width="10" height="152"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view alpha="0.85000002384185791" contentMode="scaleToFill" id="ocB-Bq-4Yb">
+                                        <rect key="frame" x="10" y="261" width="300" height="14"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xvc-rE-S0v">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="561"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeHelpOverlay" destination="us0-vD-CQT" eventType="touchUpInside" id="OVI-o9-KUl"/>
+                                            <action selector="closeHelpOverlay" destination="AYP-Ip-paa" eventType="touchUpInside" id="wmM-eA-x6J"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="LLS-Iz-SSp"/>
                     <connections>
                         <outlet property="amountText" destination="jQ1-55-kKp" id="7ob-W0-umY"/>
+                        <outlet property="helpOverlayView" destination="6b6-FE-wUq" id="PjT-Ev-1cy"/>
                         <outlet property="leftButton" destination="15n-aI-kHM" id="cxh-Wg-Xrg"/>
                         <outlet property="middleView" destination="tY1-0x-ZIL" id="7TG-8E-OmD"/>
                         <outlet property="payButton" destination="SKV-YV-TWK" id="ek5-Qk-eSL"/>
@@ -4197,6 +4376,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
+                                        <connections>
+                                            <action selector="textEditDidBegin" destination="JZe-tu-j7F" eventType="editingDidBegin" id="JbZ-QG-wfT"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ljj-Ct-Jkl" customClass="SteelfishBoldLabel">
                                         <rect key="frame" x="68" y="35" width="36" height="40"/>
@@ -4628,7 +4810,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Default" width="320" height="480"/>
+        <image name="Default-568h@2x.png" width="320" height="480"/>
         <image name="addCard.png" width="80" height="80"/>
         <image name="backarrow.png" width="88" height="88"/>
         <image name="blueCheck.png" width="150" height="138"/>

@@ -16,6 +16,8 @@
 		903CCD96180C30750032B0FC /* serverImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 903CCD95180C30750032B0FC /* serverImage.png */; };
 		903CCD99180C3FFE0032B0FC /* PaymentHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */; };
 		903CCD9C180C40120032B0FC /* PaymentHistoryDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 903CCD9B180C40120032B0FC /* PaymentHistoryDetail.m */; };
+		904A0C121836620500CD70FB /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 904A0C111836620500CD70FB /* ILTranslucentView.m */; };
+		904A0C151836653F00CD70FB /* SteelfishBoldButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 904A0C141836653F00CD70FB /* SteelfishBoldButton.m */; };
 		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
 		906D108A160FC87100561C31 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D1089160FC87100561C31 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -264,6 +266,10 @@
 		903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentHistoryViewController.m; sourceTree = "<group>"; };
 		903CCD9A180C40120032B0FC /* PaymentHistoryDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentHistoryDetail.h; sourceTree = "<group>"; };
 		903CCD9B180C40120032B0FC /* PaymentHistoryDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentHistoryDetail.m; sourceTree = "<group>"; };
+		904A0C101836620500CD70FB /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
+		904A0C111836620500CD70FB /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
+		904A0C131836653F00CD70FB /* SteelfishBoldButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SteelfishBoldButton.h; sourceTree = "<group>"; };
+		904A0C141836653F00CD70FB /* SteelfishBoldButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SteelfishBoldButton.m; sourceTree = "<group>"; };
 		906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone5.storyboard; sourceTree = "<group>"; };
 		906D1089160FC87100561C31 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		906D108C160FE03600561C31 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -787,6 +793,8 @@
 				90AD3FEA17CE63090053239E /* Images */,
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
+				904A0C101836620500CD70FB /* ILTranslucentView.h */,
+				904A0C111836620500CD70FB /* ILTranslucentView.m */,
 				90B06CC018103A940085424A /* MultiDonationView.h */,
 				90B06CC118103A940085424A /* MultiDonationView.m */,
 				906EAA051829B1E600086D0A /* MyCreditCard.h */,
@@ -941,6 +949,8 @@
 				909CF0A317B3DB06004300D0 /* SteelfishInputText.m */,
 				909CF0A517B3DB4C004300D0 /* SteelfishButton.h */,
 				909CF0A617B3DB4C004300D0 /* SteelfishButton.m */,
+				904A0C131836653F00CD70FB /* SteelfishBoldButton.h */,
+				904A0C141836653F00CD70FB /* SteelfishBoldButton.m */,
 				909CF0A817B3DB70004300D0 /* SteelfishSegmentedControl.h */,
 				909CF0A917B3DB70004300D0 /* SteelfishSegmentedControl.m */,
 				909CF0AB17B3DB9D004300D0 /* SteelfishBarButtonItem.h */,
@@ -1349,6 +1359,7 @@
 				9084F7D5180EF99500244282 /* ChurchAmountMultipleTypes.m in Sources */,
 				9F45D81F15D33F3300682F19 /* Encoder.c in Sources */,
 				9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */,
+				904A0C151836653F00CD70FB /* SteelfishBoldButton.m in Sources */,
 				9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */,
 				9FA68D0615E083BB0048789D /* rSkybox.m in Sources */,
 				9081521515E7D10900211C37 /* Reachability.m in Sources */,
@@ -1358,6 +1369,7 @@
 				9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */,
 				90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */,
 				9097099D1610B3270092A970 /* CreatePinView.m in Sources */,
+				904A0C121836620500CD70FB /* ILTranslucentView.m in Sources */,
 				909709A41610E6B30092A970 /* ValidatePinView.m in Sources */,
 				9F7B4D6F1620F3FA007EC356 /* ArcUtility.m in Sources */,
 				90A19F72162CF186007995DC /* GetPasscodeViewController.m in Sources */,

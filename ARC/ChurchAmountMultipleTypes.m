@@ -83,6 +83,8 @@
         tmp.view.frame = CGRectMake(i*320, 0, 320, 133);
         tmp.titleLabel.text = [selected valueForKey:@"Description"];
         tmp.parentVc = self;
+        tmp.myMerchant = self.myMerchant;
+        [tmp setQuickPays];
         [self.multiDonationViews addObject:tmp];
     }
     
@@ -102,8 +104,26 @@
     self.payButton.text = @"Donate";
     
     self.amountText.text = @"My Total: $0.00";
-    self.amountText.hidden = YES;
+
+    
+      if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowMultipleOverlay"] length] == 0) {
+         [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowMultipleOverlay"];
+         [[NSUserDefaults standardUserDefaults] synchronize];
+            NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
+            self.helpOverlayView.hidden = NO;
+     }
+    
 }
+
+-(void)doneHelp{
+    self.helpOverlayView.hidden = YES;
+}
+
+-(void)closeHelpOverlay{
+    self.helpOverlayView.hidden = YES;
+}
+
+
 
 
 - (IBAction)goBack {

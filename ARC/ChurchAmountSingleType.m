@@ -38,6 +38,7 @@
     }
 }
 
+
 - (void)viewDidLoad
 {
     self.view.clipsToBounds = YES;
@@ -56,10 +57,10 @@
     
     self.amountText.text = @"0.00";
     
-    self.quickButtonOne.text = @"$10";
-    self.quickButtonTwo.text = @"$25";
-    self.quickButtonThree.text = @"$50";
-    self.quickButtonFour.text = @"$75";
+    self.quickButtonOne.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayOne];
+    self.quickButtonTwo.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayTwo];
+    self.quickButtonThree.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayThree];
+    self.quickButtonFour.text = [NSString stringWithFormat:@"$%.0f", self.myMerchant.quickPayFour];
     self.payButton.text = @"Donate Now!";
     
    // self.quickButtonOne.textColor = [UIColor whiteColor];
@@ -100,8 +101,21 @@
     [self.amountText setInputAccessoryView:toolbar];
     
 
-    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowSingleOverlay"] length] == 0) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowSingleOverlay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+         NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
+        self.helpOverlayView.hidden = NO;
+    }
 
+}
+
+-(void)doneHelp{
+    self.helpOverlayView.hidden = YES;
+}
+
+-(void)closeHelpOverlay{
+    self.helpOverlayView.hidden = YES;
 }
 
 -(void)resignKeyboard{
@@ -124,6 +138,15 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
     
+}
+
+- (IBAction)textEditDidBegin {
+    
+    double amountDouble = [self.amountText.text doubleValue];
+    
+    if (amountDouble == 0.0) {
+        self.amountText.text = @"";
+    }
 }
 - (IBAction)payAction {
     
@@ -320,20 +343,20 @@
 
 
 - (IBAction)quickActionOne {
-    self.amountText.text = @"10.00";
+    self.amountText.text = [NSString stringWithFormat:@"%.2f", self.myMerchant.quickPayOne];
     [self payAction];
 }
 
 - (IBAction)quickActionTwo{
-    self.amountText.text = @"25.00";
+    self.amountText.text = [NSString stringWithFormat:@"%.2f", self.myMerchant.quickPayTwo];
     [self payAction];
 }
 - (IBAction)quickActionThree{
-    self.amountText.text = @"50.00";
+    self.amountText.text = [NSString stringWithFormat:@"%.2f", self.myMerchant.quickPayThree];
     [self payAction];
 }
 - (IBAction)quickActionFour{
-    self.amountText.text = @"75.00";
+    self.amountText.text = [NSString stringWithFormat:@"%.2f", self.myMerchant.quickPayFour];
     [self payAction];
 }
 
