@@ -128,10 +128,10 @@
         
         
         if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowMultipleOverlay"] length] == 0) {
-            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowMultipleOverlay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
-            self.helpOverlayView.hidden = NO;
+           // [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowMultipleOverlay"];
+          //  [[NSUserDefaults standardUserDefaults] synchronize];
+           // NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
+           // self.helpOverlayView.hidden = NO;
         }
 
     }

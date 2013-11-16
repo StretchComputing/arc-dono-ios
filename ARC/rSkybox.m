@@ -232,27 +232,33 @@ NSString *const CLOSED_STATUS = @"closed";
         NSMutableArray *appActions = [NSMutableArray arrayWithArray:[rSkybox getActions]];
         NSMutableArray *appTimestamps = [NSMutableArray arrayWithArray:[rSkybox getTimestamps]];
         
-        
-        for (int i = 0; i < [appActions count]; i++) {
-            
-            NSString *appAction = [appActions objectAtIndex:i];
-           
-            NSMutableDictionary *actDictionary = [NSMutableDictionary dictionary];
-            
-            [actDictionary setObject:appAction forKey:@"description"];
-            
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-            [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-            NSString *dateString = [dateFormat stringFromDate:[appTimestamps objectAtIndex:i]];
-            
-            
-            [actDictionary setObject:dateString forKey:@"timestamp"];
-            
-            
-            [finalArray addObject:actDictionary];
+        @try {
+            for (int i = 0; i < [appActions count]; i++) {
+                
+                NSString *appAction = [appActions objectAtIndex:i];
+                
+                NSMutableDictionary *actDictionary = [NSMutableDictionary dictionary];
+                
+                [actDictionary setObject:appAction forKey:@"description"];
+                
+                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+                [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+                NSString *dateString = [dateFormat stringFromDate:[appTimestamps objectAtIndex:i]];
+                
+                
+                [actDictionary setObject:dateString forKey:@"timestamp"];
+                
+                
+                [finalArray addObject:actDictionary];
+                
+            }
+        }
+        @catch (NSException *exception) {
             
         }
+      
+    
         
         [tempDictionary setObject:finalArray forKey:@"appActions"];
         
@@ -322,6 +328,7 @@ NSString *const CLOSED_STATUS = @"closed";
     
     @catch (NSException *e) {
         NSLog(@"Exception caught in rSkybox.endThreshold - %@ - %@", [e name], [e description]);
+        NSLog(@"Test");
     }
 }
 
@@ -364,22 +371,28 @@ NSString *const CLOSED_STATUS = @"closed";
         NSMutableArray *appTimestamps = [NSMutableArray arrayWithArray:[rSkybox getTimestamps]];
         
         
-        
-        for (int i = 0; i < [appActions count]; i++) {
-            NSMutableDictionary *actDictionary = [NSMutableDictionary dictionary];
-            
-            [actDictionary setObject:[appActions objectAtIndex:i] forKey:@"description"];
-            
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-            [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-            NSString *dateString = [dateFormat stringFromDate:[appTimestamps objectAtIndex:i]];
-            
-            [actDictionary setObject:dateString forKey:@"timestamp"];
-            
-            [finalArray addObject:actDictionary];
+        @try {
+            for (int i = 0; i < [appActions count]; i++) {
+                NSMutableDictionary *actDictionary = [NSMutableDictionary dictionary];
+                
+                [actDictionary setObject:[appActions objectAtIndex:i] forKey:@"description"];
+                
+                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+                [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+                NSString *dateString = [dateFormat stringFromDate:[appTimestamps objectAtIndex:i]];
+                
+                [actDictionary setObject:dateString forKey:@"timestamp"];
+                
+                [finalArray addObject:actDictionary];
+                
+            }
+        }
+        @catch (NSException *exception) {
             
         }
+      
+      
         
         [tempDictionary setObject:finalArray forKey:@"appActions"];
         
@@ -523,7 +536,7 @@ NSString *const CLOSED_STATUS = @"closed";
         
         
         
-        if ([traceSession count] > NUMBER_EVENTS_STORED) {
+        if ([traceSession count] > NUMBER_EVENTS_STORED || ([traceSession count] != [traceTimeStamps count])) {
             traceSession = [NSMutableArray array];
             traceTimeStamps = [NSMutableArray array];
         }

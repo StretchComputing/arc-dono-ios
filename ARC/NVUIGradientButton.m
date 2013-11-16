@@ -267,7 +267,6 @@
 - (void)setHighlightedTintColor:(UIColor *)highlightedTintColor
 {
     
-    NSLog(@"color: %@", highlightedTintColor);
     
 	if (highlightedTintColor != _highlightedTintColor)
 	{

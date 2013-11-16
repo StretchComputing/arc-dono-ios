@@ -104,10 +104,10 @@
         
         
         if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowSingleOverlay"] length] == 0) {
-            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowSingleOverlay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
-            self.helpOverlayView.hidden = NO;
+            //[[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowSingleOverlay"];
+            //[[NSUserDefaults standardUserDefaults] synchronize];
+            //NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(doneHelp) userInfo:Nil repeats:NO];
+            //self.helpOverlayView.hidden = NO;
         }
 
     }

@@ -72,38 +72,52 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     
-    
-    if (!self.sideMenu) {
-        LeftViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
-       
+ 
+    @try {
         
         
+        if (self.isSearchShowing) {
+            [self searchAction];
+        }
         
-        self.sideMenu = [MFSideMenu menuWithNavigationController:self.navigationController
-                                             leftSideMenuController:leftSideMenuViewController
-                                            rightSideMenuController:nil];
+        if (!self.sideMenu) {
+            LeftViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
+            
+            
+            
+            
+            self.sideMenu = [MFSideMenu menuWithNavigationController:self.navigationController
+                                              leftSideMenuController:leftSideMenuViewController
+                                             rightSideMenuController:nil];
+            
+            self.sideMenu.allowSwipeOpenLeft = YES;
+            leftSideMenuViewController.sideMenu = self.sideMenu;
+        }
         
-        self.sideMenu.allowSwipeOpenLeft = YES;
-        leftSideMenuViewController.sideMenu = self.sideMenu;
+        self.retryCount = 0;
+        
+        if (!self.isGettingMerchantList) {
+            self.isGettingMerchantList = YES;
+            
+            [self getMerchantList];
+            
+        }
+        
+        
+        if (self.view.frame.size.height < 500) {
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
+            
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
+            
+        }
     }
-    
-    self.retryCount = 0;
-    
-    if (!self.isGettingMerchantList) {
-        self.isGettingMerchantList = YES;
-        [self getMerchantList];
-        
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"Home.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
     }
-    
-    
-    if (self.view.frame.size.height < 500) {
-    
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
-    
-    
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
-    
-    }
+  
 
    
     
@@ -651,12 +665,7 @@
 
                     }
                 }
-                
-                
-                NSLog(@"Double: %f", tmpMerchant.quickPayOne);
-                NSLog(@"Double: %f", tmpMerchant.quickPayTwo);
-                NSLog(@"Double: %f", tmpMerchant.quickPayThree);
-                NSLog(@"Double: %f", tmpMerchant.quickPayFour);
+
 
                 //For Test Videos:
                 
@@ -1582,7 +1591,7 @@
     if (self.searchBar.frame.origin.y == newy) {
         newy = 7;
         [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:NO] afterDelay:0.0];
-        
+        self.isSearchShowing = NO;
         CGRect frame = self.myTableView.frame;
         frame.origin.y -= 40;
         frame.size.height += 40;
@@ -1593,7 +1602,7 @@
 
     }else{
         [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.0];
-        
+        self.isSearchShowing = YES;
         CGRect frame = self.myTableView.frame;
         frame.origin.y += 40;
         frame.size.height -= 40;

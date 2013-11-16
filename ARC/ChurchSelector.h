@@ -20,7 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *checkboxImage;
 @property BOOL isChecked;
 -(IBAction)checkAction;
-
+@property BOOL isSearchShowing;
 @property (strong, nonatomic) IBOutlet SteelfishLabel *loadingLocationsLabel;
 @property BOOL didGoDefault;
 @property (nonatomic, strong) MFSideMenu *sideMenu;
