@@ -537,7 +537,7 @@
             self.errorLabel.text = @"";
         }
         
-        NSLog(@"Count: %d", [self.matchingMerchants count]);
+        //NSLog(@"Count: %d", [self.matchingMerchants count]);
         [self.carousel reloadData];
         
     }
@@ -592,7 +592,7 @@
         self.activityView.hidden = YES;
         NSString *errorMsg = @"";
         
-        NSLog(@"ResponseInfo: %@", responseInfo);
+      //  NSLog(@"ResponseInfo: %@", responseInfo);
         
         if ([status isEqualToString:@"success"]) {
             //success
@@ -1412,7 +1412,7 @@
                 
                 NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, tmpMerchant.merchantId];
                 logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
-                NSLog(@"URL: %@", logoImageUrl);
+              //  NSLog(@"URL: %@", logoImageUrl);
                 
                 dispatch_async(dispatch_get_global_queue(0,0), ^{
                     
@@ -1491,7 +1491,7 @@
         return view;
     }
     @catch (NSException *exception) {
-        NSLog(@"Exception: %@", exception);
+     //   NSLog(@"Exception: %@", exception);
         return [[UIView alloc] init];
     }
  
@@ -1547,7 +1547,7 @@
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"E: %@", exception);
+      //  NSLog(@"E: %@", exception);
         return 0.0;
     }
    
@@ -1567,7 +1567,7 @@
      
     }
     @catch (NSException *exception) {
-        NSLog(@"E: %@", exception);
+       // NSLog(@"E: %@", exception);
     }
 
 

@@ -418,7 +418,7 @@
         
     }@catch (NSException *e) {
         
-        NSLog(@"E: %@", e);
+       // NSLog(@"E: %@", e);
         [rSkybox sendClientLog:@"DefaultChurchView.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     

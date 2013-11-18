@@ -187,7 +187,7 @@
                 
                 self.selectedCard = [self.creditCards objectAtIndex:0];
                 
-                NSLog(@"SelectedCard: %@", self.selectedCard);
+               // NSLog(@"SelectedCard: %@", self.selectedCard);
                 
                 [self performSegueWithIdentifier:@"payCard" sender:self];
                 return;
@@ -235,7 +235,7 @@
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"E: %@", exception);
+       // NSLog(@"E: %@", exception);
         [rSkybox sendClientLog:@"ChurchAmountSingleType.payAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
 
     }
@@ -306,7 +306,7 @@
     
     }@catch (NSException *e) {
         
-        NSLog(@"E: %@", e);
+      //  NSLog(@"E: %@", e);
         [rSkybox sendClientLog:@"ChurchAmountSingleType.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
@@ -333,7 +333,7 @@
             AddCreditCardGuest *addCard = [segue destinationViewController];
             addCard.myMerchant = self.myMerchant;
             
-            NSLog(@"Amount: %f", [self.amountText.text doubleValue]);
+          //  NSLog(@"Amount: %f", [self.amountText.text doubleValue]);
             
             addCard.donationAmount = [self.amountText.text doubleValue];
             addCard.myItemsArray = [NSMutableArray arrayWithArray:itemArray];

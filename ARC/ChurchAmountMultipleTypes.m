@@ -98,7 +98,7 @@
             
             NSDictionary *selected = [self.selectedDonations objectAtIndex:i];
             
-            NSLog(@"Selected: %@", selected);
+          //  NSLog(@"Selected: %@", selected);
             
             MultiDonationView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"multiDonationView"];
             tmp.view.frame = CGRectMake(i*320, 0, 320, 133);
@@ -300,7 +300,7 @@
         
     }@catch (NSException *e) {
         
-        NSLog(@"E: %@", e);
+       // NSLog(@"E: %@", e);
         [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
@@ -325,7 +325,7 @@
             MultiDonationView *tmp = [self.multiDonationViews objectAtIndex:i];
             NSDictionary *donation = [self.selectedDonations objectAtIndex:i];
             
-            NSLog(@"Donation: %@", donation);
+          //  NSLog(@"Donation: %@", donation);
             
             NSString *itemId = [donation valueForKey:@"Id"];
             
@@ -335,7 +335,7 @@
             
             NSString *value = [NSString stringWithFormat:@"%.2f", [tmp.amountText.text doubleValue]];
             
-            NSLog(@"Value: %@", value);
+         //   NSLog(@"Value: %@", value);
             
             
             NSDictionary *item = @{@"Amount":@"1", @"Percent":percent, @"ItemId":itemId, @"Value":value, @"Description":[donation valueForKey:@"Description"]};
@@ -375,7 +375,7 @@
         
     }
     @catch (NSException *e) {
-        NSLog(@"E: %@", e);
+        //NSLog(@"E: %@", e);
         [rSkybox sendClientLog:@"ChurchAmountMultipleTypes.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
@@ -395,7 +395,7 @@
         
         self.amountText.text = [NSString stringWithFormat:@"My Total: $%.2f", total];
         
-        NSLog(@"Amoutn Text: %@", self.amountText.text);
+    //    NSLog(@"Amoutn Text: %@", self.amountText.text);
         
         [self moveRight];
     }

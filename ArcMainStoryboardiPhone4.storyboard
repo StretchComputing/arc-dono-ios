@@ -499,14 +499,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="49p-hr-UCV" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="18" y="105" width="131" height="43"/>
+                                <rect key="frame" x="18" y="115" width="131" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="$15.30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gFs-Gg-WmY" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="175" y="105" width="123" height="43"/>
+                                <rect key="frame" x="175" y="115" width="123" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -549,11 +549,18 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="JWv-ey-dPh">
-                                <rect key="frame" x="0.0" y="66" width="320" height="24"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please confirm your payment details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mA2-ET-3Vw" customClass="SteelfishLabel">
                                         <rect key="frame" x="20" y="0.0" width="280" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VNu-Te-l2E" customClass="SteelfishBoldLabel">
+                                        <rect key="frame" x="10" y="17" width="300" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -565,7 +572,7 @@
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="dlX-GT-AZJ">
-                                        <rect key="frame" x="0.0" y="23" width="320" height="1"/>
+                                        <rect key="frame" x="0.0" y="43" width="320" height="1"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
@@ -573,7 +580,7 @@
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.45882352941176469" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" id="fnk-YF-yyf">
-                                <rect key="frame" x="18" y="147" width="280" height="95"/>
+                                <rect key="frame" x="18" y="157" width="280" height="90"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -632,6 +639,7 @@
                         <outlet property="defaultImageView" destination="5f8-ke-vgI" id="qag-Po-Ad6"/>
                         <outlet property="errorLabel" destination="uB5-Hh-Pkl" id="Mdd-F2-iiI"/>
                         <outlet property="hiddenText" destination="r9j-PZ-YZL" id="dSs-Z7-TET"/>
+                        <outlet property="locationNameLabel" destination="VNu-Te-l2E" id="Prp-CM-cPY"/>
                         <outlet property="myTableView" destination="fnk-YF-yyf" id="gB2-BC-ZQO"/>
                         <outlet property="myTotalLabel" destination="gFs-Gg-WmY" id="xDc-xd-M6m"/>
                         <outlet property="paymentLabel" destination="edL-8b-h4H" id="Yfu-x7-VuV"/>
@@ -2982,7 +2990,7 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" id="28D-Sd-DXx" customClass="SteelfishLabel">
                                 <rect key="frame" x="10" y="288" width="300" height="91"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <string key="text">Enter an email and password to allow us to send you an email receipt of your donation.  If you choose to not enter an email address, your donation will be sent anonymously</string>
+                                <string key="text">Enter an email and password to allow us to send you email receipts of your future donations. If you choose to not enter an email address, all donations will be sent anonymously.</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

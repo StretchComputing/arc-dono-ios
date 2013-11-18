@@ -369,14 +369,14 @@
 		9097F56218218127004F930E /* menuIconWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIconWhite.png; sourceTree = "<group>"; };
 		9097F56318218127004F930E /* searchIconWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchIconWhite.png; sourceTree = "<group>"; };
 		9097F5661821870C004F930E /* newDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newDefault.png; sourceTree = "<group>"; };
-		90993F31159777BC00FC1D49 /* HolyDutch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HolyDutch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90993F31159777BC00FC1D49 /* Dono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90993F35159777BC00FC1D49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90993F37159777BC00FC1D49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90993F39159777BC00FC1D49 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		90993F3D159777BC00FC1D49 /* HolyDutch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HolyDutch-Info.plist"; sourceTree = "<group>"; };
+		90993F3D159777BC00FC1D49 /* Dono-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Dono-Info.plist"; sourceTree = "<group>"; };
 		90993F3F159777BC00FC1D49 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		90993F41159777BC00FC1D49 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		90993F43159777BC00FC1D49 /* HolyDutch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HolyDutch-Prefix.pch"; sourceTree = "<group>"; };
+		90993F43159777BC00FC1D49 /* Dono-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dono-Prefix.pch"; sourceTree = "<group>"; };
 		90993F44159777BC00FC1D49 /* ArcAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcAppDelegate.h; sourceTree = "<group>"; };
 		90993F45159777BC00FC1D49 /* ArcAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArcAppDelegate.m; sourceTree = "<group>"; };
 		90993F4A159777BC00FC1D49 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -741,7 +741,7 @@
 		90993F32159777BC00FC1D49 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				90993F31159777BC00FC1D49 /* HolyDutch.app */,
+				90993F31159777BC00FC1D49 /* Dono.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -986,10 +986,10 @@
 		90993F3C159777BC00FC1D49 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				90993F3D159777BC00FC1D49 /* HolyDutch-Info.plist */,
+				90993F3D159777BC00FC1D49 /* Dono-Info.plist */,
 				90993F3E159777BC00FC1D49 /* InfoPlist.strings */,
 				90993F41159777BC00FC1D49 /* main.m */,
-				90993F43159777BC00FC1D49 /* HolyDutch-Prefix.pch */,
+				90993F43159777BC00FC1D49 /* Dono-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1159,9 +1159,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		90993F30159777BC00FC1D49 /* HolyDutch */ = {
+		90993F30159777BC00FC1D49 /* Dono */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 90993F4F159777BC00FC1D49 /* Build configuration list for PBXNativeTarget "HolyDutch" */;
+			buildConfigurationList = 90993F4F159777BC00FC1D49 /* Build configuration list for PBXNativeTarget "Dono" */;
 			buildPhases = (
 				90993F2D159777BC00FC1D49 /* Sources */,
 				90993F2E159777BC00FC1D49 /* Frameworks */,
@@ -1171,9 +1171,9 @@
 			);
 			dependencies = (
 			);
-			name = HolyDutch;
+			name = Dono;
 			productName = ARC;
-			productReference = 90993F31159777BC00FC1D49 /* HolyDutch.app */;
+			productReference = 90993F31159777BC00FC1D49 /* Dono.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1184,7 +1184,7 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 			};
-			buildConfigurationList = 90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "HolyDutch" */;
+			buildConfigurationList = 90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "Dono" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1197,7 +1197,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				90993F30159777BC00FC1D49 /* HolyDutch */,
+				90993F30159777BC00FC1D49 /* Dono */,
 			);
 		};
 /* End PBXProject section */
@@ -1475,8 +1475,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "6186BE54-0D7A-4F6C-94CE-3D83B8D93FFC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6186BE54-0D7A-4F6C-94CE-3D83B8D93FFC";
+				PROVISIONING_PROFILE = "9991076F-3C93-42F9-90D0-59F5BACFBC91";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9991076F-3C93-42F9-90D0-59F5BACFBC91";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1505,8 +1505,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "EB5E9D48-5C41-4D69-9369-94781EB36DBC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EB5E9D48-5C41-4D69-9369-94781EB36DBC";
+				PROVISIONING_PROFILE = "8D6C6FE3-2E05-4648-82A5-429310D7AB9B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8D6C6FE3-2E05-4648-82A5-429310D7AB9B";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1525,9 +1525,9 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ARC/HolyDutch-Prefix.pch";
+				GCC_PREFIX_HEADER = "ARC/Dono-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
-				INFOPLIST_FILE = "ARC/HolyDutch-Info.plist";
+				INFOPLIST_FILE = "ARC/Dono-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1541,9 +1541,9 @@
 					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7s\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
-				PRODUCT_NAME = HolyDutch;
-				PROVISIONING_PROFILE = "6186BE54-0D7A-4F6C-94CE-3D83B8D93FFC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6186BE54-0D7A-4F6C-94CE-3D83B8D93FFC";
+				PRODUCT_NAME = Dono;
+				PROVISIONING_PROFILE = "9991076F-3C93-42F9-90D0-59F5BACFBC91";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9991076F-3C93-42F9-90D0-59F5BACFBC91";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1560,9 +1560,9 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ARC/HolyDutch-Prefix.pch";
+				GCC_PREFIX_HEADER = "ARC/Dono-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
-				INFOPLIST_FILE = "ARC/HolyDutch-Info.plist";
+				INFOPLIST_FILE = "ARC/Dono-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1576,8 +1576,8 @@
 					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7s\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
-				PRODUCT_NAME = HolyDutch;
-				PROVISIONING_PROFILE = "804D7674-EC1F-4DB3-AE45-A172CA4E1936";
+				PRODUCT_NAME = Dono;
+				PROVISIONING_PROFILE = "8D6C6FE3-2E05-4648-82A5-429310D7AB9B";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1607,8 +1607,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "4883D8B6-9921-4CF0-B1E5-335149F3631A";
-				"PROVISIONING_PROFILE[sdk=*]" = "4883D8B6-9921-4CF0-B1E5-335149F3631A";
+				PROVISIONING_PROFILE = "8EEF5810-7A7D-4A35-B7A2-F7F0A5917458";
+				"PROVISIONING_PROFILE[sdk=*]" = "8EEF5810-7A7D-4A35-B7A2-F7F0A5917458";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1627,9 +1627,9 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ARC/HolyDutch-Prefix.pch";
+				GCC_PREFIX_HEADER = "ARC/Dono-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
-				INFOPLIST_FILE = "ARC/HolyDutch-Info.plist";
+				INFOPLIST_FILE = "ARC/Dono-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1643,9 +1643,9 @@
 					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7s\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
-				PRODUCT_NAME = HolyDutch;
-				PROVISIONING_PROFILE = "804D7674-EC1F-4DB3-AE45-A172CA4E1936";
-				"PROVISIONING_PROFILE[sdk=*]" = "804D7674-EC1F-4DB3-AE45-A172CA4E1936";
+				PRODUCT_NAME = Dono;
+				PROVISIONING_PROFILE = "8EEF5810-7A7D-4A35-B7A2-F7F0A5917458";
+				"PROVISIONING_PROFILE[sdk=*]" = "8EEF5810-7A7D-4A35-B7A2-F7F0A5917458";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1654,7 +1654,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "HolyDutch" */ = {
+		90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "Dono" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				90993F4D159777BC00FC1D49 /* Debug */,
@@ -1664,7 +1664,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		90993F4F159777BC00FC1D49 /* Build configuration list for PBXNativeTarget "HolyDutch" */ = {
+		90993F4F159777BC00FC1D49 /* Build configuration list for PBXNativeTarget "Dono" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				90993F50159777BC00FC1D49 /* Debug */,
