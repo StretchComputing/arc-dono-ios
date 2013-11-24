@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "90993F30159777BC00FC1D49"
-               BuildableName = "HolyDutch.app"
-               BlueprintName = "HolyDutch"
-               ReferencedContainer = "container:HolyDutch.xcodeproj">
+               BuildableName = "Dono.app"
+               BlueprintName = "Dono"
+               ReferencedContainer = "container:Dono.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "90993F30159777BC00FC1D49"
-            BuildableName = "HolyDutch.app"
-            BlueprintName = "HolyDutch"
-            ReferencedContainer = "container:HolyDutch.xcodeproj">
+            BuildableName = "Dono.app"
+            BlueprintName = "Dono"
+            ReferencedContainer = "container:Dono.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "90993F30159777BC00FC1D49"
-            BuildableName = "HolyDutch.app"
-            BlueprintName = "HolyDutch"
-            ReferencedContainer = "container:HolyDutch.xcodeproj">
+            BuildableName = "Dono.app"
+            BlueprintName = "Dono"
+            ReferencedContainer = "container:Dono.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "90993F30159777BC00FC1D49"
-            BuildableName = "HolyDutch.app"
-            BlueprintName = "HolyDutch"
-            ReferencedContainer = "container:HolyDutch.xcodeproj">
+            BuildableName = "Dono.app"
+            BlueprintName = "Dono"
+            ReferencedContainer = "container:Dono.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

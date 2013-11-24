@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "90993F30159777BC00FC1D49"
-               BuildableName = "HolyDutch.app"
-               BlueprintName = "HolyDutch"
-               ReferencedContainer = "container:HolyDutch.xcodeproj">
+               BuildableName = "Dono.app"
+               BlueprintName = "Dono"
+               ReferencedContainer = "container:Dono.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "90993F30159777BC00FC1D49"
-            BuildableName = "HolyDutch.app"
-            BlueprintName = "HolyDutch"
-            ReferencedContainer = "container:HolyDutch.xcodeproj">
+            BuildableName = "Dono.app"
+            BlueprintName = "Dono"
+            ReferencedContainer = "container:Dono.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -44,7 +44,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
+      buildConfiguration = "AdHoc"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "90993F30159777BC00FC1D49"
-            BuildableName = "HolyDutch.app"
-            BlueprintName = "HolyDutch"
-            ReferencedContainer = "container:HolyDutch.xcodeproj">
+            BuildableName = "Dono.app"
+            BlueprintName = "Dono"
+            ReferencedContainer = "container:Dono.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "90993F30159777BC00FC1D49"
-            BuildableName = "HolyDutch.app"
-            BlueprintName = "HolyDutch"
-            ReferencedContainer = "container:HolyDutch.xcodeproj">
+            BuildableName = "Dono.app"
+            BlueprintName = "Dono"
+            ReferencedContainer = "container:Dono.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -80,7 +80,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "AdHoc"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

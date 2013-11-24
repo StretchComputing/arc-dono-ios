@@ -830,7 +830,7 @@ ofType:(NSString *)typeName
     @try {
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
-        NSString *customerId = [prefs valueForKey:@"customerId"];
+       // NSString *customerId = [prefs valueForKey:@"customerId"];
        // NSString *customerToken = [prefs valueForKey:@"customerToken"];
         
         

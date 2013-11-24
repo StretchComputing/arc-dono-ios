@@ -307,8 +307,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        NSLog(@"URL: %@", getCustomerTokenUrl);
-        NSLog(@"Params: %@", requestString);
+      //  NSLog(@"URL: %@", getCustomerTokenUrl);
+      //  NSLog(@"Params: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetGuestToken"];
@@ -352,9 +352,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];   
         
-        NSLog(@"Request: %@", requestString);
+    //    NSLog(@"Request: %@", requestString);
         
-       NSLog(@"Auth Header: %@", [self authHeader]);
+    //   NSLog(@"Auth Header: %@", [self authHeader]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -487,7 +487,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
      //   NSLog(@"Auth Header: %@", [self authHeader]);
-        NSLog(@"RequestString: %@", requestString);
+      //  NSLog(@"RequestString: %@", requestString);
         
         
         self.serverData = [NSMutableData data];
@@ -1089,8 +1089,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
     
-    NSLog(@"Server Call: %d", api);
-    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
+    //NSLog(@"Server Call: %d", api);
+   // NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
     
     
     NSString *eventString = [NSString stringWithFormat:@"didRecieveResponse - server call: %@, http status: %d", [self apiToString], self.httpStatusCode];
@@ -1110,7 +1110,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
        // NSLog(@"API: %d", api);
-       NSLog(@"ReturnString: %@", returnString);
+     //  NSLog(@"ReturnString: %@", returnString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];
@@ -1303,9 +1303,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     @try {
         [rSkybox endThreshold:@"ErrorEncountered" logMessage:@"NA" maxValue:0.00];
         
-        NSLog(@"API: %d", api);
+       // NSLog(@"API: %d", api);
         
-        NSLog(@"Error: %@", error);
+       // NSLog(@"Error: %@", error);
         //NSLog(@"Code: %i", error.code);
         //NSLog(@"Description: %@", error.localizedDescription);
 
@@ -2603,7 +2603,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
                         // ARC_VERSION_NUMBER is lower than the iosVersion
                         [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowVersionWarning"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
-                        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                      //  ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
                        // [mainDelegate showNewVersionAlert];
                     }
                     

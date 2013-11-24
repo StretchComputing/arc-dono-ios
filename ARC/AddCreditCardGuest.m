@@ -643,7 +643,7 @@
     @catch (NSException *e) {
         //self.errorLabel.text = @"*Error retreiving credit card.";
         
-        NSLog(@"E: %@", e);
+    //    NSLog(@"E: %@", e);
         
         [rSkybox sendClientLog:@"AddCreditCardGuest.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
@@ -748,7 +748,7 @@
             confirm.mySelectedCard = tmp;
             confirm.myMerchant = self.myMerchant;
             
-            NSLog(@"Count: %d", [self.myItemsArray count]);
+           // NSLog(@"Count: %d", [self.myItemsArray count]);
             confirm.myItemsArray = [NSMutableArray arrayWithArray:self.myItemsArray];
             
         }

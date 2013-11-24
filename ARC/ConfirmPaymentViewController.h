@@ -39,6 +39,7 @@
 
 - (IBAction)anonymousClicked;
 - (IBAction)defaultClicked;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *locationNameLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *anonymousView;
 @property (nonatomic, strong) MyCreditCard *mySelectedCard;

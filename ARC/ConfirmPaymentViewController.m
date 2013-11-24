@@ -30,6 +30,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     
+    self.locationNameLabel.text = [NSString stringWithFormat:@"for %@", self.myMerchant.name];
+    
     if (self.justAddedCard) {
         self.hiddenText.hidden = YES;
         self.pinPrompt.hidden = YES;

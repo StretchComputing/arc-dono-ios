@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D8137E73-B8C7-40A4-9045-A554CBF8D4EF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Dono</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3489A10C-7C56-4647-8B7D-4C53E40E993D</key>
+		<string>ssh://github.com/StretchComputing/arc-dono-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Dono.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3489A10C-7C56-4647-8B7D-4C53E40E993D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/StretchComputing/arc-dono-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3489A10C-7C56-4647-8B7D-4C53E40E993D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3489A10C-7C56-4647-8B7D-4C53E40E993D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>dono</string>
+		</dict>
+	</array>
+</dict>
+</plist>

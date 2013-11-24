@@ -690,7 +690,7 @@
 		alpha = components[3];
 	}
 	
-	CGFloat offsetColor = 50.0f/255.0f;
+	//CGFloat offsetColor = 50.0f/255.0f;
 	UIColor *topColor = middleColor;
 	UIColor *bottomColor = middleColor;
 	
