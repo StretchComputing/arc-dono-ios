@@ -11,34 +11,42 @@ var ARC = (function (r, $) {
 
 	r.urlParameters = [];
 
-	r.createPayment = function() {
-		var cpUrl = baseUrl + 'payments/create';
-		r.urlParameters = r.getUrlParameters();
-		var jsonData = {
-			"AppInfo": {"App": "DONO", "OS":"IOS", “Version”:”1.0"},
-			"InvoiceAmount": r.urlParameters['invoiceAmount'],
-			"Amount": r.urlParameters['amount'],
-			"CustomerId": r.urlParameters['customerId'],
-			"AuthenticationToken": r.urlParameters['authenticationToken'],
-			"InvoiceId": r.urlParameters['invoiceId'],
-			"MerchantId": r.urlParameters['merchantId'],
-			"Gratuity": r.urlParameters['gratuity'],
-			"Type": r.urlParameters['type'],
-			"CardType": r.urlParameters['cardType'],
-			"FundSourceAccount": r.urlParameters['fundSourceAccount'],
-			"Expiration": r.urlParameters['expiration'],
-			"Pin": r.urlParameters['pin'],
-			"Anonymous": r.urlParameters['anonymous'],
-			"Items": r.buildItems(),
-		};
+	// time is in milliseconds
+	r.confirmInterval = [3000, 3000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 10000, 10000];
+	r.confirmIntervalIndex = null;
+	r.ticketId = null;
 
+	r.createPayment = function() {
 		try {
+			RSKYBOX.log.debug("sending a createPayment to server");
+			var cpUrl = baseUrl + 'payments/create';
+			r.urlParameters = r.getUrlParameters();
+			var jsonData = {
+				"AppInfo": {"App": "DONO", "OS":"IOS", “Version”:”1.0"},
+				"InvoiceAmount": r.urlParameters['invoiceAmount'],
+				"Amount": r.urlParameters['amount'],
+				"CustomerId": r.urlParameters['customerId'],
+				"AuthenticationToken": r.urlParameters['authenticationToken'],
+				"InvoiceId": r.urlParameters['invoiceId'],
+				"MerchantId": r.urlParameters['merchantId'],
+				"Gratuity": r.urlParameters['gratuity'],
+				"Type": r.urlParameters['type'],
+				"CardType": r.urlParameters['cardType'],
+				"FundSourceAccount": r.urlParameters['fundSourceAccount'],
+				"Expiration": r.urlParameters['expiration'],
+				"Pin": r.urlParameters['pin'],
+				"Anonymous": r.urlParameters['anonymous'],
+				"Items": r.buildItems()
+			};
+			r.confirmIntervalIndex = 0;
+
 			$.ajax({
 				dataType: 'json',
 				contentType: 'application/json',
 				type: 'POST',
 				url: cpUrl,
 				data: JSON.stringify(jsonData),
+				headers: {'Authorization' : r.urlParameters['token']},
 				//error: r.createPaymentError,
 				success: r.createPaymentSuccess,
 				statusCode: r.statusCodeHandlers(r.createPaymentApiError)
@@ -48,9 +56,16 @@ var ARC = (function (r, $) {
 		}
 	};
 
-	r.createPaymentSuccess = function(jqXHR) {
+	r.createPaymentSuccess = function(data, status, jqXHR) {
 		try {
-			// TODO
+			RSKYBOX.log.debug("createPaymentSuccess entered, Success = " + data.Success);
+			if(data.Success) {
+				r.ticketId = data.Results;
+				r.confirmPayment();
+			} else {
+				RSKYBOX.log.debug("createPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
+				r.returnToIos('fail', data.ErrorCodes[i].Code);
+			}
 		} catch (e) {
 			RSKYBOX.log.error(e, 'createPaymentSuccess');
 		}
@@ -59,6 +74,7 @@ var ARC = (function (r, $) {
 	// no "try again" scenario errors so always just return error to iOS app
 	r.createPaymentApiError = function(jqXHR) {
 		try {
+			RSKYBOX.log.debug("createPaymentApiError entered");
 			var code = r.getApiStatus(jqXHR.responseText);
 			RSKYBOX.log.info(code, 'createPaymentApiError');
 			r.returnToIos('fail', code);
@@ -67,18 +83,30 @@ var ARC = (function (r, $) {
 		}
 	};
 
-	// schedule: 3, 3, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10
-	r.confirmPayment = function() {
-		var cpUrl = baseUrl + 'payments/confirm';
-		var jsonData = {};
+	r.scheduleConfirmPayment = function(){
+		RSKYBOX.log.debug("scheduling confirm with index = " + confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms";
+		setTimeout(
+			function(){
+				r.confirmPayment();
+			}, r.confirmInterval[r.confirmIntervalIndex]);
+	};
 
+	r.confirmPayment = function() {
 		try {
+			RSKYBOX.log.debug("sending a confirmPayment to server");
+			var cpUrl = baseUrl + 'payments/confirm';
+			var jsonData = {
+				"AppInfo": {"App": "DONO", "OS":"IOS", “Version”:”1.0"},
+				"TicketId": r.ticketId
+			};
+
 			$.ajax({
 				dataType: 'json',
 				contentType: 'application/json',
-				type: 'POST',
+				type: 'SEARCH',
 				url: cpUrl,
 				data: JSON.stringify(jsonData),
+				headers: {'Authorization' : r.urlParameters['token']},
 				//error: r.confirmPaymentError,
 				success: r.confirmPaymentSuccess,
 				statusCode: r.statusCodeHandlers(r.confirmPaymentApiError)
@@ -88,9 +116,29 @@ var ARC = (function (r, $) {
 		}
 	};
 
-	r.confirmPaymentSuccess = function(jqXHR) {
+	r.confirmPaymentSuccess = function(data, status, jqXHR) {
 		try {
-			// TODO
+			RSKYBOX.log.debug("confirmPaymentSuccess entered, Success = " + data.Success);
+
+			if(data.Success) {
+				// if anything in the Results field, that payment is complete
+				if(data.Results) {
+					RSKYBOX.log.debug("confirmPaymentSuccess payment is now complete");
+					r.returnToIos('success', data.Results.PaymentId);
+				} else {
+					RSKYBOX.log.debug("confirmPaymentSuccess payment is not yet complete, scheduling another confirmation to be sent");
+					r.confirmIntervalIndex++;
+					if(r.confirmIntervalIndex < r.confirmInterval.length) {
+						r.scheduleConfirmPayment();
+					} else {
+						RSKYBOX.log.debug("confirmPaymentSuccess failed be maximum number of confirms have been sent to server");
+						r.returnToIos('fail', 'confirms timedout');
+					}
+				}
+			} else {
+				RSKYBOX.log.debug("confirmPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
+				r.returnToIos('fail', data.ErrorCodes[i].Code);
+			}
 		} catch (e) {
 			RSKYBOX.log.error(e, 'confirmPaymentSuccess');
 		}
@@ -99,6 +147,7 @@ var ARC = (function (r, $) {
 	// no "try again" scenario errors so always just return error to iOS app
 	r.confirmPaymentApiError = function(jqXHR) {
 		try {
+			RSKYBOX.log.debug("confirmPaymentApiError entered");
 			var code = r.getApiStatus(jqXHR.responseText);
 			RSKYBOX.log.info(code, 'confirmPaymentApiError');
 			r.returnToIos('fail', code);
@@ -109,6 +158,7 @@ var ARC = (function (r, $) {
 
 	r.getUrlParameters = function() {
 		try {
+			RSKYBOX.log.debug("getUrlParameters entered");
 			var urlParameters = {};
 			var query = window.location.search.substring(1);
 			var params = query.split("&");
