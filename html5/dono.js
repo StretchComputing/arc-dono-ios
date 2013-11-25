@@ -165,16 +165,17 @@ var ARC = (function (r, $) {
 			var params = query.split("&");
 			for (var i=0;i<params.length;i++) {
 				var pair = params[i].split("=");
+				var decodedValue = r.decodeUrlComponent(pair[1]);
 				// If first entry with this name
 				if (typeof urlParameters[pair[0]] === "undefined") {
-					urlParameters[pair[0]] = pair[1];
+					urlParameters[pair[0]] = decodedValue;
 					// If second entry with this name
 				} else if (typeof urlParameters[pair[0]] === "string") {
-					var arr = [ urlParameters[pair[0]], pair[1] ];
+					var arr = [ urlParameters[pair[0]], decodedValue ];
 					urlParameters[pair[0]] = arr;
 					// If third or later entry with this name
 				} else {
-					urlParameters[pair[0]].push(pair[1]);
+					urlParameters[pair[0]].push(decodedValue);
 				}
 			} 
 			return urlParameters;
@@ -182,6 +183,19 @@ var ARC = (function (r, $) {
 			RSKYBOX.log.error(e, 'getUrlQueryString');
 		}
 	};
+
+	r.decodeUrlComponent = function(component) {
+		try {
+			if(component) {
+				return decodeURIComponent( component.replace(/\+/g, '%20') )
+			} else {
+				return component;
+			}
+		} catch (e) {
+			RSKYBOX.log.error(e, 'decodeUrlComponent');
+		}
+	};
+
 
 	// status param: 'success', 'failure' or 'cancel'
 	// code param: error code or error message if status is 'failure' -- not currently used
