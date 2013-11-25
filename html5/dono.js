@@ -215,12 +215,33 @@ var ARC = (function (r, $) {
 		}
 	};
 
+	r.maskCcNumber = function(ccNumber) {
+		try {
+			var maskedCcNumber = ccNumber;
+			if(ccNumber && ccNumber.length > 3) {
+				maskedCcNumber = ccNumber.substring(ccNumber.length - 4);
+				maskedCcNumber = "****" + maskedNumber;
+			}
+			return maskedCcNumber;
+		} catch (e) {
+			RSKYBOX.log.error(e, 'maskCcNumber');
+		}
+	};
+
   return r;
 }(ARC || {}, jQuery));
 
 $(document).ready(function() {
 	RSKYBOX.log.debug("document.ready entered ...");
 	ARC.urlParameters = ARC.getUrlParameters();
+
+	// set the amount and credit card details on the page using values extracted from URL params
+	var total = ARC.urlParameters['amount'];
+	$('div.total').text(total);
+	var ccNumber = ARC.urlParameters['fundSourceAccount'];
+	ccNumber = ARC.maskCcNumber(ccNumber);
+	var card = ARC.urlParameters['cardType'] + " " + ccNumber;
+	$('div.card').text(card);
 });
 
 $(document).on('click', '.back', function(e){
