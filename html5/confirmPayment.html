@@ -9,17 +9,20 @@
       <link rel="stylesheet" href="dono.css">
       <script src="jquery.js"></script>
 			<script src="dono.js"></script>
+			<script src="store.js"></script>
 			<script src="util.js"></script>
 			<script src="rskybox.js"></script>
 			<script src="rskyboxClient.js"></script>
 
   </head>
   <body>
+		<iframe id="rskybox" src="https://rskybox-stretchcom.appspot.com/agents/iframe/rskybox.html" style="display: none;"></iframe>
+
 		<table class="title">
 			<tr class="row1">
-				<td class="column1><div class="back"><back</div></td>
-				<td class="column2>Confirm Donation</td>
-				<td class="column3></td>
+				<td class="column1"><div class="back">back</div></td>
+				<td class="column2">Confirm Donation</td>
+				<td class="column3"></td>
 			</tr>
 			<tr class="row2">
 				<td colspan="3">Please confirm your payment details</td>
@@ -28,20 +31,18 @@
 
 		<table class="tally">
 			<tr class="row1">
-				<td class="column1></td>
-				<td class="column2>Total</td>
-				<td class="column3>$<div class="total"></div></td>
-				<td class="column4></td>
+				<td class="column1"></td>
+				<td class="column2">Total</td>
+				<td class="column3"><div class="total"></div></td>
+				<td class="column4"></td>
 			</tr>
 			<tr class="row2">
-				<td class="column1></td>
-				<td class="column2>Card</td>
-				<td class="column3><div class="card"></div></td>
-				<td class="column4></td>
-			</tr>
-			<tr class="row3">
-				<td colspan="4"><div class="confirm">Confirm Donation</div></td>
+				<td class="column1"></td>
+				<td class="column2">Card</td>
+				<td class="column3"><div class="card"></div></td>
+				<td class="column4"></td>
 			</tr>
 		</table>
+		<div class="confirm">Confirm Donation</div>
   </body>
 </html>

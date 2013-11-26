@@ -20,8 +20,9 @@ var ARC = (function (r, $) {
 		try {
 			RSKYBOX.log.debug("sending a createPayment to server");
 			var cpUrl = baseUrl + 'payments/create';
+			var appInfo = { "App": "DONO", "OS": "IOS", "Version": "1.0" };
 			var jsonData = {
-				"AppInfo": {"App": "DONO", "OS":"IOS", “Version”:”1.0"},
+				"AppInfo": appInfo,
 				"InvoiceAmount": r.urlParameters['invoiceAmount'],
 				"Amount": r.urlParameters['amount'],
 				"CustomerId": r.urlParameters['customerId'],
@@ -84,7 +85,7 @@ var ARC = (function (r, $) {
 	};
 
 	r.scheduleConfirmPayment = function(){
-		RSKYBOX.log.debug("scheduling confirm with index = " + confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms";
+		RSKYBOX.log.debug("scheduling confirm with index = " + confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms");
 		setTimeout(
 			function(){
 				r.confirmPayment();
@@ -95,8 +96,9 @@ var ARC = (function (r, $) {
 		try {
 			RSKYBOX.log.debug("sending a confirmPayment to server");
 			var cpUrl = baseUrl + 'payments/confirm';
+			var appInfo = { "App": "DONO", "OS": "IOS", "Version": "1.0" };
 			var jsonData = {
-				"AppInfo": {"App": "DONO", "OS":"IOS", “Version”:”1.0"},
+				"AppInfo": appInfo,
 				"TicketId": r.ticketId
 			};
 			RSKYBOX.log.debug("confirmPayment jsonData = " + JSON.stringify(jsonData));
@@ -234,7 +236,7 @@ var ARC = (function (r, $) {
 			var maskedCcNumber = ccNumber;
 			if(ccNumber && ccNumber.length > 3) {
 				maskedCcNumber = ccNumber.substring(ccNumber.length - 4);
-				maskedCcNumber = "****" + maskedNumber;
+				maskedCcNumber = "****" + maskedCcNumber;
 			}
 			return maskedCcNumber;
 		} catch (e) {
@@ -247,10 +249,11 @@ var ARC = (function (r, $) {
 
 $(document).ready(function() {
 	RSKYBOX.log.debug("document.ready entered ...");
+	var pathname = window.location.pathname;
 	ARC.urlParameters = ARC.getUrlParameters();
 
 	// set the amount and credit card details on the page using values extracted from URL params
-	var total = ARC.urlParameters['amount'];
+	var total = "$" + ARC.urlParameters['invoiceAmount'];
 	$('div.total').text(total);
 	var ccNumber = ARC.urlParameters['fundSourceAccount'];
 	ccNumber = ARC.maskCcNumber(ccNumber);
@@ -259,13 +262,13 @@ $(document).ready(function() {
 });
 
 $(document).on('click', '.back', function(e){
+	e.preventDefault();
 	ARC.returnToIos('cancel');
-	return false;
 });
 
 $(document).on('click', '.confirm', function(e){
+	e.preventDefault();
 	ARC.createPayment();
-	return false;
 });
 
 
