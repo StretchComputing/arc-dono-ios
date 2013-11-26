@@ -1,3 +1,4 @@
+var CONFIRM_PAYMENT_TIMED_OUT = '1000';
 var ARC = (function (r, $) {
   'use strict';
 
@@ -27,7 +28,7 @@ var ARC = (function (r, $) {
 			var jsonData = {
 				"AppInfo": appInfo,
 				"InvoiceAmount": r.urlParameters['invoiceAmount'],
-				"Amount": r.urlParameters['amount'],
+				"Amount": r.urlParameters['invoiceAmount'],
 				"CustomerId": r.urlParameters['customerId'],
 				"AuthenticationToken": r.urlParameters['authenticationToken'],
 				"InvoiceId": r.urlParameters['invoiceId'],
@@ -138,7 +139,7 @@ var ARC = (function (r, $) {
 						r.scheduleConfirmPayment();
 					} else {
 						RSKYBOX.log.debug("confirmPaymentSuccess failed be maximum number of confirms have been sent to server");
-						r.returnToIos('failure', null, '1000');
+						r.returnToIos('failure', null, CONFIRM_PAYMENT_TIMED_OUT);
 					}
 				}
 			} else {
@@ -236,7 +237,7 @@ var ARC = (function (r, $) {
 			var values = r.urlParameters['Value'];
 			var descriptions = r.urlParameters['Description'];
 
-			for(var i=0; i<Amounts.length; i++) {
+			for(var i=0; i<amounts.length; i++) {
 				items[i] = {"Amount": amounts[i], "Percent": percents[i], "ItemId": itemIds[i], "Value": values[i], "Description": descriptions[i]};
 			}
 			return items;
@@ -266,7 +267,7 @@ $(document).ready(function() {
 	//var pathname = window.location.pathname;
 	ARC.urlParameters = ARC.getUrlParameters();
 	ARC.serverUrl = ARC.urlParameters['serverUrl']
-	ARC.baseUrl = ARC.serverUrl + 'rest/v1/';
+	ARC.baseUrl = ARC.serverUrl;
 
 	// set the amount and credit card details on the page using values extracted from URL params
 	var total = "$" + ARC.urlParameters['invoiceAmount'];

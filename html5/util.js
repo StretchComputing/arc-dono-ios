@@ -30,14 +30,14 @@ var ARC = (function(r, $) {
       },
       401: function(jqXHR) {
         try {
-        	r.flash.error("Server error, contact tech support");
+        	//r.flash.error("Server error, contact tech support");
           RSKYBOX.log.error('401 - unauthorized', 'ARC.statusCodeHandlers');
         } catch (e) {
           RSKYBOX.log.warn(e, 'ARC.statusCodeHandlers:general:401');
         }
       },
       404: function() {
-        r.flash.error("Server error, contact tech support");
+        //r.flash.error("Server error, contact tech support");
         RSKYBOX.log.error('404 - not found', 'ARC.statusCodeHandlers');
       },
       500: function() {
