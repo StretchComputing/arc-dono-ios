@@ -132,6 +132,8 @@ BOOL isIos7;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+
     self.imageDictionary = [NSMutableDictionary dictionary];
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"savedImageDictionary"]) {
         self.imageDictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedImageDictionary"];
@@ -257,6 +259,27 @@ BOOL isIos7;
     
     
     
+    
+    return YES;
+}
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    
+    UIAlertView *alertView;
+    NSString *text = [[url host] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    alertView = [[UIAlertView alloc] initWithTitle:@"Text" message:text delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+   // [alertView show];
+    
+    
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.daledietrich.com"]];
+
+    return YES;
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    // Display text
+   
     
     return YES;
 }
@@ -1055,7 +1078,7 @@ ofType:(NSString *)typeName
 
 
 //Facebook
-
+/*
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -1078,6 +1101,7 @@ ofType:(NSString *)typeName
     }];
 }
 
+ */
 // Helper method to wrap logic for handling app links.
 - (void)handleAppLink:(FBAccessTokenData *)appLinkToken {
     // Initialize a new blank session instance...

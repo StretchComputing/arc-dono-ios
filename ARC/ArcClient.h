@@ -161,5 +161,7 @@ typedef enum {
 
 -(NSString *)getLocalEndpoint;
 -(NSString *)getRemoteEndpoint;
+-(NSString *) authHeader;
+
 @end
 
