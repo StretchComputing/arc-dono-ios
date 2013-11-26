@@ -2823,7 +2823,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="591"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wuB-hq-SKr" customClass="SteelfishLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Donation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wuB-hq-SKr" customClass="SteelfishLabel">
                                         <rect key="frame" x="75" y="26" width="170" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -4850,13 +4850,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="e0y-kO-3zF"/>
-        <segue reference="fCb-MI-Uhn"/>
-        <segue reference="60R-Rf-IDS"/>
-        <segue reference="R2w-A0-Oa5"/>
-        <segue reference="ZGA-Y5-Qfp"/>
-        <segue reference="TDO-RV-Ymb"/>
-        <segue reference="Ri0-dl-LlT"/>
         <segue reference="HfN-Yx-vMe"/>
+        <segue reference="AcI-7f-4Nr"/>
+        <segue reference="Y0K-gv-xsr"/>
+        <segue reference="lDG-qj-6WW"/>
+        <segue reference="60R-Rf-IDS"/>
+        <segue reference="fCb-MI-Uhn"/>
+        <segue reference="e0y-kO-3zF"/>
+        <segue reference="R2w-A0-Oa5"/>
     </inferredMetricsTieBreakers>
 </document>

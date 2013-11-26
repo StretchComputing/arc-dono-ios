@@ -25,6 +25,7 @@
 #import "ChurchDontationTypeSelector.h"
 #import "ChurchAmountSingleType.h"
 #import "RNFrostedSidebar.h"
+#import "ILTranslucentView.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -185,6 +186,10 @@
   
     
     @try {
+        
+        
+ 
+  
         
     
         
