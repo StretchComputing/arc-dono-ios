@@ -267,13 +267,17 @@ BOOL isIos7;
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     
     UIAlertView *alertView;
-    NSString *text = [[url host] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    alertView = [[UIAlertView alloc] initWithTitle:@"Text" message:text delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-   // [alertView show];
+    NSString *host = [[url host] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *paramString = [[url host] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     
+    //failure?errorCode=XXXX&httpErrorCode=XXXX
+    //1000 is confirm retry
     
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.daledietrich.com"]];
+    NSLog(@"URL: %@", [url absoluteString]); //mydono://failure?errorCode=234
+    NSLog(@"Host: %@", host);
+    NSLog(@"ParamString: %@", paramString);
+
 
     return YES;
 }

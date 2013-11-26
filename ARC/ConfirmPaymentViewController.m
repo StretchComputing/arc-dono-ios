@@ -327,9 +327,12 @@
                 anonymous = @"true";
             }
             NSString *cardType = [ArcUtility getCardTypeForNumber:ccNumber];
-
             
-            url = [NSString stringWithFormat:@"https://dagher.mobi.com/ourpath.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&type=%@&cardType=%@&fundSourceAccount=%@&expiration=%@&pin=%@&anonymous=%@&token=%@", self.donationAmount, guestId, @"", self.myInvoice.invoiceId, self.myMerchant.merchantId, self.chargeFee, @"CREDIT", cardType, ccNumber, expiration, ccSecurityCode, anonymous, token];
+            NSString *passUrl = [client getCurrentUrl];
+
+            NSString *startUrl = [passUrl stringByReplacingOccurrencesOfString:@"/rest/v1/" withString:@""];
+            
+            url = [NSString stringWithFormat:@"%@/content/confirmpayment/confirmpayment.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&type=%@&cardType=%@&fundSourceAccount=%@&expiration=%@&pin=%@&anonymous=%@&token=%@&serverUrl=%@", startUrl, self.donationAmount, guestId, @"", self.myMerchant.invoiceId, self.myMerchant.merchantId, self.chargeFee, @"CREDIT", cardType, ccNumber, expiration, ccSecurityCode, anonymous, token, passUrl];
             
             for (int i = 0; i < [self.myItemsArray count]; i++) {
                 
@@ -339,7 +342,7 @@
             NSLog(@"URL: %@", url);
             
             url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            
+            url = [url stringByReplacingOccurrencesOfString:@"==" withString:@"%3D%3D"];
             NSLog(@"Encoded: %@", url);
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
