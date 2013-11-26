@@ -1,6 +1,9 @@
 var ARC = (function (r, $) {
   'use strict';
 
+	r.serverUrl = null;
+	r.baseUrl = null;
+
 	r.createPaymentApiCodes = {
 		106: "Username and/or Password incorrect, please try again"
 	};
@@ -19,7 +22,7 @@ var ARC = (function (r, $) {
 	r.createPayment = function() {
 		try {
 			RSKYBOX.log.debug("sending a createPayment to server");
-			var cpUrl = baseUrl + 'payments/create';
+			var cpUrl = r.baseUrl + 'payments/create';
 			var appInfo = { "App": "DONO", "OS": "IOS", "Version": "1.0" };
 			var jsonData = {
 				"AppInfo": appInfo,
@@ -65,7 +68,7 @@ var ARC = (function (r, $) {
 				r.confirmPayment();
 			} else {
 				RSKYBOX.log.debug("createPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
-				r.returnToIos('failure', data.ErrorCodes[i].Code);
+				r.returnToIos('failure', null, data.ErrorCodes[i].Code);
 			}
 		} catch (e) {
 			RSKYBOX.log.error(e, 'createPaymentSuccess');
@@ -78,7 +81,7 @@ var ARC = (function (r, $) {
 			RSKYBOX.log.debug("createPaymentApiError entered");
 			var code = r.getApiStatus(jqXHR.responseText);
 			RSKYBOX.log.info(code, 'createPaymentApiError');
-			r.returnToIos('failure', code);
+			r.returnToIos('failure', code, null);
 		} catch (e) {
 			RSKYBOX.log.error(e, 'createPaymentApiError');
 		}
@@ -95,7 +98,7 @@ var ARC = (function (r, $) {
 	r.confirmPayment = function() {
 		try {
 			RSKYBOX.log.debug("sending a confirmPayment to server");
-			var cpUrl = baseUrl + 'payments/confirm';
+			var cpUrl = r.baseUrl + 'payments/confirm';
 			var appInfo = { "App": "DONO", "OS": "IOS", "Version": "1.0" };
 			var jsonData = {
 				"AppInfo": appInfo,
@@ -135,12 +138,12 @@ var ARC = (function (r, $) {
 						r.scheduleConfirmPayment();
 					} else {
 						RSKYBOX.log.debug("confirmPaymentSuccess failed be maximum number of confirms have been sent to server");
-						r.returnToIos('failure', 'confirms timedout');
+						r.returnToIos('failure', null, '1000');
 					}
 				}
 			} else {
 				RSKYBOX.log.debug("confirmPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
-				r.returnToIos('failure', data.ErrorCodes[i].Code);
+				r.returnToIos('failure', null, data.ErrorCodes[i].Code);
 			}
 		} catch (e) {
 			RSKYBOX.log.error(e, 'confirmPaymentSuccess');
@@ -153,7 +156,7 @@ var ARC = (function (r, $) {
 			RSKYBOX.log.debug("confirmPaymentApiError entered");
 			var code = r.getApiStatus(jqXHR.responseText);
 			RSKYBOX.log.info(code, 'confirmPaymentApiError');
-			r.returnToIos('failure', code);
+			r.returnToIos('failure', code, null);
 		} catch (e) {
 			RSKYBOX.log.error(e, 'confirmPaymentApiError');
 		}
@@ -200,14 +203,25 @@ var ARC = (function (r, $) {
 
 
 	// status param: 'success', 'failure' or 'cancel'
-	// code param: error code or error message if status is 'failure' -- not currently used
-	r.returnToIos = function(status, code) {
+	// httpErrorCode: HTTP error code
+	// errorCode: application error code
+	// NOTE: only one of the two error codes will be non-null on failure
+	r.returnToIos = function(status, httpErrorCode, errorCode) {
 		try {
 			if(status != 'success' && status != 'failure' && status != 'cancel') {
 				RSKYBOX.log.error('returnToIos bad status', 'returnToIos');
 				status = 'failure';
 			}
-			window.location = "myDono://" + status;
+
+			var returnUrl = "myDono://" + status;
+			if(status === 'failure') {
+				if(httpErrorCode) {
+					returnUrl = returnUrl + "?httpErrorCode=" + httpErrorCode;
+				} else {
+					returnUrl = returnUrl + "?errorCode=" + errorCode;
+				}
+			}
+			window.location = returnUrl;
 		} catch (e) {
 			RSKYBOX.log.error(e, 'returnToIos');
 		}
@@ -249,8 +263,10 @@ var ARC = (function (r, $) {
 
 $(document).ready(function() {
 	RSKYBOX.log.debug("document.ready entered ...");
-	var pathname = window.location.pathname;
+	//var pathname = window.location.pathname;
 	ARC.urlParameters = ARC.getUrlParameters();
+	ARC.serverUrl = ARC.urlParameters['serverUrl']
+	ARC.baseUrl = ARC.serverUrl + 'rest/v1/';
 
 	// set the amount and credit card details on the page using values extracted from URL params
 	var total = "$" + ARC.urlParameters['invoiceAmount'];
