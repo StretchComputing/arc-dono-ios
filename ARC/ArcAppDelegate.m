@@ -266,18 +266,34 @@ BOOL isIos7;
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     
-    UIAlertView *alertView;
-    NSString *host = [[url host] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *paramString = [[url host] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  
 
+    NSLog(@"URL: %@", [url absoluteString]);
     
-    //failure?errorCode=XXXX&httpErrorCode=XXXX
-    //1000 is confirm retry
+    NSString *successOrFailure = [[url absoluteString] stringByReplacingOccurrencesOfString:@"mydono://" withString:@""];
     
-    NSLog(@"URL: %@", [url absoluteString]); //mydono://failure?errorCode=234
-    NSLog(@"Host: %@", host);
-    NSLog(@"ParamString: %@", paramString);
+    if ([successOrFailure isEqualToString:@"cancel"]) {
+        
+    }else if ([successOrFailure isEqualToString:@"success"]) {
+        //success
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"webSuccess" object:self userInfo:nil];
 
+    }else{
+        //failure
+        successOrFailure = [successOrFailure stringByReplacingOccurrencesOfString:@"failure" withString:@""];
+        
+        if ([successOrFailure rangeOfString:@"httpErrorCode"].location != NSNotFound) {
+            //there is an httpErrorCode
+        }else{
+            //no httpErrorCode, report the errorCode
+
+            NSString *errorCode = [successOrFailure stringByReplacingOccurrencesOfString:@"?errorCode=" withString:@""];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"webFailure" object:self userInfo:@{@"errorCode":errorCode}];
+
+
+        }
+    }
 
     return YES;
 }
