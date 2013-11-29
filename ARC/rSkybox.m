@@ -175,7 +175,6 @@ NSString *const CLOSED_STATUS = @"closed";
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
-    return;
     
     @try {
 
@@ -336,7 +335,6 @@ NSString *const CLOSED_STATUS = @"closed";
 
 + (void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData{
 
-    return;
     
     @try {
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
