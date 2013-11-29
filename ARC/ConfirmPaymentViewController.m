@@ -62,6 +62,10 @@
 {
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webSuccess:) name:@"webSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webFailure:) name:@"webFailure" object:nil];
+
+    
     self.numSelected = [self.myMerchant.donationTypes count];
     
     self.chargeFee = 0.0;
@@ -331,6 +335,7 @@
             NSString *passUrl = [client getCurrentUrl];
 
             NSString *startUrl = [passUrl stringByReplacingOccurrencesOfString:@"/rest/v1/" withString:@""];
+        
             
             url = [NSString stringWithFormat:@"%@/content/confirmpayment/confirmpayment.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&type=%@&cardType=%@&fundSourceAccount=%@&expiration=%@&pin=%@&anonymous=%@&token=%@&serverUrl=%@", startUrl, self.donationAmount, guestId, @"", self.myMerchant.invoiceId, self.myMerchant.merchantId, self.chargeFee, @"CREDIT", cardType, ccNumber, expiration, ccSecurityCode, anonymous, token, passUrl];
             
@@ -509,7 +514,178 @@
 }
 
 
+-(void)webSuccess:(NSNotification *)notification{
 
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+        //not a guest
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Congratulations, your donation was successfully processed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+        LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+        [tmp homeSelected];
+    }else{
+        //guest
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Congratulations, your donation was successfully processed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+        [self performSegueWithIdentifier:@"saveInfo" sender:nil];
+    }
+    
+}
+
+-(void)webFailure:(NSNotification *)notification{
+
+    BOOL editCardOption = NO;
+    BOOL duplicateTransaction = NO;
+    BOOL displayAlert = NO;
+    BOOL possibleError = NO;
+    BOOL networkError = NO;
+    
+    self.confirmButton.enabled = YES;
+  
+    
+    NSString *errorMsg = @"";
+    
+    int errorCode = [[[notification valueForKey:@"userInfo"] valueForKey:@"errorCode"] intValue];
+    if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
+        //errorMsg = @"Credit card not approved.";
+        editCardOption = YES;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your credit card could not be authorized.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        return;
+        
+        
+    } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your credit card could not be authorized.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        return;
+        // TODO need explanation from Jim to put proper error msg
+        //errorMsg = @"Failed to validate credit card";
+        editCardOption = YES;
+    } else if (errorCode == FIELD_FORMAT_ERROR){
+        // errorMsg = @"Invalid Credit Card Field Format";
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your credit card could not be authorized.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        return;
+        editCardOption = YES;
+    }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
+        // TODO need explanation from Jim to put proper error msg
+        // errorMsg = @"Invalid credit/debit card number";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card Number" message:@"The number you entered for this credit card is inavlid.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        return;
+        
+        
+        editCardOption = YES;
+    } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
+        // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
+        errorMsg = @"Merchant does not accept credit/debit card";
+    } else if(errorCode == OVER_PAID) {
+        errorMsg = @"Over payment. Please check invoice and try again.";
+    } else if(errorCode == INVALID_AMOUNT) {
+        errorMsg = @"Invalid amount. Please re-enter payment and try again.";
+    } else if(errorCode == INVALID_EXPIRATION_DATE) {
+        //errorMsg = @"Invalid expiration date.";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Expiration Date" message:@"The expiration date you entered for this credit card is inavlid.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        return;
+        
+        
+        editCardOption = YES;
+    }  else if (errorCode == UNKOWN_ISIS_ERROR){
+        //editCardOption = YES;
+        errorMsg = @"Payment failed, please try again.";
+    }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
+        errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
+        displayAlert = YES;
+    }else if(errorCode == DUPLICATE_TRANSACTION){
+        duplicateTransaction = YES;
+    }else if (errorCode == CHECK_IS_LOCKED){
+        errorMsg = @"This check is currently locked.  Please try again in a few minutes.";
+        displayAlert = YES;
+    }else if (errorCode == CARD_ALREADY_PROCESSED){
+        errorMsg = @"This card has already been used for payment on this invoice.  A card may only be used once per invoice.  Please try again with a different card.";
+        displayAlert = YES;
+    }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
+        errorMsg = @"Invalid Authorization, please try again.";
+        displayAlert = YES;
+    }else if (errorCode == NETWORK_ERROR){
+        
+        networkError = YES;
+        errorMsg = @"dono is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+        
+    }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
+        
+        networkError = YES;
+        errorMsg = @"dono experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+        
+    }else if (errorCode == PAYMENT_POSSIBLE_SUCCESS){
+        errorMsg = @"error";
+        possibleError = YES;
+    }else if (errorCode == INVALID_SECURITY_PIN){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Security PIN" message:@"The CVV you entered for this credit card is inavlid.  Please double check your card information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    else {
+        errorMsg = ARC_ERROR_MSG;
+    }
+    
+    
+    if (displayAlert) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Warning" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+    }else{
+        
+        if ([errorMsg length] > 0) {
+            if (networkError) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet  Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }else{
+                
+                if (possibleError) {
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Validation Failed" message:@"We were unable to validate that your payment went through.  Please verify by reloading the invoice, or checking with your server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    
+                }else{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }
+                
+            }
+        }
+        
+        
+        // self.errorLabel.text = errorMsg;
+        
+    }
+    
+    if (editCardOption) {
+        //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Please verify your payment details and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        
+        [alert show];
+    }else if (duplicateTransaction){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dono has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+
+
+
+
+
+}
 
 -(void)paymentComplete:(NSNotification *)notification{
     
