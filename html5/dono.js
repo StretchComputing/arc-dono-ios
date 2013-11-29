@@ -22,7 +22,8 @@ var ARC = (function (r, $) {
 
 	r.createPayment = function() {
 		try {
-			RSKYBOX.log.debug("sending a createPayment to server");
+			//RSKYBOX.log.debug("sending a createPayment to server");
+			console.log("sending a createPayment to server");
 			var cpUrl = r.baseUrl + 'payments/create';
 			var appInfo = { "App": "DONO", "OS": "IOS", "Version": "1.0" };
 			var jsonData = {
@@ -42,7 +43,8 @@ var ARC = (function (r, $) {
 				"Anonymous": r.urlParameters['anonymous'],
 				"Items": r.buildItems()
 			};
-			RSKYBOX.log.debug("createPayment jsonData = " + JSON.stringify(jsonData));
+			//RSKYBOX.log.debug("createPayment jsonData = " + JSON.stringify(jsonData));
+			console.log("createPayment jsonData = " + JSON.stringify(jsonData));
 			r.confirmIntervalIndex = 0;
 
 			$.ajax({
@@ -57,39 +59,42 @@ var ARC = (function (r, $) {
 				statusCode: r.statusCodeHandlers(r.createPaymentApiError)
 			});
 		} catch (e) {
-			RSKYBOX.log.error(e, 'createPayment');
+			//RSKYBOX.log.error(e, 'createPayment');
 		}
 	};
 
 	r.createPaymentSuccess = function(data, status, jqXHR) {
 		try {
-			RSKYBOX.log.debug("createPaymentSuccess entered, Success = " + data.Success);
+			//RSKYBOX.log.debug("createPaymentSuccess entered, Success = " + data.Success);
+			console.log("createPaymentSuccess entered, Success = " + data.Success);
 			if(data.Success) {
 				r.ticketId = data.Results;
 				r.confirmPayment();
 			} else {
-				RSKYBOX.log.debug("createPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
+				//RSKYBOX.log.debug("createPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
 				r.returnToIos('failure', null, data.ErrorCodes[i].Code);
 			}
 		} catch (e) {
-			RSKYBOX.log.error(e, 'createPaymentSuccess');
+			//RSKYBOX.log.error(e, 'createPaymentSuccess');
 		}
 	};
 
 	// no "try again" scenario errors so always just return error to iOS app
 	r.createPaymentApiError = function(jqXHR) {
 		try {
-			RSKYBOX.log.debug("createPaymentApiError entered");
+			//RSKYBOX.log.debug("createPaymentApiError entered");
+			console.log("createPaymentApiError entered");
 			var code = r.getApiStatus(jqXHR.responseText);
-			RSKYBOX.log.info(code, 'createPaymentApiError');
+			//RSKYBOX.log.info(code, 'createPaymentApiError');
 			r.returnToIos('failure', code, null);
 		} catch (e) {
-			RSKYBOX.log.error(e, 'createPaymentApiError');
+			//RSKYBOX.log.error(e, 'createPaymentApiError');
 		}
 	};
 
 	r.scheduleConfirmPayment = function(){
-		RSKYBOX.log.debug("scheduling confirm with index = " + confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms");
+		//RSKYBOX.log.debug("scheduling confirm with index = " + confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms");
+		console.log("scheduling confirm with index = " + confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms");
 		setTimeout(
 			function(){
 				r.confirmPayment();
@@ -98,14 +103,15 @@ var ARC = (function (r, $) {
 
 	r.confirmPayment = function() {
 		try {
-			RSKYBOX.log.debug("sending a confirmPayment to server");
+			//RSKYBOX.log.debug("sending a confirmPayment to server");
+			console.log("sending a confirmPayment to server");
 			var cpUrl = r.baseUrl + 'payments/confirm';
 			var appInfo = { "App": "DONO", "OS": "IOS", "Version": "1.0" };
 			var jsonData = {
 				"AppInfo": appInfo,
 				"TicketId": r.ticketId
 			};
-			RSKYBOX.log.debug("confirmPayment jsonData = " + JSON.stringify(jsonData));
+			//RSKYBOX.log.debug("confirmPayment jsonData = " + JSON.stringify(jsonData));
 
 			$.ajax({
 				dataType: 'json',
@@ -119,53 +125,60 @@ var ARC = (function (r, $) {
 				statusCode: r.statusCodeHandlers(r.confirmPaymentApiError)
 			});
 		} catch (e) {
-			RSKYBOX.log.error(e, 'confirmPayment');
+			//RSKYBOX.log.error(e, 'confirmPayment');
 		}
 	};
 
 	r.confirmPaymentSuccess = function(data, status, jqXHR) {
 		try {
-			RSKYBOX.log.debug("confirmPaymentSuccess entered, Success = " + data.Success);
+			//RSKYBOX.log.debug("confirmPaymentSuccess entered, Success = " + data.Success);
+			console.log("confirmPaymentSuccess entered, Success = " + data.Success);
 
 			if(data.Success) {
 				// if anything in the Results field, that payment is complete
 				if(data.Results) {
-					RSKYBOX.log.debug("confirmPaymentSuccess payment is now complete");
+					//RSKYBOX.log.debug("confirmPaymentSuccess payment is now complete");
+					console.log("confirmPaymentSuccess payment is now complete");
 					r.returnToIos('success', data.Results.PaymentId);
 				} else {
-					RSKYBOX.log.debug("confirmPaymentSuccess payment is not yet complete, scheduling another confirmation to be sent");
+					//RSKYBOX.log.debug("confirmPaymentSuccess payment is not yet complete, scheduling another confirmation to be sent");
+					console.log("confirmPaymentSuccess payment is not yet complete, scheduling another confirmation to be sent");
 					r.confirmIntervalIndex++;
 					if(r.confirmIntervalIndex < r.confirmInterval.length) {
 						r.scheduleConfirmPayment();
 					} else {
-						RSKYBOX.log.debug("confirmPaymentSuccess failed be maximum number of confirms have been sent to server");
+						//RSKYBOX.log.debug("confirmPaymentSuccess failed be maximum number of confirms have been sent to server");
+						console.log("confirmPaymentSuccess failed be maximum number of confirms have been sent to server");
 						r.returnToIos('failure', null, CONFIRM_PAYMENT_TIMED_OUT);
 					}
 				}
 			} else {
-				RSKYBOX.log.debug("confirmPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
+				//RSKYBOX.log.debug("confirmPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
+				console.log("confirmPaymentSuccess failed with error code = " + data.ErrorCodes[i].Code);
 				r.returnToIos('failure', null, data.ErrorCodes[i].Code);
 			}
 		} catch (e) {
-			RSKYBOX.log.error(e, 'confirmPaymentSuccess');
+			//RSKYBOX.log.error(e, 'confirmPaymentSuccess');
 		}
 	};
 
 	// no "try again" scenario errors so always just return error to iOS app
 	r.confirmPaymentApiError = function(jqXHR) {
 		try {
-			RSKYBOX.log.debug("confirmPaymentApiError entered");
+			//RSKYBOX.log.debug("confirmPaymentApiError entered");
+			console.log("confirmPaymentApiError entered");
 			var code = r.getApiStatus(jqXHR.responseText);
-			RSKYBOX.log.info(code, 'confirmPaymentApiError');
+			//RSKYBOX.log.info(code, 'confirmPaymentApiError');
 			r.returnToIos('failure', code, null);
 		} catch (e) {
-			RSKYBOX.log.error(e, 'confirmPaymentApiError');
+			//RSKYBOX.log.error(e, 'confirmPaymentApiError');
 		}
 	};
 
 	r.getUrlParameters = function() {
 		try {
-			RSKYBOX.log.debug("getUrlParameters entered");
+			//RSKYBOX.log.debug("getUrlParameters entered");
+			console.log("getUrlParameters entered");
 			var urlParameters = {};
 			var query = window.location.search.substring(1);
 			var params = query.split("&");
@@ -186,7 +199,7 @@ var ARC = (function (r, $) {
 			} 
 			return urlParameters;
 		} catch (e) {
-			RSKYBOX.log.error(e, 'getUrlQueryString');
+			//RSKYBOX.log.error(e, 'getUrlQueryString');
 		}
 	};
 
@@ -198,7 +211,7 @@ var ARC = (function (r, $) {
 				return component;
 			}
 		} catch (e) {
-			RSKYBOX.log.error(e, 'decodeUrlComponent');
+			//RSKYBOX.log.error(e, 'decodeUrlComponent');
 		}
 	};
 
@@ -210,7 +223,7 @@ var ARC = (function (r, $) {
 	r.returnToIos = function(status, httpErrorCode, errorCode) {
 		try {
 			if(status != 'success' && status != 'failure' && status != 'cancel') {
-				RSKYBOX.log.error('returnToIos bad status', 'returnToIos');
+				//RSKYBOX.log.error('returnToIos bad status', 'returnToIos');
 				status = 'failure';
 			}
 
@@ -224,7 +237,7 @@ var ARC = (function (r, $) {
 			}
 			window.location = returnUrl;
 		} catch (e) {
-			RSKYBOX.log.error(e, 'returnToIos');
+			//RSKYBOX.log.error(e, 'returnToIos');
 		}
 	};
 
@@ -242,7 +255,7 @@ var ARC = (function (r, $) {
 			}
 			return items;
 		} catch (e) {
-			RSKYBOX.log.error(e, 'buildItems');
+			//RSKYBOX.log.error(e, 'buildItems');
 		}
 	};
 
@@ -255,7 +268,7 @@ var ARC = (function (r, $) {
 			}
 			return maskedCcNumber;
 		} catch (e) {
-			RSKYBOX.log.error(e, 'maskCcNumber');
+			//RSKYBOX.log.error(e, 'maskCcNumber');
 		}
 	};
 
@@ -263,7 +276,8 @@ var ARC = (function (r, $) {
 }(ARC || {}, jQuery));
 
 $(document).ready(function() {
-	RSKYBOX.log.debug("document.ready entered ...");
+	console.log("ready entered");
+	//RSKYBOX.log.debug("document.ready entered ...");
 	//var pathname = window.location.pathname;
 	ARC.urlParameters = ARC.getUrlParameters();
 	ARC.serverUrl = ARC.urlParameters['serverUrl']
@@ -279,11 +293,13 @@ $(document).ready(function() {
 });
 
 $(document).on('click', '.back', function(e){
+	console.log("back button clicked");
 	e.preventDefault();
 	ARC.returnToIos('cancel');
 });
 
 $(document).on('click', '.confirm', function(e){
+	console.log("confirm button clicked");
 	e.preventDefault();
 	ARC.createPayment();
 });
