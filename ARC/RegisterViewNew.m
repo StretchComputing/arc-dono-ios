@@ -1415,9 +1415,9 @@
                     
                 }
                 NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-                NSLog(@"Output: %@", output);
-                NSLog(@"Error: %@", error);
-                NSLog(@"Output: %@", dataString);
+              //  NSLog(@"Output: %@", output);
+               // NSLog(@"Error: %@", error);
+               // NSLog(@"Output: %@", dataString);
                 
                 
             }];
@@ -1433,8 +1433,8 @@
             });
             
             
-            NSLog(@"Error: %@", [error description]);
-            NSLog(@"Access denied");
+           // NSLog(@"Error: %@", [error description]);
+           // NSLog(@"Access denied");
         }
     }];
     
