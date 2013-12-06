@@ -95,7 +95,7 @@
         }
     }
     @catch (NSException *e) {
-        NSLog(@"LiveDebugViewController.steamComplete Exception - %@ - %@", [e name], [e description]);
+       // NSLog(@"LiveDebugViewController.steamComplete Exception - %@ - %@", [e name], [e description]);
     }
 }
 

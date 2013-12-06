@@ -111,7 +111,7 @@
         self.transactionNotesText.layer.borderColor = [dutchTopLineColor CGColor];
     }
     @catch (NSException *exception) {
-        NSLog(@"E: %@", exception);
+      //  NSLog(@"E: %@", exception);
     }
    
 }

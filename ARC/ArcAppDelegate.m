@@ -192,7 +192,7 @@ BOOL isIos7;
         NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (dictionary != nil)
         {
-            NSLog(@"Launched from push notification: %@", dictionary);
+          //  NSLog(@"Launched from push notification: %@", dictionary);
             
             // TODO  look for custom payload and establish context
         }
@@ -269,7 +269,7 @@ BOOL isIos7;
   
 
     @try {
-        NSLog(@"URL: %@", [url absoluteString]);
+        //NSLog(@"URL: %@", [url absoluteString]);
         
         NSString *successOrFailure = [[url absoluteString] stringByReplacingOccurrencesOfString:@"mydono://" withString:@""];
         
@@ -321,7 +321,7 @@ BOOL isIos7;
 {
     //  Push notification received while the app is running
     
-    NSLog(@"Received notification: %@", userInfo);
+   // NSLog(@"Received notification: %@", userInfo);
     
     // TODO  look for custom payload and establish context
 }
@@ -359,7 +359,7 @@ BOOL isIos7;
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
     
-    NSLog(@"Token Failed: %@", err);
+  //  NSLog(@"Token Failed: %@", err);
     
 }
 
@@ -467,7 +467,7 @@ BOOL isIos7;
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"Exception: %@", exception);
+       // NSLog(@"Exception: %@", exception);
     }
    
 
@@ -587,7 +587,7 @@ BOOL isIos7;
 
 - (void)handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted{
 
-    NSLog(@"Error: %@", error);
+  //  NSLog(@"Error: %@", error);
     
 }
 
@@ -615,7 +615,7 @@ ofType:(NSString *)typeName
                 if (success) {
                     [self documentIsReady];
                 }else{
-                    NSLog(@"Could not open document");
+                  //  NSLog(@"Could not open document");
                 }
 
             }];
@@ -627,7 +627,7 @@ ofType:(NSString *)typeName
                 if (success) {
                     [self documentIsReady];
                 }else{
-                    NSLog(@"Could not create document");
+                   // NSLog(@"Could not create document");
                 }
             }];
         }
@@ -640,7 +640,7 @@ ofType:(NSString *)typeName
 
 -(void)documentIsReady{
     @try {
-        NSLog(@"Document is ready!!");
+       // NSLog(@"Document is ready!!");
         self.documentReady = YES;
         if (self.managedDocument.documentState == UIDocumentStateNormal) {
             self.managedObjectContext = self.managedDocument.managedObjectContext;
@@ -667,7 +667,7 @@ ofType:(NSString *)typeName
 
         }else{
             //there are users
-            NSLog(@"Here");
+           // NSLog(@"Here");
         }
     }
     @catch (NSException *exception) {
@@ -682,9 +682,9 @@ ofType:(NSString *)typeName
         [self.managedDocument saveToURL:self.managedDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
             
             if (!success) {
-                NSLog(@"******************Failed to save");
+              //  NSLog(@"******************Failed to save");
             }else{
-                NSLog(@"******************Saved Document Successfully");
+               // NSLog(@"******************Saved Document Successfully");
             }
         }];
     }
@@ -790,7 +790,7 @@ ofType:(NSString *)typeName
             
             NSArray *currentCards = [self getCreditCardWithNumber:[FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO] andSecurityCode:[FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO] andExpiration:expiration];
             
-            NSLog(@"Current Cards Count: %d", [currentCards count]);
+           // NSLog(@"Current Cards Count: %d", [currentCards count]);
             
             if ([currentCards count] > 0) {
                 //This is a duplicate, dont add again.
@@ -859,13 +859,13 @@ ofType:(NSString *)typeName
         NSArray *returnedArray = [self.managedObjectContext executeFetchRequest:request error:&error];
         
         if (returnedArray == nil) {
-            NSLog(@"returnArray was NIL");
+           // NSLog(@"returnArray was NIL");
             return nil;
         }else if ([returnedArray count] == 0){
-            NSLog(@"NIL");
+           // NSLog(@"NIL");
             return nil;
         }else{
-            NSLog(@"RETURNING A CUSTOMER");
+            //NSLog(@"RETURNING A CUSTOMER");
             return (Customer *)[returnedArray objectAtIndex:0];
         }
     }

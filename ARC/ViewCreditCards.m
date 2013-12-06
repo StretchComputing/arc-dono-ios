@@ -102,7 +102,7 @@
         self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
         
         [self.myTableView reloadData];
-        NSLog(@"Count: %d", [self.creditCards count]);
+        //NSLog(@"Count: %d", [self.creditCards count]);
         
     }
     @catch (NSException *e) {
@@ -300,7 +300,7 @@
             
                 CreditCard *tmp = [self.creditCards objectAtIndex:row];
         
-                NSLog(@"RETREIVING SAMPLE: %@", tmp.sample);
+               // NSLog(@"RETREIVING SAMPLE: %@", tmp.sample);
                 
                 if ([tmp.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmp.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
                     

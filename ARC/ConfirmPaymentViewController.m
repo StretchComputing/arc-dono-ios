@@ -345,7 +345,7 @@
                 NSDictionary *item = [self.myItemsArray objectAtIndex:i];
                 url = [url stringByAppendingFormat:@"&Amount=%@&Description=%@&ItemId=%@&Percent=%@&Value=%@", [item valueForKey:@"Amount"], [item valueForKey:@"Description"], [item valueForKey:@"ItemId"], [item valueForKey:@"Percent"], [item valueForKey:@"Value"]];
             }
-            NSLog(@"URL: %@", url);
+           // NSLog(@"URL: %@", url);
             
             url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
            // url = [url stringByReplacingOccurrencesOfString:@"==" withString:@"%3D%3D"];
@@ -353,7 +353,7 @@
             int location = [url rangeOfString:@"&serverUrl"].location;
             location = location - 4;
             url = [url stringByReplacingOccurrencesOfString:@"=" withString:@"%3D" options:NSCaseInsensitiveSearch range:NSMakeRange(location, 5)];
-            NSLog(@"Encoded: %@", url);
+           // NSLog(@"Encoded: %@", url);
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             
