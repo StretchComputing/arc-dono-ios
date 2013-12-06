@@ -487,7 +487,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
      //   NSLog(@"Auth Header: %@", [self authHeader]);
-      //  NSLog(@"RequestString: %@", requestString);
+        NSLog(@"RequestString: %@", requestString);
         
         
         self.serverData = [NSMutableData data];
@@ -2091,6 +2091,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(NSDictionary *) confirmPaymentResponse:(NSDictionary *)response {
     @try {
+        
+
+        NSLog(@"Response: %@", response);
+        
         
         self.numberConfirmPaymentTries++;
         

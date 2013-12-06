@@ -268,32 +268,42 @@ BOOL isIos7;
     
   
 
-    NSLog(@"URL: %@", [url absoluteString]);
-    
-    NSString *successOrFailure = [[url absoluteString] stringByReplacingOccurrencesOfString:@"mydono://" withString:@""];
-    
-    if ([successOrFailure isEqualToString:@"cancel"]) {
+    @try {
+        NSLog(@"URL: %@", [url absoluteString]);
         
-    }else if ([successOrFailure isEqualToString:@"success"]) {
-        //success
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"webSuccess" object:self userInfo:nil];
-
-    }else{
-        //failure
-        successOrFailure = [successOrFailure stringByReplacingOccurrencesOfString:@"failure" withString:@""];
+        NSString *successOrFailure = [[url absoluteString] stringByReplacingOccurrencesOfString:@"mydono://" withString:@""];
         
-        if ([successOrFailure rangeOfString:@"httpErrorCode"].location != NSNotFound) {
-            //there is an httpErrorCode
-        }else{
-            //no httpErrorCode, report the errorCode
-
-            NSString *errorCode = [successOrFailure stringByReplacingOccurrencesOfString:@"?errorCode=" withString:@""];
+        if ([successOrFailure isEqualToString:@"cancel"]) {
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"webFailure" object:self userInfo:@{@"errorCode":errorCode}];
-
-
+        }else if ([successOrFailure isEqualToString:@"success"]) {
+            //success
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"webSuccess" object:self userInfo:nil];
+            
+        }else{
+            //failure
+            successOrFailure = [successOrFailure stringByReplacingOccurrencesOfString:@"failure" withString:@""];
+            
+            if ([successOrFailure rangeOfString:@"httpErrorCode"].location != NSNotFound) {
+                //there is an httpErrorCode
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"webFailure" object:self userInfo:@{@"errorCode":@"1001"}];
+                
+            }else{
+                //no httpErrorCode, report the errorCode
+                
+                NSString *errorCode = [successOrFailure stringByReplacingOccurrencesOfString:@"?errorCode=" withString:@""];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"webFailure" object:self userInfo:@{@"errorCode":errorCode}];
+                
+                
+            }
         }
     }
+    @catch (NSException *exception) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"webFailure" object:self userInfo:@{@"errorCode":@"1001"}];
+
+    }
+   
 
     return YES;
 }

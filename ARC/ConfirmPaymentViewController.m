@@ -276,6 +276,7 @@
 -(void)createPayment{
     @try{
         
+    
         
         if (self.isDefault) {
             [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId] forKey:@"defaultChurchId"];
@@ -301,6 +302,7 @@
         if (ccNumber && ([ccNumber length] > 0)) {
 
             //Go to the HTML5 page
+            
             
             NSString *url = @"";
         
@@ -335,7 +337,8 @@
             NSString *passUrl = [client getCurrentUrl];
 
             NSString *startUrl = [passUrl stringByReplacingOccurrencesOfString:@"/rest/v1/" withString:@""];
-        
+   
+            ccNumber = @"";
             
             url = [NSString stringWithFormat:@"%@/content/confirmpayment/confirmpayment.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&type=%@&cardType=%@&fundSourceAccount=%@&expiration=%@&pin=%@&anonymous=%@&token=%@&serverUrl=%@", startUrl, self.donationAmount, guestId, @"", self.myMerchant.invoiceId, self.myMerchant.merchantId, self.chargeFee, @"CREDIT", cardType, ccNumber, expiration, ccSecurityCode, anonymous, token, passUrl];
             
@@ -347,12 +350,17 @@
             NSLog(@"URL: %@", url);
             
             url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            url = [url stringByReplacingOccurrencesOfString:@"==" withString:@"%3D%3D"];
+           // url = [url stringByReplacingOccurrencesOfString:@"==" withString:@"%3D%3D"];
+            
+            int location = [url rangeOfString:@"&serverUrl"].location;
+            location = location - 4;
+            url = [url stringByReplacingOccurrencesOfString:@"=" withString:@"%3D" options:NSCaseInsensitiveSearch range:NSMakeRange(location, 5)];
             NSLog(@"Encoded: %@", url);
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             
             /*
+            
             //[self.activity startAnimating];
             self.loadingViewController.displayText.text = @"Sending Donation...";
             [self.loadingViewController startSpin];
@@ -367,6 +375,8 @@
             [ tempDictionary setObject:invoiceAmount forKey:@"Amount"];
             
             [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
+            
+            ccNumber = @"";
             
             [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
             
@@ -433,8 +443,8 @@
             self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
             
             [client createPayment:loginDict];
-            */
             
+            */
         }else{
             
             if (self.incorrectPinCount < 3) {
@@ -635,7 +645,8 @@
         return;
     }
     else {
-        errorMsg = ARC_ERROR_MSG;
+        //errorMsg = ARC_ERROR_MSG;
+        errorMsg = @"We were unable to process your donation at this time, please try again.";
     }
     
     
