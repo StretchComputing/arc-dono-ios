@@ -1577,7 +1577,7 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = Dono;
-				PROVISIONING_PROFILE = "8D6C6FE3-2E05-4648-82A5-429310D7AB9B";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1617,7 +1617,7 @@
 		90FBDA8D159AA2A50051609A /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: tyler mendoza (STVH6D2UW3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: tyler mendoza (8VDW7T8787)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: tyler mendoza (STVH6D2UW3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

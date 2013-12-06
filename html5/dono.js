@@ -185,6 +185,9 @@ var ARC = (function (r, $) {
 			for (var i=0;i<params.length;i++) {
 				var pair = params[i].split("=");
 				var decodedValue = r.decodeUrlComponent(pair[1]);
+				console.log("getUrlParameters(): pair[0] = " + pair[0]);
+				console.log("getUrlParameters(): pair[1] = " + pair[1]);
+				console.log("getUrlParameters(): decodedValue = " + decodedValue);
 				// If first entry with this name
 				if (typeof urlParameters[pair[0]] === "undefined") {
 					urlParameters[pair[0]] = decodedValue;
@@ -250,9 +253,16 @@ var ARC = (function (r, $) {
 			var values = r.urlParameters['Value'];
 			var descriptions = r.urlParameters['Description'];
 
-			for(var i=0; i<amounts.length; i++) {
-				items[i] = {"Amount": amounts[i], "Percent": percents[i], "ItemId": itemIds[i], "Value": values[i], "Description": descriptions[i]};
+			if (typeof amounts === "string") {
+				// amounts is a string
+				items[0] = {"Amount": amounts, "Percent": percents, "ItemId": itemIds, "Value": values, "Description": descriptions};
+			} else {
+				// amounts is an array
+				for(var i=0; i<amounts.length; i++) {
+					items[i] = {"Amount": amounts[i], "Percent": percents[i], "ItemId": itemIds[i], "Value": values[i], "Description": descriptions[i]};
+				}
 			}
+
 			return items;
 		} catch (e) {
 			//RSKYBOX.log.error(e, 'buildItems');
