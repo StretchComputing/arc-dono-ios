@@ -271,8 +271,6 @@ BOOL isIos7;
     @try {
         
         
-        NSLog(@"URL: %@", [url absoluteString]);
-        
         
         URLParser *parser = [[URLParser alloc] initWithURLString:[url absoluteString]];
         
@@ -282,17 +280,31 @@ BOOL isIos7;
         
         NSString *successOrFailure = [[url absoluteString] stringByReplacingOccurrencesOfString:@"mydono://" withString:@""];
         
-        if ([successOrFailure isEqualToString:@"cancel"]) {
+        if ([successOrFailure rangeOfString:@"cancel"].location != NSNotFound) {
             
-        }else if ([successOrFailure isEqualToString:@"success"]) {
+        }else if ([successOrFailure rangeOfString:@"success"].location != NSNotFound) {
+
             //success
             
-            if ([[parser valueForVariable:@"cardNumber"] length] > 0) {
-                
-            
-              //  NSDictionary *userInfo = @{@"cardNumber": [parser valueForVariable:@"cardNumber"], @"cardNumber": [parser valueForVariable:@"cardNumber"], @"cardNumber": [parser valueForVariable:@"cardNumber"]}
+            NSDictionary *userInfo = nil;
+            @try {
+                if ([[parser valueForVariable:@"cardNumber"] length] > 0) {
+                    
+                    NSString *parseExpiration = [parser valueForVariable:@"cardExpiration"];
+                    
+                    
+                    NSString *expiration = [NSString stringWithFormat:@"%@/%@", [parseExpiration substringToIndex:2], [parseExpiration substringFromIndex:2]];
+                    
+                    NSLog(@"Expiration: %@", expiration);
+                    
+                    userInfo = @{@"cardNumber": [parser valueForVariable:@"cardNumber"], @"cardExpiration": expiration, @"cardSecurityCode": [parser valueForVariable:@"cardSecurityCode"]};
+                }
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"webSuccess" object:self userInfo:nil];
+            @catch (NSException *exception) {
+                
+            }
+          
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"webSuccess" object:self userInfo:userInfo];
             
         }else{
             //failure
@@ -316,6 +328,7 @@ BOOL isIos7;
     }
     @catch (NSException *exception) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"webFailure" object:self userInfo:@{@"errorCode":@"1001"}];
+        [rSkybox sendClientLog:@"ArcAppDelegate.applicationOpenUrl" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
 
     }
    

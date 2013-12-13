@@ -4077,6 +4077,7 @@
                                         </state>
                                         <connections>
                                             <action selector="closeHelpOverlay" destination="us0-vD-CQT" eventType="touchUpInside" id="hZs-4t-Oar"/>
+                                            <segue destination="eVh-gd-LKE" kind="push" identifier="saveInfo" id="VWh-ss-rWP"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -4105,7 +4106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjm-Gl-A0g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1106" y="693"/>
+            <point key="canvasLocation" x="1764" y="833"/>
         </scene>
         <!--Church Amount Multiple Types-->
         <scene sceneID="I0u-JR-4L0">
@@ -4324,6 +4325,7 @@
                                         <connections>
                                             <action selector="closeHelpOverlay" destination="us0-vD-CQT" eventType="touchUpInside" id="OVI-o9-KUl"/>
                                             <action selector="closeHelpOverlay" destination="AYP-Ip-paa" eventType="touchUpInside" id="wmM-eA-x6J"/>
+                                            <segue destination="eVh-gd-LKE" kind="push" identifier="saveInfo" id="tv8-uR-Ghy"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -4347,7 +4349,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ysV-G9-Enh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1605" y="-32"/>
+            <point key="canvasLocation" x="1745" y="140"/>
         </scene>
         <!--Multi Donation View-->
         <scene sceneID="9Bf-R0-TWz">
@@ -4852,11 +4854,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="e0y-kO-3zF"/>
         <segue reference="fCb-MI-Uhn"/>
-        <segue reference="R2w-A0-Oa5"/>
         <segue reference="60R-Rf-IDS"/>
+        <segue reference="R2w-A0-Oa5"/>
+        <segue reference="ZGA-Y5-Qfp"/>
+        <segue reference="TDO-RV-Ymb"/>
+        <segue reference="tv8-uR-Ghy"/>
         <segue reference="HfN-Yx-vMe"/>
-        <segue reference="AcI-7f-4Nr"/>
-        <segue reference="Y0K-gv-xsr"/>
-        <segue reference="Ri0-dl-LlT"/>
     </inferredMetricsTieBreakers>
 </document>

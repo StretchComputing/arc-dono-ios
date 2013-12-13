@@ -241,6 +241,8 @@ var ARC = (function (r, $) {
 					returnUrl = returnUrl + "?errorCode=" + errorCode;
 				}
 			}
+           
+           
 			window.location = returnUrl;
 		} catch (e) {
 			//RSKYBOX.log.error(e, 'returnToIos');

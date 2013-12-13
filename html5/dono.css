@@ -22,7 +22,7 @@ table.title tr.row1 {
 }
 
 table.title tr.row2 {
-	height: 44px;
+	height: 30px;
 	font-size: 13px;
 	background-color: #f57516;
     color:white;
@@ -110,6 +110,52 @@ div.confirm {
 	text-align: center;
 }
 
+
+div.addCard {
+	color: #05a842;
+	font-size: 16px;
+    font-family:latoBold;
+
+	border:1px solid #05a842;
+    border-radius:4px;
+	width: 170px;
+    height: 40px;
+    line-height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+input.cardNumber{
+
+	font-size: 20px;
+    font-family:latoLight;
+    width: 235px;
+    border-radius:4px;
+    padding: 3px 3px;
+}
+
+input.expirationDate{
+
+	font-size: 20px;
+    font-family:latoLight;
+    width: 110px;
+    border-radius:4px;
+    padding: 3px 3px;
+
+}
+
+input.ccv{
+
+	font-size: 20px;
+    font-family:latoLight;
+    width: 110px;
+    border-radius:4px;
+    padding: 3px 3px;
+
+}
+
+
 @font-face {
   font-family: latoBold;
   src: url("Lato-Bol.ttf");
@@ -121,3 +167,8 @@ div.confirm {
   src: url("Lato-Lig.ttf");
 
   }
+
+
+
+
+

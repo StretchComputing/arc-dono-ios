@@ -16,6 +16,9 @@
 
 @interface GuestCreateAccount : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
+
+@property (nonatomic, strong) UIAlertView *saveAlert;
+
 @property BOOL askSaveCard;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *noThanksButton;

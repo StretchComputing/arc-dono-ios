@@ -91,8 +91,16 @@
 
 - (IBAction)noThanksAction {
     
-    LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
-    [tmp homeSelected];
+    if (self.askSaveCard) {
+        
+        self.saveAlert = [[UIAlertView alloc] initWithTitle:@"Save Card" message:@"Would you like to securely save this payment information for future use?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Ok", nil];
+        [self.saveAlert show];
+
+    }else{
+        LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+        [tmp homeSelected];
+    }
+   
 }
 
 - (IBAction)registerAction {
@@ -491,16 +499,28 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
-    self.errorLabel.text = @"";
-    if (buttonIndex == 1) {
-        self.titleLabel.text = @"Sign In";
-        self.backButton.hidden = NO;
-        self.minCharText.hidden = YES;
-        self.createAccountText.hidden = YES;
-        self.password.text = @"";
-        self.registerButton.text = @"Sign In";
-        self.isSignIn = YES;
+    if (alertView == self.saveAlert) {
+    
+        if (buttonIndex == 1) {
+            [self goPin];
+        }else{
+            
+            LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+            [tmp homeSelected];
+        }
+    }else{
+        self.errorLabel.text = @"";
+        if (buttonIndex == 1) {
+            self.titleLabel.text = @"Sign In";
+            self.backButton.hidden = NO;
+            self.minCharText.hidden = YES;
+            self.createAccountText.hidden = YES;
+            self.password.text = @"";
+            self.registerButton.text = @"Sign In";
+            self.isSignIn = YES;
+        }
     }
+   
 }
 - (IBAction)goBack {
     

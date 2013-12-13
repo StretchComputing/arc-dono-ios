@@ -3781,6 +3781,7 @@
                                         </state>
                                         <connections>
                                             <action selector="closeHelpOverlay" destination="Ge1-GO-ndQ" eventType="touchUpInside" id="3Gf-AY-x1f"/>
+                                            <segue destination="OQp-KH-wLI" kind="push" identifier="saveInfo" id="dHW-vi-BwK"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3809,7 +3810,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cw-y8-WgC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1106" y="693"/>
+            <point key="canvasLocation" x="1722" y="929"/>
         </scene>
         <!--Church Amount Multiple Types-->
         <scene sceneID="Xee-4t-6PV">
@@ -4050,7 +4051,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6N0-EG-eck" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1605" y="-32"/>
+            <point key="canvasLocation" x="1641" y="-428"/>
         </scene>
         <!--Multi Donation View-->
         <scene sceneID="7Uv-RS-MSt">
@@ -4305,11 +4306,12 @@
                         <outlet property="titleLabel" destination="XoR-DF-BF4" id="Q52-uE-9cd"/>
                         <segue destination="Ge1-GO-ndQ" kind="push" identifier="single" id="u8y-7H-Jqz"/>
                         <segue destination="OUb-N5-ivo" kind="push" identifier="multiple" id="nba-7c-meH"/>
+                        <segue destination="OQp-KH-wLI" kind="push" identifier="saveInfo" id="QVZ-Ob-bU2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BID-Zc-fFU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1174" y="18"/>
+            <point key="canvasLocation" x="1746" y="258"/>
         </scene>
         <!--Default Church View-->
         <scene sceneID="JlD-Hw-ZEb">
@@ -4747,8 +4749,8 @@
         <segue reference="u8y-7H-Jqz"/>
         <segue reference="4b1-ab-nua"/>
         <segue reference="cH4-tZ-2B7"/>
+        <segue reference="QVZ-Ob-bU2"/>
         <segue reference="ihx-CQ-l2W"/>
-        <segue reference="o49-i2-ccV"/>
         <segue reference="oA8-T9-RBW"/>
         <segue reference="hTD-vI-iAs"/>
     </inferredMetricsTieBreakers>
