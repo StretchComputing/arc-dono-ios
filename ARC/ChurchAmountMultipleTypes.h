@@ -17,9 +17,16 @@
 @interface ChurchAmountMultipleTypes : UIViewController <UIActionSheetDelegate>
 - (IBAction)goBack;
 
+@property double chargeFee;
 @property BOOL isHome;
 @property (strong, nonatomic) IBOutlet UIButton *leftButton;
 @property (strong, nonatomic) IBOutlet UIButton *rightButton;
+
+
+@property (nonatomic, strong) NSString *webCardNumber;
+@property (nonatomic, strong) NSString *webExpiration;
+@property (nonatomic, strong) NSString *webSecurityCode;
+
 
 @property int currentIndex;
 @property (nonatomic, strong) IBOutlet UIScrollView *middleView;

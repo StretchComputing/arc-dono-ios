@@ -20,10 +20,13 @@
 
 - (IBAction)textEditDidBegin;
 
+@property (nonatomic, strong) NSString *webCardNumber;
+@property (nonatomic, strong) NSString *webExpiration;
+@property (nonatomic, strong) NSString *webSecurityCode;
 
 @property (nonatomic, strong) IBOutlet UIView *helpOverlayView;
 -(IBAction)closeHelpOverlay;
-
+@property double chargeFee;
 @property (nonatomic, strong) IBOutlet SteelfishBoldLabel *merchantNameText;
 @property IBOutlet UIButton *goBackButton;
 

@@ -22,6 +22,7 @@
 		906D108A160FC87100561C31 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D1089160FC87100561C31 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906EAA071829B1E600086D0A /* MyCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EAA061829B1E600086D0A /* MyCreditCard.m */; };
+		90702386185AA87000BD294F /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90702385185AA87000BD294F /* URLParser.m */; };
 		9079B078182D5ED20007B953 /* TJSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079B077182D5ED20007B953 /* TJSpinner.m */; };
 		9079B07A182E798B0007B953 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 9079B079182E798B0007B953 /* question.png */; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
@@ -275,6 +276,8 @@
 		906D108C160FE03600561C31 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		906EAA051829B1E600086D0A /* MyCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCreditCard.h; sourceTree = "<group>"; };
 		906EAA061829B1E600086D0A /* MyCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCreditCard.m; sourceTree = "<group>"; };
+		90702384185AA87000BD294F /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
+		90702385185AA87000BD294F /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		9079B076182D5ED20007B953 /* TJSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJSpinner.h; sourceTree = "<group>"; };
 		9079B077182D5ED20007B953 /* TJSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJSpinner.m; sourceTree = "<group>"; };
 		9079B079182E798B0007B953 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question.png; sourceTree = "<group>"; };
@@ -817,6 +820,8 @@
 				903CCD9B180C40120032B0FC /* PaymentHistoryDetail.m */,
 				90C2E6DC17E269B40090E201 /* LeftTestViewController.h */,
 				90C2E6DD17E269B40090E201 /* LeftTestViewController.m */,
+				90702384185AA87000BD294F /* URLParser.h */,
+				90702385185AA87000BD294F /* URLParser.m */,
 				90AD3FE717CE622B0053239E /* SupportViewController.h */,
 				90AD3FE817CE622B0053239E /* SupportViewController.m */,
 				90AD3FC317CE61140053239E /* AdditionalTipViewController.h */,
@@ -1333,6 +1338,7 @@
 				90FBDC32159CDDB60051609A /* SBJsonParser.m in Sources */,
 				903CCD99180C3FFE0032B0FC /* PaymentHistoryViewController.m in Sources */,
 				90FBDC33159CDDB60051609A /* SBJsonStreamParser.m in Sources */,
+				90702386185AA87000BD294F /* URLParser.m in Sources */,
 				90FBDC34159CDDB60051609A /* SBJsonStreamParserAccumulator.m in Sources */,
 				90FBDC35159CDDB60051609A /* SBJsonStreamParserAdapter.m in Sources */,
 				90FBDC36159CDDB60051609A /* SBJsonStreamParserState.m in Sources */,
