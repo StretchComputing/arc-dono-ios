@@ -1,3 +1,9 @@
+html, body {
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
 table.title {
 	width: 100%;
 	margin-bottom: 10px;
@@ -9,15 +15,22 @@ table.title {
 
 table.title tr.row1 {
 	height: 40px;
-	font-weight: bold;
-	font-size: 18px;
+	//font-weight: bold;
+	font-size: 22px;
+    font-family:latoLight;
+
 }
 
 table.title tr.row2 {
-	height: 30px;
-	font-size: 12px;
-	background-color: orange;
+	height: 44px;
+	font-size: 13px;
+	background-color: #f57516;
+    color:white;
+    //font-weight: normal;
+
 	text-align: center;
+    font-family:latoLight;
+
 }
 
 table.title td.column1 {
@@ -44,14 +57,16 @@ table.tally {
 
 table.tally tr.row1 {
 	height: 80px;
-	font-weight: bold;
-	font-size: 14px;
+	font-size: 22px;
+    font-family:latoBold;
+
 }
 
 table.tally tr.row2 {
-	height: 80px;
-	font-weight: bold;
-	font-size: 14px;
+	height: 10px;
+	font-size: 22px;
+    font-family:latoBold;
+
 }
 
 table.tally tr.row3 {
@@ -60,7 +75,7 @@ table.tally tr.row3 {
 }
 
 table.tally td.column1 {
-	width: 10%;
+	width: 5%;
 }
 
 table.tally td.column2 {
@@ -68,7 +83,8 @@ table.tally td.column2 {
 }
 
 table.tally td.column3 {
-	width: 40%;
+	width: 45%;
+    text-align: right;
 }
 
 table.tally td.column4 {
@@ -80,12 +96,28 @@ div.back {
 }
 
 div.confirm {
-	color: green;
-	font-size: 13px;
-	border:2px solid green; 
-	width: 125px;
-	height: 40px;
+	color: #05a842;
+	font-size: 16px;
+    font-family:latoBold;
+
+	border:1px solid #05a842;
+    border-radius:4px;
+	width: 170px;
+    height: 40px;
+    line-height: 40px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
+
+@font-face {
+  font-family: latoBold;
+  src: url("Lato-Bol.ttf");
+
+  }
+  
+  @font-face {
+  font-family: latoLight;
+  src: url("Lato-Lig.ttf");
+
+  }

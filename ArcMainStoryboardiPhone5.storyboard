@@ -4850,13 +4850,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="e0y-kO-3zF"/>
+        <segue reference="fCb-MI-Uhn"/>
+        <segue reference="R2w-A0-Oa5"/>
+        <segue reference="60R-Rf-IDS"/>
         <segue reference="HfN-Yx-vMe"/>
         <segue reference="AcI-7f-4Nr"/>
         <segue reference="Y0K-gv-xsr"/>
-        <segue reference="lDG-qj-6WW"/>
-        <segue reference="60R-Rf-IDS"/>
-        <segue reference="fCb-MI-Uhn"/>
-        <segue reference="e0y-kO-3zF"/>
-        <segue reference="R2w-A0-Oa5"/>
+        <segue reference="Ri0-dl-LlT"/>
     </inferredMetricsTieBreakers>
 </document>
