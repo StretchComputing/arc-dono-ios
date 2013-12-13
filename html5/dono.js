@@ -89,7 +89,7 @@ var ARC = (function (r, $) {
 			console.log("createPaymentApiError entered");
 			var code = r.getApiStatus(jqXHR.responseText);
 			//RSKYBOX.log.info(code, 'createPaymentApiError');
-			r.returnToIos('failure', code, null);
+			r.returnToIos('failure', null, code);
 		} catch (e) {
 			//RSKYBOX.log.error(e, 'createPaymentApiError');
 		}
@@ -172,7 +172,7 @@ var ARC = (function (r, $) {
 			console.log("confirmPaymentApiError entered");
 			var code = r.getApiStatus(jqXHR.responseText);
 			//RSKYBOX.log.info(code, 'confirmPaymentApiError');
-			r.returnToIos('failure', code, null);
+			r.returnToIos('failure', null, code);
 		} catch (e) {
 			//RSKYBOX.log.error(e, 'confirmPaymentApiError');
 		}
