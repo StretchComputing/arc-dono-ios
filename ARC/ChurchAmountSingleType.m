@@ -25,7 +25,6 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
     self.navigationController.sideMenu.allowSwipeOpenRight = YES;
@@ -426,6 +425,9 @@
                 
             }else if ([[segue identifier] isEqualToString:@"payCard"]) {
                 
+                
+                [[NSNotificationCenter defaultCenter] removeObserver:self];
+
                 ConfirmPaymentViewController *confirm = [segue destinationViewController];
                 confirm.donationAmount = [self.amountText.text doubleValue];
                 confirm.selectedCard = self.selectedCard;
