@@ -79,7 +79,6 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -404,7 +403,7 @@
                 
                 if (self.myMerchant.chargeFee) {
                     
-                    if ([self.amountText.text doubleValue] < self.myMerchant.convenienceFeeCap) {
+                    if (amount < self.myMerchant.convenienceFeeCap) {
                         self.chargeFee = self.myMerchant.convenienceFee;
                     }
                 }
@@ -413,7 +412,7 @@
                 
                 NSString *startUrl = [passUrl stringByReplacingOccurrencesOfString:@"/rest/v1/" withString:@""];
                 
-                url = [NSString stringWithFormat:@"%@/content/confirmpayment/confirmpayment.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&anonymous=%@&token=%@&serverUrl=%@", startUrl, [self.amountText.text doubleValue], guestId, @"", self.myMerchant.invoiceId, self.myMerchant.merchantId, self.chargeFee, anonymous, token, passUrl];
+                url = [NSString stringWithFormat:@"%@/content/confirmpayment/confirmpayment.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&anonymous=%@&token=%@&serverUrl=%@", startUrl, amount, guestId, @"", self.myMerchant.invoiceId, self.myMerchant.merchantId, self.chargeFee, anonymous, token, passUrl];
                 
                 for (int i = 0; i < [itemArray count]; i++) {
                     
@@ -443,6 +442,9 @@
                  */
                 
             }else if ([[segue identifier] isEqualToString:@"payCard"]) {
+                
+                [[NSNotificationCenter defaultCenter] removeObserver:self];
+
                 
                 ConfirmPaymentViewController *confirm = [segue destinationViewController];
                 confirm.donationAmount = amount;
