@@ -17,33 +17,45 @@
   <body>
 		<!-- <iframe id="rskybox" src="http://rskybox-stretchcom.appspot.com/agents/iframe/rskybox.html" style="display: none;"></iframe> -->
 
-		<table class="title">
-			<tr class="row1">
-				<td class="column1"><div class="back"><img src="backarrow.png" alt="back_img"></div></td>
-				<td class="column2">Confirm Donation</td>
-				<td class="column3"></td>
-			</tr>
-			<tr class="row2">
-				<td colspan="3">Go back to change your payment details</td>
-			</tr>
-		</table>
+		<div id="addCardPage" style="display:none;">
+			<input id="cardNumber" type="text" name="" placeholder="Card Number"/>
+			<br>
+			<input id="expirationDate" type="text" name="" placeholder="Exp. (mm/yy)"/>
+			<input id="ccv" type="text" name="" placeholder="CCV"/>
+			<br>
+			<div class="addCard" onclick="">Continue</div>
+		</div>
 
-		<table class="tally">
-			<tr class="row1">
-				<td class="column1"></td>
-				<td class="column2">Total</td>
-				<td class="column3"><div class="total"></div></td>
-				<td class="column4"></td>
-			</tr>
-			<tr class="row2">
-				<td class="column1"></td>
-				<td class="column2">Card</td>
-				<td class="column3"><div class="card"></div></td>
-				<td class="column4"></td>
-			</tr>
-		</table>
-        </br>
-        </br>
-		<div class="confirm">Confirm Donation</div>
+		<div id="confirmPaymentPage" style="display:none;">
+			<table class="title">
+				<tr class="row1">
+					<td class="column1"><div class="back" onclick=""><img src="backarrow.png" alt="back_img"></div></td>
+					<td class="column2">Confirm Donation</td>
+					<td class="column3"></td>
+				</tr>
+				<tr class="row2">
+					<td colspan="3">Go back to change your payment details</td>
+				</tr>
+			</table>
+
+			<table class="tally">
+				<tr class="row1">
+					<td class="column1"></td>
+					<td class="column2">Total</td>
+					<td class="column3"><div class="total"></div></td>
+					<td class="column4"></td>
+				</tr>
+				<tr class="row2">
+					<td class="column1"></td>
+					<td class="column2">Card</td>
+					<td class="column3"><div class="card"></div></td>
+					<td class="column4"></td>
+				</tr>
+			</table>
+					</br>
+					</br>
+			<div class="confirm" onclick="">Confirm Donation</div>
+		</div>
+
   </body>
 </html>
