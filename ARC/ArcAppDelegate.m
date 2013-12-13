@@ -18,7 +18,7 @@
 #import "DwollaAPI.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <FacebookSDK/FBSessionTokenCachingStrategy.h>
-
+#import "URLParser.h"
 
 UIColor *dutchRedColor;
 UIColor *dutchOrangeColor;UIColor *dutchDarkBlueColor;
@@ -271,12 +271,25 @@ BOOL isIos7;
     @try {
         //NSLog(@"URL: %@", [url absoluteString]);
         
+        
+        URLParser *parser = [[URLParser alloc] initWithURLString:[url absoluteString]];
+        
+    
+        
+        
+        
         NSString *successOrFailure = [[url absoluteString] stringByReplacingOccurrencesOfString:@"mydono://" withString:@""];
         
         if ([successOrFailure isEqualToString:@"cancel"]) {
             
         }else if ([successOrFailure isEqualToString:@"success"]) {
             //success
+            
+            if ([[parser valueForVariable:@"cardNumber"] length] > 0) {
+                
+            
+              //  NSDictionary *userInfo = @{@"cardNumber": [parser valueForVariable:@"cardNumber"], @"cardNumber": [parser valueForVariable:@"cardNumber"], @"cardNumber": [parser valueForVariable:@"cardNumber"]}
+            }
             [[NSNotificationCenter defaultCenter] postNotificationName:@"webSuccess" object:self userInfo:nil];
             
         }else{
