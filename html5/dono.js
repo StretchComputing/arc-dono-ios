@@ -19,6 +19,9 @@ var ARC = (function (r, $) {
 	r.confirmInterval = [3000, 3000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 10000, 10000];
 	r.confirmIntervalIndex = null;
 	r.ticketId = null;
+	r.ccNumber = null;
+	r.expirationDate = null;
+	r.ccv = null;
 
 	r.createPayment = function() {
 		try {
@@ -37,9 +40,9 @@ var ARC = (function (r, $) {
 				"Gratuity": r.urlParameters['gratuity'],
 				"Type": r.urlParameters['type'],
 				"CardType": r.urlParameters['cardType'],
-				"FundSourceAccount": r.urlParameters['fundSourceAccount'],
-				"Expiration": r.urlParameters['expiration'],
-				"Pin": r.urlParameters['pin'],
+				"FundSourceAccount": ARC.ccNumber,
+				"Expiration": ARC.expirationDate,
+				"Pin": ARC.ccv,
 				"Anonymous": r.urlParameters['anonymous'],
 				"Items": r.buildItems()
 			};
@@ -293,12 +296,39 @@ $(document).ready(function() {
 	ARC.serverUrl = ARC.urlParameters['serverUrl']
 	ARC.baseUrl = ARC.serverUrl;
 
-	// set the amount and credit card details on the page using values extracted from URL params
+	// if a CC# was passed as a URL param, show the ConfirmPayment page, otherwise, show the add card page
+	ARC.ccNumber = ARC.urlParameters['fundSourceAccount'];
+	ARC.expirationDate = ARC.urlParameters['expiration'];
+	ARC.ccv = ARC.urlParameters['pin'];
+	if(ARC.ccNumber) {
+		// show ConfirmPayment page
+		$('#confirmPaymentPage').show();
+		$('#addCardPage').hide();
+	} else {
+		// show AddCard page
+		$('#confirmPaymentPage').hide();
+		$('#addCardPage').show();
+	}
+});
+
+$(document).on('click', '.addCard', function(e){
+	console.log("continue button on addCardPage clicked");
+	e.preventDefault();
+	ARC.ccNumber = $('#cardNumber').val();
+	ARC.expirationDate = $('#expirationDate').val();
+	ARC.ccv = $('#ccv').val();
+
+	// TODO -- add CC# validation
+
+	// show the ConfirmPayment page
+	$('#confirmPaymentPage').show();
+	$('#addCardPage').hide();
+
+	// initialize ConfirmPage
 	var total = "$" + ARC.urlParameters['invoiceAmount'];
 	$('div.total').text(total);
-	var ccNumber = ARC.urlParameters['fundSourceAccount'];
-	ccNumber = ARC.maskCcNumber(ccNumber);
-	var card = ARC.urlParameters['cardType'] + " " + ccNumber;
+	var maskedCcNumber = ARC.maskCcNumber(ARC.ccNumber);
+	var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
 	$('div.card').text(card);
 });
 
