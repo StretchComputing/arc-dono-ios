@@ -271,6 +271,7 @@ BOOL isIos7;
     @try {
         
         
+      // NSLog(@"URL: %@", [url absoluteString]);
         
         URLParser *parser = [[URLParser alloc] initWithURLString:[url absoluteString]];
         

@@ -22,13 +22,76 @@ var ARC = (function (r, $) {
 	r.ccNumber = null;
 	r.expirationDate = null;
 	r.ccv = null;
+	r.didComeFromPayment = "";
+
+
+	r.getCardTypeFromNumber = function GetCardType(number)
+        {            
+            var re = new RegExp("^4");
+            if (number.match(re) != null)
+                return "Visa";
+ 
+            re = new RegExp("^(34|37)");
+            if (number.match(re) != null)
+                return "Amex";
+ 
+            re = new RegExp("^5[1-5]");
+            if (number.match(re) != null)
+                return "MasterCard";
+ 
+            re = new RegExp("^6011");
+            if (number.match(re) != null)
+                return "Discover";
+ 
+            return "";
+    }
+
+	r.checkCardNumber = function valid_credit_card(value) {
+	
+	  // accept only digits, dashes or spaces
+	if (/[^0-9-\s]+/.test(value)) return false;
+ 
+		// The Luhn Algorithm. It's so pretty.
+		var nCheck = 0, nDigit = 0, bEven = false;
+		value = value.replace(/\D/g, "");
+ 
+		for (var n = value.length - 1; n >= 0; n--) {
+			var cDigit = value.charAt(n),
+				nDigit = parseInt(cDigit, 10);
+ 
+			if (bEven) {
+				if ((nDigit *= 2) > 9) nDigit -= 9;
+			}
+ 
+			nCheck += nDigit;
+			bEven = !bEven;
+		}
+ 
+		return (nCheck % 10) == 0;
+	}
+	
+
+
 
 	r.createPayment = function() {
 		try {
+		
+
 			//RSKYBOX.log.debug("sending a createPayment to server");
 			console.log("sending a createPayment to server");
 			var cpUrl = r.baseUrl + 'payments/create';
 			var appInfo = { "App": "DONO", "OS": "IOS", "Version": "1.0" };
+			var type = r.urlParameters['cardType'];
+			var newType = "N";
+			
+			if (type == ""){
+
+			}else{
+
+				newType = type.charAt(0);
+			}
+		
+			
 			var jsonData = {
 				"AppInfo": appInfo,
 				"InvoiceAmount": r.urlParameters['invoiceAmount'],
@@ -39,7 +102,7 @@ var ARC = (function (r, $) {
 				"MerchantId": r.urlParameters['merchantId'],
 				"Gratuity": r.urlParameters['gratuity'],
 				"Type": r.urlParameters['type'],
-				"CardType": r.urlParameters['cardType'],
+				"CardType": newType,
 				"FundSourceAccount": ARC.ccNumber,
 				"Expiration": ARC.expirationDate,
 				"Pin": ARC.ccv,
@@ -228,6 +291,8 @@ var ARC = (function (r, $) {
 	// NOTE: only one of the two error codes will be non-null on failure
 	r.returnToIos = function(status, httpErrorCode, errorCode) {
 		try {
+		
+
 			if(status != 'success' && status != 'failure' && status != 'cancel') {
 				//RSKYBOX.log.error('returnToIos bad status', 'returnToIos');
 				status = 'failure';
@@ -242,7 +307,27 @@ var ARC = (function (r, $) {
 				}
 			}
            
+           $('#confirmPaymentPage').hide();
+		   $('#addCardPage').hide();
+           $('#donePayment').show();
+		   $('div.finalMessage').text("Your Dono web session has expired, please return to the app to proceed.");
            
+           
+           	if (ARC.didComeFromPayment == "yes"){
+				
+				if (status == "success"){
+					
+
+					var cNumber = ARC.ccNumber.split(' ').join('');
+					var cExpire = ARC.expirationDate.replace('/', '');
+					cExpire = cExpire.split(' ').join('');
+					var cSecurity = ARC.ccv;
+					
+					returnUrl = returnUrl + "?cardNumber=" + cNumber + "&cardExpiration=" + cExpire + "&cardSecurityCode=" + cSecurity;
+					
+				}
+			}
+
 			window.location = returnUrl;
 		} catch (e) {
 			//RSKYBOX.log.error(e, 'returnToIos');
@@ -294,6 +379,10 @@ $(document).ready(function() {
 	console.log("ready entered");
 	//RSKYBOX.log.debug("document.ready entered ...");
 	//var pathname = window.location.pathname;
+	
+	
+	
+	
 	ARC.urlParameters = ARC.getUrlParameters();
 	ARC.serverUrl = ARC.urlParameters['serverUrl']
 	ARC.baseUrl = ARC.serverUrl;
@@ -302,36 +391,76 @@ $(document).ready(function() {
 	ARC.ccNumber = ARC.urlParameters['fundSourceAccount'];
 	ARC.expirationDate = ARC.urlParameters['expiration'];
 	ARC.ccv = ARC.urlParameters['pin'];
+	
+	$('#donePayment').hide();
 	if(ARC.ccNumber) {
 		// show ConfirmPayment page
+		
+		var total = "$" + ARC.urlParameters['invoiceAmount'];
+		$('div.total').text(total);
+		var maskedCcNumber = ARC.maskCcNumber(ARC.ccNumber);
+		var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
+		$('div.card').text(card);
+		
+		
 		$('#confirmPaymentPage').show();
 		$('#addCardPage').hide();
+		
 	} else {
 		// show AddCard page
+		ARC.didComeFromPayment = "yes";
 		$('#confirmPaymentPage').hide();
 		$('#addCardPage').show();
 	}
+	
+
+
+
 });
 
 $(document).on('click', '.addCard', function(e){
 	console.log("continue button on addCardPage clicked");
+
+	window.scrollTo(0,0);
 	e.preventDefault();
 	ARC.ccNumber = $('#cardNumber').val();
 	ARC.expirationDate = $('#expirationDate').val();
 	ARC.ccv = $('#ccv').val();
+	
+	
+	if (ARC.ccNumber == null || ARC.ccNumber == "" || ARC.ccv == null || ARC.ccv == "" ||
+		ARC.expirationDate == null || ARC.expirationDate == ""){
+	
+		alert("Please enter all payment information before continuing.");
+		return;
+	}
+	
+	if (ARC.checkCardNumber(ARC.ccNumber)){
+	
+		ARC.urlParameters['cardType'] = ARC.getCardTypeFromNumber(ARC.ccNumber);
+		
+		// show the ConfirmPayment page
+		$('#confirmPaymentPage').show();
+		$('#addCardPage').hide();
+		$('#donePayment').hide();
 
-	// TODO -- add CC# validation
 
-	// show the ConfirmPayment page
-	$('#confirmPaymentPage').show();
-	$('#addCardPage').hide();
+		// initialize ConfirmPage
+		var total = "$" + ARC.urlParameters['invoiceAmount'];
+		$('div.total').text(total);
+		var maskedCcNumber = ARC.maskCcNumber(ARC.ccNumber);
+		var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
+		$('div.card').text(card);
+	
+	
+	}else{
+		alert("Please enter a valid credit card number.");
+	}
+	
+	
 
-	// initialize ConfirmPage
-	var total = "$" + ARC.urlParameters['invoiceAmount'];
-	$('div.total').text(total);
-	var maskedCcNumber = ARC.maskCcNumber(ARC.ccNumber);
-	var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
-	$('div.card').text(card);
+
+	
 });
 
 $(document).on('click', '.back', function(e){
@@ -339,6 +468,23 @@ $(document).on('click', '.back', function(e){
 	e.preventDefault();
 	ARC.returnToIos('cancel');
 });
+
+$(document).on('click', '.backc', function(e){
+	console.log("back button clicked");
+	e.preventDefault();
+
+	if (ARC.didComeFromPayment == "yes"){
+		$('#confirmPaymentPage').hide();
+		$('#addCardPage').show();
+	
+		
+	}else{
+		ARC.returnToIos('cancel');
+	}
+	
+});
+
+
 
 $(document).on('click', '.confirm', function(e){
 	console.log("confirm button clicked");
