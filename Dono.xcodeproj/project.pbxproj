@@ -41,6 +41,7 @@
 		9084F7D2180EF98700244282 /* ChurchAmountSingleType.m in Sources */ = {isa = PBXBuildFile; fileRef = 9084F7D1180EF98700244282 /* ChurchAmountSingleType.m */; };
 		9084F7D5180EF99500244282 /* ChurchAmountMultipleTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 9084F7D4180EF99500244282 /* ChurchAmountMultipleTypes.m */; };
 		9084F7D7180F46E300244282 /* dollar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9084F7D6180F46E300244282 /* dollar.png */; };
+		9086B53B1882D45C0006E5AC /* messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 9086B53A1882D45C0006E5AC /* messages.png */; };
 		9089CB2616C6B6EB00DA11B0 /* NumberLineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9089CB2516C6B6E900DA11B0 /* NumberLineButton.m */; };
 		908A4C4116978CCF00B68664 /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4016978CCF00B68664 /* libCardIO.a */; };
 		908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4216978CF600B68664 /* AVFoundation.framework */; };
@@ -69,6 +70,9 @@
 		908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D369E1631ED3F00557E8B /* MediaPlayer.framework */; };
 		908D966E16E3A2C7002CADC1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D966D16E3A2C7002CADC1 /* CoreLocation.framework */; };
 		90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 90915A1F160952B100A9A070 /* NSString+CharArray.m */; };
+		909404E61881B14800496D2F /* website.png in Resources */ = {isa = PBXBuildFile; fileRef = 909404E31881B14800496D2F /* website.png */; };
+		909404E71881B14800496D2F /* contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 909404E41881B14800496D2F /* contact.png */; };
+		909404EA1881B1CA00496D2F /* newdollar.png in Resources */ = {isa = PBXBuildFile; fileRef = 909404E91881B1CA00496D2F /* newdollar.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9095947A15EA652600F19DD2 /* Twitter.framework */; };
 		9096DD0D1633088400106A25 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096DD0C1633088400106A25 /* CreditCard.m */; };
@@ -308,6 +312,7 @@
 		9084F7D3180EF99500244282 /* ChurchAmountMultipleTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChurchAmountMultipleTypes.h; sourceTree = "<group>"; };
 		9084F7D4180EF99500244282 /* ChurchAmountMultipleTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChurchAmountMultipleTypes.m; sourceTree = "<group>"; };
 		9084F7D6180F46E300244282 /* dollar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dollar.png; sourceTree = "<group>"; };
+		9086B53A1882D45C0006E5AC /* messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = messages.png; sourceTree = "<group>"; };
 		9089CB2416C6B6E700DA11B0 /* NumberLineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberLineButton.h; sourceTree = "<group>"; };
 		9089CB2516C6B6E900DA11B0 /* NumberLineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberLineButton.m; sourceTree = "<group>"; };
 		908A4C3C16978CCE00B68664 /* CardIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIO.h; sourceTree = "<group>"; };
@@ -353,6 +358,9 @@
 		908D966D16E3A2C7002CADC1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		90915A1E160952B100A9A070 /* NSString+CharArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CharArray.h"; sourceTree = "<group>"; };
 		90915A1F160952B100A9A070 /* NSString+CharArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CharArray.m"; sourceTree = "<group>"; };
+		909404E31881B14800496D2F /* website.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = website.png; sourceTree = "<group>"; };
+		909404E41881B14800496D2F /* contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact.png; sourceTree = "<group>"; };
+		909404E91881B1CA00496D2F /* newdollar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newdollar.png; sourceTree = "<group>"; };
 		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
 		9095947A15EA652600F19DD2 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -803,6 +811,9 @@
 				906EAA051829B1E600086D0A /* MyCreditCard.h */,
 				906EAA061829B1E600086D0A /* MyCreditCard.m */,
 				9084F7CD180EF96900244282 /* ChurchDontationTypeSelector.h */,
+				909404E31881B14800496D2F /* website.png */,
+				909404E41881B14800496D2F /* contact.png */,
+				9086B53A1882D45C0006E5AC /* messages.png */,
 				9084F7CE180EF96900244282 /* ChurchDontationTypeSelector.m */,
 				907E239718299496001E9BC8 /* DefaultChurchView.h */,
 				907E239818299496001E9BC8 /* DefaultChurchView.m */,
@@ -814,6 +825,7 @@
 				9084F7D4180EF99500244282 /* ChurchAmountMultipleTypes.m */,
 				90B50D8D17E257F8000958E3 /* LeftNavigationController.h */,
 				90B50D8E17E257F8000958E3 /* LeftNavigationController.m */,
+				909404E91881B1CA00496D2F /* newdollar.png */,
 				903CCD97180C3FFE0032B0FC /* PaymentHistoryViewController.h */,
 				903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */,
 				903CCD9A180C40120032B0FC /* PaymentHistoryDetail.h */,
@@ -1244,6 +1256,7 @@
 				90AD403E17CE63090053239E /* Divider.png in Resources */,
 				90AD403F17CE63090053239E /* Divider2.png in Resources */,
 				90AD404017CE63090053239E /* dutchIcon.png in Resources */,
+				909404E61881B14800496D2F /* website.png in Resources */,
 				90AD404217CE63090053239E /* emptyStar.png in Resources */,
 				90AD404317CE63090053239E /* facebookconnect.jpg in Resources */,
 				90AD404417CE63090053239E /* facebookConnect.png in Resources */,
@@ -1277,6 +1290,8 @@
 				9097F5611821728D004F930E /* menuSettingsIcon.png in Resources */,
 				90A0FE1A17E3730100D27931 /* IconLarge.png in Resources */,
 				90AD405917CE63090053239E /* menuShareIcon.png in Resources */,
+				909404E71881B14800496D2F /* contact.png in Resources */,
+				9086B53B1882D45C0006E5AC /* messages.png in Resources */,
 				90AD405A17CE63090053239E /* newBackground.png in Resources */,
 				90AD405B17CE63090053239E /* plainArc.png in Resources */,
 				90AD405C17CE63090053239E /* profileDefault.png in Resources */,
@@ -1293,6 +1308,7 @@
 				90A0FE2117E3740400D27931 /* Default-568h@2x.png in Resources */,
 				90AD406617CE63090053239E /* sywlSwipeARrow.png in Resources */,
 				90AD406717CE63090053239E /* twittetrconnect.png in Resources */,
+				909404EA1881B1CA00496D2F /* newdollar.png in Resources */,
 				90AD406817CE63090053239E /* untitledLogo.png in Resources */,
 				90AD406917CE63090053239E /* untitledReceipt.png in Resources */,
 				90AD406A17CE63090053239E /* upChalkArrow.png in Resources */,
@@ -1511,8 +1527,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "8D6C6FE3-2E05-4648-82A5-429310D7AB9B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8D6C6FE3-2E05-4648-82A5-429310D7AB9B";
+				PROVISIONING_PROFILE = "1DF4D707-6FA3-471A-852B-42BA5E8688C9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1DF4D707-6FA3-471A-852B-42BA5E8688C9";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1583,7 +1599,7 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = Dono;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1DF4D707-6FA3-471A-852B-42BA5E8688C9";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

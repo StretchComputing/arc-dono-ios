@@ -35,8 +35,18 @@
 
 -(void)help{
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Default Location" message:@"You have selected this as your default location.  This page will show when the app loads, or when you click 'Home' from the left menu.  \n \n  If you would like to view other locations, please select 'View All Locations'.  \n \n  If you would like to remove your default location, you can do so from the 'Settings' page." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"View All Locations", @"Go Settings", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Default Location" message:@"You have selected this as your default location.  This page will show when the app loads, or when you click 'Home' from the left menu.  \n \n  If you would like to view other locations, please select 'View All Locations'." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"View All Locations", nil];
     [alert show];
+}
+
+-(void)messagesAction{
+    
+    if ([self.messagesArray count] == 0) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Messages" message:@"There are currently no messages from this location to its members." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+    }
 }
 - (void)viewDidLoad
 {
@@ -50,6 +60,17 @@
         
         self.makeDonationButton.text = @"Make Donation";
         self.makeDonationButton.tintColor = dutchGreenColor;
+        
+        self.contactButton.text = @"Contact Location";
+        self.contactButton.tintColor = dutchGreenColor;
+        
+        self.websiteButton.text = @"View Website";
+        self.websiteButton.tintColor = dutchGreenColor;
+        
+        self.messagesButton.text = @"Messages";
+        self.messagesButton.tintColor = dutchGreenColor;
+        
+        
         
         self.donationType = [self.myMerchant.donationTypes objectAtIndex:0];
         self.quickButtonOne.text = @"$10";
@@ -123,27 +144,203 @@
     
     
     @try {
-        if ([self.myMerchant.donationTypes count] > 1) {
-            
-            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"skipDonationOptions"] length] > 0) {
-                [self performSegueWithIdentifier:@"single" sender:self];
-                
-            }else{
-                [self performSegueWithIdentifier:@"multiple" sender:self];
-                
-            }
-            
-        }else{
-            
-            [self performSegueWithIdentifier:@"single" sender:self];
-            
-        }
+        
+        [self goToWebPayment];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"DefaultChurchView.makeDonation" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
 
     }
 
+
+}
+
+-(void)goToWebPayment{
+    
+    
+    @try {
+        NSMutableArray *itemArray = [NSMutableArray array];
+        
+        NSString *value = @"";
+        
+        self.donationType = [self.myMerchant.donationTypes objectAtIndex:0];
+        
+        NSDictionary *item = @{@"Amount":@"1", @"Percent":@"1.0", @"ItemId":[self.donationType valueForKey:@"Id"], @"Value":value, @"Description":[self.donationType valueForKey:@"Description"]};
+        
+        [itemArray addObject:item];
+        
+        
+        
+        //Add card must be done via the web now:
+        
+        
+        NSString *url = @"";
+        
+        ArcClient *client = [[ArcClient alloc] init];
+        NSString *token = [client authHeader];
+        
+        NSString *guestId = @"";
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] == 0) {
+            guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }else{
+            guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+            
+        }
+        
+        
+        
+        NSString *anonymous = @"false";
+        
+        
+        if (self.myMerchant.chargeFee) {
+            
+            
+        }else{
+            self.myMerchant.convenienceFeeCap = 0.0;
+            self.myMerchant.convenienceFee = 0.0;
+        }
+        
+        
+        NSString *passUrl = [client getCurrentUrl];
+        
+        NSString *startUrl = [passUrl stringByReplacingOccurrencesOfString:@"/rest/v1/" withString:@""];
+        
+        url = [NSString stringWithFormat:@"%@/content/confirmpayment/confirmpayment.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&anonymous=%@&token=%@&serverUrl=%@&type=CREDIT&convenienceFee=%f&convenienceFeeCap=%f&name=%@", startUrl, 0.0, guestId, @"", self.myMerchant.invoiceId, self.myMerchant.merchantId, 0.0, anonymous, token, passUrl, self.myMerchant.convenienceFee, self.myMerchant.convenienceFeeCap,self.myMerchant.name];
+        
+        for (int i = 0; i < [itemArray count]; i++) {
+            
+            NSDictionary *item = [itemArray objectAtIndex:i];
+            url = [url stringByAppendingFormat:@"&Amount=%@&Description=%@&ItemId=%@&Percent=%@&Value=%@", [item valueForKey:@"Amount"], [item valueForKey:@"Description"], [item valueForKey:@"ItemId"], [item valueForKey:@"Percent"], [item valueForKey:@"Value"]];
+        }
+        // NSLog(@"URL: %@", url);
+        
+        url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        // url = [url stringByReplacingOccurrencesOfString:@"==" withString:@"%3D%3D"];
+        
+        int location = [url rangeOfString:@"&serverUrl"].location;
+        location = location - 4;
+        url = [url stringByReplacingOccurrencesOfString:@"=" withString:@"%3D" options:NSCaseInsensitiveSearch range:NSMakeRange(location, 5)];
+        // NSLog(@"Encoded: %@", url);
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.goToWebPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
+    
+    
+    
+}
+
+
+
+-(IBAction)contactAction{
+    
+    
+    if ([self.myMerchant.email length] > 0) {
+        
+        
+        if ([MFMailComposeViewController canSendMail]) {
+            
+            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+            mailViewController.mailComposeDelegate = self;
+            [mailViewController setToRecipients:@[self.myMerchant.email]];
+            
+            [self presentModalViewController:mailViewController animated:YES];
+            
+        }else {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+        
+        
+    }else{
+        
+        
+        if ([MFMailComposeViewController canSendMail]) {
+            
+            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+            mailViewController.mailComposeDelegate = self;
+            [mailViewController setToRecipients:@[[[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]]];
+            [mailViewController setSubject:[NSString stringWithFormat:@"To: %@", self.myMerchant.name]];
+            
+            [self presentModalViewController:mailViewController animated:YES];
+            
+        }else {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+        
+    }
+}
+
+
+-(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    @try {
+        
+        switch (result)
+        {
+            case MFMailComposeResultCancelled:
+                break;
+            case MFMailComposeResultSent:
+                
+                break;
+            case MFMailComposeResultFailed:
+                
+                break;
+                
+            case MFMailComposeResultSaved:
+                
+                break;
+            default:
+                
+                break;
+        }
+        
+        
+        [self dismissModalViewControllerAnimated:YES];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DefaultChurchView.mailComposeController" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+
+-(IBAction)websiteAction{
+    
+    NSString *web = @"";
+    
+    if ([self.myMerchant.website length] > 0) {
+        web = self.myMerchant.website;
+    }else if ([self.myMerchant.name isEqualToString:@"Arc Mobile Inc"]){
+        web = @"www.arcmobileapp.com";
+    }else{
+        web = @"www.dono.io";
+    }
+    
+    
+    
+    if ([web length] > 0) {
+        if ([web rangeOfString:@"http://"].location == NSNotFound) {
+            web = [@"http://" stringByAppendingString:web];
+        }
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:web]];
+
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Website Found" message:@"No website was found for this location." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+    
 
 }
 
@@ -261,8 +458,8 @@
                 
             }else if (buttonIndex == 2){
                 
-                LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
-                [tmp supportSelected];
+               // LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+                //[tmp supportSelected];
                 
                 
             }

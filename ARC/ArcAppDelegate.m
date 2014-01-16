@@ -285,8 +285,14 @@ BOOL isIos7;
             
         }else if ([successOrFailure rangeOfString:@"success"].location != NSNotFound) {
 
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your request was successfully processed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            
             //success
             
+            /*
             NSDictionary *userInfo = nil;
             @try {
                 if ([[parser valueForVariable:@"cardNumber"] length] > 0) {
@@ -306,10 +312,17 @@ BOOL isIos7;
             }
           
             [[NSNotificationCenter defaultCenter] postNotificationName:@"webSuccess" object:self userInfo:userInfo];
+            */
             
         }else{
             //failure
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"We were unable to process your request at this time, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            /*
             successOrFailure = [successOrFailure stringByReplacingOccurrencesOfString:@"failure" withString:@""];
+            
             
             if ([successOrFailure rangeOfString:@"httpErrorCode"].location != NSNotFound) {
                 //there is an httpErrorCode
@@ -325,6 +338,8 @@ BOOL isIos7;
                 
                 
             }
+             
+             */
         }
     }
     @catch (NSException *exception) {

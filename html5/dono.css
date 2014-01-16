@@ -33,6 +33,20 @@ table.title tr.row2 {
 
 }
 
+table.title tr.row3 {
+	height: 30px;
+	font-size: 14px;
+	background-color: #f57516;
+    color:white;
+    //font-weight: normal;
+
+	text-align: center;
+    font-family:latoBold;
+
+}
+
+
+
 table.title td.column1 {
 	width: 10%;
 }
@@ -115,6 +129,37 @@ div.finalMessage{
 	font-family:latoLight;
 
 }
+
+
+div.fee {
+
+	color: #AFAFAF;
+	font-size: 13px;
+    font-family:latoLight;
+    
+    margin-left: 15%;
+	margin-right: 15%;
+	text-align: center;
+	
+	
+}
+
+div.addAmount {
+	color: #05a842;
+	font-size: 16px;
+    font-family:latoBold;
+
+	border:1px solid #05a842;
+    border-radius:4px;
+	width: 170px;
+    height: 40px;
+    line-height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+
 div.addCard {
 	color: #05a842;
 	font-size: 16px;
@@ -135,6 +180,18 @@ input.cardNumber{
 	font-size: 20px;
     font-family:latoLight;
     width: 235px;
+    border-radius:4px;
+    padding: 3px 3px;
+}
+
+
+
+
+input.amount{
+
+	font-size: 20px;
+    font-family:latoLight;
+    width: 135px;
     border-radius:4px;
     padding: 3px 3px;
 }
@@ -160,8 +217,23 @@ input.ccv{
 }
 
 
+
+
+div.amountInfo{
+
+ font-family:latoLight;
+  font-size: 20px;
+
+  width: 170px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 div.cardInfo
 {
+  font-family:latoLight;
+  font-size: 20px;
+
   width: 250px;
   margin-left: auto;
   margin-right: auto;

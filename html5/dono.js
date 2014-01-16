@@ -23,6 +23,9 @@ var ARC = (function (r, $) {
 	r.expirationDate = null;
 	r.ccv = null;
 	r.didComeFromPayment = "";
+	r.donationAmount = "";
+	r.chargedFee = "";
+	r.name = "";
 
 
 	r.getCardTypeFromNumber = function GetCardType(number)
@@ -94,13 +97,13 @@ var ARC = (function (r, $) {
 			
 			var jsonData = {
 				"AppInfo": appInfo,
-				"InvoiceAmount": r.urlParameters['invoiceAmount'],
-				"Amount": r.urlParameters['invoiceAmount'],
+				"InvoiceAmount": r.donationAmount,
+				"Amount": r.donationAmount,
 				"CustomerId": r.urlParameters['customerId'],
 				"AuthenticationToken": r.urlParameters['authenticationToken'],
 				"InvoiceId": r.urlParameters['invoiceId'],
 				"MerchantId": r.urlParameters['merchantId'],
-				"Gratuity": r.urlParameters['gratuity'],
+				"Gratuity": r.chargedFee,
 				"Type": r.urlParameters['type'],
 				"CardType": newType,
 				"FundSourceAccount": ARC.ccNumber,
@@ -313,21 +316,7 @@ var ARC = (function (r, $) {
 		   $('div.finalMessage').text("Your Dono web session has expired, please return to the app to proceed.");
            
            
-           	if (ARC.didComeFromPayment == "yes"){
-				
-				if (status == "success"){
-					
-
-					var cNumber = ARC.ccNumber.split(' ').join('');
-					var cExpire = ARC.expirationDate.replace('/', '');
-					cExpire = cExpire.split(' ').join('');
-					var cSecurity = ARC.ccv;
-					
-					returnUrl = returnUrl + "?cardNumber=" + cNumber + "&cardExpiration=" + cExpire + "&cardSecurityCode=" + cSecurity;
-					
-				}
-			}
-
+         
 			window.location = returnUrl;
 		} catch (e) {
 			//RSKYBOX.log.error(e, 'returnToIos');
@@ -384,34 +373,25 @@ $(document).ready(function() {
 	
 	
 	ARC.urlParameters = ARC.getUrlParameters();
-	ARC.serverUrl = ARC.urlParameters['serverUrl']
+	
+	ARC.name = ARC.urlParameters['name'];
+	ARC.serverUrl = ARC.urlParameters['serverUrl'];
 	ARC.baseUrl = ARC.serverUrl;
 
-	// if a CC# was passed as a URL param, show the ConfirmPayment page, otherwise, show the add card page
-	ARC.ccNumber = ARC.urlParameters['fundSourceAccount'];
-	ARC.expirationDate = ARC.urlParameters['expiration'];
-	ARC.ccv = ARC.urlParameters['pin'];
+
 	
 	$('#donePayment').hide();
-	if(ARC.ccNumber) {
-		// show ConfirmPayment page
-		
-		var total = "$" + ARC.urlParameters['invoiceAmount'];
-		$('div.total').text(total);
-		var maskedCcNumber = ARC.maskCcNumber(ARC.ccNumber);
-		var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
-		$('div.card').text(card);
-		
-		
-		$('#confirmPaymentPage').show();
-		$('#addCardPage').hide();
-		
-	} else {
+	
+	$('div.name').text(ARC.name);
+
+
 		// show AddCard page
 		ARC.didComeFromPayment = "yes";
 		$('#confirmPaymentPage').hide();
-		$('#addCardPage').show();
-	}
+		$('#addCardPage').hide();
+		$('#howMuchPage').show();
+
+
 	
 
 
@@ -423,6 +403,8 @@ $(document).on('click', '.addCard', function(e){
 
 	window.scrollTo(0,0);
 	e.preventDefault();
+	
+	
 	ARC.ccNumber = $('#cardNumber').val();
 	ARC.expirationDate = $('#expirationDate').val();
 	ARC.ccv = $('#ccv').val();
@@ -446,12 +428,35 @@ $(document).on('click', '.addCard', function(e){
 
 
 		// initialize ConfirmPage
-		var total = "$" + ARC.urlParameters['invoiceAmount'];
-		$('div.total').text(total);
+		
 		var maskedCcNumber = ARC.maskCcNumber(ARC.ccNumber);
 		var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
 		$('div.card').text(card);
 	
+	
+		var total = ARC.donationAmount;
+		
+		var convenienceFee = ARC.urlParameters['convenienceFee'];
+		var convenienceFeeCap = ARC.urlParameters['convenienceFeeCap'];
+
+
+		if (parseFloat(convenienceFee) > 0.0){
+		
+			if (parseFloat(ARC.donationAmount) < parseFloat(convenienceFeeCap)){
+			
+				total = parseFloat(ARC.donationAmount) + parseFloat(convenienceFee);
+								
+				ARC.chargedFee = convenienceFee;
+				
+				$('div.fee').text("* a processing fee of $" + parseFloat(Math.round(parseFloat(convenienceFee) * 100) / 100).toFixed(2) + 
+				  " will be added to all amounts less than $" + parseFloat(Math.round(parseFloat(convenienceFeeCap) * 100) / 100).toFixed(2));
+
+			}
+		}
+		
+		total = parseFloat(Math.round(parseFloat(total) * 100) / 100).toFixed(2);
+		
+		$('div.total').text("$ " + total);
 	
 	}else{
 		alert("Please enter a valid credit card number.");
@@ -463,25 +468,67 @@ $(document).on('click', '.addCard', function(e){
 	
 });
 
-$(document).on('click', '.back', function(e){
+
+
+$(document).on('click', '.addAmount', function(e){
+	console.log("continue button on addCardPage clicked");
+
+	window.scrollTo(0,0);
+	e.preventDefault();
+	ARC.donationAmount = $('#amount').val();
+	
+	var r = /^\$?[0-9]+(\.[0-9][0-9])?$/;
+	
+	
+	if (r.test(ARC.donationAmount)){
+	
+		
+		$('#confirmPaymentPage').hide();
+		$('#addCardPage').show();
+		$('#howMuchPage').hide();
+	
+	
+	}else{
+	
+		alert("Please enter a valid amount.");
+		return;
+	
+	}
+	
+	
+	
+
+
+	
+});
+
+
+
+
+$(document).on('click', '.backone', function(e){
 	console.log("back button clicked");
 	e.preventDefault();
 	ARC.returnToIos('cancel');
 });
 
-$(document).on('click', '.backc', function(e){
+$(document).on('click', '.backtwo', function(e){
 	console.log("back button clicked");
 	e.preventDefault();
 
-	if (ARC.didComeFromPayment == "yes"){
-		$('#confirmPaymentPage').hide();
-		$('#addCardPage').show();
-	
-		
-	}else{
-		ARC.returnToIos('cancel');
-	}
-	
+	$('#confirmPaymentPage').hide();
+	$('#addCardPage').hide();
+	$('#howMuchPage').show();
+			
+});
+
+$(document).on('click', '.backthree', function(e){
+	console.log("back button clicked");
+	e.preventDefault();
+
+	$('#confirmPaymentPage').hide();
+	$('#addCardPage').show();
+	$('#howMuchPage').hide();
+			
 });
 
 

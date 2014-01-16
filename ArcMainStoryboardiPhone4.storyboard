@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gSw-uq-OjM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gSw-uq-OjM">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
@@ -1975,7 +1975,7 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="miI-5h-RSN" customClass="NVUIGradientButton">
-                                <rect key="frame" x="72" y="380" width="179" height="43"/>
+                                <rect key="frame" x="72" y="377" width="179" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -2014,13 +2014,13 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select your location..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jfe-LY-nEF" customClass="SteelfishLabel">
-                                                <rect key="frame" x="6" y="275" width="320" height="33"/>
+                                                <rect key="frame" x="6" y="266" width="320" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="helpImage1.png" id="ESI-f0-Xxf">
-                                                <rect key="frame" x="88" y="10" width="150" height="265"/>
+                                                <rect key="frame" x="35" y="12" width="250" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
@@ -2031,13 +2031,13 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="...Enter An Amount..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0nj-3Z-qir" customClass="SteelfishLabel">
-                                                <rect key="frame" x="6" y="275" width="320" height="33"/>
+                                                <rect key="frame" x="6" y="266" width="320" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="helpImage2.png" id="xiX-X9-R2L">
-                                                <rect key="frame" x="88" y="10" width="150" height="265"/>
+                                                <rect key="frame" x="35" y="12" width="250" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
@@ -2047,14 +2047,14 @@
                                         <rect key="frame" x="640" y="-3" width="320" height="310"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="...Donate!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="agi-A8-DNS" customClass="SteelfishLabel">
-                                                <rect key="frame" x="6" y="275" width="320" height="33"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="...Pay!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="agi-A8-DNS" customClass="SteelfishLabel">
+                                                <rect key="frame" x="6" y="266" width="320" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="helpImage3.png" id="hBc-th-KLk">
-                                                <rect key="frame" x="88" y="10" width="150" height="265"/>
+                                                <rect key="frame" x="35" y="12" width="250" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
@@ -2063,7 +2063,7 @@
                                 </subviews>
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="ukc-N2-1el">
-                                <rect key="frame" x="141" y="354" width="38" height="36"/>
+                                <rect key="frame" x="141" y="346" width="38" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="pageIndicatorTintColor" red="0.96078431369999995" green="0.45882352939999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
@@ -2251,7 +2251,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your donation location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ilb-cU-I1a" customClass="SteelfishLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ilb-cU-I1a" customClass="SteelfishLabel">
                                         <rect key="frame" x="20" y="0.0" width="280" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
@@ -4417,96 +4417,77 @@
                                     <action selector="openMenuNow:" destination="EXn-6o-zVh" eventType="touchUpInside" id="pTo-Fc-KP1"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quick Donate:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oIz-if-M2Q" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="13" y="313" width="213" height="32"/>
+                            <view contentMode="scaleToFill" id="4sA-ub-RjB" customClass="NVUIGradientButton">
+                                <rect key="frame" x="29" y="173" width="263" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view hidden="YES" contentMode="scaleToFill" id="etJ-tq-80P" customClass="NVUIGradientButton">
-                                <rect key="frame" x="14" y="364" width="60" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newdollar.png" id="ibh-AZ-mQ3">
+                                        <rect key="frame" x="6" y="13" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="quickActionOne" destination="EXn-6o-zVh" eventType="touchUpInside" id="ADr-Zq-WCY"/>
-                                    <action selector="quickActionOne" destination="Ge1-GO-ndQ" eventType="touchUpInside" id="THa-ww-VD2"/>
+                                    <action selector="makeDonation:" destination="EXn-6o-zVh" eventType="touchUpInside" id="DAB-6m-I6B"/>
                                 </connections>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" id="YbI-ca-tAx" customClass="NVUIGradientButton">
-                                <rect key="frame" x="94" y="364" width="60" height="38"/>
+                            <view contentMode="scaleToFill" id="CeE-N0-AAg" customClass="NVUIGradientButton">
+                                <rect key="frame" x="29" y="236" width="263" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="quickActionTwo" destination="EXn-6o-zVh" eventType="touchUpInside" id="wcL-XP-ZKS"/>
-                                    <action selector="quickActionTwo" destination="Ge1-GO-ndQ" eventType="touchUpInside" id="wfq-J2-vij"/>
+                                    <action selector="contactAction" destination="EXn-6o-zVh" eventType="touchUpInside" id="NJS-Aq-024"/>
                                 </connections>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" id="6TF-mQ-gv3" customClass="NVUIGradientButton">
-                                <rect key="frame" x="173" y="364" width="60" height="38"/>
+                            <view contentMode="scaleToFill" id="PTd-zk-d2N" customClass="NVUIGradientButton">
+                                <rect key="frame" x="29" y="299" width="263" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="quickActionThree" destination="EXn-6o-zVh" eventType="touchUpInside" id="0I1-1Q-H4r"/>
-                                    <action selector="quickActionThree" destination="Ge1-GO-ndQ" eventType="touchUpInside" id="UCz-gX-so2"/>
+                                    <action selector="websiteAction" destination="EXn-6o-zVh" eventType="touchUpInside" id="LDV-nt-POT"/>
                                 </connections>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" id="Ra2-4N-LtL" customClass="NVUIGradientButton">
-                                <rect key="frame" x="253" y="364" width="60" height="38"/>
+                            <view contentMode="scaleToFill" id="q8S-1j-EKN" customClass="NVUIGradientButton">
+                                <rect key="frame" x="49" y="438" width="223" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="quickActionFour" destination="Ge1-GO-ndQ" eventType="touchUpInside" id="RlQ-La-SmJ"/>
-                                    <action selector="quickActionFour" destination="EXn-6o-zVh" eventType="touchUpInside" id="sK3-hO-FOZ"/>
+                                    <action selector="goAllChurches" destination="EXn-6o-zVh" eventType="touchUpInside" id="99R-og-ot0"/>
                                 </connections>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Usp-Of-mtE">
-                                <rect key="frame" x="63" y="236" width="181" height="49"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="website.png" id="Uz5-9m-pEa">
+                                <rect key="frame" x="35" y="312" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contact.png" id="jiz-uS-ote">
+                                <rect key="frame" x="35" y="249" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="byQ-Bq-Sen" customClass="NVUIGradientButton">
+                                <rect key="frame" x="29" y="362" width="263" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal" title="Repeat my last donation">
-                                    <color key="titleColor" red="0.90980392160000001" green="0.1764705882" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <view contentMode="scaleToFill" id="Vca-XU-P12" customClass="NVUIGradientButton">
-                                <rect key="frame" x="73" y="210" width="175" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="makeDonation:" destination="EXn-6o-zVh" eventType="touchUpInside" id="nCH-Ko-o2n"/>
+                                    <action selector="messagesAction" destination="EXn-6o-zVh" eventType="touchUpInside" id="ij3-lG-TsV"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" id="q8q-m1-Eqt" customClass="NVUIGradientButton">
-                                <rect key="frame" x="168" y="387" width="140" height="79"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="goDonationHistory" destination="EXn-6o-zVh" eventType="touchUpInside" id="aZW-ur-BUi"/>
-                                </connections>
-                            </view>
-                            <view contentMode="scaleToFill" id="5Y9-WD-Wwe" customClass="NVUIGradientButton">
-                                <rect key="frame" x="13" y="387" width="140" height="79"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="goAllChurches" destination="EXn-6o-zVh" eventType="touchUpInside" id="mwP-CZ-mde"/>
-                                </connections>
-                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messages.png" id="ywX-Et-HS8">
+                                <rect key="frame" x="35" y="375" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="iRS-Tr-7sg"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="donationHistoryButton" destination="q8q-m1-Eqt" id="5t9-Ft-seh"/>
-                        <outlet property="makeDonationButton" destination="Vca-XU-P12" id="V12-Ua-b2P"/>
+                        <outlet property="contactButton" destination="CeE-N0-AAg" id="dUa-80-obT"/>
+                        <outlet property="makeDonationButton" destination="4sA-ub-RjB" id="ZW0-Zt-TwA"/>
                         <outlet property="merchantImage" destination="i7C-8V-1wI" id="FYL-Gw-EdV"/>
                         <outlet property="merchantName" destination="V61-J2-9Gj" id="uYL-vV-HIO"/>
-                        <outlet property="quickButtonFour" destination="Ra2-4N-LtL" id="wYy-M0-LBy"/>
-                        <outlet property="quickButtonOne" destination="etJ-tq-80P" id="UHZ-QW-gEm"/>
-                        <outlet property="quickButtonThree" destination="6TF-mQ-gv3" id="EnB-GB-PUf"/>
-                        <outlet property="quickButtonTwo" destination="YbI-ca-tAx" id="qeC-W8-I7s"/>
-                        <outlet property="viewAllLocationsButton" destination="5Y9-WD-Wwe" id="Ew7-ke-nwe"/>
+                        <outlet property="messagesButton" destination="byQ-Bq-Sen" id="e2i-WW-iXT"/>
+                        <outlet property="viewAllLocationsButton" destination="q8S-1j-EKN" id="MD8-4W-bMc"/>
+                        <outlet property="websiteButton" destination="PTd-zk-d2N" id="BjK-YB-uIm"/>
                         <segue destination="K8s-s7-Ah8" kind="push" identifier="multiple" id="4b1-ab-nua"/>
                         <segue destination="Ge1-GO-ndQ" kind="push" identifier="single" id="ogG-SN-hLn"/>
                         <segue destination="4Tf-7v-IbX" kind="push" identifier="addCard" id="UfQ-py-orq"/>
@@ -4612,7 +4593,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4Ew-Io-woa" customClass="SteelfishButton">
-                                <rect key="frame" x="26" y="60" width="240" height="45"/>
+                                <rect key="frame" x="26" y="109" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="My Profile">
@@ -4624,21 +4605,6 @@
                                 </state>
                                 <connections>
                                     <action selector="profileSelected" destination="tWl-XB-MvO" eventType="touchUpInside" id="7Ts-a3-f7s"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yoO-cm-2xU" customClass="SteelfishButton">
-                                <rect key="frame" x="26" y="109" width="240" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <state key="normal" title="Payment">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="billingSelected" destination="tWl-XB-MvO" eventType="touchUpInside" id="yHI-R6-1vE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JLT-Mb-h20" customClass="SteelfishButton">
@@ -4657,7 +4623,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="APo-Ua-Cz2" customClass="SteelfishButton">
-                                <rect key="frame" x="26" y="209" width="240" height="45"/>
+                                <rect key="frame" x="26" y="60" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="All Locations">
@@ -4700,7 +4666,6 @@
                         <outlet property="allLocationsButton" destination="APo-Ua-Cz2" id="SuY-mH-9GE"/>
                         <outlet property="homeButton" destination="f5l-wC-deJ" id="pGD-56-5Fr"/>
                         <outlet property="orangeView" destination="Srf-hl-EsB" id="LAk-fu-YXf"/>
-                        <outlet property="paymentButton" destination="yoO-cm-2xU" id="h19-D0-KG8"/>
                         <outlet property="profileButton" destination="4Ew-Io-woa" id="n5m-Da-y4O"/>
                         <outlet property="profileImageView" destination="SgQ-o9-FdW" id="FlQ-W1-9KF"/>
                         <outlet property="settingsButton" destination="JLT-Mb-h20" id="OHw-Xr-JhU"/>
@@ -4718,10 +4683,11 @@
         <image name="backarrow.png" width="88" height="88"/>
         <image name="blueCheck.png" width="150" height="138"/>
         <image name="camera.png" width="128" height="128"/>
+        <image name="contact.png" width="80" height="80"/>
         <image name="dutchIcon.png" width="120" height="120"/>
-        <image name="helpImage1.png" width="640" height="1136"/>
-        <image name="helpImage2.png" width="640" height="1136"/>
-        <image name="helpImage3.png" width="640" height="1136"/>
+        <image name="helpImage1.png" width="640" height="640"/>
+        <image name="helpImage2.png" width="640" height="640"/>
+        <image name="helpImage3.png" width="640" height="640"/>
         <image name="homechecked.png" width="259" height="300"/>
         <image name="homeunchecked.png" width="259" height="300"/>
         <image name="leftArrow.png" width="250" height="250"/>
@@ -4731,13 +4697,16 @@
         <image name="menuHomeIcon.png" width="70" height="70"/>
         <image name="menuIconWhite.png" width="88" height="88"/>
         <image name="menuShareIcon.png" width="70" height="70"/>
+        <image name="messages.png" width="80" height="80"/>
         <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newdollar.png" width="80" height="80"/>
         <image name="profileDefault.png" width="225" height="224"/>
         <image name="question.png" width="88" height="88"/>
         <image name="rightArrow.png" width="250" height="250"/>
         <image name="searchIconWhite.png" width="128" height="128"/>
         <image name="spinner.png" width="1024" height="1024"/>
         <image name="sywlSwipeARrow.png" width="231" height="35"/>
+        <image name="website.png" width="80" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -4745,13 +4714,13 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="n87-au-ELM"/>
-        <segue reference="u8y-7H-Jqz"/>
+        <segue reference="1YU-Ek-CUs"/>
         <segue reference="4b1-ab-nua"/>
+        <segue reference="UfQ-py-orq"/>
         <segue reference="cH4-tZ-2B7"/>
+        <segue reference="ogG-SN-hLn"/>
         <segue reference="QVZ-Ob-bU2"/>
-        <segue reference="ihx-CQ-l2W"/>
-        <segue reference="oA8-T9-RBW"/>
         <segue reference="hTD-vI-iAs"/>
+        <segue reference="oA8-T9-RBW"/>
     </inferredMetricsTieBreakers>
 </document>

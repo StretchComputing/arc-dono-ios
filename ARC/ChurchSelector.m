@@ -597,7 +597,7 @@
         self.activityView.hidden = YES;
         NSString *errorMsg = @"";
         
-      //  NSLog(@"ResponseInfo: %@", responseInfo);
+        NSLog(@"ResponseInfo: %@", responseInfo);
         
         if ([status isEqualToString:@"success"]) {
             //success
@@ -639,6 +639,16 @@
                 tmpMerchant.convenienceFee = [[theMerchant valueForKey:@"ConvenienceFee"] doubleValue];
                 tmpMerchant.convenienceFeeCap = [[theMerchant valueForKey:@"ConvenienceFeeCap"] doubleValue];
             
+                
+                if ([theMerchant valueForKey:@"Email"]) {
+                    tmpMerchant.email = [theMerchant valueForKey:@"Email"];
+                }
+                
+                if ([theMerchant valueForKey:@"Website"]) {
+                    tmpMerchant.website = [theMerchant valueForKey:@"Website"];
+
+                }
+                
                 
                 if ([theMerchant valueForKey:@"InvoiceDetails"]) {
                     tmpMerchant.donationTypes = [NSMutableArray arrayWithArray:[theMerchant valueForKey:@"InvoiceDetails"]];
@@ -899,6 +909,15 @@
         
         Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:indexPath.row];
         
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId] forKey:@"defaultChurchId"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+        [tmp homeSelected];
+        
+        
+        /*
+         
         if ([tmpMerchant.donationTypes count] > 1) {
             
             if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"skipDonationOptions"] length] > 0) {
@@ -915,6 +934,7 @@
             
         }
         
+         */
         
     }
     

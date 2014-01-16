@@ -100,7 +100,7 @@
     [super viewDidLoad];
 	
     self.myScrollView.delegate = self;
-    self.startUsingButton.text = @"Start Donating!";
+    self.startUsingButton.text = @"Start Using Dono!";
     
     self.startUsingButton.tintColor =  dutchRedColor;
     

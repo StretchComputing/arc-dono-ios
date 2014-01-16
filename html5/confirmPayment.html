@@ -30,18 +30,63 @@
 		<!-- <iframe id="rskybox" src="http://rskybox-stretchcom.appspot.com/agents/iframe/rskybox.html" style="display: none;"></iframe> -->
 
 		
+		<div id="howMuchPage" style="display:none;">
+            
+            <table class="title">
+				<tr class="row1">
+					<td class="column1"><div class="backone" onclick=""><img src="backarrow.png" alt="back_img"></div></td>
+					<td class="column2">Amount</td>
+					<td class="column3"></td>
+				</tr>
+				<tr class="row3">
+					<td colspan="3"><div class="name"></div></td>
+				</tr>
+				<tr class="row2">
+					<td colspan="3">How much would you like to donate?</td>
+				</tr>
+				
+			</table>
+            
+            <br>
+            <br>
+
+
+			<div class="amountInfo " >
+			
+			$
+			<input class="amount" id="amount" type="text" pattern="[0-9.]*" name="" placeholder="Amount"/>
+		
+			
+            </div>
+            
+            
+            <br>
+            <br>
+            <br>
+            
+            
+			<div class="addAmount" onclick="">Continue</div>
+            
+		</div>
+		
+		
+		
 		
 		<div id="addCardPage" style="display:none;">
             
             <table class="title">
 				<tr class="row1">
-					<td class="column1"><div class="back" onclick=""><img src="backarrow.png" alt="back_img"></div></td>
+					<td class="column1"><div class="backtwo" onclick=""><img src="backarrow.png" alt="back_img"></div></td>
 					<td class="column2">Payment</td>
 					<td class="column3"></td>
+				</tr>
+				<tr class="row3">
+					<td colspan="3"><div class="name"></div></td>
 				</tr>
 				<tr class="row2">
 					<td colspan="3">Please enter your payment details</td>
 				</tr>
+				
 			</table>
             
             <br>
@@ -65,16 +110,22 @@
 		<div id="confirmPaymentPage" style="display:none;">
 			<table class="title">
 				<tr class="row1">
-					<td class="column1"><div class="backc" onclick=""><img src="backarrow.png" alt="back_img"></div></td>
+					<td class="column1"><div class="backthree" onclick=""><img src="backarrow.png" alt="back_img"></div></td>
 					<td class="column2">Confirm Donation</td>
 					<td class="column3"></td>
+				</tr>
+				
+				<tr class="row3">
+					<td colspan="3"><div class="name"></div></td>
 				</tr>
 				<tr class="row2">
 					<td colspan="3">Go back to change your payment details</td>
 				</tr>
 			</table>
 
+
 			<table class="tally">
+
 				<tr class="row1">
 					<td class="column1"></td>
 					<td class="column2">Total</td>
@@ -82,12 +133,17 @@
 					<td class="column4"></td>
 				</tr>
 				<tr class="row2">
+
 					<td class="column1"></td>
 					<td class="column2">Card</td>
 					<td class="column3"><div class="card"></div></td>
 					<td class="column4"></td>
 				</tr>
+
 			</table>
+			
+			<div class="fee"></div>
+
 					</br>
 					</br>
 			<div class="confirm" onclick="">Confirm Donation</div>

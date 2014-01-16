@@ -1032,7 +1032,7 @@
             
             self.registerSuccess = YES;
             
-            
+            self.isPayment = NO; //never go to payment screens
             if (self.isPayment) {
                 //Save credit card info
                 [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:0.0];

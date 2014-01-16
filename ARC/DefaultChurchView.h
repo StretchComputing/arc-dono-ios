@@ -11,8 +11,10 @@
 #import "SteelfishBoldLabel.h"
 #import "NVUIGradientButton.h"
 #import "CreditCard.h"
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface DefaultChurchView : UIViewController <UIActionSheetDelegate>
+
+@interface DefaultChurchView : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *makeDonationButton;
 
 - (IBAction)makeDonation:(id)sender;
@@ -30,6 +32,10 @@
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *quickButtonThree;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *quickButtonFour;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *payButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *contactButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *websiteButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *messagesButton;
+
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *donationHistoryButton;
 @property (nonatomic, strong) UIAlertView *logInAlert;
 - (IBAction)quickActionOne;
@@ -39,5 +45,13 @@
 - (IBAction)goDonationHistory;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *viewAllLocationsButton;
 - (IBAction)goAllChurches;
+
+@property (nonatomic, strong) NSMutableArray *messagesArray;
+
+-(IBAction)contactAction;
+-(IBAction)messagesAction;
+
+-(IBAction)websiteAction;
+
 
 @end
