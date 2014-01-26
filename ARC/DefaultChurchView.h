@@ -12,11 +12,15 @@
 #import "NVUIGradientButton.h"
 #import "CreditCard.h"
 #import <MessageUI/MFMailComposeViewController.h>
+#import "SteelfishLabel.h"
 
 
 @interface DefaultChurchView : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *makeDonationButton;
+@property (strong, nonatomic) IBOutlet SteelfishLabel *topLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *mainImage;
 
+@property (strong, nonatomic) IBOutlet UIView *nameView;
 - (IBAction)makeDonation:(id)sender;
 @property BOOL haveDwolla;
 @property (nonatomic, strong) NSString *amount;

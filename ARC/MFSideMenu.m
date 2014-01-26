@@ -115,6 +115,8 @@ typedef enum {
     if(self.leftSideMenuViewController) [menuContainerView insertSubview:self.leftSideMenuViewController.view atIndex:0];
     if(self.rightSideMenuViewController) [menuContainerView insertSubview:self.rightSideMenuViewController.view atIndex:0];
     
+    self.initHeight = self.rootViewController.view.frame.size.height;
+    
     UIView *windowRootView = self.rootViewController.view;
     UIView *containerView = windowRootView.superview;
     
@@ -662,9 +664,27 @@ typedef enum {
 }
 
 - (void) setRootControllerOffset:(CGFloat)xOffset {
+    
     UIViewController *rootController = self.rootViewController;
     CGRect frame = rootController.view.frame;
-    frame.origin = CGPointMake(xOffset*rootController.view.transform.a, xOffset*rootController.view.transform.b);
+    
+    
+    float x = xOffset*rootController.view.transform.a;
+    float y = (x / self.menuWidthLeft) * 50;
+    
+    frame.origin.x = x;
+    frame.origin.y = y;
+    
+    
+  
+
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftMenuOpenWidth" object:self userInfo:@{@"width" : [NSNumber numberWithFloat:x]}];
+
+    //frame.origin = CGPointMake(xOffset*rootController.view.transform.a, xOffset*rootController.view.transform.a);
+    
+    //NSLog(@"Class: %@", [rootController class]);
     rootController.view.frame = frame;
 }
 

@@ -10,6 +10,7 @@
 #import "NVUIGradientButton.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import "SteelfishBoldLabel.h"
+#import "SteelfishLabel.h"
 
 @interface SupportViewController : UIViewController <UITableViewDataSource, UITabBarDelegate, MFMailComposeViewControllerDelegate>
 
@@ -22,6 +23,7 @@
 - (IBAction)emailAction;
 
 @property (weak, nonatomic) IBOutlet SteelfishBoldLabel *phoneNumberLabel;
+@property (nonatomic, strong) IBOutlet SteelfishLabel *versionLabel;
 
 @property (weak, nonatomic) IBOutlet SteelfishBoldLabel *emailAddressLabel;
 @property (strong, nonatomic) IBOutlet UISwitch *showDonationOptionsSwitch;

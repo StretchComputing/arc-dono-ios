@@ -8,7 +8,6 @@
 
 #import "ChurchSelector.h"
 #import "Merchant.h"
-#import "Restaurant.h"
 #import "ArcAppDelegate.h"
 #import "CreditCard.h"
 #import "ArcClient.h"
@@ -16,15 +15,10 @@
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
 #import "SMContactsSelector.h"
-#import "iCarousel.h"
 #import "MFSideMenu.h"
 #import "SteelfishBoldLabel.h"
 #import "LeftViewController.h"
-#import "RightViewController.h"
 #import "SteelfishLabel.h"
-#import "ChurchDontationTypeSelector.h"
-#import "ChurchAmountSingleType.h"
-#import "RNFrostedSidebar.h"
 #import "ILTranslucentView.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
@@ -256,7 +250,6 @@
     
     UIButton *myButton = (UIButton *)sender;
     
-    self.carousel.currentItemIndex = myButton.tag;
     
     [self payBillAction];
     
@@ -271,6 +264,23 @@
 }
 - (void)viewDidLoad
 {
+    
+    self.circularSpinner = [[TJSpinner alloc] initWithSpinnerType:kTJSpinnerTypeCircular];
+    
+    self.circularSpinner.hidesWhenStopped = YES;
+    self.circularSpinner.radius = 8;
+    self.circularSpinner.pathColor = [UIColor whiteColor];
+    self.circularSpinner.fillColor = [UIColor orangeColor];
+    self.circularSpinner.thickness = 4;
+    [self.circularSpinner startAnimating];
+    
+    
+    self.circularSpinner.frame = CGRectMake(150, 200, 25, 25);
+    
+    [self.view insertSubview:self.circularSpinner aboveSubview:self.loadingLocationsLabel];
+    
+    
+    
     @try {
      //   [self setNeedsStatusBarAppearanceUpdate];
 
@@ -324,12 +334,7 @@
     //self.roundView.layer.cornerRadius = 9.0;
     self.navigationController.navigationBarHidden = YES;
     
-    self.carousel.type = iCarouselTypeCoverFlow2;
-    self.carousel.dataSource = self;
-    self.carousel.delegate = self;
-    self.carousel.backgroundColor = [UIColor clearColor];
-    self.carousel.bounces = NO;
-    self.carousel.vertical = NO;
+
     [self updateSliders];
     
     int y = 90;
@@ -337,15 +342,8 @@
         y = 80;
     }
     
-    if (!isIpad) {
-        
-        if (isIos7) {
-            y+=20;
-        }
-        self.carousel.frame = CGRectMake(0, y, 320, 200);
-    }
+  
     
-    self.carousel.clipsToBounds = YES;
     
     
     //self.borderLine1.layer.shadowOffset = CGSizeMake(0, 1);
@@ -452,7 +450,6 @@
             [self addPullToRefreshHeader];
         }
         
-        self.carousel.hidden = YES;
         self.payBillButton.enabled = NO;
         self.moreInfoButton.enabled = NO;
         
@@ -460,10 +457,7 @@
         NSArray *images = @[[UIImage imageNamed:@"menuHomeIcon.png"], [UIImage imageNamed:@"menuProfileIcon"], [UIImage imageNamed:@"menuBillingIcon"], [UIImage imageNamed:@"menuSettingsIcon"]];
         
         
-        self.callout = [[RNFrostedSidebar alloc] initWithImages:images];
-        self.callout.itemBackgroundColor = [UIColor colorWithRed:232.0/255.0 green:45.0/255.0 blue:7.0/255.0 alpha:0.9];
 
-        self.callout.delegate = self;
        
     }
     @catch (NSException *e) {
@@ -543,7 +537,6 @@
         }
         
         //NSLog(@"Count: %d", [self.matchingMerchants count]);
-        [self.carousel reloadData];
         
     }
     @catch (NSException *e) {
@@ -577,7 +570,9 @@
 -(void)merchantListComplete:(NSNotification *)notification{
     @try {
         
-        self.carousel.hidden = NO;
+        
+        [self.circularSpinner stopAnimating];
+        
         self.payBillButton.enabled = YES;
         self.moreInfoButton.enabled = YES;
         
@@ -712,12 +707,68 @@
                 
             }
             
+            
+            //TESTING ONLY ************************************************************************************************************
+            
+            self.allMerchants = [NSMutableArray array];
+            self.matchingMerchants = [NSMutableArray array];
+            
+            Merchant *merch1 = [[Merchant alloc] init];
+            merch1.name = @"Evangelical United Methodist";
+            merch1.merchantId = 20;
+            merch1.address = @"345 Broadwater Ave";
+            merch1.city = @"Billings";
+            merch1.state = @"MT";
+            merch1.zipCode = @"59100";
+            [self.allMerchants addObject:merch1];
+            [self.matchingMerchants addObject:merch1];
+
+            Merchant *merch2 = [[Merchant alloc] init];
+            merch2.name = @"Living Waters United Methodist";
+            merch2.merchantId = 21;
+            merch2.address = @"51 West Cameron Bridge Rd.";
+            merch2.city = @"Bozeman";
+            merch2.state = @"MT";
+            merch2.zipCode = @"59718";
+            [self.allMerchants addObject:merch2];
+            [self.matchingMerchants addObject:merch2];
+
+            
+            Merchant *merch3 = [[Merchant alloc] init];
+            merch3.name = @"St. Paul's United Methodist";
+            merch3.merchantId = 22;
+            merch3.address = @"519 Logan St.";
+            merch3.city = @"Helena";
+            merch3.state = @"MT";
+            merch3.zipCode = @"59601";
+            [self.allMerchants addObject:merch3];
+            [self.matchingMerchants addObject:merch3];
+
+            
+            Merchant *merch4 = [[Merchant alloc] init];
+            merch4.name = @"Browining United Methodist";
+            merch4.merchantId = 23;
+            merch4.address = @"123 Highway 89";
+            merch4.city = @"Browning";
+            merch4.state = @"MT";
+            merch4.zipCode = @"59417";
+            [self.allMerchants addObject:merch4];
+            [self.matchingMerchants addObject:merch4];
+
+            
+       
+            
+            
+            //*&******************************************************************************************************************
+            
+            
+            
+            
             if ([self.allMerchants count] == 0) {
                 self.errorLabel.text = @"*No nearbly restaurants found";
             }else{
                 self.myTableView.hidden = NO;
                 [self.myTableView reloadData];
-                [self.carousel reloadData];
             }
             
             
@@ -809,6 +860,8 @@
         
         SteelfishBoldLabel *nameLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
         SteelfishLabel *adrLabel = (SteelfishLabel *)[cell.contentView viewWithTag:3];
+        SteelfishLabel *adrLabel2 = (SteelfishLabel *)[cell.contentView viewWithTag:4];
+
         UIImageView *merchImage = (UIImageView *)[cell.contentView viewWithTag:1];
         
         
@@ -833,6 +886,8 @@
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         
+        
+        /*
         if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]]) {
             
             NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
@@ -864,9 +919,30 @@
                     }
                 });
             });
+         
+        }
+        */
+        
+        if ([tmpMerchant.name isEqualToString:@"Evangelical United Methodist"]) {
+            merchImage.image = [UIImage imageNamed:@"Evangelical"];
+        }else if ([tmpMerchant.name isEqualToString:@"Living Waters United Methodist"]) {
+            merchImage.image = [UIImage imageNamed:@"LivingWaters"];
             
+        }else if ([tmpMerchant.name isEqualToString:@"St. Paul's United Methodist"]) {
+            merchImage.image = [UIImage imageNamed:@"StPaul"];
+            
+        }else if ([tmpMerchant.name isEqualToString:@"Browining United Methodist"]) {
+            merchImage.image = [UIImage imageNamed:@"Browning"];
+            
+        }else{
+            
+            //Get the image from server, if not, default
+            //default
+            merchImage.image = [UIImage imageNamed:@"testChurch"];
         }
         
+        
+        merchImage.layer.cornerRadius = 3.0;
         
         
         
@@ -874,7 +950,8 @@
         
         
         if (tmpMerchant.address) {
-            adrLabel.text = [NSString stringWithFormat:@"%@, %@, %@ %@", tmpMerchant.address, tmpMerchant.city, tmpMerchant.state, tmpMerchant.zipCode];
+            adrLabel.text = [NSString stringWithFormat:@"%@", tmpMerchant.address];
+            adrLabel2.text = [NSString stringWithFormat:@"%@, %@ %@", tmpMerchant.city, tmpMerchant.state, tmpMerchant.zipCode];
         }else{
             adrLabel.text = @"201 North Ave, Chicago, IL";
         }
@@ -890,7 +967,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+    return 100;
 }
 /*
  - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -954,20 +1031,11 @@
         
         if ([[segue identifier] isEqualToString:@"single"]) {
             
-            ChurchAmountSingleType *single = [segue destinationViewController];
-            single.myMerchant = tmpMerchant;
-        
-            if ([tmpMerchant.donationTypes count] == 1) {
-                single.donationType = [tmpMerchant.donationTypes objectAtIndex:0];
-            }
-            single.isHome = NO;
+           
             
         }else if ([[segue identifier] isEqualToString:@"multiple"]) {
 
-            ChurchDontationTypeSelector *multiple = [segue destinationViewController];
-            multiple.isHome = NO;
-            
-            multiple.myMerchant = tmpMerchant;
+           
         }
     }
     @catch (NSException *e) {
@@ -1314,38 +1382,7 @@
 
 - (void)updateSliders
 {
-    switch (self.carousel.type)
-    {
-        case iCarouselTypeLinear:
-        {
-            self.arcSlider.enabled = NO;
-        	self.radiusSlider.enabled = NO;
-            self.tiltSlider.enabled = NO;
-            self.spacingSlider.enabled = YES;
-            break;
-        }
-        case iCarouselTypeCylinder:
-        case iCarouselTypeInvertedCylinder:
-        case iCarouselTypeRotary:
-        case iCarouselTypeInvertedRotary:
-        case iCarouselTypeWheel:
-        case iCarouselTypeInvertedWheel:
-        {
-            self.arcSlider.enabled = YES;
-        	self.radiusSlider.enabled = YES;
-            self.tiltSlider.enabled = NO;
-            self.spacingSlider.enabled = YES;
-            break;
-        }
-        default:
-        {
-            self.arcSlider.enabled = NO;
-        	self.radiusSlider.enabled = NO;
-            self.tiltSlider.enabled = YES;
-            self.spacingSlider.enabled = YES;
-            break;
-        }
-    }
+  
 }
 
 
@@ -1366,7 +1403,7 @@
 
 - (IBAction)reloadCarousel
 {
-    [self.carousel reloadData];
+
 }
 
 #pragma mark -
@@ -1376,228 +1413,10 @@
 {
     if (buttonIndex	>= 0)
     {
-        //map button index to carousel type
-        iCarouselType type = buttonIndex;
         
-        //carousel can smoothly animate between types
-        [UIView beginAnimations:nil context:nil];
-        self.carousel.type = type;
-        [self updateSliders];
-        [UIView commitAnimations];
-        
-        //update title
-        self.navItem.title = [actionSheet buttonTitleAtIndex:buttonIndex];
     }
 }
 
-#pragma mark -
-#pragma mark iCarousel methods
-
-- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
-{
-    return [self.matchingMerchants count];
-}
-
-- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
-{
-    @try {
-       // UILabel *label = nil;
-        
-        //create new view if no view is available for recycling
-        if (view == nil)
-        {
-            view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 180.0f, 160.0f)];
-            view.backgroundColor = [UIColor clearColor];
-            view.layer.borderWidth = 1.0;
-            view.layer.borderColor = [[UIColor darkGrayColor] CGColor];
-            view.layer.cornerRadius = 3.0;
-            
-           // view.layer.shadowOffset = CGSizeMake(-1, 3);
-           // view.layer.shadowRadius = 0.5;
-           // view.layer.shadowOpacity = 0.5;
-            
-            UIImageView *imageLogo = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 178, 158)];
-            imageLogo.layer.cornerRadius = 3.0;
-            //imageLogo.layer.masksToBounds = YES;
-            
-            //no more hard code
-            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:index];
-            
-            if (tmpMerchant.merchantId == 12) {
-                imageLogo.image = [UIImage imageNamed:@"untitledLogo"];
-            }else if (tmpMerchant.merchantId == 13){
-                imageLogo.image = [UIImage imageNamed:@"junkieLogo"];
-            }else if (tmpMerchant.merchantId == 14){
-                imageLogo.image = [UIImage imageNamed:@"rokaLogo"];
-            }else{
-                imageLogo.image = [UIImage imageNamed:@"defaultLogo"];
-
-                ArcClient *tmp = [[ArcClient alloc] init];
-                NSString *serverUrl = [tmp getCurrentUrl];
-                
-                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, tmpMerchant.merchantId];
-                logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
-              //  NSLog(@"URL: %@", logoImageUrl);
-                
-                dispatch_async(dispatch_get_global_queue(0,0), ^{
-                    
-                    NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
-                    
-                    if ( data == nil ){
-                        return;
-                    }
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        UIImage *logoImage = [UIImage imageWithData:data];
-                        
-                        if (logoImage) {
-                            imageLogo.image = logoImage;
-                            //self.logoImageView.contentMode = UIViewContentModeScaleAspectFit;
-                        }
-                    });
-                });
-            }
-        
-            
-            //**TODO REMOVE THIS HARD CODING
-            
-            /*
-            if ([tmpMerchant.name isEqualToString:@"Untitled"] || [tmpMerchant.name isEqualToString:@"Isis Lab"] ) {
-                imageLogo.image = [UIImage imageNamed:@"untitledLogo.png"];
-
-            }else if ([tmpMerchant.name isEqualToString:@"Union Sushi"] || [tmpMerchant.name isEqualToString:@"Arc Micros Lab"] ||  [tmpMerchant.name isEqualToString:@"LEYE Micros Lab"] || [tmpMerchant.name isEqualToString:@"Union Sushi + Barbeque Bar"]){
-                imageLogo.image = [UIImage imageNamed:@"junkieLogo.png"];
-            }else{
-                imageLogo.image = [UIImage imageNamed:@"defaultLogo.png"];
-
-            }
-             */
-             
-            
-            
-          
-             
-            
-            
-            
-            
-            
-           
-            [view addSubview:imageLogo];
-            
-            UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 148, 146, 44)];
-            tmpLabel.font = [UIFont fontWithName:FONT_BOLD size:19];
-            tmpLabel.backgroundColor = [UIColor clearColor];
-            
-            UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            selectButton.frame = CGRectMake(0, 0, 150, 150);
-            selectButton.tag = index;
-            [selectButton addTarget:self action:@selector(goToMerchant:) forControlEvents:UIControlEventTouchUpInside];
-            
-            tmpLabel.text = tmpMerchant.name;
-            
-            tmpLabel.textAlignment = UITextAlignmentCenter;
-          //  [view addSubview:tmpLabel];
-            
-            [view addSubview:selectButton];
-            
-            
-    
-
-            
-        }
-        else
-        {
-            //get a reference to the label in the recycled view
-        }
-        
-        
-        
-        return view;
-    }
-    @catch (NSException *exception) {
-     //   NSLog(@"Exception: %@", exception);
-        return [[UIView alloc] init];
-    }
- 
-    
-}
-
-- (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
-{
-    @try {
-        switch (option)
-        {
-            case iCarouselOptionWrap:
-            {
-                return self.wrap;
-            }
-            case iCarouselOptionFadeMax:
-            {
-                if (self.carousel.type == iCarouselTypeCustom)
-                {
-                    return 0.0f;
-                }
-                return value;
-            }
-            case iCarouselOptionArc:
-            {
-                return 2 * M_PI * 0.342;
-            }
-            case iCarouselOptionRadius:
-            {
-                return value * 0.9;
-            }
-            case iCarouselOptionTilt:
-            {
-                return 0.8;
-            }
-            case iCarouselOptionSpacing:
-            {
-                
-                return 0.315;
-                /*
-                 if (self.isRotary) {
-                 return 1.4;
-                 }
-                 
-                 return value * 0.9;
-                 */
-            }
-            default:
-            {
-                return value;
-            }
-                
-        }
-    }
-    @catch (NSException *exception) {
-      //  NSLog(@"E: %@", exception);
-        return 0.0;
-    }
-   
-}
-
-
-
-- (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel{
-    
-    
-    @try {
-        if ([self.matchingMerchants count] > carousel.currentItemIndex) {
-            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:carousel.currentItemIndex];
-            self.placeNameLabel.text = tmpMerchant.name;
-            self.placeAddressLabel.text = tmpMerchant.address;
-        }
-     
-    }
-    @catch (NSException *exception) {
-       // NSLog(@"E: %@", exception);
-    }
-
-
-
-}
 - (IBAction)valueChanged {
 }
 - (IBAction)searchAction {
@@ -1652,7 +1471,6 @@
     }else{
         [self.searchBar resignFirstResponder];
         self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
-        [self.carousel reloadData];
         self.searchBar.text = @"";
 
     }
@@ -1674,7 +1492,6 @@
         
         self.menuButton.alpha = 1.0;
         self.backButton.alpha = 0.0;
-        self.carousel.alpha = 1.0;
         [self.view bringSubviewToFront:self.menuButton];
         
     }];
@@ -1698,29 +1515,6 @@
     
     
 
-    if ([self.matchingMerchants count] > 0) {
-        
-      
-        Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:self.carousel.currentItemIndex];
-
-        if ([tmpMerchant.donationTypes count] > 1) {
-            
-            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"skipDonationOptions"] length] > 0) {
-                [self performSegueWithIdentifier:@"single" sender:self];
-
-            }else{
-                [self performSegueWithIdentifier:@"multiple" sender:self];
-
-            }
-
-        }else{
-
-            [self performSegueWithIdentifier:@"single" sender:self];
-
-        }
-
-
-    }
     
 
 }
@@ -1751,10 +1545,6 @@
 }
 
 
-- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index{
-    
-    [self.callout dismissAnimated:YES];
-}
 
 
 -(UIStatusBarStyle)preferredStatusBarStyle{

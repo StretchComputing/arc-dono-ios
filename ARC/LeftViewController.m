@@ -13,8 +13,6 @@
 #import "rSkybox.h"
 #import "ArcClient.h"
 #import "Merchant.h"
-#import "ChurchAmountSingleType.h"
-#import "ChurchDontationTypeSelector.h"
 #import "DefaultChurchView.h"
 #import "ILTranslucentView.h"
 
@@ -23,6 +21,48 @@
 @end
 
 @implementation LeftViewController
+
+
+
+-(void)isOpening:(NSNotification *)notification{
+    
+   // NSLog(@"Notification: %@", notification);
+    
+    NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
+    
+    float oldX = [[userInfo valueForKey:@"width"] floatValue];
+    float percent = (oldX / 210);
+    float newX = percent * 96 - 50;
+    
+    int middleDelta = 20;
+    int outsideDelta = 70;
+    
+    
+    CGRect frame = self.homeButton.frame;
+    frame.origin.x = newX;
+    frame.origin.y = 30 - ((1 - percent) * outsideDelta);
+    self.homeButton.frame = frame;
+    
+    CGRect frame2 = self.allLocationsButton.frame;
+    frame2.origin.x = newX;
+    frame2.origin.y = 78 - ((1 - percent) * middleDelta);
+    self.allLocationsButton.frame = frame2;
+    
+    CGRect frame3 = self.profileButton.frame;
+    frame3.origin.x = newX;
+    frame3.origin.y = 127 + ((1 - percent) * middleDelta);
+    self.profileButton.frame = frame3;
+    
+    CGRect frame4 = self.settingsButton.frame;
+    frame4.origin.x = newX;
+    frame4.origin.y = 177 + ((1 - percent) * outsideDelta);
+    self.settingsButton.frame = frame4;
+    
+    
+    
+}
+
+
 
 -(void)didBeginOpen:(NSNotification *)notification{
     
@@ -85,6 +125,8 @@
     
     self.versionLabel.text = [NSString stringWithFormat:@"version %@", ARC_VERSION_NUMBER];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBeginOpen:) name:@"LeftMenuDidBeginOpen" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(isOpening:) name:@"LeftMenuOpenWidth" object:nil];
+
     
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 4;

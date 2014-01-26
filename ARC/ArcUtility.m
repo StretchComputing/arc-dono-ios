@@ -8,7 +8,6 @@
 
 #import "ArcUtility.h"
 #import "rSkybox.h"
-#import "AddCreditCard.h"
 
 @implementation ArcUtility
 
@@ -49,6 +48,8 @@
 
 +(NSString *)getCardTypeForNumber:(NSString *)cardNumber{
     
+    return @"";
+    /*
     @try {
         
         if ([cardNumber length] > 0) {
@@ -91,11 +92,15 @@
         [rSkybox sendClientLog:@"ArcUtility.getCardTypeForNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
  
+     */
   
 }
 
+
 +(NSString *)getCardNameForType:(NSString *)cardType{
     
+    return @"";
+    /*
     if ([cardType isEqualToString:VISA]) {
         return @"Visa";
     }else if ([cardType isEqualToString:MASTER_CARD]) {
@@ -109,6 +114,7 @@
     }else{
         return @"";
     }
+     */
 }
 
 +(NSString *)roundDoubleUp:(double)myDouble{

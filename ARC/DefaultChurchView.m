@@ -10,13 +10,11 @@
 #import "MFSideMenu.h"
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
-#import "ChurchAmountSingleType.h"
-#import "ChurchDontationTypeSelector.h"
 #import "rSkybox.h"
 #import "ArcUtility.h"
-#import "AddCreditCardGuest.h"
-#import "ConfirmPaymentViewController.h"
 #import "LeftViewController.h"
+#import "ILTranslucentView.h"
+#import "DefaultWebViewController.h"
 
 @interface DefaultChurchView ()
 
@@ -51,6 +49,8 @@
 - (void)viewDidLoad
 {
     @try {
+        
+        
         self.donationHistoryButton.text = @"View Donation History";
         self.donationHistoryButton.tintColor = dutchRedColor;
         
@@ -88,6 +88,7 @@
         
         
         self.merchantName.text = self.myMerchant.name;
+        self.topLabel.text = [NSString stringWithFormat:@"%@, %@", self.myMerchant.city, self.myMerchant.state];
         
         ArcClient *tmp = [[ArcClient alloc] init];
         NSString *serverUrl = [tmp getCurrentUrl];
@@ -125,6 +126,49 @@
                 });
             });
             
+        }
+        
+        
+        
+        
+        ILTranslucentView *translucentView = [[ILTranslucentView alloc] initWithFrame:self.nameView.frame];
+        translucentView.translucentStyle = UIBarStyleBlack;
+        translucentView.translucentTintColor = [UIColor clearColor];
+        
+        if (isIos7) {
+            translucentView.translucentAlpha = 0.98;
+            translucentView.backgroundColor = [UIColor clearColor];
+            
+        }else{
+            translucentView.translucentAlpha = 9.0;
+            translucentView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+           
+            
+        }
+        
+        
+        [self.view insertSubview:translucentView aboveSubview:self.nameView];
+        
+        
+        
+        if ([self.myMerchant.name isEqualToString:@"Evangelical United Methodist"]) {
+            self.mainImage.image = [UIImage imageNamed:@"Evangelical"];
+        }else if ([self.myMerchant.name isEqualToString:@"Living Waters United Methodist"]) {
+            self.mainImage.image = [UIImage imageNamed:@"LivingWaters"];
+
+        }else if ([self.myMerchant.name isEqualToString:@"St. Paul's United Methodist"]) {
+            self.mainImage.image = [UIImage imageNamed:@"StPaul"];
+
+        }else if ([self.myMerchant.name isEqualToString:@"Browining United Methodist"]) {
+            self.mainImage.image = [UIImage imageNamed:@"Browning"];
+
+        }else{
+            
+            //Get the image from server, if not, default
+            
+            
+            //default
+            self.mainImage.image = [UIImage imageNamed:@"testChurch"];
         }
 
     }
@@ -318,28 +362,7 @@
 
 -(IBAction)websiteAction{
     
-    NSString *web = @"";
     
-    if ([self.myMerchant.website length] > 0) {
-        web = self.myMerchant.website;
-    }else if ([self.myMerchant.name isEqualToString:@"Arc Mobile Inc"]){
-        web = @"www.arcmobileapp.com";
-    }else{
-        web = @"www.dono.io";
-    }
-    
-    
-    
-    if ([web length] > 0) {
-        if ([web rangeOfString:@"http://"].location == NSNotFound) {
-            web = [@"http://" stringByAppendingString:web];
-        }
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:web]];
-
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Website Found" message:@"No website was found for this location." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-    }
     
 
 }
@@ -361,36 +384,44 @@
         
         if ([[segue identifier] isEqualToString:@"addCard"]) {
             
-            AddCreditCardGuest *addCard = [segue destinationViewController];
-            addCard.myMerchant = self.myMerchant;
-            
-            
-            addCard.donationAmount = [self.amount doubleValue];
-            addCard.myItemsArray = [NSMutableArray arrayWithArray:itemArray];
+          
             
             
         }else if ([[segue identifier] isEqualToString:@"payCard"]) {
-            
-            ConfirmPaymentViewController *confirm = [segue destinationViewController];
-            confirm.donationAmount = [self.amount doubleValue];
-            confirm.selectedCard = self.selectedCard;
-            confirm.myMerchant = self.myMerchant;
-            confirm.myItemsArray = [NSMutableArray arrayWithArray:itemArray];
+      
             
         }else if ([[segue identifier] isEqualToString:@"single"]) {
             
-            ChurchAmountSingleType *single = [segue destinationViewController];
-            single.myMerchant = self.myMerchant;
-            
-            if ([self.myMerchant.donationTypes count] == 1) {
-                single.donationType = [self.myMerchant.donationTypes objectAtIndex:0];
-            }
+           
             
         }else if ([[segue identifier] isEqualToString:@"multiple"]) {
+         
             
-            ChurchDontationTypeSelector *multiple = [segue destinationViewController];
-            multiple.myMerchant = self.myMerchant;
-        }else if ([[segue identifier] isEqualToString:@"goHistory"]) {
+        }else if ([[segue identifier] isEqualToString:@"goWeb"]) {
+            
+            DefaultWebViewController *webview = [segue destinationViewController];
+            
+            NSString *web = @"";
+            
+            if ([self.myMerchant.website length] > 0) {
+                web = self.myMerchant.website;
+            }else if ([self.myMerchant.name isEqualToString:@"Arc Mobile Inc"]){
+                web = @"www.arcmobileapp.com";
+            }else{
+                web = @"www.dono.io";
+            }
+            
+            
+            
+            if ([web length] > 0) {
+                if ([web rangeOfString:@"http://"].location == NSNotFound) {
+                    web = [@"http://" stringByAppendingString:web];
+                }
+                
+                webview.webUrl = web;
+                
+            }
+            
             
         }
     }

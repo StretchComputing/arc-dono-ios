@@ -1,21 +1,19 @@
 #import <UIKit/UIKit.h>
 #import "SMContactsSelector.h"
 #import "SteelfishTextView.h"
-#import "iCarousel.h"
 #import "SteelfishBoldLabel.h"
 #import "NVUIGradientButton.h"
 #import "MFSideMenu.h"
 #import "LoadingViewController.h"
-#import "RNFrostedSidebar.h"
 #import "SteelfishLabel.h"
+#import "TJSpinner.h"
 
 @class LoadingViewController;
 
-@interface ChurchSelector : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate, iCarouselDataSource, iCarouselDelegate, UISearchBarDelegate, RNFrostedSidebarDelegate>
+@interface ChurchSelector : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate, UISearchBarDelegate>
 
-
+@property (nonatomic, strong) TJSpinner *circularSpinner;
 @property int selectedRow;
-@property (nonatomic, strong) RNFrostedSidebar *callout;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet UIImageView *checkboxImage;
 @property BOOL isChecked;
@@ -104,7 +102,6 @@
 @property (nonatomic, assign) BOOL wrap;
 @property (nonatomic, retain) NSMutableArray *items;
 
-@property (nonatomic, retain) IBOutlet iCarousel *carousel;
 @property (nonatomic, retain) IBOutlet UINavigationItem *navItem;
 @property (nonatomic, retain) IBOutlet UIBarItem *orientationBarItem;
 @property (nonatomic, retain) IBOutlet UIBarItem *wrapBarItem;

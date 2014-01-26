@@ -67,6 +67,7 @@
 	<array>
 		<string>Lato-Bol.ttf</string>
 		<string>Lato-Lig.ttf</string>
+		<string>Lato-Reg.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>ArcMainStoryboardiPhone5</string>

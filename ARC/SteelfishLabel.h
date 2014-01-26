@@ -11,6 +11,8 @@
 
 #define FONT_REGULAR @"Lato-Light"
 #define FONT_BOLD @"Lato-Bold"
+#define LATO_REGULAR @"Lato-Regular"
+
 
 
 @interface SteelfishLabel : UILabel

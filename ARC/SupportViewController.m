@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
 #import "LeftViewController.h"
+#import "LatoRegularLabel.h"
 
 @interface SupportViewController ()
 
@@ -38,6 +39,11 @@
 }
 -(void)viewDidLoad{
     
+    
+    NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    self.versionLabel.text = [NSString stringWithFormat:@"version %@", appVersionString];
+    
+    
     [rSkybox addEventToSession:@"viewSupportViewController"];
     self.callButton.text = @"Call Us";
     self.emailButton.text = @"Send Us An Email";
@@ -62,14 +68,15 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
 	
+   
     if (section == 0) {
-        return 1;
+        return 3;
     }
     return 2;
 }
@@ -92,8 +99,8 @@
         
         
         if (section == 1) {
-            SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
-            SteelfishBoldLabel *infoLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
+            LatoRegularLabel *supportLabel = (LatoRegularLabel *)[cell.contentView viewWithTag:1];
+            LatoRegularLabel *infoLabel = (LatoRegularLabel *)[cell.contentView viewWithTag:2];
             
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -126,16 +133,16 @@
             SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
 
             if (section == 0) {
-                supportLabel.text = @"Help Videos";
-
-            }else{
                 if (row == 0) {
+                    supportLabel.text = @"How It Works";
+
+                }else if (row == 1){
                     supportLabel.text = @"Feedback";
 
                 }else{
-                    supportLabel.text = @"Audio Feedback";
-
+                    supportLabel.text = @"Rate Us!";
                 }
+
             }
         }
        
@@ -164,9 +171,25 @@
     NSUInteger row = indexPath.row;
     
     if (section == 0) {
-        //Help
-        UIViewController *customerService = [self.storyboard instantiateViewControllerWithIdentifier:@"help"];
-        [self.navigationController pushViewController:customerService animated:YES];
+        
+        if (row == 0) {
+            //Help
+            UIViewController *customerService = [self.storyboard instantiateViewControllerWithIdentifier:@"help"];
+            [self.navigationController pushViewController:customerService animated:YES];
+        }else if (row == 1){
+            [self emailFeedbackAction];
+
+        }else{
+            
+            
+            //rate
+            NSString *str = @"itms-apps://itunes.apple.com/app/id755467894?at=10l6dK";
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            
+            
+        }
+       
         
     }else if (section == 1){
         if (row == 0) {
@@ -290,7 +313,7 @@
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
     if (section == 0) {
-        return @"Tutorials";
+        return @"Dono";
     }else if (section == 1){
         return @"Contact Us";
     }else{

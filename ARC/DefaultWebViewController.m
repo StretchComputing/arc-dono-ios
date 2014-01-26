@@ -1,18 +1,18 @@
 //
-//  LeftTestViewController.m
-//  ARC
+//  DefaultWebViewController.m
+//  Dono
 //
-//  Created by Nick Wroblewski on 9/12/13.
+//  Created by Nick Wroblewski on 1/25/14.
 //
 //
 
-#import "LeftTestViewController.h"
+#import "DefaultWebViewController.h"
 
-@interface LeftTestViewController ()
+@interface DefaultWebViewController ()
 
 @end
 
-@implementation LeftTestViewController
+@implementation DefaultWebViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,17 +25,13 @@
 
 - (void)viewDidLoad
 {
-    
-    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    CGRect frame = self.view.frame;
-    frame.origin.y -= 200;
-    frame.size.height +=40;
-    self.view.frame = frame;
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.webUrl]]];
+
     
-    self.view.backgroundColor = [UIColor greenColor];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,4 +40,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)goBack {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

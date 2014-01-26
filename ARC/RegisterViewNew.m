@@ -8,13 +8,11 @@
 
 #import "RegisterViewNew.h"
 #import "ArcAppDelegate.h"
-#import "RegisterDwollaView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FBEncryptorAES.h"
 #import "ArcClient.h"
 #import "rSkybox.h"
 #import "NSString+CharArray.h"
-#import "CreatePinView.h"
 #import "PrivacyTermsViewController.h"
 #import "SteelfishBarButtonItem.h"
 #import <Social/Social.h>
@@ -429,8 +427,8 @@
             
             if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
                 
-                RegisterDwollaView *detailViewController = [segue destinationViewController];
-                detailViewController.fromRegister = YES;
+             //   RegisterDwollaView *detailViewController = [segue destinationViewController];
+             //   detailViewController.fromRegister = YES;
             }
         
             
@@ -1184,24 +1182,7 @@
 -(void)addCreditCard{
     @try {
         
-        CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
-        [self.navigationController pushViewController:tmp animated:NO];
-        tmp.isInsideApp = self.isInsideApp;
-        NSString *creditDebitString = @"Credit";
-        
-        //if (self.creditDebitSegment.selectedSegmentIndex == 1) {
-        //   creditDebitString = @"Debit";
-        // }
-        
-        //NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-        
-        NSString *expiration = self.expirationText.text;
-        
-        tmp.creditDebitString = creditDebitString;
-        tmp.expiration = expiration;
-        tmp.securityCode = self.creditCardSecurityCodeText.text;
-        tmp.cardNumber = [self.creditCardNumberText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-        tmp.fromRegister = YES;
+    
         
     }
     @catch (NSException *e) {
