@@ -174,8 +174,9 @@
         
         if (row == 0) {
             //Help
-            UIViewController *customerService = [self.storyboard instantiateViewControllerWithIdentifier:@"help"];
-            [self.navigationController pushViewController:customerService animated:YES];
+            UIViewController *tutorial = [self.storyboard instantiateViewControllerWithIdentifier:@"InitTutorial"];
+            [self.navigationController pushViewController:tutorial animated:YES];
+            
         }else if (row == 1){
             [self emailFeedbackAction];
 

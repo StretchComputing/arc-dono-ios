@@ -592,7 +592,7 @@
         self.activityView.hidden = YES;
         NSString *errorMsg = @"";
         
-        NSLog(@"ResponseInfo: %@", responseInfo);
+       /// NSLog(@"ResponseInfo: %@", responseInfo);
         
         if ([status isEqualToString:@"success"]) {
             //success
@@ -710,6 +710,7 @@
             
             //TESTING ONLY ************************************************************************************************************
             
+            /*
             self.allMerchants = [NSMutableArray array];
             self.matchingMerchants = [NSMutableArray array];
             
@@ -755,7 +756,7 @@
             [self.allMerchants addObject:merch4];
             [self.matchingMerchants addObject:merch4];
 
-            
+            */
        
             
             
@@ -934,17 +935,61 @@
         }else if ([tmpMerchant.name isEqualToString:@"Browining United Methodist"]) {
             merchImage.image = [UIImage imageNamed:@"Browning"];
             
+        }else if ([tmpMerchant.name isEqualToString:@"Arc Mobile Inc"]) {
+            merchImage.image = [UIImage imageNamed:@"testChurch"];
+            
         }else{
             
             //Get the image from server, if not, default
             //default
-            merchImage.image = [UIImage imageNamed:@"testChurch"];
+            //merchImage.image = [UIImage imageNamed:@"testChurch"];
+            
+            ArcClient *tmp = [[ArcClient alloc] init];
+            NSString *serverUrl = [tmp getCurrentUrl];
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]]) {
+                
+                NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
+                
+                merchImage.image = [UIImage imageWithData:imageData];
+                
+            }else{
+                
+                
+                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, tmpMerchant.merchantId];
+                logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
+                
+                dispatch_async(dispatch_get_global_queue(0,0), ^{
+                    
+                    NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
+                    
+                    if ( data == nil ){
+                        merchImage.image = [UIImage imageNamed:@"testChurch"];
+                        return;
+                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        UIImage *logoImage = [UIImage imageWithData:data];
+                        
+                        if (logoImage) {
+                            merchImage.image = logoImage;
+                            
+                            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                            [mainDelegate.imageDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
+                        }
+                    });
+                });
+                
+            }
+            
+            
         }
         
         
         merchImage.layer.cornerRadius = 3.0;
         
-        
+
         
         
         

@@ -28,6 +28,12 @@
 		90484D3A1894A9FD00237DE3 /* StPaul.png in Resources */ = {isa = PBXBuildFile; fileRef = 90484D361894A9FD00237DE3 /* StPaul.png */; };
 		904A0C121836620500CD70FB /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 904A0C111836620500CD70FB /* ILTranslucentView.m */; };
 		904A0C151836653F00CD70FB /* SteelfishBoldButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 904A0C141836653F00CD70FB /* SteelfishBoldButton.m */; };
+		9053E80318956775008BB006 /* helpImage4.png in Resources */ = {isa = PBXBuildFile; fileRef = 9053E80218956775008BB006 /* helpImage4.png */; };
+		9053E80618956E96008BB006 /* InitTutorialPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9053E80518956E96008BB006 /* InitTutorialPageViewController.m */; };
+		9053E80918957F03008BB006 /* ProfileNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9053E80818957F03008BB006 /* ProfileNewViewController.m */; };
+		9053E80B189581E4008BB006 /* newProfileImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9053E80A189581E4008BB006 /* newProfileImage.png */; };
+		9053E80D1895CF6D008BB006 /* rightArrowWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9053E80C1895CF6D008BB006 /* rightArrowWhite.png */; };
+		9053E8101895F45A008BB006 /* GetPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9053E80F1895F45A008BB006 /* GetPasscodeViewController.m */; };
 		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
 		906D108A160FC87100561C31 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D1089160FC87100561C31 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -269,6 +275,15 @@
 		904A0C111836620500CD70FB /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
 		904A0C131836653F00CD70FB /* SteelfishBoldButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SteelfishBoldButton.h; sourceTree = "<group>"; };
 		904A0C141836653F00CD70FB /* SteelfishBoldButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SteelfishBoldButton.m; sourceTree = "<group>"; };
+		9053E80218956775008BB006 /* helpImage4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpImage4.png; sourceTree = "<group>"; };
+		9053E80418956E96008BB006 /* InitTutorialPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitTutorialPageViewController.h; sourceTree = "<group>"; };
+		9053E80518956E96008BB006 /* InitTutorialPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitTutorialPageViewController.m; sourceTree = "<group>"; };
+		9053E80718957F03008BB006 /* ProfileNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileNewViewController.h; sourceTree = "<group>"; };
+		9053E80818957F03008BB006 /* ProfileNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileNewViewController.m; sourceTree = "<group>"; };
+		9053E80A189581E4008BB006 /* newProfileImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newProfileImage.png; sourceTree = "<group>"; };
+		9053E80C1895CF6D008BB006 /* rightArrowWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightArrowWhite.png; sourceTree = "<group>"; };
+		9053E80E1895F45A008BB006 /* GetPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPasscodeViewController.h; sourceTree = "<group>"; };
+		9053E80F1895F45A008BB006 /* GetPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPasscodeViewController.m; sourceTree = "<group>"; };
 		906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone5.storyboard; sourceTree = "<group>"; };
 		906D1089160FC87100561C31 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		906D108C160FE03600561C31 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -766,6 +781,8 @@
 				90484D2C1894847900237DE3 /* DefaultWebViewController.m */,
 				90B50D8D17E257F8000958E3 /* LeftNavigationController.h */,
 				90B50D8E17E257F8000958E3 /* LeftNavigationController.m */,
+				9053E80E1895F45A008BB006 /* GetPasscodeViewController.h */,
+				9053E80F1895F45A008BB006 /* GetPasscodeViewController.m */,
 				909404E91881B1CA00496D2F /* newdollar.png */,
 				903CCD97180C3FFE0032B0FC /* PaymentHistoryViewController.h */,
 				903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */,
@@ -785,12 +802,16 @@
 				9079B077182D5ED20007B953 /* TJSpinner.m */,
 				90AD3FCF17CE61140053239E /* InitHelpPageViewController.h */,
 				90AD3FD017CE61140053239E /* InitHelpPageViewController.m */,
+				9053E80418956E96008BB006 /* InitTutorialPageViewController.h */,
+				9053E80518956E96008BB006 /* InitTutorialPageViewController.m */,
 				90AD3FD117CE61140053239E /* ISO8601DateFormatter.h */,
 				90AD3FD217CE61140053239E /* ISO8601DateFormatter.m */,
 				90AD3FD317CE61140053239E /* LeftViewController.h */,
 				90AD3FD417CE61140053239E /* LeftViewController.m */,
 				90AD3FD517CE61140053239E /* MFSideMenu.h */,
 				90AD3FD617CE61140053239E /* MFSideMenu.m */,
+				9053E80718957F03008BB006 /* ProfileNewViewController.h */,
+				9053E80818957F03008BB006 /* ProfileNewViewController.m */,
 				90AD3FD917CE61140053239E /* UINavigationController+MFSideMenu.h */,
 				90AD3FDA17CE61140053239E /* UINavigationController+MFSideMenu.m */,
 				90AD3FC017CE5F410053239E /* NVUIGradientButton.h */,
@@ -912,6 +933,9 @@
 		90AD3FEA17CE63090053239E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9053E80A189581E4008BB006 /* newProfileImage.png */,
+				9053E80C1895CF6D008BB006 /* rightArrowWhite.png */,
+				9053E80218956775008BB006 /* helpImage4.png */,
 				9079B079182E798B0007B953 /* question.png */,
 				9097F56218218127004F930E /* menuIconWhite.png */,
 				9097F56318218127004F930E /* searchIconWhite.png */,
@@ -1122,6 +1146,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9053E80D1895CF6D008BB006 /* rightArrowWhite.png in Resources */,
 				90993F40159777BC00FC1D49 /* InfoPlist.strings in Resources */,
 				9084F7CB180EF3AF00244282 /* homechecked.png in Resources */,
 				906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */,
@@ -1157,6 +1182,8 @@
 				90AD403F17CE63090053239E /* Divider2.png in Resources */,
 				90AD404017CE63090053239E /* dutchIcon.png in Resources */,
 				909404E61881B14800496D2F /* website.png in Resources */,
+				9053E80B189581E4008BB006 /* newProfileImage.png in Resources */,
+				9053E80318956775008BB006 /* helpImage4.png in Resources */,
 				90AD404217CE63090053239E /* emptyStar.png in Resources */,
 				90484D381894A9FD00237DE3 /* Browning.png in Resources */,
 				90AD404317CE63090053239E /* facebookconnect.jpg in Resources */,
@@ -1252,6 +1279,7 @@
 				90FBDC0B159CDD550051609A /* DwollaTransactions.m in Sources */,
 				90FBDC0C159CDD550051609A /* DwollaTransaction.m in Sources */,
 				90FBDC0D159CDD550051609A /* DwollaTransactionStats.m in Sources */,
+				9053E80918957F03008BB006 /* ProfileNewViewController.m in Sources */,
 				90FBDC2F159CDDB60051609A /* NSString+URLEncoding.m in Sources */,
 				90FBDC30159CDDB60051609A /* NSURL+Base.m in Sources */,
 				90FBDC31159CDDB60051609A /* NSObject+SBJson.m in Sources */,
@@ -1299,9 +1327,11 @@
 				908D2F71166E4818007B6078 /* SMContactsSelector.m in Sources */,
 				908D2F73166E4818007B6078 /* UIAlertView+UITableView.m in Sources */,
 				908D2FC5166E76B8007B6078 /* PrivacyTermsViewController.m in Sources */,
+				9053E80618956E96008BB006 /* InitTutorialPageViewController.m in Sources */,
 				9089CB2616C6B6EB00DA11B0 /* NumberLineButton.m in Sources */,
 				90E5E5C616D706740031B17E /* CustomerServiceViewController.m in Sources */,
 				90484D32189498E400237DE3 /* LatoRegularLabel.m in Sources */,
+				9053E8101895F45A008BB006 /* GetPasscodeViewController.m in Sources */,
 				90E5E5CB16D710520031B17E /* LoadingViewController.m in Sources */,
 				908C0CAA1703C397003E004E /* ProfileViewController.m in Sources */,
 				908CAD4A17048C1A00F34A41 /* ShareViewController.m in Sources */,

@@ -90,44 +90,6 @@
         self.merchantName.text = self.myMerchant.name;
         self.topLabel.text = [NSString stringWithFormat:@"%@, %@", self.myMerchant.city, self.myMerchant.state];
         
-        ArcClient *tmp = [[ArcClient alloc] init];
-        NSString *serverUrl = [tmp getCurrentUrl];
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]]) {
-            
-            NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]];
-            
-            self.merchantImage.image = [UIImage imageWithData:imageData];
-            
-        }else{
-            
-            
-            NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, self.myMerchant.merchantId];
-            logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
-            
-            dispatch_async(dispatch_get_global_queue(0,0), ^{
-                
-                NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
-                
-                if ( data == nil ){
-                    return;
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    UIImage *logoImage = [UIImage imageWithData:data];
-                    
-                    if (logoImage) {
-                        self.merchantImage.image = logoImage;
-                        
-                        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                        [mainDelegate.imageDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]];
-                    }
-                });
-            });
-            
-        }
-        
         
         
         
@@ -162,13 +124,62 @@
         }else if ([self.myMerchant.name isEqualToString:@"Browining United Methodist"]) {
             self.mainImage.image = [UIImage imageNamed:@"Browning"];
 
+        }else if ([self.myMerchant.name isEqualToString:@"Arc Mobile Inc"]) {
+            self.mainImage.image = [UIImage imageNamed:@"testChurch"];
+            
         }else{
             
             //Get the image from server, if not, default
             
             
             //default
-            self.mainImage.image = [UIImage imageNamed:@"testChurch"];
+           // self.mainImage.image = [UIImage imageNamed:@"testChurch"];
+            
+            
+            ArcClient *tmp = [[ArcClient alloc] init];
+            NSString *serverUrl = [tmp getCurrentUrl];
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]]) {
+                
+                NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]];
+                
+                self.mainImage.image = [UIImage imageWithData:imageData];
+                
+            }else{
+                
+                
+                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, self.myMerchant.merchantId];
+                logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
+                
+                dispatch_async(dispatch_get_global_queue(0,0), ^{
+                    
+                    NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
+                    
+                    if ( data == nil ){
+                        self.mainImage.image = [UIImage imageNamed:@"testChurch"];
+                        return;
+                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        UIImage *logoImage = [UIImage imageWithData:data];
+                        
+                        if (logoImage) {
+                            self.mainImage.image = logoImage;
+                            
+                            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                            [mainDelegate.imageDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", self.myMerchant.merchantId]];
+                        }
+                    });
+                });
+                
+            }
+            
+
+            
+            
+            
+            
         }
 
     }
@@ -363,6 +374,9 @@
 -(IBAction)websiteAction{
     
     
+    [self performSegueWithIdentifier:@"goWeb" sender:self];
+    
+    
     
 
 }
@@ -374,12 +388,7 @@
     @try {
         
         
-        NSMutableArray *itemArray = [NSMutableArray array];
         
-        NSString *value = [NSString stringWithFormat:@"%.2f", [self.amount doubleValue]];
-        NSDictionary *item = @{@"Amount":@"1", @"Percent":@"1.0", @"ItemId":[self.donationType valueForKey:@"Id"], @"Value":value, @"Description":[self.donationType valueForKey:@"Description"]};
-        
-        [itemArray addObject:item];
         
         
         if ([[segue identifier] isEqualToString:@"addCard"]) {

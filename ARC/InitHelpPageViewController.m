@@ -85,6 +85,10 @@
 - (void)viewDidLoad
 {
     
+    self.skipButton.layer.cornerRadius = 12.0;
+    self.skipButton.layer.borderColor = [dutchRedColor CGColor];
+    self.skipButton.layer.borderWidth = 2.0;
+    
     self.termsButton.text = @"Terms of Use";
     self.termsButton.tintColor = dutchDarkBlueColor;
     self.privacyButton.text = @"Privacy Policy";
@@ -112,7 +116,7 @@
         
     }
    
-    [self.myScrollView setContentSize:CGSizeMake(960, 0)];
+    [self.myScrollView setContentSize:CGSizeMake(1280, 0)];
     
     self.helpImage1.layer.borderColor = [[UIColor blackColor] CGColor];
     self.helpImage1.layer.borderWidth = 2.0;
@@ -184,6 +188,9 @@
         self.pageControl.currentPage = 1;
     }else if (offset == 640){
         self.pageControl.currentPage = 3;
+    }else if (offset == 960){
+        self.pageControl.currentPage = 4;
+        [self.skipButton setTitle:@"Get Started!" forState:UIControlStateNormal];
     }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

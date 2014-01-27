@@ -1,8 +1,8 @@
 //
-//  InitHelpPageViewController.h
-//  ARC
+//  InitTutorialPageViewController.h
+//  Dono
 //
-//  Created by Nick Wroblewski on 3/26/13.
+//  Created by Nick Wroblewski on 1/26/14.
 //
 //
 
@@ -10,11 +10,9 @@
 #import "NVUIGradientButton.h"
 #import "LoadingViewController.h"
 #import "SteelfishBoldButton.h"
+@interface InitTutorialPageViewController : UIViewController <UIScrollViewDelegate>
 
-@class  LoadingViewController;
 
-
-@interface InitHelpPageViewController : UIViewController <UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *helpView;
 @property BOOL isGoingPrivacyTerms;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
@@ -38,5 +36,6 @@
 - (IBAction)privacyAction;
 @property (strong, nonatomic) IBOutlet SteelfishBoldButton *skipButton;
 
--(IBAction)startUsingAction;
+
+
 @end
