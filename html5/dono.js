@@ -26,7 +26,10 @@ var ARC = (function (r, $) {
 	r.donationAmount = "";
 	r.chargedFee = "";
 	r.name = "";
-
+	r.isNewCardDropdown = "";
+	r.cardArray=[];
+	r.saveCard = "";
+	r.ccToken = "";
 
 	r.getCardTypeFromNumber = function GetCardType(number)
         {            
@@ -93,6 +96,14 @@ var ARC = (function (r, $) {
 
 				newType = type.charAt(0);
 			}
+			
+			try{
+				ARC.ccNumber = ARC.ccNumber.replace(/\s+/g, '');
+				ARC.expirationDate = ARC.expirationDate.replace(/\s+/g, '');
+
+			}catch (e){
+			
+			}
 		
 			
 			var jsonData = {
@@ -110,6 +121,8 @@ var ARC = (function (r, $) {
 				"Expiration": ARC.expirationDate,
 				"Pin": ARC.ccv,
 				"Anonymous": r.urlParameters['anonymous'],
+				"CreateBTAccount": ARC.saveCard,
+				"CCToken": ARC.ccToken,
 				"Items": r.buildItems()
 			};
 			//RSKYBOX.log.debug("createPayment jsonData = " + JSON.stringify(jsonData));
@@ -181,6 +194,7 @@ var ARC = (function (r, $) {
 				"TicketId": r.ticketId
 			};
 			//RSKYBOX.log.debug("confirmPayment jsonData = " + JSON.stringify(jsonData));
+			console.log("confirmPayment jsonData = " + JSON.stringify(jsonData));
 
 			$.ajax({
 				dataType: 'json',
@@ -295,34 +309,111 @@ var ARC = (function (r, $) {
 	r.returnToIos = function(status, httpErrorCode, errorCode) {
 		try {
 		
-
+			
+			$('#addLoadPage').hide();
+			$('#confirmPaymentPage').hide();
+			$('#addCardPage').hide();
+			$('#howMuchPage').hide();
+	
+	
 			if(status != 'success' && status != 'failure' && status != 'cancel') {
 				//RSKYBOX.log.error('returnToIos bad status', 'returnToIos');
 				status = 'failure';
 			}
 
 			var returnUrl = "myDono://" + status;
+			
 			if(status === 'failure') {
-				if(httpErrorCode) {
-					returnUrl = returnUrl + "?httpErrorCode=" + httpErrorCode;
+			
+				
+				if(errorCode) {
+					r.displayErrorMessage(errorCode);
 				} else {
-					returnUrl = returnUrl + "?errorCode=" + errorCode;
+					alert("Error Processing Donation - There was an error processing your donation, please try again.");
 				}
+				
+				
+				//failure, show confirmation page and display error
+				$('#confirmPaymentPage').show();
+
+			}else{
+				//success, going back to iOS
+				 $('#donePayment').show();
+		   		 $('div.finalMessage').text("Your Dono web session has ended, please close this tab return to the app to proceed.  Refreshing this page may cause duplicate transactions.");
+		   			
+		   		 window.location = returnUrl;
+
 			}
            
-           $('#confirmPaymentPage').hide();
-		   $('#addCardPage').hide();
-           $('#donePayment').show();
-		   $('div.finalMessage').text("Your Dono web session has expired, please return to the app to proceed.");
+          
            
            
          
-			window.location = returnUrl;
 		} catch (e) {
 			//RSKYBOX.log.error(e, 'returnToIos');
 		}
 	};
 
+	r.displayErrorMessage = function(errorCode){
+	
+			console.log("confirmPayment Error Code = -" + errorCode + "-");
+
+				if(errorCode == 608) {
+                    
+                    alert("Invalid Credit Card - Your credit card could not be authorized.  Please double check your card information and try again.");
+                    
+                    
+                } else if(errorCode == 605) {
+                    
+                     alert("Invalid Credit Card - Your credit card could not be authorized.  Please double check your card information and try again.");
+
+                } else if (errorCode == 606){
+                    
+                     alert("Invalid Credit Card - Your credit card could not be authorized.  Please double check your card information and try again.");
+
+                }else if(errorCode == 607) {
+                
+                    
+                    alert("Invalid Credit Card - The number you entered for this credit card is inavlid.  Please double check your card information and try again.");
+
+                } else if(errorCode == 400) {
+                    alert("Error - Dono does not accept credit/debit card");
+                } else if(errorCode == 401) {
+                    alert("Over payment. Please check invoice and try again.");
+                } else if(errorCode == 402) {
+                    alert("Invalid amount. Please re-enter donation and try again.");
+                } else if(errorCode == 610) {
+                    
+                    alert("Invalid Expiration Date - The expiration date you entered for this credit card is inavlid.  Please double check your card information and try again.");
+                    
+                    
+                }  else if (errorCode == 699){
+                    alert("Donation failed, please try again.");
+                }else if (errorCode == 602){
+                    alert("This donation may have already processed.  To be sure, please wait 30 seconds and then try again.");
+                   
+                }else if(errorCode == 612){
+                    alert("This donation may have already processed.  To be sure, please wait 30 seconds and then try again.");
+                    
+                }else if (errorCode == 631){
+                    alert("Invalid Authorization, please try again.");
+                }else if (errorCode == 640){
+                    alert("This donation may have already processed.  To be sure, please wait 30 seconds and then try again.");
+
+                }else if (errorCode == 626){
+                    alert("Invalid Security PIN - The CVV you entered for this credit card is inavlid.  Please double check your card information and try again.");
+                   
+                }else {
+                    alert("Donation Failed - We were unable to process your donation at this time, please verify your internet connection and try again.");
+                }
+                
+                
+                
+                
+                
+	};
+	
+	
 	r.buildItems = function() {
 		try {
 			var items = [];
@@ -347,6 +438,37 @@ var ARC = (function (r, $) {
 			//RSKYBOX.log.error(e, 'buildItems');
 		}
 	};
+	
+	
+	r.buildCards = function() {
+		try {
+			var cards = [];
+			var numbers = r.urlParameters['CardNumber'];
+			var expirations = r.urlParameters['CardExpiration'];
+			var types = r.urlParameters['CardType'];
+			var tokens = r.urlParameters['CardToken'];
+
+			if (typeof numbers === "string") {
+				// amounts is a string
+				cards[0] = {"Number": numbers, "Expiration": expirations, "Type": types, "Token": tokens};
+			} else {
+				// amounts is an array
+				for(var i=0; i<numbers.length; i++) {
+					cards[i] = {"Number": numbers[i], "Expiration": expirations[i], "Type": types[i], "Token": tokens[i]};
+				}
+			}
+
+			return cards;
+		} catch (e) {
+		
+			return [];
+			//RSKYBOX.log.error(e, 'buildItems');
+			//alert("error in build cards" + e);
+		}
+	};
+	
+	
+	
 
 	r.maskCcNumber = function(ccNumber) {
 		try {
@@ -381,16 +503,30 @@ $(document).ready(function() {
 
 	
 	$('#donePayment').hide();
-	
+
 	$('div.name').text(ARC.name);
 
 
-		// show AddCard page
-		ARC.didComeFromPayment = "yes";
-		$('#confirmPaymentPage').hide();
-		$('#addCardPage').hide();
-		$('#howMuchPage').show();
+	// show AddCard page
+	ARC.didComeFromPayment = "yes";
+	$('#confirmPaymentPage').hide();
+	$('#addCardPage').hide();
+	$('#howMuchPage').show();
 
+
+
+	var paramOne = ARC.urlParameters['quickOne'];
+	var paramTwo = ARC.urlParameters['quickTwo'];
+	var paramThree = ARC.urlParameters['quickThree'];
+	var paramFour = ARC.urlParameters['quickFour'];
+
+
+
+
+	$('#quickOne').text('$' + paramOne);
+	$('#quickTwo').text('$' + paramTwo);
+	$('#quickThree').text('$' + paramThree);
+	$('#quickFour').text('$' + paramFour);
 
 	
 
@@ -410,57 +546,130 @@ $(document).on('click', '.addCard', function(e){
 	ARC.ccv = $('#ccv').val();
 	
 	
-	if (ARC.ccNumber == null || ARC.ccNumber == "" || ARC.ccv == null || ARC.ccv == "" ||
-		ARC.expirationDate == null || ARC.expirationDate == ""){
+	if (ARC.cardArray == null || ARC.cardArray.length == 0 || ARC.isNewCardDropdown.length > 0){
 	
-		alert("Please enter all payment information before continuing.");
-		return;
-	}
+		if (ARC.ccNumber == null || ARC.ccNumber == "" || ARC.ccv == null || ARC.ccv == "" ||
+			ARC.expirationDate == null || ARC.expirationDate == ""){
 	
-	if (ARC.checkCardNumber(ARC.ccNumber)){
+			alert("Please enter all payment information before continuing.");
+			return;
+		}	
 	
-		ARC.urlParameters['cardType'] = ARC.getCardTypeFromNumber(ARC.ccNumber);
+	
+		if (ARC.checkCardNumber(ARC.ccNumber)){
+	
+			ARC.urlParameters['cardType'] = ARC.getCardTypeFromNumber(ARC.ccNumber);
 		
-		// show the ConfirmPayment page
-		$('#confirmPaymentPage').show();
-		$('#addCardPage').hide();
-		$('#donePayment').hide();
+			// show the ConfirmPayment page
+			$('#confirmPaymentPage').show();
+			$('#addCardPage').hide();
+			$('#donePayment').hide();
 
 
-		// initialize ConfirmPage
+			// initialize ConfirmPage
 		
-		var maskedCcNumber = ARC.maskCcNumber(ARC.ccNumber);
-		var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
-		$('div.card').text(card);
+			var maskedCcNumber = ARC.maskCcNumber(ARC.ccNumber);
+			var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
+			$('div.card').text(card);
 	
 	
-		var total = ARC.donationAmount;
+			var total = ARC.donationAmount;
 		
-		var convenienceFee = ARC.urlParameters['convenienceFee'];
-		var convenienceFeeCap = ARC.urlParameters['convenienceFeeCap'];
+			var convenienceFee = ARC.urlParameters['convenienceFee'];
+			var convenienceFeeCap = ARC.urlParameters['convenienceFeeCap'];
 
 
-		if (parseFloat(convenienceFee) > 0.0){
+			if (parseFloat(convenienceFee) > 0.0){
 		
-			if (parseFloat(ARC.donationAmount) < parseFloat(convenienceFeeCap)){
+				if (parseFloat(ARC.donationAmount) < parseFloat(convenienceFeeCap)){
 			
-				total = parseFloat(ARC.donationAmount) + parseFloat(convenienceFee);
+					total = parseFloat(ARC.donationAmount) + parseFloat(convenienceFee);
 								
-				ARC.chargedFee = convenienceFee;
+					ARC.chargedFee = convenienceFee;
 				
-				$('div.fee').text("* a processing fee of $" + parseFloat(Math.round(parseFloat(convenienceFee) * 100) / 100).toFixed(2) + 
-				  " will be added to all amounts less than $" + parseFloat(Math.round(parseFloat(convenienceFeeCap) * 100) / 100).toFixed(2));
+					$('div.fee').text("* a processing fee of $" + parseFloat(Math.round(parseFloat(convenienceFee) * 100) / 100).toFixed(2) + 
+					  " will be added to all amounts less than $" + parseFloat(Math.round(parseFloat(convenienceFeeCap) * 100) / 100).toFixed(2));
 
+				}
 			}
-		}
 		
-		total = parseFloat(Math.round(parseFloat(total) * 100) / 100).toFixed(2);
+			total = parseFloat(Math.round(parseFloat(total) * 100) / 100).toFixed(2);
 		
-		$('div.total').text("$ " + total);
+			$('div.total').text("$ " + total);
 	
+		}else{
+			alert("Please enter a valid credit card number.");
+		}
+	
+	
+		$('#saveCard').show();
+
+		ARC.saveCard = document.getElementById("saveCheck").checked = true;
+	
+		
 	}else{
-		alert("Please enter a valid credit card number.");
+		$('#saveCard').hide();
+
+		//used a selected Card
+		
+			var select = document.getElementsByTagName('select')[0];
+			var index = select.selectedIndex;
+			var card = ARC.cardArray[index];
+			
+			
+			ARC.urlParameters['cardType'] = ARC.getCardTypeFromNumber(card["Number"]);
+		
+		
+			ARC.ccNumber = "";
+			ARC.expirationDate = "";
+			ARC.ccv = "";
+			ARC.ccToken = card["Token"];
+			
+			
+			// show the ConfirmPayment page
+			$('#confirmPaymentPage').show();
+			$('#addCardPage').hide();
+			$('#donePayment').hide();
+
+
+			// initialize ConfirmPage
+		
+			var maskedCcNumber = ARC.maskCcNumber(card["Number"]);
+			
+			var card = ARC.urlParameters['cardType'] + " " + maskedCcNumber;
+			$('div.card').text(card);
+	
+	
+			var total = ARC.donationAmount;
+		
+			var convenienceFee = ARC.urlParameters['convenienceFee'];
+			var convenienceFeeCap = ARC.urlParameters['convenienceFeeCap'];
+
+
+			if (parseFloat(convenienceFee) > 0.0){
+		
+				if (parseFloat(ARC.donationAmount) < parseFloat(convenienceFeeCap)){
+			
+					total = parseFloat(ARC.donationAmount) + parseFloat(convenienceFee);
+								
+					ARC.chargedFee = convenienceFee;
+				
+					$('div.fee').text("* a processing fee of $" + parseFloat(Math.round(parseFloat(convenienceFee) * 100) / 100).toFixed(2) + 
+					  " will be added to all amounts less than $" + parseFloat(Math.round(parseFloat(convenienceFeeCap) * 100) / 100).toFixed(2));
+
+				}
+			}
+		
+			total = parseFloat(Math.round(parseFloat(total) * 100) / 100).toFixed(2);
+		
+			$('div.total').text("$ " + total);
+	
 	}
+
+	
+		
+
+	
 	
 	
 
@@ -473,6 +682,9 @@ $(document).on('click', '.addCard', function(e){
 $(document).on('click', '.addAmount', function(e){
 	console.log("continue button on addCardPage clicked");
 
+
+	
+	
 	window.scrollTo(0,0);
 	e.preventDefault();
 	ARC.donationAmount = $('#amount').val();
@@ -486,6 +698,43 @@ $(document).on('click', '.addAmount', function(e){
 		$('#confirmPaymentPage').hide();
 		$('#addCardPage').show();
 		$('#howMuchPage').hide();
+
+	
+
+		ARC.cardArray = ARC.buildCards();
+		
+		if (ARC.cardArray == null || ARC.cardArray.length == 0){
+			
+			//Show new card stuff
+			
+			$('#dropdown').hide();
+			$('#cardInfo').show();
+
+		}else{
+		
+			$('#dropdown').show();
+			$('#cardInfo').hide();
+
+		
+
+			var select = document.getElementsByTagName('select')[0];
+			select.options.length = 0; // clear out existing items
+			for(var i=0; i < ARC.cardArray.length; i++) {
+  				  
+  				var card = ARC.cardArray[i];
+				var displayString = card["Type"] + '  ****' + card["Number"].slice(-4) ;
+								
+				
+    		  	select.options.add(new Option(displayString, i))
+			}
+		
+		    select.options.add(new Option("+ New Card", i))
+
+		}
+
+		
+	
+	
 	
 	
 	}else{
@@ -494,6 +743,7 @@ $(document).on('click', '.addAmount', function(e){
 		return;
 	
 	}
+	
 	
 	
 	
@@ -535,9 +785,123 @@ $(document).on('click', '.backthree', function(e){
 
 $(document).on('click', '.confirm', function(e){
 	console.log("confirm button clicked");
+	
+	
+	
+	$('#addLoadPage').show();
+	$('#confirmPaymentPage').hide();
+	$('#addCardPage').hide();
+	$('#howMuchPage').hide();
+
+	ARC.saveCard = document.getElementById("saveCheck").checked;
+                
 	e.preventDefault();
 	ARC.createPayment();
 });
 
 
+
+
+$(document).on('click', '.quickOne', function(e){
+
+
+		var elem = document.getElementById("amount");
+		elem.value = ARC.urlParameters['quickOne'] + '.00';
+			
+		$('#addAmount').click();
+
+});
+
+$(document).on('click', '.quickTwo', function(e){
+		var elem = document.getElementById("amount");
+		elem.value = ARC.urlParameters['quickTwo'] + '.00';
+		
+		$('#addAmount').click();
+
+});
+
+
+$(document).on('click', '.quickThree', function(e){
+		var elem = document.getElementById("amount");
+		elem.value = ARC.urlParameters['quickThree'] + '.00';
+		
+		$('#addAmount').click();
+
+});
+
+
+$(document).on('click', '.quickFour', function(e){
+		var elem = document.getElementById("amount");
+		elem.value = ARC.urlParameters['quickFour'] + '.00';
+		
+		$('#addAmount').click();
+
+});
+
+$(document).on('change', '.selecter', function(e){
+	
+
+	var select = document.getElementsByTagName('select')[0];
+	var index = select.selectedIndex;
+	
+	if (index == ARC.cardArray.length){
+		//new card
+		
+		$('#cardInfo').show();
+	
+		ARC.isNewCardDropdown = "yes";
+		
+	}else{
+		
+		$('#cardInfo').hide();
+	
+		ARC.isNewCardDropdown = "";
+	}
+
+});
+
+
+// declare variables
+var i = 0,
+    before = [],
+    after = [],
+    value = [],
+    number = '';
+
+// reset all values
+function resetVal() {
+    i = 0;
+    before = [];
+    after = [];
+    value = [];
+    number = '';
+    $("#amount").val("");
+}
+
+// add thousand separater
+function addComma(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+
+$(document).on('keyup', '.amount', function(e,v){
+
+    if ((e.which >= 48) && (e.which <= 57)) {
+        number = String.fromCharCode(e.which);
+        $(this).val("");
+        value.push(number);
+        before.push(value[i]);
+        if (i > 1) {
+            after.push(value[i - 2]);
+            before.splice(0, 1);
+        }
+        var val_final = after.join("") + "." + before.join("");
+        $(this).val(addComma(val_final));
+        i++;
+        $(".amount").html(" " + $(this).val());
+    } else {
+        resetVal();
+    }
+});
 

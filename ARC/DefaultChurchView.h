@@ -13,13 +13,19 @@
 #import "CreditCard.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import "SteelfishLabel.h"
+#import "LoadingViewController.h"
 
+@class  LoadingViewController;
 
 @interface DefaultChurchView : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+
+
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *makeDonationButton;
 @property (strong, nonatomic) IBOutlet SteelfishLabel *topLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *mainImage;
 
+@property (nonatomic, strong) NSMutableArray *creditCardArray;
 @property (strong, nonatomic) IBOutlet UIView *nameView;
 - (IBAction)makeDonation:(id)sender;
 @property BOOL haveDwolla;
@@ -39,6 +45,8 @@
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *contactButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *websiteButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *messagesButton;
+
+@property BOOL didFinishCards;
 
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *donationHistoryButton;
 @property (nonatomic, strong) UIAlertView *logInAlert;

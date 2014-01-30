@@ -62,7 +62,8 @@ typedef enum {
     UpdateGuestCustomer = 18,
     GetListOfServers = 19,
     GetListOfPayments = 20,
-    SendEmailReceipt = 21
+    SendEmailReceipt = 21,
+    GetCreditCards = 22
 
 
 
@@ -162,6 +163,6 @@ typedef enum {
 -(NSString *)getLocalEndpoint;
 -(NSString *)getRemoteEndpoint;
 -(NSString *) authHeader;
-
+-(void)getListOfCreditCards;
 @end
 

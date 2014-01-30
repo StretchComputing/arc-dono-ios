@@ -20,9 +20,9 @@
 
 //NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
 
-//NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://24.14.40.71:8700/arc-dev/rest/v1/";
-NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -89,7 +89,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           _arcUrl = [prefs valueForKey:@"arcUrl"];
+           //_arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         
        // NSLog(@"***** Arc URL = %@ *****", _arcUrl);
@@ -1008,7 +1008,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
         
         
-        NSString *eventString = [NSString stringWithFormat:@"getListOfServers - request url: %@", pingUrl];
+        NSString *eventString = [NSString stringWithFormat:@"getListOfPayments - request url: %@", pingUrl];
         [rSkybox addEventToSession:eventString];
         
         
@@ -1028,6 +1028,57 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [rSkybox sendClientLog:@"ArcClient.getListOfPayments" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+
+-(void)getListOfCreditCards{
+    @try {
+        
+        api = GetCreditCards;
+        
+        
+        NSString *pingUrl = [NSString stringWithFormat:@"%@customers/creditcards/list", _arcUrl];
+        
+        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+        
+        if ([customerId length] == 0) {
+            customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }
+        
+        
+        NSLog(@"CustomerId: %@", customerId);
+        
+        NSDictionary *pairs = @{@"AppInfo": [self getAppInfoDictionary], @"UserId":customerId};
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        
+        NSLog(@"URL: %@", pingUrl);
+        NSLog(@"requestString: %@", requestString);
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"getListOfCreditCards - request url: %@", pingUrl];
+        [rSkybox addEventToSession:eventString];
+        
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
+        
+        [request setHTTPMethod: @"SEARCH"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        [request setHTTPBody: requestData];
+        
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"getListOfCreditCards"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getListOfCreditCards" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 
 
 
@@ -1267,6 +1318,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
                 
                 responseInfo = [self getPaymentListResponse:response];
             }
+        }else if (api == GetCreditCards){
+            if (response && httpSuccess) {
+                notificationType = @"creditCardNotification";
+                
+                responseInfo = [self getCreditCardResponse:response];
+            }
         }else if (api == SendEmailReceipt){
             if (response && httpSuccess) {
                 notificationType = @"sendEmailReceiptNotification";
@@ -1469,6 +1526,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             notificationType = @"getServerListNotification";
         }else if (api == GetListOfPayments){
             notificationType = @"paymentHistoryNotification";
+        }else if (api == GetCreditCards){
+            notificationType = @"creditCardNotification";
         }else if (api == SendEmailReceipt){
             notificationType = @"sendEmailReceiptNotification";
         }
@@ -1863,6 +1922,33 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
     }
 }
+
+
+-(NSDictionary *) getCreditCardResponse:(NSDictionary *)response {
+    @try {
+        //
+        // NSLog(@"Response: %@", response);
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getCreditCardResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
+    }
+}
+
+
 
 -(NSDictionary *) getPaymentListResponse:(NSDictionary *)response {
     @try {

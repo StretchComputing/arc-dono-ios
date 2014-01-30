@@ -18,11 +18,13 @@ table.title tr.row1 {
 	//font-weight: bold;
 	font-size: 22px;
     font-family:latoLight;
+    background-color: #F0F0F0;
+
 
 }
 
 table.title tr.row2 {
-	height: 30px;
+	height: 22px;
 	font-size: 13px;
 	background-color: #f57516;
     color:white;
@@ -34,9 +36,11 @@ table.title tr.row2 {
 }
 
 table.title tr.row3 {
-	height: 30px;
+	height: 22px;
 	font-size: 14px;
 	background-color: #f57516;
+	//background-color: #FF005A;
+
     color:white;
     //font-weight: normal;
 
@@ -45,9 +49,18 @@ table.title tr.row3 {
 
 }
 
+table.title tr.row4 {
+	height: 0px;
+	background-color: #C8C8C8;
+    color:C8C8C8;
+
+}
+
+
 
 
 table.title td.column1 {
+
 	width: 10%;
 }
 
@@ -58,6 +71,7 @@ table.title td.column2 {
 
 table.title td.column3 {
 	width: 10%;
+
 }
 
 table.tally {
@@ -110,13 +124,14 @@ div.back {
 }
 
 div.confirm {
-	color: #05a842;
-	font-size: 16px;
-    font-family:latoBold;
-
-	border:1px solid #05a842;
-    border-radius:4px;
-	width: 170px;
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 180px;
     height: 40px;
     line-height: 40px;
 	margin-left: auto;
@@ -144,14 +159,125 @@ div.fee {
 	
 }
 
-div.addAmount {
-	color: #05a842;
-	font-size: 16px;
-    font-family:latoBold;
 
-	border:1px solid #05a842;
-    border-radius:4px;
-	width: 170px;
+div.quickOutter{
+
+	height: 40px;
+	width: 290px;
+	margin: 0 auto;
+	
+	
+
+}
+
+select.selecter{
+
+	width:200px;
+}
+div.dropdown{
+
+	width: 200px;
+	margin: 0 auto;
+}
+
+
+div.imageClassOuter{
+
+	width: 300px;
+	margin: 0 auto;
+	
+	
+}
+
+div.loadingClass{
+	
+	color:#646464;
+	font-size: 18px;
+    font-family:latoBold;
+    margin: 0 auto;
+    width: 160px;
+
+
+}
+
+div.loadingImage{
+    margin: 0 auto;
+    width: 50px;
+
+}
+
+div.quickOne {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 60px;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+}
+
+div.quickTwo {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 60px;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+	margin-left: 10px;
+
+}
+
+div.quickThree {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 60px;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+	margin-left: 10px;
+
+}
+
+div.quickFour {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 60px;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+	margin-left: 10px;
+
+}
+
+
+div.addAmount {
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 150px;
     height: 40px;
     line-height: 40px;
 	margin-left: auto;
@@ -161,13 +287,14 @@ div.addAmount {
 
 
 div.addCard {
-	color: #05a842;
-	font-size: 16px;
-    font-family:latoBold;
-
-	border:1px solid #05a842;
-    border-radius:4px;
-	width: 170px;
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 150px;
     height: 40px;
     line-height: 40px;
 	margin-left: auto;
@@ -177,11 +304,13 @@ div.addCard {
 
 input.cardNumber{
 
-	font-size: 20px;
+	font-size: 17px;
     font-family:latoLight;
     width: 235px;
     border-radius:4px;
     padding: 3px 3px;
+    	height:25px;
+
 }
 
 
@@ -189,7 +318,8 @@ input.cardNumber{
 
 input.amount{
 
-	font-size: 20px;
+	font-size: 17px;
+	height:25px;
     font-family:latoLight;
     width: 135px;
     border-radius:4px;
@@ -198,21 +328,38 @@ input.amount{
 
 input.expirationDate{
 
-	font-size: 20px;
+	font-size: 17px;
     font-family:latoLight;
     width: 110px;
     border-radius:4px;
     padding: 3px 3px;
+    	height:25px;
+
 
 }
 
+div.saveCard{
+	
+	width:230px;
+	margin: 0 auto;
+	color:#646464;
+
+}
+
+input.saveCheck{
+	color:#646464;
+	
+
+}
 input.ccv{
 
-	font-size: 20px;
+	font-size: 17px;
     font-family:latoLight;
     width: 110px;
     border-radius:4px;
     padding: 3px 3px;
+    	height:25px;
+
 
 }
 

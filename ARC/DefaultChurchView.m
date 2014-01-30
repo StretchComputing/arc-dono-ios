@@ -15,12 +15,16 @@
 #import "LeftViewController.h"
 #import "ILTranslucentView.h"
 #import "DefaultWebViewController.h"
+#import "ArcClient.h"
 
 @interface DefaultChurchView ()
 
 @end
 
 @implementation DefaultChurchView
+
+
+
 - (IBAction)openMenuNow:(id)sender {
     [self.navigationController.sideMenu toggleLeftSideMenu];
 }
@@ -46,10 +50,61 @@
         
     }
 }
+
+-(void)creditCardsComplete:(NSNotification *)notification{
+    
+    self.didFinishCards = YES;
+    NSLog(@"Notification: %@", notification);
+    NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
+    
+    @try {
+        NSArray *results = [[userInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
+        
+        NSLog(@"Results Class: %@", [results class]);
+        
+        if ([results count] > 0) {
+            self.creditCardArray = [NSMutableArray arrayWithArray:results];
+        }
+    }
+    @catch (NSException *exception) {
+        self.creditCardArray = [NSMutableArray array];
+    }
+   
+    
+    if (self.loadingViewController.view.hidden == NO) {
+        //waiting for donation
+        self.loadingViewController.view.hidden = YES;
+        [self goToWebPayment];
+    }
+    
+}
+
+-(void)becameActive:(NSNotification *)notification{
+    
+    self.didFinishCards = NO;
+    ArcClient *tmp = [[ArcClient alloc] init];
+    [tmp getListOfCreditCards];
+    
+}
 - (void)viewDidLoad
 {
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        [self.loadingViewController stopSpin];
+        [self.view addSubview:self.loadingViewController.view];
+        
+        
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(creditCardsComplete:) name:@"creditCardNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(becameActive:)
+                                                     name:UIApplicationDidBecomeActiveNotification object:nil];
+        self.creditCardArray = [NSMutableArray array];
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp getListOfCreditCards];
         
         self.donationHistoryButton.text = @"View Donation History";
         self.donationHistoryButton.tintColor = dutchRedColor;
@@ -200,7 +255,16 @@
     
     @try {
         
-        [self goToWebPayment];
+        if (!self.didFinishCards) {
+            
+            self.loadingViewController.displayText.text = @"Loading Donation...";
+            [self.loadingViewController startSpin];
+        
+        }else{
+            [self goToWebPayment];
+
+        }
+        
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"DefaultChurchView.makeDonation" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -254,13 +318,21 @@
             self.myMerchant.convenienceFeeCap = 0.0;
             self.myMerchant.convenienceFee = 0.0;
         }
+      
+
         
-        
+        NSString *quickOne = [NSString stringWithFormat:@"%.0f", self.myMerchant.quickPayOne];
+        NSString *quickTwo = [NSString stringWithFormat:@"%.0f", self.myMerchant.quickPayTwo];
+        NSString *quickThree = [NSString stringWithFormat:@"%.0f", self.myMerchant.quickPayThree];
+        NSString *quickFour = [NSString stringWithFormat:@"%.0f", self.myMerchant.quickPayFour];
+
         NSString *passUrl = [client getCurrentUrl];
         
         NSString *startUrl = [passUrl stringByReplacingOccurrencesOfString:@"/rest/v1/" withString:@""];
         
-        url = [NSString stringWithFormat:@"%@/content/confirmpayment/confirmpayment.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&anonymous=%@&token=%@&serverUrl=%@&type=CREDIT&convenienceFee=%f&convenienceFeeCap=%f&name=%@", startUrl, 0.0, guestId, @"", self.myMerchant.invoiceId, self.myMerchant.merchantId, 0.0, anonymous, token, passUrl, self.myMerchant.convenienceFee, self.myMerchant.convenienceFeeCap,self.myMerchant.name];
+        //NSLog(@"Token: %@", token);
+        
+        url = [NSString stringWithFormat:@"%@/content/confirmpayment/confirmpayment.html?invoiceAmount=%.2f&customerId=%@&authenticationToken=%@&invoiceId=%d&merchantId=%d&gratuity=%.2f&anonymous=%@&token=%@&serverUrl=%@&type=CREDIT&convenienceFee=%f&convenienceFeeCap=%f&name=%@&quickOne=%@&quickTwo=%@&quickThree=%@&quickFour=%@", startUrl, 0.0, guestId, @"", self.myMerchant.invoiceId, self.myMerchant.merchantId, 0.0, anonymous, token, passUrl, self.myMerchant.convenienceFee, self.myMerchant.convenienceFeeCap,self.myMerchant.name, quickOne, quickTwo,quickThree, quickFour];
         
         for (int i = 0; i < [itemArray count]; i++) {
             
@@ -276,6 +348,22 @@
         location = location - 4;
         url = [url stringByReplacingOccurrencesOfString:@"=" withString:@"%3D" options:NSCaseInsensitiveSearch range:NSMakeRange(location, 5)];
         // NSLog(@"Encoded: %@", url);
+        
+        
+        if ([self.creditCardArray count] > 0) {
+            
+            for (int i = 0; i < [self.creditCardArray count]; i++) {
+                
+                NSDictionary *card = [self.creditCardArray objectAtIndex:i];
+                
+                NSString *cardType = [self getCardTypeForNumber:[card valueForKey:@"Number"]];
+                
+                url = [url stringByAppendingFormat:@"&CardNumber=%@&CardExpiration=%@&CardToken=%@&CardType=%@", [card valueForKey:@"Number"], [card valueForKey:@"ExpirationDate"],
+                       [card valueForKey:@"CCToken"], cardType];
+            }
+        }
+        
+        NSLog(@"URL: %@", url);
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         
@@ -672,4 +760,58 @@
     
     
 }
+
+
+
+-(NSString *)getCardTypeForNumber:(NSString *)cardNumber{
+    
+    
+     @try {
+     
+     if ([cardNumber length] > 0) {
+     
+     NSString *firstOne = [cardNumber substringToIndex:1];
+     NSString *firstTwo = [cardNumber substringToIndex:2];
+     NSString *firstThree = [cardNumber substringToIndex:3];
+     NSString *firstFour = [cardNumber substringToIndex:4];
+     
+     int numberLength = [cardNumber length];
+     
+     if ([firstOne isEqualToString:@"4"] && ((numberLength == 15) || (numberLength == 16))) {
+     return @"Visa";
+     }
+     
+     double cardDigits = [firstTwo doubleValue];
+     if ((cardDigits >= 51) && (cardDigits <= 55) && (numberLength == 16)) {
+     return @"MasterCard";
+     }
+     
+     if (([firstTwo isEqualToString:@"34"] || [firstTwo isEqualToString:@"37"]) && (numberLength == 15)) {
+     return @"American Express";
+     }
+     
+     if (([firstTwo isEqualToString:@"65"] || [firstFour isEqualToString:@"6011"]) && (numberLength == 16)) {
+     return @"Discover";
+     }
+     
+     double threeDigits = [firstThree doubleValue];
+     if ((numberLength == 14) && ([firstTwo isEqualToString:@"36"] || [firstTwo isEqualToString:@"38"] || ((threeDigits >= 300) && (threeDigits <= 305) ))) {
+     return @"Diners";
+     }
+     
+     return @"Credit";
+     }else{
+     return @"Credit";
+     }
+     }
+     @catch (NSException *e) {
+         return @"Credit";
+     [rSkybox sendClientLog:@"DefaultChurchView.getCardTypeForNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+     }
+     
+     
+    
+}
+
+
 @end
