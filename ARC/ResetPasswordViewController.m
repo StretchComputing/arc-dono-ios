@@ -24,9 +24,7 @@
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    mainDelegate.logout = @"true";
-    [self.navigationController dismissModalViewControllerAnimated:NO];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -98,9 +96,13 @@
             //NSString *newToken = [apiResponse valueForKey:@"Results"];
             //[[NSUserDefaults standardUserDefaults] setObject:newToken forKey:@"customerToken"];
             
-            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"resetPasswordSuccess"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [self.navigationController dismissModalViewControllerAnimated:YES];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your password has been reset successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            
+            NSArray *views = [self.navigationController viewControllers];
+            UIViewController *tmp = [views objectAtIndex:[views count] - 3];
+            [self.navigationController popToViewController:tmp animated:YES];
             
             
             

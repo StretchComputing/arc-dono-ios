@@ -54,13 +54,12 @@
 -(void)creditCardsComplete:(NSNotification *)notification{
     
     self.didFinishCards = YES;
-    NSLog(@"Notification: %@", notification);
+   // NSLog(@"Notification: %@", notification);
     NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
     
     @try {
         NSArray *results = [[userInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
         
-        NSLog(@"Results Class: %@", [results class]);
         
         if ([results count] > 0) {
             self.creditCardArray = [NSMutableArray arrayWithArray:results];
@@ -363,7 +362,7 @@
             }
         }
         
-        NSLog(@"URL: %@", url);
+        //NSLog(@"URL: %@", url);
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         

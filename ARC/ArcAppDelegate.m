@@ -286,7 +286,7 @@ BOOL isIos7;
         }else if ([successOrFailure rangeOfString:@"success"].location != NSNotFound) {
 
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your request was successfully processed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank you, your request was successfully processed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
             

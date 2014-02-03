@@ -20,9 +20,9 @@
 
 //NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
 
-NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+//NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://24.14.40.71:8700/arc-dev/rest/v1/";
-//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -89,7 +89,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           //_arcUrl = [prefs valueForKey:@"arcUrl"];
+           _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         
        // NSLog(@"***** Arc URL = %@ *****", _arcUrl);
@@ -1045,7 +1045,6 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         }
         
         
-        NSLog(@"CustomerId: %@", customerId);
         
         NSDictionary *pairs = @{@"AppInfo": [self getAppInfoDictionary], @"UserId":customerId};
         
@@ -1054,8 +1053,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         
-        NSLog(@"URL: %@", pingUrl);
-        NSLog(@"requestString: %@", requestString);
+      //  NSLog(@"URL: %@", pingUrl);
+       // NSLog(@"requestString: %@", requestString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"getListOfCreditCards - request url: %@", pingUrl];

@@ -44,9 +44,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateComplete:) name:@"updateGuestCustomerNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerComplete:) name:@"registerNotification" object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInCompleteGuest:) name:@"signInNotificationGuest" object:nil];
     
    
     
@@ -273,6 +274,40 @@
 
 -(void)runRegister{
     
+    @try {
+       
+        [self.loadingViewController startSpin];
+        self.loadingViewController.displayText.text = @"Registering...";
+        
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        
+        
+        
+        
+        [tempDictionary setValue:self.emailText.text forKey:@"eMail"];
+        [tempDictionary setValue:self.passwordText.text forKey:@"Password"];
+        [tempDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"IsGuest"];
+        
+        
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        loginDict = tempDictionary;
+        
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp updateGuestCustomer:loginDict];
+    }
+    @catch (NSException *exception) {
+         [rSkybox sendClientLog:@"ProfileNewViewController.runRegister" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+  
+    
+}
+
+
+/*
+-(void)runRegister{
+    
     
     @try{
         
@@ -318,7 +353,7 @@
     
     
 }
-
+*/
 
 -(void)signInComplete:(NSNotification *)notification{
     @try {
@@ -466,6 +501,153 @@
     self.loginSignupButton.hidden = YES;
     
 }
+
+
+
+-(void)updateComplete:(NSNotification *)notification{
+    @try {
+        
+        
+        [self.loadingViewController stopSpin];
+        
+        
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        //NSLog(@"ResponseInfo: %@", responseInfo);
+        
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        BOOL isAlreadyRegistered = NO;
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            //NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] objectAtIndex:0];
+            
+            
+            NSString *newToken = [responseInfo valueForKey:@"Results"];
+            
+            
+            //NSLog(@"NewToken: %@", newToken);
+            
+            //Successful conversion from guest->customer
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank your for registering, email receipts will now be sent to your address." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *guestId = [prefs valueForKey:@"guestId"];
+            //NSString *guestToken = [prefs valueForKey:@"guestToken"];
+            
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [mainDelegate insertCustomerWithId:guestId andToken:newToken];
+            
+            
+            //Convert Guest Id/Token to customer Id/Token
+            
+            [prefs setValue:self.emailText.text forKey:@"customerEmail"];
+            [prefs setValue:guestId forKey:@"customerId"];
+            [prefs setValue:newToken forKey:@"customerToken"];
+            
+            [prefs setValue:@"" forKey:@"guestId"];
+            [prefs setValue:@"" forKey:@"guestToken"];
+            
+            [prefs synchronize];
+            
+            [self handleSuccess];
+            
+            
+        } else if([status isEqualToString:@"error"]){
+            
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            
+            if(errorCode == 103) {
+                isAlreadyRegistered = YES;
+            } else {
+                errorMsg = @"Unable to register account, please try again.";
+            }
+            
+            
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = @"Unable to register account, please try again.";
+        }
+        
+        if (isAlreadyRegistered) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email In Use" message:@"The email address you entered is already being used.  If you already have an account, please sign in." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else{
+            if([errorMsg length] > 0) {
+                // self.errorLabel.text = errorMsg;
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ProfileNewViewController.invoiceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+
+
+-(void)signInCompleteGuest:(NSNotification *)notification{
+    @try {
+        
+        
+        self.loadingViewController.view.hidden = YES;
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        // NSLog(@"Response Info: %@", responseInfo);
+        
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            //success
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            mainDelegate.logout = @"true";
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            
+            
+            //Do the next thing (go home?)
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INCORRECT_LOGIN_INFO) {
+                errorMsg = @"Invalid Email and/or Password";
+            } else {
+                // TODO -- programming error client/server coordination -- rskybox call
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            //self.errorLabel.text = errorMsg;
+            
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading Error" message:@"We experienced an error logging you out, please try again!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ProfileNewViewController.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+        
+    }
+    
+}
+
 
 
 @end

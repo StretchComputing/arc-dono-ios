@@ -635,8 +635,8 @@
                 tmpMerchant.convenienceFeeCap = [[theMerchant valueForKey:@"ConvenienceFeeCap"] doubleValue];
             
                 
-                if ([theMerchant valueForKey:@"Email"]) {
-                    tmpMerchant.email = [theMerchant valueForKey:@"Email"];
+                if ([theMerchant valueForKey:@"DMeMail"]) {
+                    tmpMerchant.email = [theMerchant valueForKey:@"DMeMail"];
                 }
                 
                 if ([theMerchant valueForKey:@"Website"]) {
