@@ -167,18 +167,21 @@
         
         
         
-        if ([self.myMerchant.name isEqualToString:@"Evangelical United Methodist"]) {
+        if (self.myMerchant.merchantId == 16) {
             self.mainImage.image = [UIImage imageNamed:@"Evangelical"];
-        }else if ([self.myMerchant.name isEqualToString:@"Living Waters United Methodist"]) {
+            
+        }else if (self.myMerchant.merchantId == 17) {
+            
             self.mainImage.image = [UIImage imageNamed:@"LivingWaters"];
-
-        }else if ([self.myMerchant.name isEqualToString:@"St. Paul's United Methodist"]) {
+            
+        }else if (self.myMerchant.merchantId == 15) {
             self.mainImage.image = [UIImage imageNamed:@"StPaul"];
-
-        }else if ([self.myMerchant.name isEqualToString:@"Browining United Methodist"]) {
+            
+        }else if (self.myMerchant.merchantId == 18) {
             self.mainImage.image = [UIImage imageNamed:@"Browning"];
-
-        }else if ([self.myMerchant.name isEqualToString:@"Arc Mobile Inc"]) {
+            
+        }else if (self.myMerchant.merchantId == 20) {
+            
             self.mainImage.image = [UIImage imageNamed:@"testChurch"];
             
         }else{

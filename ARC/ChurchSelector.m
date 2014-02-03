@@ -924,18 +924,21 @@
         }
         */
         
-        if ([tmpMerchant.name isEqualToString:@"Evangelical United Methodist"]) {
+        if (tmpMerchant.merchantId == 16) {
             merchImage.image = [UIImage imageNamed:@"Evangelical"];
-        }else if ([tmpMerchant.name isEqualToString:@"Living Waters United Methodist"]) {
+            
+        }else if (tmpMerchant.merchantId == 17) {
+            
             merchImage.image = [UIImage imageNamed:@"LivingWaters"];
             
-        }else if ([tmpMerchant.name isEqualToString:@"St. Paul's United Methodist"]) {
+        }else if (tmpMerchant.merchantId == 15) {
             merchImage.image = [UIImage imageNamed:@"StPaul"];
             
-        }else if ([tmpMerchant.name isEqualToString:@"Browining United Methodist"]) {
+        }else if (tmpMerchant.merchantId == 18) {
             merchImage.image = [UIImage imageNamed:@"Browning"];
             
-        }else if ([tmpMerchant.name isEqualToString:@"Arc Mobile Inc"]) {
+        }else if (tmpMerchant.merchantId == 20) {
+            
             merchImage.image = [UIImage imageNamed:@"testChurch"];
             
         }else{
