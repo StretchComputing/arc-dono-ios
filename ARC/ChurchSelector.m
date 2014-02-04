@@ -716,7 +716,7 @@
             
             Merchant *merch1 = [[Merchant alloc] init];
             merch1.name = @"Evangelical United Methodist";
-            merch1.merchantId = 20;
+            merch1.merchantId = 16;
             merch1.address = @"345 Broadwater Ave";
             merch1.city = @"Billings";
             merch1.state = @"MT";
@@ -726,7 +726,7 @@
 
             Merchant *merch2 = [[Merchant alloc] init];
             merch2.name = @"Living Waters United Methodist";
-            merch2.merchantId = 21;
+            merch2.merchantId = 17;
             merch2.address = @"51 West Cameron Bridge Rd.";
             merch2.city = @"Bozeman";
             merch2.state = @"MT";
@@ -737,7 +737,7 @@
             
             Merchant *merch3 = [[Merchant alloc] init];
             merch3.name = @"St. Paul's United Methodist";
-            merch3.merchantId = 22;
+            merch3.merchantId = 15;
             merch3.address = @"519 Logan St.";
             merch3.city = @"Helena";
             merch3.state = @"MT";
@@ -748,7 +748,7 @@
             
             Merchant *merch4 = [[Merchant alloc] init];
             merch4.name = @"Browining United Methodist";
-            merch4.merchantId = 23;
+            merch4.merchantId = 18;
             merch4.address = @"123 Highway 89";
             merch4.city = @"Browning";
             merch4.state = @"MT";
