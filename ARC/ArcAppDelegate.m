@@ -283,12 +283,19 @@ BOOL isIos7;
         
         if ([successOrFailure rangeOfString:@"cancel"].location != NSNotFound) {
             
+            NSDictionary *userInfo = @{@"result": @"cancel"};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"webDone" object:self userInfo:userInfo];
+
+            
         }else if ([successOrFailure rangeOfString:@"success"].location != NSNotFound) {
 
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank you, your request was successfully processed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
+            
+            NSDictionary *userInfo = @{@"result": @"cancel"};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"webDone" object:self userInfo:userInfo];
             
             //success
             

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9022B9821811C3CE00BC1CE8 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9022B9801811C3CE00BC1CE8 /* rightArrow.png */; };
 		9022B9831811C3CE00BC1CE8 /* leftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9022B9811811C3CE00BC1CE8 /* leftArrow.png */; };
+		903109F318A7C05500C21F6F /* DonateWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903109F218A7C05500C21F6F /* DonateWebViewController.m */; };
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
 		9034226717D624F200346954 /* rokaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9034226617D624F200346954 /* rokaLogo.png */; };
 		903CCD96180C30750032B0FC /* serverImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 903CCD95180C30750032B0FC /* serverImage.png */; };
@@ -248,6 +249,8 @@
 /* Begin PBXFileReference section */
 		9022B9801811C3CE00BC1CE8 /* rightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightArrow.png; sourceTree = "<group>"; };
 		9022B9811811C3CE00BC1CE8 /* leftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftArrow.png; sourceTree = "<group>"; };
+		903109F118A7C05500C21F6F /* DonateWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonateWebViewController.h; sourceTree = "<group>"; };
+		903109F218A7C05500C21F6F /* DonateWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonateWebViewController.m; sourceTree = "<group>"; };
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
 		9034226617D624F200346954 /* rokaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rokaLogo.png; sourceTree = "<group>"; };
@@ -776,6 +779,8 @@
 				907E239818299496001E9BC8 /* DefaultChurchView.m */,
 				90484D2B1894847900237DE3 /* DefaultWebViewController.h */,
 				90484D2C1894847900237DE3 /* DefaultWebViewController.m */,
+				903109F118A7C05500C21F6F /* DonateWebViewController.h */,
+				903109F218A7C05500C21F6F /* DonateWebViewController.m */,
 				90B50D8D17E257F8000958E3 /* LeftNavigationController.h */,
 				90B50D8E17E257F8000958E3 /* LeftNavigationController.m */,
 				9053E80E1895F45A008BB006 /* GetPasscodeViewController.h */,
@@ -1262,6 +1267,7 @@
 				90BFD0901597928D00F5285E /* HomeNavigationController.m in Sources */,
 				90B6B0B715994A0B005E4BCB /* RegisterNavigation.m in Sources */,
 				90B6B0FD159A1D6C005E4BCB /* Merchant.m in Sources */,
+				903109F318A7C05500C21F6F /* DonateWebViewController.m in Sources */,
 				90B6B111159A4F95005E4BCB /* Invoice.m in Sources */,
 				90FBDA62159A63D50051609A /* HelpView.m in Sources */,
 				90FBDA65159A63E40051609A /* ContactUsView.m in Sources */,

@@ -16,6 +16,7 @@
 #import "ILTranslucentView.h"
 #import "DefaultWebViewController.h"
 #import "ArcClient.h"
+#import "DonateWebViewController.h"
 
 @interface DefaultChurchView ()
 
@@ -54,7 +55,7 @@
 -(void)creditCardsComplete:(NSNotification *)notification{
     
     self.didFinishCards = YES;
-   // NSLog(@"Notification: %@", notification);
+    NSLog(@"Notification: %@", notification);
     NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
     
     @try {
@@ -78,12 +79,23 @@
     
 }
 
+-(void)webComplete:(NSNotification *)notification{
+    self.didFinishCards = NO;
+    ArcClient *tmp = [[ArcClient alloc] init];
+    [tmp getListOfCreditCards];
+}
+
 -(void)becameActive:(NSNotification *)notification{
     
     self.didFinishCards = NO;
     ArcClient *tmp = [[ArcClient alloc] init];
     [tmp getListOfCreditCards];
     
+}
+
+-(void)viewDidUnload{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 - (void)viewDidLoad
 {
@@ -95,8 +107,9 @@
         [self.view addSubview:self.loadingViewController.view];
         
         
-        
+
         [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webComplete:) name:@"webDone" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(creditCardsComplete:) name:@"creditCardNotification" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(becameActive:)
@@ -367,7 +380,12 @@
         
         //NSLog(@"URL: %@", url);
         
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        
+        DonateWebViewController *webController = [self.storyboard instantiateViewControllerWithIdentifier:@"webdonate"];
+        webController.webUrl = url;
+        [self.navigationController pushViewController:webController animated:YES];
+        
         
     }
     @catch (NSException *exception) {
