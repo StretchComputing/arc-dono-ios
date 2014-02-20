@@ -33,5 +33,6 @@
 @property (strong, nonatomic) IBOutlet SteelfishLabel *paymentLabel;
 @property (strong, nonatomic) IBOutlet SteelfishLabel *checkNumberLabel;
 
+@property (strong, nonatomic) IBOutlet SteelfishLabel *resendLabel;
 
 @end

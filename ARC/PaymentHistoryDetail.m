@@ -19,16 +19,24 @@
 
 - (void)viewDidLoad
 {
-    self.resendButton.text = @"Re-send Email Receipt";
+    @try {
+        self.resendButton.text = @"Re-send Email Receipt";
+        
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        [self.loadingViewController stopSpin];
+        [self.view addSubview:self.loadingViewController.view];
+        
+        
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"PaymentHistoryDetail.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
     
-    self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
-    self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-    [self.loadingViewController stopSpin];
-    [self.view addSubview:self.loadingViewController.view];
-    
-    
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -63,9 +71,19 @@
         
          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentHistoryComplete:) name:@"sendEmailReceiptNotification" object:nil];
         
+        
+        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+        if ([customerId length] == 0) {
+            self.resendButton.hidden = YES;
+            self.resendLabel.hidden = YES;
+        }else{
+            self.resendButton.hidden = NO;
+            self.resendLabel.hidden = NO;
+        }
+        
     }
     @catch (NSException *e) {
-         [rSkybox sendClientLog:@"PaymentHistoryDetail.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+         [rSkybox sendClientLog:@"PaymentHistoryDetail.viewWillApear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
  
     
@@ -80,7 +98,7 @@
         self.loadingViewController.view.hidden = YES;
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-        NSLog(@"Response Info: %@", responseInfo);
+       // NSLog(@"Response Info: %@", responseInfo);
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
@@ -105,7 +123,7 @@
         
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"PaymentHistoryDetail.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"PaymentHistoryDetail.paymentHistoryComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
         
     }
@@ -124,27 +142,45 @@
 
 -(void)resendAction{
     
-    self.loadingViewController.displayText.text = @"Sending...";
-    [self.loadingViewController startSpin];
-    
-    ArcClient *tmp = [[ArcClient alloc] init];
-    NSDictionary *pairs = @{@"TicketId": [self.paymentDictionary valueForKey:@"PaymentId"]};
-    [tmp sendEmailReceipt:pairs];
+    @try {
+        self.loadingViewController.displayText.text = @"Sending...";
+        [self.loadingViewController startSpin];
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        NSDictionary *pairs = @{@"TicketId": [self.paymentDictionary valueForKey:@"PaymentId"]};
+        [tmp sendEmailReceipt:pairs];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"PaymentHistoryDetail.resendAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+ 
+   
 }
 
 
 
 -(NSString *)dateStringFromISO:(NSString *)myDate{
-    //2013-10-13T21:50:26.81
     
-    ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
-    NSDate *theDate = [formatter dateFromString:myDate];
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd hh:mma"];
-    NSString *newDate = [dateFormat stringFromDate:theDate];
-    
-    return newDate;
+    @try {
+        //2013-10-13T21:50:26.81
+        
+        ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
+        NSDate *theDate = [formatter dateFromString:myDate];
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"MM/dd hh:mma"];
+        NSString *newDate = [dateFormat stringFromDate:theDate];
+        
+        return newDate;
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"PaymentHistoryDetail.dateStringFromISO" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return @"";
+
+    }
+ 
+ 
 }
 
 @end

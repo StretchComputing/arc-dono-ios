@@ -23,26 +23,33 @@
 
 - (void)viewDidLoad
 {
-    
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
-    footer.backgroundColor = [UIColor darkGrayColor];
-    self.myTableView.tableFooterView = footer;
-    
-    self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
-    self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-    [self.loadingViewController stopSpin];
-    [self.view addSubview:self.loadingViewController.view];
-    
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    
-    self.loadingViewController.displayText.text = @"Loading Donations...";
-    [self.loadingViewController startSpin];
-    
-    
-    ArcClient *tmp = [[ArcClient alloc] init];
-    [tmp getListOfPayments];
+    @try {
+        UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+        footer.backgroundColor = [UIColor darkGrayColor];
+        self.myTableView.tableFooterView = footer;
+        
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        [self.loadingViewController stopSpin];
+        [self.view addSubview:self.loadingViewController.view];
+        
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+        
+        
+        self.loadingViewController.displayText.text = @"Loading Donations...";
+        [self.loadingViewController startSpin];
+        
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp getListOfPayments];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"PaymentHistoryViewController.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+  
+ 
     
 }
 
@@ -71,7 +78,7 @@
         self.loadingViewController.view.hidden = YES;
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-       // NSLog(@"Response Info: %@", responseInfo);
+       //NSLog(@"Response Info: %@", responseInfo);
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
@@ -114,7 +121,7 @@
         
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"PaymentHistoryViewController.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"PaymentHistoryViewController.paymentHistoryComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
         
     }
@@ -206,15 +213,24 @@
 
 
 -(NSString *)dateStringFromISO:(NSString *)myDate{
-    //2013-10-13T21:50:26.81
+   
+    @try {
+        //2013-10-13T21:50:26.81
+        
+        ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
+        NSDate *theDate = [formatter dateFromString:myDate];
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"MM/dd hh:mma"];
+        NSString *newDate = [dateFormat stringFromDate:theDate];
+        
+        return newDate;
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"PaymentHistoryViewController.dateStringFromISO" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return @"";
+
+    }
     
-    ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
-    NSDate *theDate = [formatter dateFromString:myDate];
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd hh:mma"];
-    NSString *newDate = [dateFormat stringFromDate:theDate];
-    
-    return newDate;
 }
 @end

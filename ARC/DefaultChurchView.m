@@ -25,6 +25,21 @@
 @implementation DefaultChurchView
 
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    @try {
+        self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+  
+
+
+
+}
 
 - (IBAction)openMenuNow:(id)sender {
     [self.navigationController.sideMenu toggleLeftSideMenu];
@@ -54,42 +69,69 @@
 
 -(void)creditCardsComplete:(NSNotification *)notification{
     
-    self.didFinishCards = YES;
-    NSLog(@"Notification: %@", notification);
-    NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
-    
     @try {
-        NSArray *results = [[userInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
+        self.didFinishCards = YES;
+        NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
+        
+        @try {
+            NSArray *results = [[userInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
+            
+            
+            if ([results count] > 0) {
+                self.creditCardArray = [NSMutableArray arrayWithArray:results];
+            }
+        }
+        @catch (NSException *exception) {
+            self.creditCardArray = [NSMutableArray array];
+        }
         
         
-        if ([results count] > 0) {
-            self.creditCardArray = [NSMutableArray arrayWithArray:results];
+        if (self.loadingViewController.view.hidden == NO) {
+            //waiting for donation
+            self.loadingViewController.view.hidden = YES;
+            [self goToWebPayment];
         }
     }
     @catch (NSException *exception) {
-        self.creditCardArray = [NSMutableArray array];
+        [rSkybox sendClientLog:@"DefaultChurchView.creditCardsComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
     }
-   
     
-    if (self.loadingViewController.view.hidden == NO) {
-        //waiting for donation
-        self.loadingViewController.view.hidden = YES;
-        [self goToWebPayment];
-    }
+    
+  
     
 }
 
 -(void)webComplete:(NSNotification *)notification{
-    self.didFinishCards = NO;
-    ArcClient *tmp = [[ArcClient alloc] init];
-    [tmp getListOfCreditCards];
+    
+    @try {
+        
+        self.didFinishCards = NO;
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp getListOfCreditCards];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.webComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+  
 }
 
 -(void)becameActive:(NSNotification *)notification{
     
-    self.didFinishCards = NO;
-    ArcClient *tmp = [[ArcClient alloc] init];
-    [tmp getListOfCreditCards];
+    @try {
+        self.didFinishCards = NO;
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp getListOfCreditCards];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.becameActive" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
+   
     
 }
 
@@ -197,6 +239,10 @@
             
             self.mainImage.image = [UIImage imageNamed:@"testChurch"];
             
+        }else if (self.myMerchant.merchantId == 21) {
+            
+            self.mainImage.image = [UIImage imageNamed:@"21"];
+            
         }else{
             
             //Get the image from server, if not, default
@@ -219,7 +265,7 @@
             }else{
                 
                 
-                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, self.myMerchant.merchantId];
+                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Promo/%d.png", serverUrl, self.myMerchant.merchantId];
                 logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
                 
                 dispatch_async(dispatch_get_global_queue(0,0), ^{
@@ -354,7 +400,15 @@
             NSDictionary *item = [itemArray objectAtIndex:i];
             url = [url stringByAppendingFormat:@"&Amount=%@&Description=%@&ItemId=%@&Percent=%@&Value=%@", [item valueForKey:@"Amount"], [item valueForKey:@"Description"], [item valueForKey:@"ItemId"], [item valueForKey:@"Percent"], [item valueForKey:@"Value"]];
         }
-        // NSLog(@"URL: %@", url);
+        
+        for (int i = 0; i < [self.myMerchant.donationTypes count]; i++) {
+            
+            NSDictionary *donationType = [self.myMerchant.donationTypes objectAtIndex:i];
+            url = [url stringByAppendingFormat:@"&TypeDescription=%@&TypeId=%@", [donationType valueForKey:@"Description"], [donationType valueForKey:@"Id"]];
+            
+            
+        }
+         //NSLog(@"URL: %@", url);
         
         url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         // url = [url stringByReplacingOccurrencesOfString:@"==" withString:@"%3D%3D"];
@@ -403,46 +457,52 @@
 
 -(IBAction)contactAction{
     
-    
-    if ([self.myMerchant.email length] > 0) {
-        
-        
-        if ([MFMailComposeViewController canSendMail]) {
+    @try {
+        if ([self.myMerchant.email length] > 0) {
             
-            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-            mailViewController.mailComposeDelegate = self;
-            [mailViewController setToRecipients:@[self.myMerchant.email]];
             
-            [self presentModalViewController:mailViewController animated:YES];
+            if ([MFMailComposeViewController canSendMail]) {
+                
+                MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+                mailViewController.mailComposeDelegate = self;
+                [mailViewController setToRecipients:@[self.myMerchant.email]];
+                
+                [self presentModalViewController:mailViewController animated:YES];
+                
+            }else {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
             
-        }else {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+            
+        }else{
+            
+            
+            if ([MFMailComposeViewController canSendMail]) {
+                
+                MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+                mailViewController.mailComposeDelegate = self;
+                [mailViewController setToRecipients:@[[[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]]];
+                [mailViewController setSubject:[NSString stringWithFormat:@"To: %@", self.myMerchant.name]];
+                
+                [self presentModalViewController:mailViewController animated:YES];
+                
+            }else {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+            
+            
         }
-        
-        
-        
-    }else{
-        
-        
-        if ([MFMailComposeViewController canSendMail]) {
-            
-            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-            mailViewController.mailComposeDelegate = self;
-            [mailViewController setToRecipients:@[[[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]]];
-            [mailViewController setSubject:[NSString stringWithFormat:@"To: %@", self.myMerchant.name]];
-            
-            [self presentModalViewController:mailViewController animated:YES];
-            
-        }else {
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-        }
-        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.contactAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
         
     }
+ 
 }
 
 
@@ -570,13 +630,23 @@
 
 - (IBAction)goDonationHistory {
     
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
-        [self performSegueWithIdentifier:@"goHistory" sender:self];
-        
-    }else{
-        self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users view their payment history. Select 'Go Profile' to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
-        [self.logInAlert show];
+    
+    @try {
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+            [self performSegueWithIdentifier:@"goHistory" sender:self];
+            
+        }else{
+            self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users view their payment history. Select 'Go Profile' to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
+            [self.logInAlert show];
+        }
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.goDonationHistory" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
+  
 
 
 }

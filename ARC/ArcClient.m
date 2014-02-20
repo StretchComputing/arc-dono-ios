@@ -998,7 +998,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSString *pingUrl = [NSString stringWithFormat:@"%@payments/list", _arcUrl];
         
         NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
-
+        if ([customerId length] == 0) {
+            customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }
         
         NSDictionary *pairs = @{@"AppInfo": [self getAppInfoDictionary], @"CustomerId":customerId};
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
@@ -1688,7 +1690,14 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         case SendEmailReceipt:
             result = @"SendEmailReceipt";
             break;
- 
+            
+        case GetCreditCards:
+            result = @"GetCreditCards";
+            break;
+
+            
+            
+            
         default:
             //[NSException raise:NSGenericException format:@"Unexpected FormatType."];
             break;

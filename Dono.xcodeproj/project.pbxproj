@@ -196,6 +196,7 @@
 		90B6B0FD159A1D6C005E4BCB /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0FC159A1D6C005E4BCB /* Merchant.m */; };
 		90B6B111159A4F95005E4BCB /* Invoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B110159A4F95005E4BCB /* Invoice.m */; };
 		90BFD0901597928D00F5285E /* HomeNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BFD08F1597928D00F5285E /* HomeNavigationController.m */; };
+		90C7C3AF18B65E4C002A31C8 /* 21.png in Resources */ = {isa = PBXBuildFile; fileRef = 90C7C3AE18B65E4C002A31C8 /* 21.png */; };
 		90C9736A15A8CC4B00667FF8 /* ArcData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 90C9736815A8CC4B00667FF8 /* ArcData.xcdatamodeld */; };
 		90E5E5C616D706740031B17E /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E5E5C516D706740031B17E /* CustomerServiceViewController.m */; };
 		90E5E5C816D70A010031B17E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E5E5C716D70A010031B17E /* CoreAudio.framework */; };
@@ -506,6 +507,7 @@
 		90B6B110159A4F95005E4BCB /* Invoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invoice.m; sourceTree = "<group>"; };
 		90BFD08E1597928D00F5285E /* HomeNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeNavigationController.h; sourceTree = "<group>"; };
 		90BFD08F1597928D00F5285E /* HomeNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeNavigationController.m; sourceTree = "<group>"; };
+		90C7C3AE18B65E4C002A31C8 /* 21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 21.png; sourceTree = "<group>"; };
 		90C9736915A8CC4B00667FF8 /* ArcData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArcData.xcdatamodel; sourceTree = "<group>"; };
 		90E5E5C416D706740031B17E /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
 		90E5E5C516D706740031B17E /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
@@ -935,6 +937,7 @@
 		90AD3FEA17CE63090053239E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				90C7C3AE18B65E4C002A31C8 /* 21.png */,
 				9053E80A189581E4008BB006 /* newProfileImage.png */,
 				9053E80C1895CF6D008BB006 /* rightArrowWhite.png */,
 				9053E80218956775008BB006 /* helpImage4.png */,
@@ -1200,6 +1203,7 @@
 				90AD404A17CE63090053239E /* helpImage1.png in Resources */,
 				9022B9821811C3CE00BC1CE8 /* rightArrow.png in Resources */,
 				9084F7CC180EF3AF00244282 /* homeunchecked.png in Resources */,
+				90C7C3AF18B65E4C002A31C8 /* 21.png in Resources */,
 				90AD404B17CE63090053239E /* helpImage2.png in Resources */,
 				90AD404C17CE63090053239E /* helpImage3.png in Resources */,
 				90484D231894268000237DE3 /* newLocations.png in Resources */,

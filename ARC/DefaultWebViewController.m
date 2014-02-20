@@ -7,6 +7,7 @@
 //
 
 #import "DefaultWebViewController.h"
+#import "rSkybox.h"
 
 @interface DefaultWebViewController ()
 
@@ -25,12 +26,20 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
-    NSLog(@"URL: %@", self.webUrl);
-    
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.webUrl]]];
+    @try {
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+        
+        
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.webUrl]]];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DeafultWebViewController.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
+  
 
     
 

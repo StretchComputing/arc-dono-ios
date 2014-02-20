@@ -248,7 +248,7 @@
 
 -(void)goToMerchant:(id)sender{
     
-    UIButton *myButton = (UIButton *)sender;
+   // UIButton *myButton = (UIButton *)sender;
     
     
     [self payBillAction];
@@ -454,7 +454,7 @@
         self.moreInfoButton.enabled = NO;
         
         
-        NSArray *images = @[[UIImage imageNamed:@"menuHomeIcon.png"], [UIImage imageNamed:@"menuProfileIcon"], [UIImage imageNamed:@"menuBillingIcon"], [UIImage imageNamed:@"menuSettingsIcon"]];
+       // NSArray *images = @[[UIImage imageNamed:@"menuHomeIcon.png"], [UIImage imageNamed:@"menuProfileIcon"], [UIImage imageNamed:@"menuBillingIcon"], [UIImage imageNamed:@"menuSettingsIcon"]];
         
         
 
@@ -620,6 +620,8 @@
                 tmpMerchant.name = [theMerchant valueForKey:@"Name"];
                 
                 tmpMerchant.merchantId = [[theMerchant valueForKey:@"Id"] intValue];
+                
+            
                 
                 tmpMerchant.address = [theMerchant valueForKey:@"Street"];
                 tmpMerchant.city = [theMerchant valueForKey:@"City"];
@@ -881,11 +883,11 @@
         
         
         //Images
-        ArcClient *tmp = [[ArcClient alloc] init];
-        NSString *serverUrl = [tmp getCurrentUrl];
+     //   ArcClient *tmp = [[ArcClient alloc] init];
+      //  NSString *serverUrl = [tmp getCurrentUrl];
      
         
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+      //  ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         
         
         /*
@@ -941,6 +943,10 @@
             
             merchImage.image = [UIImage imageNamed:@"testChurch"];
             
+        }else if (tmpMerchant.merchantId == 21) {
+            
+            merchImage.image = [UIImage imageNamed:@"21"];
+            
         }else{
             
             //Get the image from server, if not, default
@@ -960,7 +966,7 @@
             }else{
                 
                 
-                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, tmpMerchant.merchantId];
+                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Promo/%d.png", serverUrl, tmpMerchant.merchantId];
                 logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
                 
                 dispatch_async(dispatch_get_global_queue(0,0), ^{
@@ -1071,7 +1077,7 @@
     
     @try {
         
-        Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:self.selectedRow];
+       // Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:self.selectedRow];
 
         
     

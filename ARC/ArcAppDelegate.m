@@ -273,7 +273,7 @@ BOOL isIos7;
         
       // NSLog(@"URL: %@", [url absoluteString]);
         
-        URLParser *parser = [[URLParser alloc] initWithURLString:[url absoluteString]];
+      //  URLParser *parser = [[URLParser alloc] initWithURLString:[url absoluteString]];
         
     
         
@@ -932,7 +932,7 @@ ofType:(NSString *)typeName
     
   
     @try {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+      //  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
        // NSString *customerId = [prefs valueForKey:@"customerId"];
        // NSString *customerToken = [prefs valueForKey:@"customerToken"];

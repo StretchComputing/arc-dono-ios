@@ -17,7 +17,7 @@ var ARC = (function (r, $) {
 
 	// time is in milliseconds
 	r.confirmInterval = [3000, 3000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 10000, 10000];
-	r.confirmIntervalIndex = null;
+	r.confirmIntervalIndex = 0;
 	r.ticketId = null;
 	r.ccNumber = null;
 	r.expirationDate = null;
@@ -176,7 +176,7 @@ var ARC = (function (r, $) {
 
 	r.scheduleConfirmPayment = function(){
 		//RSKYBOX.log.debug("scheduling confirm with index = " + confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms");
-		console.log("scheduling confirm with index = " + confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms");
+		console.log("scheduling confirm with index = " + r.confirmIntervalIndex + " for " + r.confirmInterval[r.confirmIntervalIndex] + " ms");
 		setTimeout(
 			function(){
 				r.confirmPayment();
@@ -192,6 +192,7 @@ var ARC = (function (r, $) {
 			var jsonData = {
 				"AppInfo": appInfo,
 				"TicketId": r.ticketId
+
 			};
 			//RSKYBOX.log.debug("confirmPayment jsonData = " + JSON.stringify(jsonData));
 			console.log("confirmPayment jsonData = " + JSON.stringify(jsonData));
@@ -217,9 +218,10 @@ var ARC = (function (r, $) {
 			//RSKYBOX.log.debug("confirmPaymentSuccess entered, Success = " + data.Success);
 			console.log("confirmPaymentSuccess entered, Success = " + data.Success);
 
+
 			if(data.Success) {
 				// if anything in the Results field, that payment is complete
-				if(data.Results) {
+				if(data.Results && data.Results.PaymentId) {
 					//RSKYBOX.log.debug("confirmPaymentSuccess payment is now complete");
 					console.log("confirmPaymentSuccess payment is now complete");
 					r.returnToIos('success', data.Results.PaymentId);
@@ -241,6 +243,7 @@ var ARC = (function (r, $) {
 				r.returnToIos('failure', null, data.ErrorCodes[i].Code);
 			}
 		} catch (e) {
+			//console.log("There was an exception thrown: " + e);
 			//RSKYBOX.log.error(e, 'confirmPaymentSuccess');
 		}
 	};
