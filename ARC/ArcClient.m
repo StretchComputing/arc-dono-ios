@@ -582,6 +582,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     @try {
         api = TrackEvent;
         
+        if ([eventArray count] == 0) {
+            return;
+        }
+        
         NSDictionary *myDictionary = @{@"Analytics" : [NSArray arrayWithArray:eventArray], @"AppInfo":[self getAppInfoDictionary]};
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [myDictionary JSONRepresentation], nil];
