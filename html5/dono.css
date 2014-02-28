@@ -173,11 +173,14 @@ div.quickOutter{
 select.selecter{
 
 	width:200px;
+	font-size:20px;
+	
 }
 div.dropdown{
 
 	width: 200px;
 	margin: 0 auto;
+	
 }
 
 

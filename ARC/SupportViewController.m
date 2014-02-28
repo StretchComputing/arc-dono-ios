@@ -151,7 +151,6 @@
         }else if (section == 1){
             SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
 
-            if (section == 0) {
                 if (row == 0) {
                     supportLabel.text = @"How It Works";
 
@@ -162,7 +161,7 @@
                     supportLabel.text = @"Rate Us!";
                 }
 
-            }
+            
         }else if (section == 0){
             
             SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
