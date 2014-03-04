@@ -698,7 +698,8 @@ $(document).on('click', '.addAmount', function(e){
 	if (r.test(ARC.donationAmount)){
 	
 		
-		$('#confirmPaymentPage').hide();
+		if (ARC.donationAmount > 1.00){
+			$('#confirmPaymentPage').hide();
 		$('#addCardPage').show();
 		$('#howMuchPage').hide();
 
@@ -732,6 +733,10 @@ $(document).on('click', '.addAmount', function(e){
 			}
 		
 		    select.options.add(new Option("+ New Card", i))
+
+		}
+		}else{
+				alert("Please enter an amount greater than $1.00");
 
 		}
 

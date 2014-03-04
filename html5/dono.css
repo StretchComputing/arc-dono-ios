@@ -349,10 +349,23 @@ div.saveCard{
 
 }
 
+div.saveCheckLabel{
+
+	font-size: 16px;
+    font-family:latoLight;
+    float:right;
+}
+
 input.saveCheck{
 	color:#646464;
-	
 
+		float:left;
+
+
+}
+
+input[type=checkbox] {
+    -webkit-transform: scale(1.5,1.5);
 }
 input.ccv{
 
