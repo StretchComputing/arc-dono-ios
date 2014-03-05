@@ -65,13 +65,16 @@
             self.whiteArrow.hidden = YES;
             self.serverButton.hidden = NO;
             self.loginSignupButton.hidden = YES;
-            
+            self.loginOnlyButton.hidden = YES;
+            self.bottomLabel.text = @"";
         }else{
-            self.topLabel.text = @"Sign Up/Log In";
+            self.topLabel.text = @"Sign Up Here!";
+            self.bottomLabel.text = @"Already a Member? Click to Log In.";
             self.logoutButton.hidden = YES;
             self.whiteArrow.hidden = NO;
             self.serverButton.hidden = YES;
             self.loginSignupButton.hidden = NO;
+            self.loginOnlyButton.hidden = NO;
         }
         
         self.topLabel.textColor = [UIColor whiteColor];
@@ -188,6 +191,10 @@
     
 }
 
+-(void)loginOnlyAction{
+    [self loginSignupAction];
+    [self forgotPassword];
+}
 - (IBAction)loginSignupAction {
     
     @try {
@@ -516,6 +523,9 @@
         self.whiteArrow.hidden = YES;
         self.serverButton.hidden = NO;
         self.loginSignupButton.hidden = YES;
+        self.loginOnlyButton.hidden = YES;
+        self.bottomLabel.text = @"";
+
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"ProfileNewViewController.handleSuccess" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];

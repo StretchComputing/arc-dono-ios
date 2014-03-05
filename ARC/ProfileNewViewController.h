@@ -25,9 +25,14 @@
 @property (strong, nonatomic) IBOutlet UIButton *serverButton;
 - (IBAction)serverAction;
 - (IBAction)loginSignupAction;
+- (IBAction)loginOnlyAction;
 
 @property (strong, nonatomic) IBOutlet UIButton *loginSignupButton;
+@property (strong, nonatomic) IBOutlet UIButton *loginOnlyButton;
+
 @property (strong, nonatomic) IBOutlet SteelfishBoldLabel *topLabel;
+@property (strong, nonatomic) IBOutlet SteelfishLabel *bottomLabel;
+
 @property (strong, nonatomic) IBOutlet UIImageView *orangeView;
 @property BOOL isLoggedIn;
 

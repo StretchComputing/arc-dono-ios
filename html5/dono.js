@@ -30,6 +30,8 @@ var ARC = (function (r, $) {
 	r.cardArray=[];
 	r.saveCard = "";
 	r.ccToken = "";
+	r.multipleItems = [];
+	r.selectedItems = [];
 
 	r.getCardTypeFromNumber = function GetCardType(number)
         {            
@@ -123,7 +125,7 @@ var ARC = (function (r, $) {
 				"Anonymous": r.urlParameters['anonymous'],
 				"CreateBTAccount": ARC.saveCard,
 				"CCToken": ARC.ccToken,
-				"Items": r.buildItems()
+				"Items": r.buildFinalItems()
 			};
 			//RSKYBOX.log.debug("createPayment jsonData = " + JSON.stringify(jsonData));
 			console.log("createPayment jsonData = " + JSON.stringify(jsonData));
@@ -416,6 +418,41 @@ var ARC = (function (r, $) {
                 
 	};
 	
+	r.buildFinalItems = function() {
+		try {
+			var items = [];
+		
+			for(var i=0; i < r.selectedItems.length; i++) {
+			
+				var amount = r.selectedItems[i]["TypeAmount"];
+				
+				if (amount.length > 0){
+					var amountDouble = parseFloat(amount);
+					
+					if (amountDouble > 0.0){
+						var percent = amountDouble/r.donationAmount;
+								
+						items[items.length] = {"ItemId": r.selectedItems[i]["TypeId"], "Amount": r.selectedItems[i]["TypeAmount"], "Percent":percent};
+					}
+
+				}
+				
+				
+
+			
+			}
+		
+
+			return items;
+			
+			
+		} catch (e) {
+			//RSKYBOX.log.error(e, 'buildItems');
+		}
+	};
+	
+	
+	
 	
 	r.buildItems = function() {
 		try {
@@ -441,6 +478,55 @@ var ARC = (function (r, $) {
 			//RSKYBOX.log.error(e, 'buildItems');
 		}
 	};
+	
+	r.buildMultiple = function() {
+		try {
+			var items = [];
+			var amounts = r.urlParameters['TypeDescription'];
+			var percents = r.urlParameters['TypeId'];
+			
+
+			if (typeof amounts === "string") {
+				// amounts is a string
+				items[0] = {"TypeDescription": amounts, "TypeId": percents, "TypeSelected":"no", "TypeAmount":"0"};
+			} else {
+				// amounts is an array
+				for(var i=0; i<amounts.length; i++) {
+					items[i] = {"TypeDescription": amounts[i], "TypeId": percents[i], "TypeSelected":"no", "TypeAmount":"0"};
+				}
+			}
+
+			return items;
+		} catch (e) {
+			//RSKYBOX.log.error(e, 'buildItems');
+		}
+	};
+	
+	
+	r.buildSelectedItems = function() {
+		try {
+			var items = [];
+		
+			for(var i=0; i < r.multipleItems.length; i++) {
+			
+				if (r.multipleItems[i]["TypeSelected"] == "yes"){
+				
+					items[items.length] = {"TypeDescription": r.multipleItems[i]["TypeDescription"], "TypeId": r.multipleItems[i]["TypeId"], "TypeSelected":"yes", "TypeAmount":"0"};
+
+				}
+			}
+		
+
+			return items;
+		} catch (e) {
+			alert("ERROR: " + e);
+			//RSKYBOX.log.error(e, 'buildItems');
+		}
+	};
+	
+	
+	
+	
 	
 	
 	r.buildCards = function() {
@@ -489,6 +575,264 @@ var ARC = (function (r, $) {
   return r;
 }(ARC || {}, jQuery));
 
+
+
+
+function setUpTable() {
+  
+  var tablecontents = "";
+   		tablecontents = "<table class='options'>";
+   		for (var i = 0; i < ARC.multipleItems.length; i ++)
+  		{
+  		    tablecontents += "<tr class='clickRow' id='" + i + "'>";
+   		    tablecontents += "<td class='column1'>" + ARC.multipleItems[i]["TypeDescription"] + "</td>";
+   		    
+   		    if (ARC.multipleItems[i]["TypeSelected"] == "yes"){
+   		        		tablecontents += "<td class='column2'><img src='bluecheck.png' alt='back_img' height='30' width='30'></td>";
+
+   		    }else{
+   		        		tablecontents += "<td class='column2'></td>";
+
+   		    }
+    	    tablecontents += "</tr>";
+  		}
+  		
+  		tablecontents += "</table>";
+  		document.getElementById("tablespace").innerHTML = tablecontents;
+
+
+		$(".clickRow").click(function() {
+            
+            var index = $(this).attr('id');
+            
+            if (ARC.multipleItems[index]["TypeSelected"] == "yes"){
+            	
+            	ARC.multipleItems[index]["TypeSelected"] = "no";
+            }else{
+            	ARC.multipleItems[index]["TypeSelected"] = "yes";
+
+            }
+            
+            setUpTable();
+
+
+            
+      	});
+      	
+      	
+      	
+}
+
+
+function setUpTableMultiple() {
+  
+  
+  try{
+  		var tablecontents = "";
+   		tablecontents = "<table class='multiple'>";
+   		   		
+   		   		
+   		
+		var paramFour = ARC.urlParameters['quickFour'];
+				
+		var paramFourFloat = parseFloat(paramFour);
+		
+		
+		var myQuickOne = "0";
+		var myQuickTwo = "0";
+		var myQuickThree = "0";
+		var myQuickFour = "0";
+		
+		if (paramFourFloat < 100.0){
+		
+			 myQuickOne = "5";
+			 myQuickTwo = "10";
+			 myQuickThree = "15";
+			 myQuickFour = "25";
+		
+		}else if (paramFourFloat <= 200.0){
+		
+			 myQuickOne = "10";
+			 myQuickTwo = "25";
+			 myQuickThree = "50";
+			 myQuickFour = "75";
+		}else{
+		
+			 myQuickOne = "25";
+			 myQuickTwo = "50";
+			 myQuickThree = "75";
+			 myQuickFour = "100";
+		
+		}
+		
+		for (var i = 0; i < ARC.selectedItems.length; i ++)
+  		{
+  		    tablecontents += "<tr class='multipleRow' id='" + i + "'>";
+   		    tablecontents += "<td class='column1'><div class='colummultiplelabel'>" + ARC.selectedItems[i]["TypeDescription"]; 
+   		    
+   		    tablecontents += "</div>$<input class='amountmultiple' id='amountmultiple" + i + "' type='text' pattern='[0-9]*'  name='' placeholder='(ex: 15.00)' />";
+
+   		    tablecontents += "</br>";
+
+   		    tablecontents += "<div class='quickMultiple' id='quickMultiple' onclick='quickClicked("+i+","+myQuickOne+")'>$" + myQuickOne + "</div>";
+   		    tablecontents += "<div class='quickMultiple' id='quickMultiple' onclick='quickClicked("+i+","+myQuickTwo+")'>$" + myQuickTwo + "</div>";
+   		    tablecontents += "<div class='quickMultiple' id='quickMultiple' onclick='quickClicked("+i+","+myQuickThree+")'>$" + myQuickThree + "</div>";
+   		    tablecontents += "<div class='quickMultiple' id='quickMultiple' onclick='quickClicked("+i+","+myQuickFour+")'>$" + myQuickFour + "</div>";
+
+   		    
+   		    tablecontents += "</td>";
+    	    tablecontents += "</tr>";
+  		}
+  		
+  		tablecontents += "</table>";
+  		document.getElementById("tablespacemultiple").innerHTML = tablecontents;
+
+	}catch(e){
+		alert("Exception: " + e);
+	}
+      	
+      	
+}
+
+
+function quickClicked(index, value) {
+	
+	var itemId = "amountmultiple" + index;  
+	
+	var newValue = value + ".00";
+					
+  	document.getElementById(itemId).value = newValue;
+}
+
+
+
+
+
+
+$(document).on('click', '.selectOptions', function(e){
+			
+		console.log("continue on select options clicked");
+
+		var anySelected = false;
+		
+		for (var i = 0; i < ARC.multipleItems.length; i ++){
+				
+			if (ARC.multipleItems[i]["TypeSelected"] == "yes"){
+				anySelected = true;
+			}
+		}
+		
+		if (anySelected == true){
+			//go to selectmultiple page
+					
+			$('#selectOptions').hide();
+			$('#howMuchMultiplePage').show();
+			
+			ARC.selectedItems = ARC.buildSelectedItems();
+			
+			setUpTableMultiple();
+
+			
+		}else{
+			alert("Please select at least 1 donation area before continuing.");
+		}
+
+});
+
+
+$(document).on('click', '.selectMultiple', function(e){
+			
+		try{
+			console.log("continue on select multiple clicked");
+
+			var totalAmount = 0.0;
+
+			for (var i = 0; i < ARC.selectedItems.length; i ++)
+  			{
+  				var itemId = "amountmultiple" + i;
+  				
+  				var elemString = document.getElementById(itemId).value;
+  				
+  				if (elemString.length > 0){
+  					var elemFloat = parseFloat(elemString);
+  					totalAmount += elemFloat;
+  					ARC.selectedItems[i]["TypeAmount"] = elemString;
+  				}
+  				
+  				
+
+  			}
+		
+			
+			if (totalAmount > 0.0){
+				
+					
+				window.scrollTo(0,0);
+				ARC.donationAmount = totalAmount;
+			
+			
+		
+					if (ARC.donationAmount > 1.00){
+						$('#howMuchMultiplePage').hide();
+						$('#addCardPage').show();
+
+	
+
+						ARC.cardArray = ARC.buildCards();
+		
+						if (ARC.cardArray == null || ARC.cardArray.length == 0){
+			
+							//Show new card stuff
+			
+							$('#dropdown').hide();
+							$('#cardInfo').show();
+
+						}else{
+		
+							$('#dropdown').show();
+							$('#cardInfo').hide();
+
+		
+
+							var select = document.getElementsByTagName('select')[0];
+							select.options.length = 0; // clear out existing items
+							for(var i=0; i < ARC.cardArray.length; i++) {
+  				  
+  								var card = ARC.cardArray[i];
+								var displayString = card["Type"] + '  ****' + card["Number"].slice(-4) ;
+								
+				
+    		  					select.options.add(new Option(displayString, i))
+							}
+		
+		   					 select.options.add(new Option("+ New Card", i))
+
+						}
+		
+					}else{
+						alert("Please enter an amount greater than $1.00");
+
+					}
+
+				
+			}else{
+				alert("Please choose an amount for at least one area.");
+			}
+		
+			
+		
+		} catch (e) {
+			//alert("Exception " + e);
+			
+		}
+		
+
+});
+
+
+
+
+
 $(document).ready(function() {
 	console.log("ready entered");
 	//RSKYBOX.log.debug("document.ready entered ...");
@@ -504,32 +848,47 @@ $(document).ready(function() {
 	ARC.baseUrl = ARC.serverUrl;
 
 
-	
-	$('#donePayment').hide();
-
+	ARC.multipleItems = ARC.buildMultiple();
 	$('div.name').text(ARC.name);
 
+	if (ARC.multipleItems.length > 1){
+		//show multiple donations page
+		
+		$('#selectOptions').show();
+		
+		setUpTable();
 
-	// show AddCard page
-	ARC.didComeFromPayment = "yes";
-	$('#confirmPaymentPage').hide();
-	$('#addCardPage').hide();
-	$('#howMuchPage').show();
 
-
-
-	var paramOne = ARC.urlParameters['quickOne'];
-	var paramTwo = ARC.urlParameters['quickTwo'];
-	var paramThree = ARC.urlParameters['quickThree'];
-	var paramFour = ARC.urlParameters['quickFour'];
+	}else{
+		
+		$('#donePayment').hide();
 
 
 
+		// show AddCard page
+		ARC.didComeFromPayment = "yes";
+		$('#confirmPaymentPage').hide();
+		$('#addCardPage').hide();
+		$('#howMuchPage').show();
 
-	$('#quickOne').text('$' + paramOne);
-	$('#quickTwo').text('$' + paramTwo);
-	$('#quickThree').text('$' + paramThree);
-	$('#quickFour').text('$' + paramFour);
+
+
+		var paramOne = ARC.urlParameters['quickOne'];
+		var paramTwo = ARC.urlParameters['quickTwo'];
+		var paramThree = ARC.urlParameters['quickThree'];
+		var paramFour = ARC.urlParameters['quickFour'];
+
+
+
+
+		$('#quickOne').text('$' + paramOne);
+		$('#quickTwo').text('$' + paramTwo);
+		$('#quickThree').text('$' + paramThree);
+		$('#quickFour').text('$' + paramFour);
+	
+	
+	}
+
 
 	
 
@@ -762,6 +1121,13 @@ $(document).on('click', '.addAmount', function(e){
 
 
 
+$(document).on('click', '.backmultiple', function(e){
+	console.log("back button clicked");
+	e.preventDefault();
+	$('#howMuchMultiplePage').hide();
+	$('#selectOptions').show();
+});
+
 
 $(document).on('click', '.backone', function(e){
 	console.log("back button clicked");
@@ -772,10 +1138,20 @@ $(document).on('click', '.backone', function(e){
 $(document).on('click', '.backtwo', function(e){
 	console.log("back button clicked");
 	e.preventDefault();
-
+	
 	$('#confirmPaymentPage').hide();
 	$('#addCardPage').hide();
-	$('#howMuchPage').show();
+	
+	if (ARC.multipleItems.length > 1){
+		
+		$('#howMuchMultiplePage').show();
+	}else{
+	
+	
+		$('#howMuchPage').show();
+		
+	}
+
 			
 });
 
@@ -912,4 +1288,42 @@ $(document).on('keyup', '.amount', function(e,v){
         resetVal();
     }
 });
+
+
+//Hack coming...
+
+$(document).on('keyup', '.amountmultiple', function(e,v){
+
+
+    if ((e.which >= 48) && (e.which <= 57)) {
+        number = String.fromCharCode(e.which);
+        $(this).val("");
+        value.push(number);
+        before.push(value[i]);
+        if (i > 1) {
+            after.push(value[i - 2]);
+            before.splice(0, 1);
+        }
+        var val_final = after.join("") + "." + before.join("");
+        $(this).val(addComma(val_final));
+        i++;
+        $(".amountmultiple").html(" " + $(this).val());
+
+    } else {
+        resetVal();
+    }
+    
+    
+});
+
+
+$(document).on('click', '.amountmultiple', function(e){
+
+	resetVal();
+   
+    
+    
+});
+
+
 

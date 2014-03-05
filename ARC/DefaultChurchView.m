@@ -25,9 +25,18 @@
 @implementation DefaultChurchView
 
 
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    
+
+}
 -(void)viewWillAppear:(BOOL)animated{
     
     @try {
+        
+        
+        
+        
         self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
         [[NSURLCache sharedURLCache] removeAllCachedResponses];
     }
@@ -109,6 +118,14 @@
         self.didFinishCards = NO;
         ArcClient *tmp = [[ArcClient alloc] init];
         [tmp getListOfCreditCards];
+        
+        //show "create account" view if they have none
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] == 0) {
+            //guest
+            self.guestCreateAccountView.hidden = NO;
+            
+        }
+
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"DefaultChurchView.webComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -142,7 +159,8 @@
 - (void)viewDidLoad
 {
     @try {
-        
+        self.guestCreateAccountFrontView.layer.cornerRadius = 5.0;
+
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         [self.loadingViewController stopSpin];
@@ -156,6 +174,10 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(becameActive:)
                                                      name:UIApplicationDidBecomeActiveNotification object:nil];
+        
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateComplete:) name:@"updateGuestCustomerNotification" object:nil];
+        
+        
         self.creditCardArray = [NSMutableArray array];
         ArcClient *tmp = [[ArcClient alloc] init];
         [tmp getListOfCreditCards];
@@ -771,13 +793,7 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    
-    
     @try {
-        
-        
-        
-        
         
         int x = 0;
         if (self.haveDwolla) {
@@ -900,6 +916,188 @@
      }
      
      
+    
+}
+
+
+- (IBAction)guestCreateAccountSubmitAction {
+    
+    @try {
+        if ([self.guestCreateAccountEmailText.text length] == 0 || [self.guestCreateAccountPasswordText.text length] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"Please fill out both email and password before submitting." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else if ([self.guestCreateAccountPasswordText.text length] < 5){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Too Short" message:@"Password must be at least 5 characters." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            
+        }else if (![self validateEmail:self.guestCreateAccountEmailText.text]){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email" message:@"Please enter a valid email address." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            
+        }else{
+            [self runRegister];
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.guestCreateAccountSubmitAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+   
+}
+- (IBAction)guestCreateAccountCancelAction {
+    
+    self.guestCreateAccountView.hidden = YES;
+    
+    [self.guestCreateAccountEmailText resignFirstResponder];
+    [self.guestCreateAccountPasswordText resignFirstResponder];
+}
+- (IBAction)endText {
+}
+
+- (BOOL) validateEmail: (NSString *) candidate {
+    
+    @try {
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+        
+        return [emailTest evaluateWithObject:candidate];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.validateEmail" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return NO;
+        
+    }
+    
+    
+}
+
+
+-(void)runRegister{
+    
+    @try {
+        
+        [self.loadingViewController startSpin];
+        self.loadingViewController.displayText.text = @"Registering...";
+        
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+
+        
+        [tempDictionary setValue:self.guestCreateAccountEmailText.text forKey:@"eMail"];
+        [tempDictionary setValue:self.guestCreateAccountPasswordText.text forKey:@"Password"];
+        [tempDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"IsGuest"];
+        
+        
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        loginDict = tempDictionary;
+        
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp updateGuestCustomer:loginDict];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"DefaultChurchView.runRegister" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+    
+}
+
+
+
+-(void)updateComplete:(NSNotification *)notification{
+    @try {
+        
+        
+        [self.loadingViewController stopSpin];
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        //NSLog(@"ResponseInfo: %@", responseInfo);
+        
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        BOOL isAlreadyRegistered = NO;
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            //NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] objectAtIndex:0];
+            
+            self.guestCreateAccountView.hidden = YES;
+            [self.guestCreateAccountEmailText resignFirstResponder];
+            [self.guestCreateAccountPasswordText resignFirstResponder];
+            
+            NSString *newToken = [responseInfo valueForKey:@"Results"];
+            
+            
+            //NSLog(@"NewToken: %@", newToken);
+            
+            //Successful conversion from guest->customer
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank your for registering, email receipts will now be sent to your address." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *guestId = [prefs valueForKey:@"guestId"];
+            //NSString *guestToken = [prefs valueForKey:@"guestToken"];
+            
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [mainDelegate insertCustomerWithId:guestId andToken:newToken];
+            
+            
+            //Convert Guest Id/Token to customer Id/Token
+            
+            [prefs setValue:self.guestCreateAccountEmailText.text forKey:@"customerEmail"];
+            [prefs setValue:guestId forKey:@"customerId"];
+            [prefs setValue:newToken forKey:@"customerToken"];
+            
+            [prefs setValue:@"" forKey:@"guestId"];
+            [prefs setValue:@"" forKey:@"guestToken"];
+            
+            [prefs synchronize];
+            
+            self.didFinishCards = NO;
+            ArcClient *tmp = [[ArcClient alloc] init];
+            [tmp getListOfCreditCards];
+            
+            
+            
+        } else if([status isEqualToString:@"error"]){
+            
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            
+            if(errorCode == 103) {
+                isAlreadyRegistered = YES;
+            } else {
+                errorMsg = @"Unable to register account, please try again.";
+            }
+            
+            
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = @"Unable to register account, please try again.";
+        }
+        
+        if (isAlreadyRegistered) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email In Use" message:@"The email address you entered is already being used.  If you already have an account, please sign in." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else{
+            if([errorMsg length] > 0) {
+                // self.errorLabel.text = errorMsg;
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DefaultChurchView.updateComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
     
 }
 

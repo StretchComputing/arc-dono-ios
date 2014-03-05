@@ -14,11 +14,13 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "SteelfishLabel.h"
 #import "LoadingViewController.h"
+#import "SteelfishTextFieldCreditCardiOS6.h"
 
 @class  LoadingViewController;
 
 @interface DefaultChurchView : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
+@property (nonatomic, strong) IBOutlet UIView *guestCreateAccountView;
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *makeDonationButton;
@@ -65,5 +67,15 @@
 
 -(IBAction)websiteAction;
 
+
+//guestcreateaccount
+- (IBAction)guestCreateAccountCancelAction;
+
+@property (strong, nonatomic) IBOutlet UIView *guestCreateAccountFrontView;
+- (IBAction)guestCreateAccountSubmitAction;
+@property (strong, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *guestCreateAccountEmailText;
+
+@property (strong, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *guestCreateAccountPasswordText;
+- (IBAction)endText;
 
 @end
