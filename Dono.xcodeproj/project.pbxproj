@@ -191,6 +191,7 @@
 		90AD406A17CE63090053239E /* upChalkArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AD402A17CE63090053239E /* upChalkArrow.png */; };
 		90B01D1915A1308E005FCCCF /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D1615A1308E005FCCCF /* FBEncryptorAES.m */; };
 		90B01D1A15A1308E005FCCCF /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D1815A1308E005FCCCF /* NSData+Base64.m */; };
+		90B2AC1B18CA4D7600D61AF0 /* PaymentOptionsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B2AC1A18CA4D7600D61AF0 /* PaymentOptionsWebViewController.m */; };
 		90B50D8F17E257F8000958E3 /* LeftNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B50D8E17E257F8000958E3 /* LeftNavigationController.m */; };
 		90B6B0B715994A0B005E4BCB /* RegisterNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */; };
 		90B6B0FD159A1D6C005E4BCB /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0FC159A1D6C005E4BCB /* Merchant.m */; };
@@ -497,6 +498,8 @@
 		90B01D1615A1308E005FCCCF /* FBEncryptorAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
 		90B01D1715A1308E005FCCCF /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		90B01D1815A1308E005FCCCF /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		90B2AC1918CA4D7600D61AF0 /* PaymentOptionsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentOptionsWebViewController.h; sourceTree = "<group>"; };
+		90B2AC1A18CA4D7600D61AF0 /* PaymentOptionsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentOptionsWebViewController.m; sourceTree = "<group>"; };
 		90B50D8D17E257F8000958E3 /* LeftNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftNavigationController.h; sourceTree = "<group>"; };
 		90B50D8E17E257F8000958E3 /* LeftNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftNavigationController.m; sourceTree = "<group>"; };
 		90B6B0B515994A0B005E4BCB /* RegisterNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterNavigation.h; sourceTree = "<group>"; };
@@ -781,6 +784,8 @@
 				907E239818299496001E9BC8 /* DefaultChurchView.m */,
 				90484D2B1894847900237DE3 /* DefaultWebViewController.h */,
 				90484D2C1894847900237DE3 /* DefaultWebViewController.m */,
+				90B2AC1918CA4D7600D61AF0 /* PaymentOptionsWebViewController.h */,
+				90B2AC1A18CA4D7600D61AF0 /* PaymentOptionsWebViewController.m */,
 				903109F118A7C05500C21F6F /* DonateWebViewController.h */,
 				903109F218A7C05500C21F6F /* DonateWebViewController.m */,
 				90B50D8D17E257F8000958E3 /* LeftNavigationController.h */,
@@ -1318,6 +1323,7 @@
 				9081521515E7D10900211C37 /* Reachability.m in Sources */,
 				9081522215E7D77900211C37 /* InitialController.m in Sources */,
 				9081522515E817E700211C37 /* RegisterViewNew.m in Sources */,
+				90B2AC1B18CA4D7600D61AF0 /* PaymentOptionsWebViewController.m in Sources */,
 				90B50D8F17E257F8000958E3 /* LeftNavigationController.m in Sources */,
 				9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */,
 				90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */,

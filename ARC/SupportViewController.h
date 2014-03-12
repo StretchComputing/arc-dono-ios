@@ -30,5 +30,6 @@
 - (IBAction)showDonationOptionsChanged;
 @property (strong, nonatomic) IBOutlet UISwitch *defaultChurchSwitch;
 - (IBAction)defaultChurchChanged;
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
 @end

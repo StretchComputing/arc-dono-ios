@@ -281,6 +281,12 @@ BOOL isIos7;
         
         NSString *successOrFailure = [[url absoluteString] stringByReplacingOccurrencesOfString:@"mydono://" withString:@""];
         
+        if ([successOrFailure rangeOfString:@"cards"].location != NSNotFound) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"cardsDone" object:self userInfo:nil];
+            return YES;
+        }
+        
         if ([successOrFailure rangeOfString:@"cancel"].location != NSNotFound) {
             
             NSDictionary *userInfo = @{@"result": @"cancel"};

@@ -119,12 +119,15 @@
         ArcClient *tmp = [[ArcClient alloc] init];
         [tmp getListOfCreditCards];
         
-        //show "create account" view if they have none
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] == 0) {
-            //guest
-            self.guestCreateAccountView.hidden = NO;
-            
+        if ([[[notification valueForKey:@"userInfo"] valueForKey:@"result"] isEqualToString:@"success"]) {
+            //show "create account" view if they have none
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] == 0) {
+                //guest
+                self.guestCreateAccountView.hidden = NO;
+                
+            }
         }
+       
 
     }
     @catch (NSException *exception) {
@@ -688,6 +691,15 @@
                 LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
                 [tmp profileSelected];
             }
+        }else if (alertView == self.areYouSureAlert){
+            
+            if (buttonIndex == 0) {
+                self.guestCreateAccountView.hidden = YES;
+                
+                [self.guestCreateAccountEmailText resignFirstResponder];
+                [self.guestCreateAccountPasswordText resignFirstResponder];
+            }
+            
         }else{
             //Help Alert
             
@@ -949,10 +961,22 @@
 }
 - (IBAction)guestCreateAccountCancelAction {
     
-    self.guestCreateAccountView.hidden = YES;
     
-    [self.guestCreateAccountEmailText resignFirstResponder];
-    [self.guestCreateAccountPasswordText resignFirstResponder];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"hasShownAreYouSure"] length] == 0) {
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasShownAreYouSure"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        self.areYouSureAlert = [[UIAlertView alloc] initWithTitle:@"Remain Anonymous?" message:@"Are you sure you want to remain anonymous?  For tax purposes, we reccomend you sign up so you can receive email receipts." delegate:self cancelButtonTitle:@"Stay Anonymous" otherButtonTitles:@"Sign Up!", nil];
+        [self.areYouSureAlert show];
+        
+    }else{
+        self.guestCreateAccountView.hidden = YES;
+        
+        [self.guestCreateAccountEmailText resignFirstResponder];
+        [self.guestCreateAccountPasswordText resignFirstResponder];
+    }
+ 
 }
 - (IBAction)endText {
 }

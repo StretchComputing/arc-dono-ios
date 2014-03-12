@@ -284,7 +284,7 @@ NSString *const CLOSED_STATUS = @"closed";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         
-        NSLog(@"Basic Auth: %@", basicAuth);
+        //NSLog(@"Basic Auth: %@", basicAuth);
         
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         

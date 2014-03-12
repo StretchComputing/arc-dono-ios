@@ -1281,42 +1281,43 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="77" sectionHeaderHeight="22" sectionFooterHeight="22" id="4sj-kI-itj">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="73" sectionHeaderHeight="22" sectionFooterHeight="22" id="4sj-kI-itj">
                                 <rect key="frame" x="0.0" y="90" width="320" height="478"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="churchCell" rowHeight="99" id="baI-XM-mZy">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="99"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="churchCell" rowHeight="70" id="baI-XM-mZy">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="baI-XM-mZy" id="Bbt-yv-nwI">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dYF-3P-faF">
-                                                    <rect key="frame" x="9" y="35" width="84" height="55"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" id="UXg-wc-FZK" customClass="SteelfishBoldLabel">
-                                                    <rect key="frame" x="7" y="10" width="307" height="21"/>
+                                                <view tag="6" contentMode="scaleToFill" id="CDS-Bt-0Ig">
+                                                    <rect key="frame" x="7" y="10" width="54" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dYF-3P-faF">
+                                                            <rect key="frame" x="-15" y="0.0" width="84" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" id="UXg-wc-FZK" customClass="SteelfishBoldLabel">
+                                                    <rect key="frame" x="66" y="17" width="250" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pGm-km-Uao" customClass="SteelfishLabel">
-                                                    <rect key="frame" x="101" y="41" width="209" height="21"/>
+                                                    <rect key="frame" x="66" y="35" width="250" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="48f-ru-6KH" customClass="SteelfishLabel">
-                                                    <rect key="frame" x="101" y="59" width="210" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" id="9b8-Pg-nbO">
-                                                    <rect key="frame" x="20" y="98" width="280" height="1"/>
+                                                    <rect key="frame" x="20" y="69" width="280" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -2090,6 +2091,7 @@
                     <connections>
                         <outlet property="backView" destination="dMb-Wd-AmL" id="7vF-yN-zDK"/>
                         <outlet property="defaultChurchSwitch" destination="TtD-8g-aPw" id="vnS-UK-OLq"/>
+                        <outlet property="myTableView" destination="GAU-SV-aPi" id="txx-nT-Ltz"/>
                         <outlet property="showDonationOptionsSwitch" destination="GWh-EN-Yhc" id="IOJ-Wg-03G"/>
                         <outlet property="topLineView" destination="Y1T-tM-xnE" id="Z9X-MX-VHe"/>
                         <outlet property="versionLabel" destination="Dod-d5-vFi" id="V9M-tl-eE1"/>
@@ -2459,7 +2461,7 @@
                                                 <rect key="frame" x="201" y="229" width="72" height="51"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <state key="normal" title="Submit">
+                                                <state key="normal" title="Sign Up!">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -2469,15 +2471,14 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b3c-Bm-ZRA">
-                                                <rect key="frame" x="7" y="229" width="72" height="51"/>
+                                                <rect key="frame" x="10" y="229" width="77" height="51"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="Cancel">
+                                                <state key="normal" title="No Thanks">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="cancelSignup" destination="DKW-N7-1fV" eventType="touchUpInside" id="kn2-pG-das"/>
                                                     <action selector="guestCreateAccountCancelAction" destination="htE-Un-nM6" eventType="touchUpInside" id="Jqe-8O-rBt"/>
                                                 </connections>
                                             </button>
@@ -2499,10 +2500,11 @@
                                                     <action selector="endText" destination="htE-Un-nM6" eventType="editingDidEndOnExit" id="B3z-KJ-IOk"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you create an account, you can receive email receipts of your transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p09-6p-bFN" customClass="SteelfishLabel">
-                                                <rect key="frame" x="13" y="160" width="265" height="56"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p09-6p-bFN" customClass="SteelfishLabel">
+                                                <rect key="frame" x="5" y="158" width="279" height="72"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <string key="text">If you choose to remain a guest, all of your donations will be made anonymously.  You will also not be able to receive email notifications.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -2833,6 +2835,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ZZ-Ui-cKr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2903" y="1075"/>
+        </scene>
+        <!--Payment Options Web View Controller-->
+        <scene sceneID="NFv-L1-pQL">
+            <objects>
+                <viewController storyboardIdentifier="paymentoptions" id="t3Q-aV-981" customClass="PaymentOptionsWebViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N9P-he-q7y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Payment Options..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x01-Yg-cNH" customClass="SteelfishLabel">
+                                <rect key="frame" x="0.0" y="150" width="320" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <webView contentMode="scaleToFill" id="w9u-aY-CZy">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.94000000000000006" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.94000000000000006" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="EUD-hu-CZJ"/>
+                    <connections>
+                        <outlet property="webView" destination="w9u-aY-CZy" id="g5f-Jx-8AK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CNX-0z-mxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="369" y="-1352"/>
         </scene>
     </scenes>
     <resources>

@@ -78,7 +78,7 @@
     @try {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"We experienced an error loading the donation view, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self performSelector:@selector(goBack) withObject:Nil afterDelay:0.6];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"DonateWebViewController.webViewDidFailWithError" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -86,4 +86,13 @@
     }
    
 }
+
+
+
+- (void)goBack {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 @end

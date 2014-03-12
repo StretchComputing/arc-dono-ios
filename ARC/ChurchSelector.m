@@ -180,13 +180,7 @@
   
     
     @try {
-        
-        
  
-  
-        
-    
-        
         //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Home"];
         // self.navigationItem.titleView = navLabel;
         
@@ -864,15 +858,16 @@
         SteelfishBoldLabel *nameLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
         SteelfishLabel *adrLabel = (SteelfishLabel *)[cell.contentView viewWithTag:3];
         SteelfishLabel *adrLabel2 = (SteelfishLabel *)[cell.contentView viewWithTag:4];
+        UIView *backImageView = (UIView *)[cell.contentView viewWithTag:6];
 
         UIImageView *merchImage = (UIImageView *)[cell.contentView viewWithTag:1];
         
         
-     
+        backImageView.layer.masksToBounds = YES;
+        backImageView.layer.cornerRadius = 3.0;
     
         
         nameLabel.text = tmpMerchant.name;
-        
         merchImage.layer.masksToBounds = YES;
         merchImage.layer.cornerRadius = 3.0;
         
@@ -1004,8 +999,8 @@
         
         
         if (tmpMerchant.address) {
-            adrLabel.text = [NSString stringWithFormat:@"%@", tmpMerchant.address];
-            adrLabel2.text = [NSString stringWithFormat:@"%@, %@ %@", tmpMerchant.city, tmpMerchant.state, tmpMerchant.zipCode];
+            adrLabel.text = [NSString stringWithFormat:@"%@  -  %@, %@", tmpMerchant.address, tmpMerchant.city, tmpMerchant.state];
+            adrLabel2.text = @"";
         }else{
             adrLabel.text = @"201 North Ave, Chicago, IL";
         }
@@ -1021,7 +1016,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 70;
 }
 /*
  - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

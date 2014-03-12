@@ -14,6 +14,7 @@
 #import "ArcClient.h"
 #import "LeftViewController.h"
 #import "LatoRegularLabel.h"
+#import "PaymentOptionsWebViewController.h"
 
 @interface SupportViewController ()
 
@@ -25,6 +26,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     @try {
+        
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+
+        
+        
         if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"defaultChurchId"] length] > 0) {
             self.defaultChurchSwitch.on = YES;
         }else{
@@ -37,6 +43,21 @@
         }else{
             self.showDonationOptionsSwitch.on = YES;
         }
+        
+        
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                @try {
+                    NSIndexPath *myPath = [NSIndexPath indexPathForRow:j inSection:i];
+                    [self.myTableView deselectRowAtIndexPath:myPath animated:NO];
+                }
+                @catch (NSException *exception) {
+                    
+                }
+            }
+        }
+        
+        
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"SupportViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -93,7 +114,7 @@
 	
    
     if (section == 0) {
-        return 1;
+        return 2;
     }else if (section == 1){
         return 3;
     }
@@ -164,8 +185,14 @@
             
         }else if (section == 0){
             
-            SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
-            supportLabel.text = @"View Donation History";
+            if (row == 0) {
+                SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+                supportLabel.text = @"Donation History";
+            }else{
+                SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+                supportLabel.text = @"Payment Options";
+            }
+        
         }
        
         
@@ -224,8 +251,15 @@
         }else if (section == 0){
             //go donation history
             
-            UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentHistory"];
-            [self.navigationController pushViewController:tmp animated:YES];
+            if (row == 0) {
+                UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentHistory"];
+                [self.navigationController pushViewController:tmp animated:YES];
+            }else{
+                
+                PaymentOptionsWebViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentoptions"];
+                [self.navigationController pushViewController:tmp animated:YES];
+            }
+           
            
         }
     }

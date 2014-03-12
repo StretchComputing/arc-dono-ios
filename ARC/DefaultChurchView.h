@@ -78,4 +78,5 @@
 @property (strong, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *guestCreateAccountPasswordText;
 - (IBAction)endText;
 
+@property (nonatomic, strong) UIAlertView *areYouSureAlert;
 @end

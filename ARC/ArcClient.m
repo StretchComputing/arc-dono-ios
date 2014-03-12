@@ -1061,7 +1061,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
       //  NSLog(@"URL: %@", pingUrl);
        // NSLog(@"requestString: %@", requestString);
-        
+       
+      //  NSLog(@"Auth Header: %@", [self authHeader]);
         
         NSString *eventString = [NSString stringWithFormat:@"getListOfCreditCards - request url: %@", pingUrl];
         [rSkybox addEventToSession:eventString];

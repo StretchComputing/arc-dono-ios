@@ -1,0 +1,652 @@
+html, body {
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+
+table.options {
+	width: 100%;
+	font-family:latoBold;
+
+	table-layout:fixed;
+	border-collapse:collapse;
+}
+
+table.options tr.clickRow {
+	height: 45px;
+	//font-weight: bold;
+	font-size: 18px;
+    //font-family:latoLight;
+   // background-color: #F0F0F0;
+	border-bottom: 1px solid gray;
+	
+
+
+
+}
+
+table.options td.column1 {
+
+	width: 85%;
+	padding-left:12px;
+}
+
+
+table.options td.column2 {
+
+	width: 15%;
+	max-height:45px;
+}
+
+
+
+table.multiple {
+	width: 100%;
+	font-family:latoBold;
+
+	table-layout:fixed;
+	border-collapse:collapse;
+}
+
+table.multiple tr.multipleRow {
+	height: 45px;
+	//font-weight: bold;
+	font-size: 16px;
+    //font-family:latoLight;
+   // background-color: #F0F0F0;
+	border-bottom: 1px solid gray;
+	float:left;
+	width:100%;
+	
+
+
+
+}
+
+div.deleteImage{
+
+	float:right;
+	width:40px;
+	height:40px;
+	padding-top:7px;
+
+}
+
+table.multiple td.column1 {
+
+	width: 100%;
+	padding-left:5px;
+}
+
+
+
+
+
+
+table.title {
+	width: 100%;
+	font-size: 12px;
+
+	table-layout:fixed;
+	border-collapse:collapse;
+
+	/*border: 1px solid gray;*/
+}
+
+table.title tr.row1 {
+	height: 40px;
+	//font-weight: bold;
+	font-size: 22px;
+    font-family:latoLight;
+    background-color: #F0F0F0;
+
+
+}
+
+table.title tr.row2 {
+	height: 22px;
+	font-size: 13px;
+	background-color: #f57516;
+    color:white;
+    //font-weight: normal;
+
+	text-align: center;
+    font-family:latoLight;
+
+}
+
+table.title tr.row3 {
+	height: 22px;
+	font-size: 14px;
+	background-color: #f57516;
+	//background-color: #FF005A;
+
+    color:white;
+    //font-weight: normal;
+
+	text-align: center;
+    font-family:latoBold;
+
+}
+
+table.title tr.row4 {
+	height: 0px;
+	background-color: #C8C8C8;
+    color:C8C8C8;
+
+}
+
+
+
+
+table.title td.column1 {
+
+	width: 10%;
+}
+
+table.title td.column2 {
+	width: 80%;
+	text-align: center;
+}
+
+table.title td.column3 {
+	width: 10%;
+
+}
+
+table.tally {
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 16px;
+	table-layout:fixed;
+	/*border-collapse:collapse;*/
+	/*border: 1px solid gray;*/
+}
+
+table.tally tr.row1 {
+	height: 80px;
+	font-size: 22px;
+    font-family:latoBold;
+
+}
+
+table.tally tr.row2 {
+	height: 10px;
+	font-size: 22px;
+    font-family:latoBold;
+
+}
+
+table.tally tr.row3 {
+	height: 100px;
+	text-align: center;
+}
+
+table.tally td.column1 {
+	width: 5%;
+}
+
+table.tally td.column2 {
+	width: 40%;
+}
+
+table.tally td.column3 {
+	width: 45%;
+    text-align: right;
+}
+
+table.tally td.column4 {
+	width: 10%;
+}
+
+div.back {
+	color: orange;
+}
+
+div.confirm {
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 180px;
+    height: 40px;
+    line-height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+div.finalMessage{
+	text-align:center;
+	font-family:latoLight;
+
+}
+
+
+div.fee {
+
+	color: #AFAFAF;
+	font-size: 13px;
+    font-family:latoLight;
+    
+    margin-left: 15%;
+	margin-right: 15%;
+	text-align: center;
+	
+	
+}
+
+
+div.quickOutter{
+
+	height: 40px;
+	width: 290px;
+	margin: 0 auto;
+	
+	
+
+}
+
+select.selecter{
+
+	width:200px;
+	font-size:20px;
+	
+}
+div.dropdown{
+
+	width: 200px;
+	margin: 0 auto;
+	
+}
+
+
+div.imageClassOuter{
+
+	width: 300px;
+	margin: 0 auto;
+	
+	
+}
+
+div.imageClassOuterNoCards{
+
+	width: 200px;
+	margin: 0 auto;
+	
+	
+}
+
+div.imageSubClass{
+
+/*
+	color:#505150;
+	background-color:#505150;
+	width:180px;
+	margin-top:2px;
+	height:1px;
+	*/
+	
+	
+}
+
+
+div.imageClass{
+
+	color:#505150;
+	font-size: 22px;
+    font-family:latoBold;
+	
+	
+}
+
+
+div.loadingClassAdding{
+	color:#646464;
+	font-size: 18px;
+    font-family:latoBold;
+    margin: 0 auto;
+    width: 125px;
+}
+
+
+div.loadingClassDeleting{
+	color:#646464;
+	font-size: 18px;
+    font-family:latoBold;
+    margin: 0 auto;
+    width: 138px;
+}
+
+
+div.loadingClassNoCards{
+	color:#646464;
+	font-size: 18px;
+    font-family:latoBold;
+    margin: 0 auto;
+    width: 155px;
+}
+div.loadingClass{
+	
+	color:#646464;
+	font-size: 18px;
+    font-family:latoBold;
+    margin: 0 auto;
+    width: 190px;
+
+
+}
+
+div.loadingImage{
+    margin: 0 auto;
+    width: 50px;
+
+}
+
+div.quickMultiple {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 55px;
+    height: 21px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+	margin-right:10px;
+	margin-left:6px;
+
+	margin-bottom:10px;
+	margin-top:10px;
+	padding-bottom:18px;
+
+}
+
+
+
+div.quickOne {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 60px;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+}
+
+div.quickTwo {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 60px;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+	margin-left: 10px;
+
+}
+
+div.quickThree {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 60px;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+	margin-left: 10px;
+
+}
+
+div.quickFour {
+	color:#05a842;
+	font-size: 18px;
+    font-family:latoBold;
+	background-color: #FFFFFF;
+	border:2px solid #05a842;
+    border-radius:10px;
+	width: 60px;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	float:left;
+	margin-left: 10px;
+
+}
+
+
+div.addAmount {
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 150px;
+    height: 40px;
+    line-height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+div.selectOptions {
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 150px;
+    height: 40px;
+    line-height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+
+div.selectMultiple {
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 150px;
+    height: 40px;
+    line-height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+
+div.addCard {
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 150px;
+    height: 40px;
+    line-height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+div.addNewCard {
+	//color: #05a842;
+	color:#FFFFFF;
+	font-size: 18px;
+    font-family:latoLight;
+	background-color: #05a842;
+	//border:2px solid #05a842;
+    border-radius:8px;
+	width: 150px;
+    height: 40px;
+    line-height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+input.cardNumber{
+
+	font-size: 17px;
+    font-family:latoLight;
+    width: 235px;
+    border-radius:4px;
+    padding: 3px 3px;
+    	height:25px;
+
+}
+
+div.colummultiplelabel{
+
+	float:left;
+	width:220px;
+	padding-top:1px;
+	margin-top:10px;
+	margin-left:20px;
+
+
+}
+input.amountmultiple{
+
+	font-size: 17px;
+	height:25px;
+    font-family:latoLight;
+    width: 75px;
+    border-radius:4px;
+	margin-left:0px;
+	margin-top:10px;
+}
+
+input.amount{
+
+	font-size: 17px;
+	height:25px;
+    font-family:latoLight;
+    width: 135px;
+    border-radius:4px;
+    padding: 3px 3px;
+}
+
+input.expirationDate{
+
+	font-size: 17px;
+    font-family:latoLight;
+    width: 110px;
+    border-radius:4px;
+    padding: 3px 3px;
+    	height:25px;
+
+
+}
+
+div.saveCard{
+	
+	width:230px;
+	margin: 0 auto;
+	color:#646464;
+
+}
+
+div.saveCheckLabel{
+
+	font-size: 16px;
+    font-family:latoLight;
+    float:right;
+}
+
+input.saveCheck{
+	color:#646464;
+
+		float:left;
+
+
+}
+
+input[type=checkbox] {
+    -webkit-transform: scale(1.5,1.5);
+}
+input.ccv{
+
+	font-size: 17px;
+    font-family:latoLight;
+    width: 110px;
+    border-radius:4px;
+    padding: 3px 3px;
+    	height:25px;
+
+
+}
+
+
+
+
+div.amountInfo{
+
+ font-family:latoLight;
+  font-size: 20px;
+
+  width: 170px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.cardInfo
+{
+  font-family:latoLight;
+  font-size: 20px;
+
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+
+
+@font-face {
+  font-family: latoBold;
+  src: url("Lato-Bol.ttf");
+
+  }
+  
+  @font-face {
+  font-family: latoLight;
+  src: url("Lato-Lig.ttf");
+
+  }
+
+
+
+
+
