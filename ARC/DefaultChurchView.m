@@ -1103,7 +1103,7 @@
             
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             
-            if(errorCode == 103) {
+            if(errorCode == 103 || errorCode == 106) {
                 isAlreadyRegistered = YES;
             } else {
                 errorMsg = @"Unable to register account, please try again.";
