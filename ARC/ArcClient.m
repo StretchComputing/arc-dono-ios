@@ -1758,12 +1758,29 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(NSDictionary *) getUpdateGuestCustomerResponse:(NSDictionary *)response {
     @try {
         
+
+        
         BOOL success = [[response valueForKey:@"Success"] boolValue];
         
         NSDictionary *responseInfo;
+        
+        
         if (success){
-                
-            responseInfo = @{@"status": @"success", @"Results": [response valueForKey:@"Results"] };
+            
+            @try {
+                if ([[response valueForKey:@"ErrorCodes"] count] > 0) {
+                    NSString *status = @"error";
+                    int errorCode = [self getErrorCode:response];
+                    responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                    return responseInfo;
+                }
+            }
+            @catch (NSException *exception) {
+
+            }
+            
+            
+            responseInfo = @{@"status": @"success", @"Results":response};
         } else {
             NSString *status = @"error";
             int errorCode = [self getErrorCode:response];
@@ -1772,7 +1789,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         return responseInfo;
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.updateGuestCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.getUpdateGuestCustomerResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @{};
         
     }
