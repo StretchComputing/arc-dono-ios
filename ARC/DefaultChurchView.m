@@ -694,6 +694,10 @@
         }else if (alertView == self.areYouSureAlert){
             
             if (buttonIndex == 0) {
+                
+                [ArcClient trackEvent:@"GUEST_CREATE_ACCOUNT_CANCEL_SECONDARY"];
+
+                
                 self.guestCreateAccountView.hidden = YES;
                 
                 [self.guestCreateAccountEmailText resignFirstResponder];
@@ -935,6 +939,10 @@
 - (IBAction)guestCreateAccountSubmitAction {
     
     @try {
+        
+        [ArcClient trackEvent:@"GUEST_CREATE_ACCOUNT_ATTEMPT"];
+        
+        
         if ([self.guestCreateAccountEmailText.text length] == 0 || [self.guestCreateAccountPasswordText.text length] == 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"Please fill out both email and password before submitting." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
@@ -961,13 +969,15 @@
 }
 - (IBAction)guestCreateAccountCancelAction {
     
+    [ArcClient trackEvent:@"GUEST_CREATE_ACCOUNT_CANCEL_INITIAL"];
+
     
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"hasShownAreYouSure"] length] == 0) {
         
         [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasShownAreYouSure"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        self.areYouSureAlert = [[UIAlertView alloc] initWithTitle:@"Remain Anonymous?" message:@"Are you sure you want to remain anonymous?  For tax purposes, we reccomend you sign up so you can receive email receipts." delegate:self cancelButtonTitle:@"Stay Anonymous" otherButtonTitles:@"Sign Up!", nil];
+        self.areYouSureAlert = [[UIAlertView alloc] initWithTitle:@"Remain Anonymous?" message:@"Are you sure you want to remain anonymous?  For tax purposes, we recommend you sign up so you can receive email receipts." delegate:self cancelButtonTitle:@"Stay Anonymous" otherButtonTitles:@"Sign Up!", nil];
         [self.areYouSureAlert show];
         
     }else{

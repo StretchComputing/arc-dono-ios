@@ -2118,17 +2118,23 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <action selector="endText" destination="cIn-zl-AWM" eventType="editingDidEndOnExit" id="e5A-eC-NjG"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email" minimumFontSize="17" id="lBe-Yv-Fg9" customClass="SteelfishTextFieldCreditCardiOS6">
                                                 <rect key="frame" x="7" y="52" width="251" height="49"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                                <connections>
+                                                    <action selector="endText" destination="cIn-zl-AWM" eventType="editingDidEndOnExit" id="Dxh-yg-fFY"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FKs-9m-POs" customClass="SteelfishLabel">
                                                 <rect key="frame" x="5" y="160" width="279" height="61"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <string key="text">If you choose to remain a guest, all of your donations will be made anonymously.  You will also not be able to receive email notifications.</string>
+                                                <string key="text">If you choose to remain a guest, all of your donations will be made anonymously.  You will also not be able to receive email receipts.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>

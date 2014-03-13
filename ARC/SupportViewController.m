@@ -224,15 +224,21 @@
             
             if (row == 0) {
                 //Help
+                [ArcClient trackEvent:@"SELECT_HELP"];
+
                 UIViewController *tutorial = [self.storyboard instantiateViewControllerWithIdentifier:@"InitTutorial"];
                 [self.navigationController pushViewController:tutorial animated:YES];
                 
             }else if (row == 1){
+                
+                [ArcClient trackEvent:@"SELECT_FEEDBACK"];
+
                 [self emailFeedbackAction];
                 
             }else{
                 
-                
+                [ArcClient trackEvent:@"SELECT_RATE"];
+
                 //rate
                 NSString *str = @"itms-apps://itunes.apple.com/app/id755467894?at=10l6dK";
                 
@@ -252,10 +258,14 @@
             //go donation history
             
             if (row == 0) {
+                
+                [ArcClient trackEvent:@"SELET_PAYMENT_HISTORY"];
+
                 UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentHistory"];
                 [self.navigationController pushViewController:tmp animated:YES];
             }else{
-                
+                [ArcClient trackEvent:@"SELET_PAYMENT_OPTIONS"];
+
                 PaymentOptionsWebViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentoptions"];
                 [self.navigationController pushViewController:tmp animated:YES];
             }

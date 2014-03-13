@@ -87,6 +87,8 @@
 
 -(void)merchantListComplete:(NSNotification *)notification{
     @try {
+        
+        
         self.emailText.enabled = YES;
         self.submitButton.enabled = YES;
         [self.loadingViewController stopSpin];
@@ -111,7 +113,10 @@
         }
         
         if([errorMsg length] > 0) {
-            self.errorLabel.text = errorMsg;
+           // self.errorLabel.text = errorMsg;
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Resetting Password" message:@"We experienced an error resetting your passcode.  Please try again, or contact customer support." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
         }
     }
     @catch (NSException *e) {

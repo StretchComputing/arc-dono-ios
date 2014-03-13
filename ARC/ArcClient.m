@@ -660,6 +660,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         //[request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
+        
+        //NSLog(@"RequestString: %@", requestString);
+        
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"getPasscode"];
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];

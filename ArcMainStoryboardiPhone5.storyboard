@@ -2503,7 +2503,7 @@
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p09-6p-bFN" customClass="SteelfishLabel">
                                                 <rect key="frame" x="5" y="158" width="279" height="72"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <string key="text">If you choose to remain a guest, all of your donations will be made anonymously.  You will also not be able to receive email notifications.</string>
+                                                <string key="text">If you choose to remain a guest, all of your donations will be made anonymously.  You will also not be able to receive email receipts.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
