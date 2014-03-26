@@ -30,11 +30,43 @@
     
 
 }
+
+-(void)setDonationSubLabel{
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+        self.donatingAsLabel.text = [NSString stringWithFormat:@"Donating as: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"]];
+    }else{
+        self.donatingAsLabel.text = @"You are currently donating anonymously.";
+    }
+}
+-(void)setRecurringLabels{
+    
+    if (self.recurringAmount == 0.0) {
+        self.recurringLabelTop.text = @"Recurring Donations";
+        self.recurringLabelBottom.text = @"Click to schedule weekly or monthly donations.";
+    }else{
+        self.recurringLabelTop.text = @"View Recurring Donations";
+        self.recurringLabelBottom.text = @"";
+    }
+    
+}
 -(void)viewWillAppear:(BOOL)animated{
     
     @try {
         
         
+        self.didGetRecurring = NO;
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKeyPath:@"customerEmail"] length] > 0) {
+            ArcClient *tmp = [[ArcClient alloc] init];
+            [tmp getListOfRecurringPayments];
+        }else{
+            self.didGetRecurring = YES;
+        }
+        
+        [self setRecurringLabels];
+        
+        [self setDonationSubLabel];
         
         
         self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
@@ -121,10 +153,8 @@
         
         if ([[[notification valueForKey:@"userInfo"] valueForKey:@"result"] isEqualToString:@"success"]) {
             //show "create account" view if they have none
-            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] == 0) {
-                //guest
-                self.guestCreateAccountView.hidden = NO;
-                
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0 && self.didJustRegister) {
+                //show the "complete your registration" form
             }
         }
        
@@ -162,6 +192,8 @@
 - (void)viewDidLoad
 {
     @try {
+        
+        self.anonymousReminderChecked = NO;
         self.guestCreateAccountFrontView.layer.cornerRadius = 5.0;
 
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
@@ -172,6 +204,12 @@
         
 
         [[NSNotificationCenter defaultCenter] removeObserver:self];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneGetRecurringPayments:) name:@"getRecurringPaymentsNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneDeleteRecurringPayment:) name:@"deleteRecurringPaymentNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneCreateRecurringPayment:) name:@"createRecurringPaymentNotification" object:nil];
+        
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webComplete:) name:@"webDone" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(creditCardsComplete:) name:@"creditCardNotification" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -336,20 +374,45 @@
     [self.navigationController.sideMenu toggleLeftSideMenu];
 }
 
+
+-(void)tryDonation{
+    
+    if (!self.didFinishCards) {
+        
+        self.loadingViewController.displayText.text = @"Loading Donation...";
+        [self.loadingViewController startSpin];
+        
+    }else{
+        [self goToWebPayment];
+        
+    }
+    
+    
+}
 - (IBAction)makeDonation:(id)sender {
     
     
     @try {
         
-        if (!self.didFinishCards) {
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+           
             
-            self.loadingViewController.displayText.text = @"Loading Donation...";
-            [self.loadingViewController startSpin];
-        
+            [self tryDonation];
         }else{
-            [self goToWebPayment];
+            
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"skipAnonymous"] length] == 0) {
+                
+                self.anonymousAlert = [[UIAlertView alloc] initWithTitle:@"Donate Anonymously?" message:@"If you make a donation before creating an account, it will be sent anonymously.  You will also not receive automatic email receipts of your transactions." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create An Account", @"Donate Anonymously", nil];
+                [self.anonymousAlert show];
+                
+            }else{
+                
+                [self tryDonation];
 
+            }
         }
+        
+        
         
     }
     @catch (NSException *exception) {
@@ -661,8 +724,8 @@
             [self performSegueWithIdentifier:@"goHistory" sender:self];
             
         }else{
-            self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users view their payment history. Select 'Go Profile' to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
-            [self.logInAlert show];
+            self.loginAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users view their payment history. Select 'Go Profile' to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
+            [self.loginAlert show];
         }
     }
     @catch (NSException *exception) {
@@ -683,25 +746,53 @@
     
     @try {
         
-        if (alertView == self.logInAlert) {
+        if (alertView == self.anonymousAlert) {
+            
+            if (buttonIndex == 2) {
+                [ArcClient trackEvent:@"GUEST_CHOOSE_DONATE_ANONYMOUSLY"];
+                
+                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"skipAnonymous"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                [self tryDonation];
+                
+                
+            }else if (buttonIndex == 1){
+                self.guestCreateAccountView.hidden = NO;
+                [self.guestCreateAccountEmailText becomeFirstResponder];
+              
+            }
+            
+        }else if (alertView == self.subscriptionAlert) {
+            
+        }
+        else if (alertView == self.loginAlert){
             
             if (buttonIndex == 1) {
-                //Go Profile
                 
-                LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
-                [tmp profileSelected];
+                self.guestCreateAccountView.hidden = NO;
+                
             }
+             
+             
+        }else if (alertView == self.registerSuccessAlert) {
+            
+            [self tryDonation];
         }else if (alertView == self.areYouSureAlert){
             
             if (buttonIndex == 0) {
                 
                 [ArcClient trackEvent:@"GUEST_CREATE_ACCOUNT_CANCEL_SECONDARY"];
 
+           
                 
-                self.guestCreateAccountView.hidden = YES;
+                [self tryDonation];
+            }else{
                 
-                [self.guestCreateAccountEmailText resignFirstResponder];
-                [self.guestCreateAccountPasswordText resignFirstResponder];
+                
+                self.guestCreateAccountView.hidden = NO;
+                
+                [self.guestCreateAccountEmailText becomeFirstResponder];
             }
             
         }else{
@@ -877,8 +968,28 @@
 
 - (IBAction)goAllChurches {
     
-    LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
-    [tmp newChurchAction];
+   // LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+    //[tmp newChurchAction];
+    
+    //Changed to recurring donations button
+    
+    if (self.recurringAmount == 0.0) {
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+            self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Recurring Donation" message:@"Would you like to set up a recurring donation?  Dono will auotmatically charge the card of your choice once a month, or once a week, based on your selection.  You can cancel your recurring donation at any time." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Schedule", nil];
+            [self.subscriptionAlert show];
+        }else{
+            self.loginAlert = [[UIAlertView alloc] initWithTitle:@"Not Logged In" message:@"Only registered users can sign up for recurring donations.  Would you like to create an account now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Sign Up", nil];
+            [self.loginAlert show];
+            
+        }
+        
+        
+    }else{
+        self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Cancel Recurring Donation" message:@"Would you like to remove your recurring donation?  Your card will no longer be charged, effective immediately." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Remove", nil];
+        [self.subscriptionAlert show];
+    }
+    
     
     
 }
@@ -969,23 +1080,12 @@
 }
 - (IBAction)guestCreateAccountCancelAction {
     
-    [ArcClient trackEvent:@"GUEST_CREATE_ACCOUNT_CANCEL_INITIAL"];
 
-    
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"hasShownAreYouSure"] length] == 0) {
-        
-        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasShownAreYouSure"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        self.areYouSureAlert = [[UIAlertView alloc] initWithTitle:@"Remain Anonymous?" message:@"Are you sure you want to remain anonymous?  For tax purposes, we recommend you sign up so you can receive email receipts." delegate:self cancelButtonTitle:@"Stay Anonymous" otherButtonTitles:@"Sign Up!", nil];
-        [self.areYouSureAlert show];
-        
-    }else{
+   
         self.guestCreateAccountView.hidden = YES;
         
         [self.guestCreateAccountEmailText resignFirstResponder];
         [self.guestCreateAccountPasswordText resignFirstResponder];
-    }
  
 }
 - (IBAction)endText {
@@ -1070,8 +1170,8 @@
             
             //Successful conversion from guest->customer
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank your for registering, email receipts will now be sent to your address." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+            self.registerSuccessAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank your for registering, email receipts will now be sent to your address." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [self.registerSuccessAlert show];
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             NSString *guestId = [prefs valueForKey:@"guestId"];
@@ -1093,9 +1193,9 @@
             
             [prefs synchronize];
             
-            self.didFinishCards = NO;
-            ArcClient *tmp = [[ArcClient alloc] init];
-            [tmp getListOfCreditCards];
+           // self.didFinishCards = NO;
+           // ArcClient *tmp = [[ArcClient alloc] init];
+           //  [tmp getListOfCreditCards];
             
             
             
@@ -1134,6 +1234,107 @@
     }
     
 }
+
+
+
+
+- (IBAction)anonymousCancelAction {
+    
+    self.anonymousAlertBackView.hidden = YES;
+}
+
+- (IBAction)anonymousDonateAction {
+    
+
+    self.anonymousAlertBackView.hidden = YES;
+
+    
+    if (self.anonymousReminderChecked) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"skipAnonymous"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    [ArcClient trackEvent:@"GUEST_CREATE_ACCOUNT_CANCEL_INITIAL"];
+
+    [self tryDonation];
+
+    
+    /*
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"hasShownAreYouSure"] length] == 0) {
+        
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasShownAreYouSure"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        self.areYouSureAlert = [[UIAlertView alloc] initWithTitle:@"Remain Anonymous?" message:@"Are you sure you want to remain anonymous?  For tax purposes, we recommend you sign up so you can receive email receipts." delegate:self cancelButtonTitle:@"Stay Anonymous" otherButtonTitles:@"Sign Up!", nil];
+        [self.areYouSureAlert show];
+
+    }else{
+        
+        [self tryDonation];
+
+        
+    }
+    */
+    
+   
+}
+
+- (IBAction)anonymousCreateAction {
+    
+    
+    if (self.anonymousReminderChecked) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"skipAnonymous"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    
+    self.anonymousAlertBackView.hidden = YES;
+
+    
+    self.guestCreateAccountView.hidden = NO;
+    [self.guestCreateAccountEmailText becomeFirstResponder];
+}
+
+
+- (IBAction)anonymousReminderCheckAction {
+    
+    if (self.anonymousReminderChecked) {
+        self.anonymousReminderChecked = NO;
+        self.anonymousCheckBox.image = [UIImage imageNamed:@"homeunchecked"];
+
+    }else{
+        self.anonymousReminderChecked = YES;
+        self.anonymousCheckBox.image = [UIImage imageNamed:@"homechecked"];
+    }
+}
+
+
+
+-(void)doneGetRecurringPayments:(NSNotification *)notification{
+    
+    
+    NSDictionary *userInfo = [notification valueForKeyPath:@"userInfo"];
+    NSLog(@"UserInfo: %@", userInfo);
+    
+    
+    //self.didGetRecurring = YES;
+    //[self.myTableView reloadData];
+    
+}
+
+-(void)doneDeleteRecurringPayment:(NSNotification *)notification{
+    
+    
+}
+
+
+-(void)doneCreateRecurringPayment:(NSNotification *)notification{
+    
+    
+}
+
+
 
 
 @end

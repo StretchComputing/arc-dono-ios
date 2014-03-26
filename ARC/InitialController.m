@@ -11,6 +11,8 @@
 #import "rSkybox.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ArcIdentifier.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import "UIImage+animatedGIF.h"
 @interface InitialController ()
 
 @end
@@ -18,98 +20,122 @@
 @implementation InitialController
 
 
--(void)viewDidAppear:(BOOL)animated{
+
+
+-(void)setupMovie{
     
-    @try {
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"donoIntro" ofType:@"gif"]];
+    
+    UIImage* mygif = [UIImage animatedImageWithAnimatedGIFURL:url];
+    
+    
+    self.myImageView.image = mygif;
+
+     
+    [self performSelector:@selector(finishSetup) withObject:nil afterDelay:2.2];
+
+}
+
+-(void)finishSetup{
+    self.loadingView.hidden = YES;
+    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.topLineView.layer.shadowRadius = 1;
+    self.topLineView.layer.shadowOpacity = 0.5;
+    
+    self.topView.layer.cornerRadius = 7.0;
+    
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString *customerId = [prefs stringForKey:@"customerId"];
+    NSString *customerToken = [prefs stringForKey:@"customerToken"];
+    
+    NSString *guestId = [prefs stringForKey:@"guestId"];
+    NSString *guestToken = [prefs stringForKey:@"guestToken"];
+    
+    
+    if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
+        //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
+        //self.autoSignIn = YES;
         
-        
-        self.loadingView.hidden = YES;
-        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.5;
-        
-        self.topView.layer.cornerRadius = 7.0;
-        
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        NSString *customerId = [prefs stringForKey:@"customerId"];
-        NSString *customerToken = [prefs stringForKey:@"customerToken"];
-        
-        NSString *guestId = [prefs stringForKey:@"guestId"];
-        NSString *guestToken = [prefs stringForKey:@"guestToken"];
-        
-        
-        if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
-            //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
-            //self.autoSignIn = YES;
-            
-            if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
-                
-                
-            }else{
-                /*
-                 NSString *identifier = [ArcIdentifier getArcIdentifier];
-                 
-                 
-                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-                 NSDictionary *loginDict = [[NSDictionary alloc] init];
-                 [ tempDictionary setObject:identifier forKey:@"userName"];
-                 [ tempDictionary setObject:identifier forKey:@"password"];
-                 
-                 loginDict = tempDictionary;
-                 ArcClient *client = [[ArcClient alloc] init];
-                 [client getGuestToken:loginDict];
-                 */
-            }
+        if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
             
             
-            ArcClient *tmp = [[ArcClient alloc] init];
-            [tmp updatePushToken];
+        }else{
+            
+            // NSString *identifier = [ArcIdentifier getArcIdentifier];
+            
+            
+            // NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+            // NSDictionary *loginDict = [[NSDictionary alloc] init];
+            // [ tempDictionary setObject:identifier forKey:@"userName"];
+            //[ tempDictionary setObject:identifier forKey:@"password"];
+            
+            // loginDict = tempDictionary;
+            //ArcClient *client = [[ArcClient alloc] init];
+            //[client getGuestToken:loginDict];
+            
+        }
+        
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp updatePushToken];
+        
+        UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
+        home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentModalViewController:home animated:YES];
+    }else{
+        
+        if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil) && [[[NSUserDefaults standardUserDefaults] valueForKey:@"didAgreeTerms"] length] > 0) {
+            //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+            //[self presentModalViewController:home animated:NO];
+            
+            //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
+            // [self presentModalViewController:home animated:NO];
             
             UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
             home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [self presentModalViewController:home animated:YES];
+            
         }else{
             
-            if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil) && [[[NSUserDefaults standardUserDefaults] valueForKey:@"didAgreeTerms"] length] > 0) {
-                //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
-                //[self presentModalViewController:home animated:NO];
-                
-                //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
-               // [self presentModalViewController:home animated:NO];
-                
-                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
-                home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                [self presentModalViewController:home animated:YES];
-
-            }else{
-                
-                
-                //Go to initHelpPage, where GuestTOken is retrieved
-                
-                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
-                [self presentModalViewController:home animated:NO];
-                
-                /*
-                 self.loadingView.hidden = NO;
-                 
-                 NSString *identifier = [ArcIdentifier getArcIdentifier];
-                 
-                 
-                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-                 NSDictionary *loginDict = [[NSDictionary alloc] init];
-                 [ tempDictionary setObject:identifier forKey:@"userName"];
-                 [ tempDictionary setObject:identifier forKey:@"password"];
-                 
-                 loginDict = tempDictionary;
-                 ArcClient *client = [[ArcClient alloc] init];
-                 [client getGuestToken:loginDict];
-                 */
-                
-            }
+            
+            //Go to initHelpPage, where GuestTOken is retrieved
+            
+            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+            [self presentModalViewController:home animated:NO];
+            
+            // self.loadingView.hidden = NO;
+            
+            // NSString *identifier = [ArcIdentifier getArcIdentifier];
+            
+            
+            // NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+            // NSDictionary *loginDict = [[NSDictionary alloc] init];
+            // [ tempDictionary setObject:identifier forKey:@"userName"];
+            // [ tempDictionary setObject:identifier forKey:@"password"];
+            
+            // loginDict = tempDictionary;
+            // ArcClient *client = [[ArcClient alloc] init];
+            // [client getGuestToken:loginDict];
+            
             
         }
+        
+    }
+    
+    self.myImageView.image = [UIImage imageNamed:@"Default-568h@2x.png"];
+
+}
+
+
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    @try {
+       
+        [self setupMovie];
+        
         
         
     }

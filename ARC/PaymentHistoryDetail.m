@@ -72,14 +72,14 @@
          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentHistoryComplete:) name:@"sendEmailReceiptNotification" object:nil];
         
         
-        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
-        if ([customerId length] == 0) {
-            self.resendButton.hidden = YES;
-            self.resendLabel.hidden = YES;
-        }else{
+       // NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+       // if ([customerId length] == 0) {
+        //    self.resendButton.hidden = YES;
+        //    self.resendLabel.hidden = YES;
+       // }else{
             self.resendButton.hidden = NO;
             self.resendLabel.hidden = NO;
-        }
+       // }
         
     }
     @catch (NSException *e) {
@@ -140,15 +140,50 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex != [alertView cancelButtonIndex]) {
+        
+        UITextField *amount = [alertView textFieldAtIndex:0];
+        
+        if ([self validateEmail:amount.text]) {
+            [self resendWithEmail:amount.text];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address" message:@"Please enter a valid email address you would like the receipt sent to." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+
+            self.emailTextField = [[UITextField alloc] init];
+            self.emailTextField = [alert textFieldAtIndex:0];
+            self.emailTextField.textAlignment = NSTextAlignmentCenter;
+            [alert show];
+
+        }
+
+        
+    }
+}
 -(void)resendAction{
     
     @try {
-        self.loadingViewController.displayText.text = @"Sending...";
-        [self.loadingViewController startSpin];
         
-        ArcClient *tmp = [[ArcClient alloc] init];
-        NSDictionary *pairs = @{@"TicketId": [self.paymentDictionary valueForKey:@"PaymentId"]};
-        [tmp sendEmailReceipt:pairs];
+        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+        if ([customerId length] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Address" message:@"Please enter the email address you would like the receipt sent to." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+
+            self.emailTextField = [[UITextField alloc] init];
+            self.emailTextField = [alert textFieldAtIndex:0];
+            self.emailTextField.textAlignment = NSTextAlignmentCenter;
+            [alert show];
+
+            
+        }else{
+            [self resendWithEmail:@""];
+        }
+        
+        
+        
+        
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"PaymentHistoryDetail.resendAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -158,6 +193,28 @@
    
 }
 
+-(void)resendWithEmail:(NSString *)emailAddress{
+    
+    
+    self.loadingViewController.displayText.text = @"Sending...";
+    [self.loadingViewController startSpin];
+    
+    ArcClient *tmp = [[ArcClient alloc] init];
+    
+    NSDictionary *pairs;
+    
+    if ([emailAddress length] > 0) {
+        pairs = @{@"TicketId": [self.paymentDictionary valueForKey:@"PaymentId"], @"eMail": emailAddress};
+
+    }else{
+        pairs = @{@"TicketId": [self.paymentDictionary valueForKey:@"PaymentId"]};
+
+    }
+    [tmp sendEmailReceipt:pairs];
+    
+    
+    
+}
 
 
 -(NSString *)dateStringFromISO:(NSString *)myDate{
@@ -182,5 +239,23 @@
  
  
 }
+
+- (BOOL) validateEmail: (NSString *) candidate {
+    
+    @try {
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+        
+        return [emailTest evaluateWithObject:candidate];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ProfileNewViewController.validateEmail" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return NO;
+        
+    }
+    
+    
+}
+
 
 @end

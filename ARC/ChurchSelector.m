@@ -553,6 +553,8 @@
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];
+        
+
         [client getMerchantList:loginDict];
          
     }

@@ -22,7 +22,7 @@
 #import "ViewController.h"
 #import "RegisterViewNew.h"
 #import "ArcIdentifier.h"
-
+#import "PaymentOptionsWebViewController.h"
 
 
 @interface ProfileNewViewController ()
@@ -30,6 +30,10 @@
 @end
 
 @implementation ProfileNewViewController
+
+
+
+
 
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -45,6 +49,20 @@
     
     
     @try {
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+     
+
+        
+        
+        
+        
+        
+      
+        [self.myTableView reloadData];
+        
+        
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateComplete:) name:@"updateGuestCustomerNotification" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerComplete:) name:@"registerNotification" object:nil];
@@ -63,10 +81,17 @@
             self.logoutButton.layer.borderWidth = 2.0;
             self.logoutButton.layer.borderColor = [[UIColor redColor] CGColor];
             self.whiteArrow.hidden = YES;
-            self.serverButton.hidden = NO;
             self.loginSignupButton.hidden = YES;
             self.loginOnlyButton.hidden = YES;
             self.bottomLabel.text = @"";
+            
+            ArcClient *tmp = [[ArcClient alloc] init];
+            if (tmp.admin) {
+                self.serverButton.hidden = NO;
+            }else{
+                self.serverButton.hidden = YES;
+
+            }
         }else{
             self.topLabel.text = @"Sign Up Here!";
             self.bottomLabel.text = @"Already a Member? Click to Log In.";
@@ -678,6 +703,165 @@
         [rSkybox sendClientLog:@"ProfileNewViewController.signInCompleteGuest" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
         
+    }
+    
+}
+
+
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+	
+    
+        return 2;
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+    @try {
+        
+        NSUInteger row = indexPath.row;
+        NSUInteger section = indexPath.section;
+        UITableViewCell *cell;
+        
+       
+        cell = [tableView dequeueReusableCellWithIdentifier:@"supportCell"];
+                
+       
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        
+       if (section == 0){
+            SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+            
+            if (row == 1) {
+                supportLabel.text = @"Donation History";
+            }else if (row == 0){
+                supportLabel.text = @"Payment Options";
+            }else{
+                /*
+                supportLabel.text = @"Donation Subscription";
+                
+                self.recurringAmountLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
+                self.recurringStringLabel = (SteelfishLabel *)[cell.contentView viewWithTag:3];
+                self.recurringActivityIndicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:4];
+                
+                if (self.didGetRecurring) {
+                    
+                    self.recurringActivityIndicator.hidden = YES;
+                    self.recurringAmountLabel.hidden = NO;
+                    self.recurringStringLabel.hidden = NO;
+                    
+                    
+                    
+                    
+                }else{
+                    self.recurringActivityIndicator.hidden = NO;
+                    self.recurringAmountLabel.hidden = YES;
+                    self.recurringStringLabel.hidden = YES;
+                    
+                }
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                */
+            };
+            
+        }
+        
+        
+        
+        
+        
+        
+        return cell;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ProfileNewViewController.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+    }
+	
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    @try {
+        
+        NSUInteger row = indexPath.row;
+        
+            if (row == 1) {
+                
+                [ArcClient trackEvent:@"SELECT_PAYMENT_HISTORY"];
+                
+                UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentHistory"];
+                [self.navigationController pushViewController:tmp animated:YES];
+            }else if (row == 0){
+                [ArcClient trackEvent:@"SELECT_PAYMENT_OPTIONS"];
+                
+                PaymentOptionsWebViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentoptions"];
+                [self.navigationController pushViewController:tmp animated:YES];
+            }else{
+                
+                
+                //[self subscriptionValueChanged];
+            }
+            
+            
+        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ProfileNewViewController.didSelectRowAtIndexPath" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
+    
+}
+
+
+-(void)subscriptionValueChanged{
+    
+    
+    if (self.recurringAmount == 0.0) {
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+            self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Recurring Donation" message:@"Would you like to set up a recurring donation?  Dono will auotmatically charge the card of your choice once a month, or once a week, based on your selection.  You can cancel your recurring donation at any time." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Schedule", nil];
+            [self.subscriptionAlert show];
+        }else{
+            self.loginAlert = [[UIAlertView alloc] initWithTitle:@"Not Logged In" message:@"Only registered users can sign up for recurring donations.  Would you like to create an account now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Sign Up", nil];
+            [self.loginAlert show];
+          
+        }
+        
+        
+    }else{
+        self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Cancel Recurring Donation" message:@"Would you like to remove your recurring donation?  Your card will no longer be charged, effective immediately." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Remove", nil];
+        [self.subscriptionAlert show];
+    }
+}
+
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (alertView == self.subscriptionAlert) {
+        
+    }else if (alertView == self.loginAlert){
+        
+        if (buttonIndex == 1) {
+            [self loginSignupAction];
+
+           
+        }else if (buttonIndex == 2){
+            [self loginOnlyAction];
+
+        }
     }
     
 }

@@ -16,8 +16,8 @@
 #import "ArcClient.h"
 #import "ArcUtility.h"
 #import "DwollaAPI.h"
-#import <FacebookSDK/FacebookSDK.h>
-#import <FacebookSDK/FBSessionTokenCachingStrategy.h>
+//#import <FacebookSDK/FacebookSDK.h>
+//#import <FacebookSDK/FBSessionTokenCachingStrategy.h>
 #import "URLParser.h"
 
 UIColor *dutchRedColor;
@@ -258,7 +258,20 @@ BOOL isIos7;
     [self initManagedDocument];
     
     
-    
+    @try {
+        id currentEmailObject = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"];
+        
+        if (currentEmailObject && [currentEmailObject class] == [NSDictionary class]) {
+            NSDictionary *myDictionary = [NSDictionary dictionaryWithDictionary:currentEmailObject];
+            
+            [[NSUserDefaults standardUserDefaults] setValue:[myDictionary valueForKey:@"Results"] forKey:@"customerToken"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+  
     
     return YES;
 }
@@ -296,8 +309,15 @@ BOOL isIos7;
         }else if ([successOrFailure rangeOfString:@"success"].location != NSNotFound) {
 
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank you, your donation was sent successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank you, your donation was sent successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank you! Your donation was sent anonymously.  If you would like to request an email receipt of your donation, you may do so in your 'Donation History', which is found in 'My Profile'." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+            
+            
             
             
             NSDictionary *userInfo = @{@"result": @"success"};
@@ -536,7 +556,7 @@ BOOL isIos7;
     [[NSUserDefaults standardUserDefaults] setObject:self.imageDictionary forKey:@"savedImageDictionary"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [FBSession.activeSession close];
+   // [FBSession.activeSession close];
 
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
@@ -1188,7 +1208,7 @@ ofType:(NSString *)typeName
     }];
 }
 
- */
+ 
 // Helper method to wrap logic for handling app links.
 - (void)handleAppLink:(FBAccessTokenData *)appLinkToken {
     // Initialize a new blank session instance...
@@ -1208,4 +1228,6 @@ ofType:(NSString *)typeName
                               }
                           }];
 }
+ 
+ */
 @end

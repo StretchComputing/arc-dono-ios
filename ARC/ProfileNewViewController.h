@@ -12,10 +12,13 @@
 #import "SteelfishTextFieldCreditCardiOS6.h"
 #import "SteelfishLabel.h"
 #import "SteelfishBoldButton.h"
+#import "SteelfishBoldLabel.h"
+#import "LatoRegularLabel.h"
 
 @class LoadingViewController;
 
-@interface ProfileNewViewController : UIViewController
+@interface ProfileNewViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
@@ -27,6 +30,9 @@
 - (IBAction)loginSignupAction;
 - (IBAction)loginOnlyAction;
 
+@property (nonatomic, strong) UIAlertView *loginAlert;
+
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property (strong, nonatomic) IBOutlet UIButton *loginSignupButton;
 @property (strong, nonatomic) IBOutlet UIButton *loginOnlyButton;
 
@@ -50,5 +56,18 @@
 
 @property (nonatomic, strong) IBOutlet SteelfishLabel *topLeftLabel;
 @property (nonatomic, strong) IBOutlet SteelfishBoldButton *topRightButton;
+
+
+@property double recurringAmount;
+@property (nonatomic, strong) NSString *recurringString;
+@property (nonatomic, strong) SteelfishBoldLabel *recurringAmountLabel;
+@property (nonatomic, strong) SteelfishLabel *recurringStringLabel;
+@property (nonatomic, strong) UIActivityIndicatorView *recurringActivityIndicator;
+@property BOOL didGetRecurring;
+@property (nonatomic, strong) UIAlertView *subscriptionAlert;
+
+
+
+
 
 @end

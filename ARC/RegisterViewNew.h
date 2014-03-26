@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SteelfishBarButtonItem.h"
-#import "CardIO.h"
 #import <Accounts/Accounts.h>
 #import "LoadingViewController.h"
 #import "NVUIGradientButton.h"
@@ -18,7 +17,7 @@
 
 @class LoadingViewController;
 
-@interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
+@interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property BOOL isPayment;
 @property (nonatomic, strong) IBOutlet UIView *topLineView;

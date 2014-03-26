@@ -22,10 +22,46 @@
 
 @implementation SupportViewController
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)doneGetRecurringPayments:(NSNotification *)notification{
+    
+    NSDictionary *userInfo = [notification valueForKeyPath:@"userInfo"];
+    
+    
+    self.didGetRecurring = YES;
+    [self.myTableView reloadData];
+
+}
+
+-(void)doneDeleteRecurringPayment:(NSNotification *)notification{
+    
+    
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     
     @try {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneGetRecurringPayments:) name:@"getRecurringPaymentsNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneDeleteRecurringPayment:) name:@"deleteRecurringPaymentNotification" object:nil];
+
+        
+   
+    
+    
+    
+        self.didGetRecurring = NO;
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKeyPath:@"customerEmail"] length] > 0) {
+            ArcClient *tmp = [[ArcClient alloc] init];
+            [tmp getListOfRecurringPayments];
+        }else{
+            self.didGetRecurring = YES;
+        }
+        [self.myTableView reloadData];
         
         [[NSURLCache sharedURLCache] removeAllCachedResponses];
 
@@ -106,19 +142,17 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
 	
    
-    if (section == 0) {
-        return 2;
-    }else if (section == 1){
+    if (section == 0){
         return 3;
     }
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,16 +163,20 @@
         NSUInteger section = indexPath.section;
         UITableViewCell *cell;
         
-        if (section == 2) {
+        if (section == 1) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"contactUsCell"];
         }else{
-            cell = [tableView dequeueReusableCellWithIdentifier:@"supportCell"];
+            
+           
+                cell = [tableView dequeueReusableCellWithIdentifier:@"supportCell"];
+
+        
         }
         
         
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         
-        
-        if (section == 2) {
+        if (section == 1) {
             LatoRegularLabel *supportLabel = (LatoRegularLabel *)[cell.contentView viewWithTag:1];
             LatoRegularLabel *infoLabel = (LatoRegularLabel *)[cell.contentView viewWithTag:2];
             
@@ -169,7 +207,7 @@
                 infoLabel.text = phoneNumber;
             }
 
-        }else if (section == 1){
+        }else if (section == 0){
             SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
 
                 if (row == 0) {
@@ -183,16 +221,6 @@
                 }
 
             
-        }else if (section == 0){
-            
-            if (row == 0) {
-                SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
-                supportLabel.text = @"Donation History";
-            }else{
-                SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
-                supportLabel.text = @"Payment Options";
-            }
-        
         }
        
         
@@ -220,7 +248,7 @@
         NSUInteger section = indexPath.section;
         NSUInteger row = indexPath.row;
         
-        if (section == 1) {
+        if (section == 0) {
             
             if (row == 0) {
                 //Help
@@ -248,29 +276,12 @@
             }
             
             
-        }else if (section == 2){
+        }else if (section == 1){
             if (row == 0) {
                 [self emailAction];
             }else{
                 [self callAction];
             }
-        }else if (section == 0){
-            //go donation history
-            
-            if (row == 0) {
-                
-                [ArcClient trackEvent:@"SELET_PAYMENT_HISTORY"];
-
-                UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentHistory"];
-                [self.navigationController pushViewController:tmp animated:YES];
-            }else{
-                [ArcClient trackEvent:@"SELET_PAYMENT_OPTIONS"];
-
-                PaymentOptionsWebViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"paymentoptions"];
-                [self.navigationController pushViewController:tmp animated:YES];
-            }
-           
-           
         }
     }
     @catch (NSException *exception) {
@@ -382,9 +393,9 @@
     
 }
 
-
+/*
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    
+
     if (section == 1) {
         return @"Dono";
     }else if (section == 2){
@@ -393,6 +404,7 @@
         return @"Donations";
     }
 }
+ */
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     @try {
         
@@ -453,9 +465,40 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
-    if (buttonIndex == 1) {
-        LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
-        [tmp homeSelected];
+    if (alertView == self.subscriptionAlert) {
+        
+    }else if (alertView == self.loginAlert){
+        
+        if (buttonIndex == 1) {
+            LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+            [tmp profileSelected];
+        }
+    }else{
+        if (buttonIndex == 1) {
+            LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+            [tmp homeSelected];
+        }
+    }
+   
+}
+
+-(void)subscriptionValueChanged{
+    
+    
+    if (self.recurringAmount == 0.0) {
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+            self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Recurring Donation" message:@"Would you like to set up a recurring donation?  Dono will auotmatically charge the card of your choice once a month, or once a week, based on your selection." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Schedule", nil];
+            [self.subscriptionAlert show];
+        }else{
+            self.loginAlert = [[UIAlertView alloc] initWithTitle:@"Not Logged In" message:@"Only registered users can sign up for recurring donations.  Would you like to create an account now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Sign Up", nil];
+            [self.loginAlert show];
+        }
+        
+        
+    }else{
+        self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Cancel Recurring Donation" message:@"Would you like to remove your recurring donation?  Your card will no longer be charged, effective immediately." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Remove", nil];
+        [self.subscriptionAlert show];
     }
 }
 @end

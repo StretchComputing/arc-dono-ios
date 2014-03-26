@@ -63,7 +63,11 @@ typedef enum {
     GetListOfServers = 19,
     GetListOfPayments = 20,
     SendEmailReceipt = 21,
-    GetCreditCards = 22
+    GetCreditCards = 22,
+    GetRecurringPayments = 23,
+    DeleteRecurringPayment = 24,
+    CreateReucrringPayment = 25
+
 
 
 
@@ -164,5 +168,10 @@ typedef enum {
 -(NSString *)getRemoteEndpoint;
 -(NSString *) authHeader;
 -(void)getListOfCreditCards;
+
+
+-(void)getListOfRecurringPayments;
+-(void)deleteRecurringPayment:(NSString *)paymentId;
+-(void)createRecurringPayment:(NSDictionary *)pairs;
 @end
 

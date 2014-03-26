@@ -14,6 +14,7 @@
 
 @interface SupportViewController : UIViewController <UITableViewDataSource, UITabBarDelegate, MFMailComposeViewControllerDelegate>
 
+@property BOOL didGetRecurring;
 - (IBAction)openMenuAction;
 @property (strong, nonatomic) IBOutlet UIView *backView;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
@@ -31,5 +32,14 @@
 @property (strong, nonatomic) IBOutlet UISwitch *defaultChurchSwitch;
 - (IBAction)defaultChurchChanged;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
+@property (nonatomic, strong) UIAlertView *subscriptionAlert;
+@property (nonatomic, strong) UIAlertView *loginAlert;
+
+@property double recurringAmount;
+@property (nonatomic, strong) NSString *recurringString;
+
+@property (nonatomic, strong) SteelfishBoldLabel *recurringAmountLabel;
+@property (nonatomic, strong) SteelfishLabel *recurringStringLabel;
+@property (nonatomic, strong) UIActivityIndicatorView *recurringActivityIndicator;
 
 @end

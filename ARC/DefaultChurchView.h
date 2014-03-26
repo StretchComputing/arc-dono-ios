@@ -47,11 +47,16 @@
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *contactButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *websiteButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *messagesButton;
+@property (strong, nonatomic) IBOutlet SteelfishLabel *recurringLabelBottom;
 
+@property (strong, nonatomic) IBOutlet SteelfishLabel *donatingAsLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *recurringLabelTop;
 @property BOOL didFinishCards;
-
+@property BOOL didJustRegister;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *donationHistoryButton;
-@property (nonatomic, strong) UIAlertView *logInAlert;
+@property (nonatomic, strong) UIAlertView *loginAlert;
+@property (nonatomic, strong) UIAlertView *subscriptionAlert;
+
 - (IBAction)quickActionOne;
 - (IBAction)quickActionTwo;
 - (IBAction)quickActionThree;
@@ -59,9 +64,13 @@
 - (IBAction)goDonationHistory;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *viewAllLocationsButton;
 - (IBAction)goAllChurches;
+@property (nonatomic, strong) UIAlertView *anonymousAlert;
+@property (nonatomic, strong) UIAlertView *registerSuccessAlert;
 
 @property (nonatomic, strong) NSMutableArray *messagesArray;
 
+@property double recurringAmount;
+@property BOOL didGetRecurring;
 -(IBAction)contactAction;
 -(IBAction)messagesAction;
 
@@ -79,4 +88,16 @@
 - (IBAction)endText;
 
 @property (nonatomic, strong) UIAlertView *areYouSureAlert;
+
+
+@property (strong, nonatomic) IBOutlet UIView *anonymousAlertBackView;
+
+- (IBAction)anonymousCancelAction;
+- (IBAction)anonymousDonateAction;
+- (IBAction)anonymousCreateAction;
+@property (strong, nonatomic) IBOutlet UIImageView *anonymousCheckBox;
+- (IBAction)anonymousReminderCheckAction;
+@property BOOL anonymousReminderChecked;
+
+
 @end

@@ -392,14 +392,15 @@ NSString *const kTJSpinnerTypeBeachBall = @"TJBeachBallSpinner";
                 case TJActivityIndicatorPatternStyleDash:
                     dash[0] = self.strokeWidth*3;
                     dash [1] = self.strokeWidth;
-                    CGContextSetLineDash(context,0,dash,2);
+            
+                    CGContextSetLineDash(context,0, (CGFloat *)dash,2);
                     [self drawStrokeToPoint:CGPointMake(x2, y2) context:context];
                     break;
                     
                 case TJActivityIndicatorPatternStyleDot:
                     dash[0] = self.strokeWidth; 
                     dash[1] = self.strokeWidth;
-                    CGContextSetLineDash(context,0,dash,2);
+                    CGContextSetLineDash(context,0,(CGFloat *)dash,2);
                     [self drawStrokeToPoint:CGPointMake(x2, y2) context:context];
                     break;
                     
@@ -408,7 +409,7 @@ NSString *const kTJSpinnerTypeBeachBall = @"TJBeachBallSpinner";
                     dash [1] = self.strokeWidth;
                     dash[2] = self.strokeWidth; 
                     dash[3] = self.strokeWidth;
-                    CGContextSetLineDash(context,0,dash,4);
+                    CGContextSetLineDash(context,0,(CGFloat *)dash,4);
                     [self drawStrokeToPoint:CGPointMake(x2, y2) context:context];
                     break;
                     

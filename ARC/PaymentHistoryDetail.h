@@ -35,4 +35,5 @@
 
 @property (strong, nonatomic) IBOutlet SteelfishLabel *resendLabel;
 
+@property (nonatomic, strong) UITextField *emailTextField;
 @end
