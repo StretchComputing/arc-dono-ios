@@ -12,6 +12,9 @@
 		903109F318A7C05500C21F6F /* DonateWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903109F218A7C05500C21F6F /* DonateWebViewController.m */; };
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
 		9034226717D624F200346954 /* rokaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9034226617D624F200346954 /* rokaLogo.png */; };
+		9036DF2918E356E500DC71A5 /* RecurringDonationOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 9036DF2818E356E500DC71A5 /* RecurringDonationOne.m */; };
+		9036DF2C18E356FC00DC71A5 /* RecurringDonationNewCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 9036DF2B18E356FC00DC71A5 /* RecurringDonationNewCard.m */; };
+		9036DF2F18E3570800DC71A5 /* RecurringDonationFinal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9036DF2E18E3570800DC71A5 /* RecurringDonationFinal.m */; };
 		903CCD96180C30750032B0FC /* serverImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 903CCD95180C30750032B0FC /* serverImage.png */; };
 		903CCD99180C3FFE0032B0FC /* PaymentHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */; };
 		903CCD9C180C40120032B0FC /* PaymentHistoryDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 903CCD9B180C40120032B0FC /* PaymentHistoryDetail.m */; };
@@ -262,6 +265,12 @@
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
 		9034226617D624F200346954 /* rokaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rokaLogo.png; sourceTree = "<group>"; };
+		9036DF2718E356E500DC71A5 /* RecurringDonationOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecurringDonationOne.h; sourceTree = "<group>"; };
+		9036DF2818E356E500DC71A5 /* RecurringDonationOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecurringDonationOne.m; sourceTree = "<group>"; };
+		9036DF2A18E356FC00DC71A5 /* RecurringDonationNewCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecurringDonationNewCard.h; sourceTree = "<group>"; };
+		9036DF2B18E356FC00DC71A5 /* RecurringDonationNewCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecurringDonationNewCard.m; sourceTree = "<group>"; };
+		9036DF2D18E3570800DC71A5 /* RecurringDonationFinal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecurringDonationFinal.h; sourceTree = "<group>"; };
+		9036DF2E18E3570800DC71A5 /* RecurringDonationFinal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecurringDonationFinal.m; sourceTree = "<group>"; };
 		903CCD95180C30750032B0FC /* serverImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = serverImage.png; sourceTree = "<group>"; };
 		903CCD97180C3FFE0032B0FC /* PaymentHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentHistoryViewController.h; sourceTree = "<group>"; };
 		903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentHistoryViewController.m; sourceTree = "<group>"; };
@@ -779,6 +788,12 @@
 			children = (
 				90429DF718DDD8D300E88571 /* UIImage+animatedGIF.h */,
 				90429DF818DDD8D300E88571 /* UIImage+animatedGIF.m */,
+				9036DF2718E356E500DC71A5 /* RecurringDonationOne.h */,
+				9036DF2818E356E500DC71A5 /* RecurringDonationOne.m */,
+				9036DF2A18E356FC00DC71A5 /* RecurringDonationNewCard.h */,
+				9036DF2B18E356FC00DC71A5 /* RecurringDonationNewCard.m */,
+				9036DF2D18E3570800DC71A5 /* RecurringDonationFinal.h */,
+				9036DF2E18E3570800DC71A5 /* RecurringDonationFinal.m */,
 				90AD3FEA17CE63090053239E /* Images */,
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
@@ -1368,12 +1383,15 @@
 				908D2F71166E4818007B6078 /* SMContactsSelector.m in Sources */,
 				908D2F73166E4818007B6078 /* UIAlertView+UITableView.m in Sources */,
 				908D2FC5166E76B8007B6078 /* PrivacyTermsViewController.m in Sources */,
+				9036DF2C18E356FC00DC71A5 /* RecurringDonationNewCard.m in Sources */,
 				9053E80618956E96008BB006 /* InitTutorialPageViewController.m in Sources */,
 				9089CB2616C6B6EB00DA11B0 /* NumberLineButton.m in Sources */,
+				9036DF2918E356E500DC71A5 /* RecurringDonationOne.m in Sources */,
 				90E5E5C616D706740031B17E /* CustomerServiceViewController.m in Sources */,
 				90484D32189498E400237DE3 /* LatoRegularLabel.m in Sources */,
 				9053E8101895F45A008BB006 /* GetPasscodeViewController.m in Sources */,
 				90E5E5CB16D710520031B17E /* LoadingViewController.m in Sources */,
+				9036DF2F18E3570800DC71A5 /* RecurringDonationFinal.m in Sources */,
 				908CAD4A17048C1A00F34A41 /* ShareViewController.m in Sources */,
 				9FFFB9C2171B2B6100D8B58B /* LiveDebugViewController.m in Sources */,
 				909CF09B17B3DA18004300D0 /* SteelfishLabel.m in Sources */,

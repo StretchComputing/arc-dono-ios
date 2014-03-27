@@ -98,7 +98,7 @@
         self.loadingViewController.view.hidden = YES;
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-       // NSLog(@"Response Info: %@", responseInfo);
+        //NSLog(@"Response Info: %@", responseInfo);
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
@@ -204,7 +204,7 @@
     NSDictionary *pairs;
     
     if ([emailAddress length] > 0) {
-        pairs = @{@"TicketId": [self.paymentDictionary valueForKey:@"PaymentId"], @"eMail": emailAddress};
+        pairs = @{@"TicketId": [self.paymentDictionary valueForKey:@"PaymentId"], @"eMail": emailAddress, @"SignUp": [NSNumber numberWithBool:NO]};
 
     }else{
         pairs = @{@"TicketId": [self.paymentDictionary valueForKey:@"PaymentId"]};

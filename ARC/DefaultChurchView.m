@@ -17,7 +17,7 @@
 #import "DefaultWebViewController.h"
 #import "ArcClient.h"
 #import "DonateWebViewController.h"
-
+#import "RecurringDonationOne.h"
 @interface DefaultChurchView ()
 
 @end
@@ -36,17 +36,17 @@
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
         self.donatingAsLabel.text = [NSString stringWithFormat:@"Donating as: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"]];
     }else{
-        self.donatingAsLabel.text = @"You are currently donating anonymously.";
+        self.donatingAsLabel.text = @"You are currently donating anonymously";
     }
 }
 -(void)setRecurringLabels{
     
     if (self.recurringAmount == 0.0) {
         self.recurringLabelTop.text = @"Recurring Donations";
-        self.recurringLabelBottom.text = @"Click to schedule weekly or monthly donations.";
+        self.recurringLabelBottom.text = @"Click to schedule weekly or monthly donations";
     }else{
-        self.recurringLabelTop.text = @"View Recurring Donations";
-        self.recurringLabelBottom.text = @"";
+        self.recurringLabelTop.text = @"My Recurring Donation";
+        self.recurringLabelBottom.text = [self getRecurringString];
     }
     
 }
@@ -60,11 +60,15 @@
         if ([[[NSUserDefaults standardUserDefaults] valueForKeyPath:@"customerEmail"] length] > 0) {
             ArcClient *tmp = [[ArcClient alloc] init];
             [tmp getListOfRecurringPayments];
+            
+            self.recurringLabelTop.text = @"Loading...";
+            self.recurringLabelBottom.text = @"";
         }else{
             self.didGetRecurring = YES;
+            [self setRecurringLabels];
+
         }
         
-        [self setRecurringLabels];
         
         [self setDonationSubLabel];
         
@@ -130,7 +134,14 @@
         if (self.loadingViewController.view.hidden == NO) {
             //waiting for donation
             self.loadingViewController.view.hidden = YES;
-            [self goToWebPayment];
+
+            if (self.isRecurring) {
+                [self performSegueWithIdentifier:@"recurringDonation" sender:self];
+
+            }else{
+                [self goToWebPayment];
+
+            }
         }
     }
     @catch (NSException *exception) {
@@ -195,6 +206,7 @@
         
         self.anonymousReminderChecked = NO;
         self.guestCreateAccountFrontView.layer.cornerRadius = 5.0;
+        self.recurringDonationFrontView.layer.cornerRadius = 5.0;
 
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
@@ -207,7 +219,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneGetRecurringPayments:) name:@"getRecurringPaymentsNotification" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneDeleteRecurringPayment:) name:@"deleteRecurringPaymentNotification" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneCreateRecurringPayment:) name:@"createRecurringPaymentNotification" object:nil];
+       
         
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webComplete:) name:@"webDone" object:nil];
@@ -378,7 +390,7 @@
 -(void)tryDonation{
     
     if (!self.didFinishCards) {
-        
+        self.isRecurring = NO;
         self.loadingViewController.displayText.text = @"Loading Donation...";
         [self.loadingViewController startSpin];
         
@@ -647,9 +659,11 @@
         
         
         
-        if ([[segue identifier] isEqualToString:@"addCard"]) {
+        if ([[segue identifier] isEqualToString:@"recurringDonation"]) {
             
-          
+            RecurringDonationOne *recurring = [segue destinationViewController];
+            recurring.myMerchant = self.myMerchant;
+            recurring.creditCards = [NSArray arrayWithArray:self.creditCardArray];
             
             
         }else if ([[segue identifier] isEqualToString:@"payCard"]) {
@@ -765,12 +779,17 @@
             
         }else if (alertView == self.subscriptionAlert) {
             
+            if (buttonIndex == 1) {
+                [self cancelRecurringDonation];
+            }
+            
         }
         else if (alertView == self.loginAlert){
             
             if (buttonIndex == 1) {
                 
                 self.guestCreateAccountView.hidden = NO;
+                [self.guestCreateAccountEmailText becomeFirstResponder];
                 
             }
              
@@ -968,26 +987,39 @@
 
 - (IBAction)goAllChurches {
     
-   // LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
-    //[tmp newChurchAction];
+       //Changed to recurring donations button
     
-    //Changed to recurring donations button
-    
-    if (self.recurringAmount == 0.0) {
-        
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
-            self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Recurring Donation" message:@"Would you like to set up a recurring donation?  Dono will auotmatically charge the card of your choice once a month, or once a week, based on your selection.  You can cancel your recurring donation at any time." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Schedule", nil];
-            [self.subscriptionAlert show];
-        }else{
-            self.loginAlert = [[UIAlertView alloc] initWithTitle:@"Not Logged In" message:@"Only registered users can sign up for recurring donations.  Would you like to create an account now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Sign Up", nil];
-            [self.loginAlert show];
-            
-        }
-        
+    if ([self.recurringLabelTop.text isEqualToString:@"Loading..."]) {
         
     }else{
-        self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Cancel Recurring Donation" message:@"Would you like to remove your recurring donation?  Your card will no longer be charged, effective immediately." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Remove", nil];
-        [self.subscriptionAlert show];
+        if (self.recurringAmount == 0.0) {
+            
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+                
+                
+                if (!self.didFinishCards) {
+                    self.isRecurring = YES;
+                    self.loadingViewController.displayText.text = @"Loading...";
+                    [self.loadingViewController startSpin];
+                    
+                }else{
+                    [self performSegueWithIdentifier:@"recurringDonation" sender:self];
+                    
+                }
+                
+                
+                
+            }else{
+                self.loginAlert = [[UIAlertView alloc] initWithTitle:@"Not Logged In" message:@"Only registered users can sign up for recurring donations.  Would you like to create an account now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Sign Up", nil];
+                [self.loginAlert show];
+                
+            }
+            
+            
+        }else{
+            self.subscriptionAlert = [[UIAlertView alloc] initWithTitle:@"Cancel Recurring Donation" message:@"Would you like to remove your recurring donation?  Your card will no longer be charged, effective immediately." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Remove", nil];
+            [self.subscriptionAlert show];
+        }
     }
     
     
@@ -1258,24 +1290,7 @@
 
     [self tryDonation];
 
-    
-    /*
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"hasShownAreYouSure"] length] == 0) {
-        
-        
-        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasShownAreYouSure"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        self.areYouSureAlert = [[UIAlertView alloc] initWithTitle:@"Remain Anonymous?" message:@"Are you sure you want to remain anonymous?  For tax purposes, we recommend you sign up so you can receive email receipts." delegate:self cancelButtonTitle:@"Stay Anonymous" otherButtonTitles:@"Sign Up!", nil];
-        [self.areYouSureAlert show];
 
-    }else{
-        
-        [self tryDonation];
-
-        
-    }
-    */
     
    
 }
@@ -1314,27 +1329,191 @@
 -(void)doneGetRecurringPayments:(NSNotification *)notification{
     
     
-    NSDictionary *userInfo = [notification valueForKeyPath:@"userInfo"];
-    NSLog(@"UserInfo: %@", userInfo);
-    
-    
-    //self.didGetRecurring = YES;
-    //[self.myTableView reloadData];
-    
+    @try {
+        NSDictionary *userInfo = [notification valueForKeyPath:@"userInfo"];
+        //NSLog(@"UserInfo: %@", userInfo);
+        
+        self.recurringDonationDictionary = [NSDictionary dictionary];
+        if ([[userInfo valueForKey:@"status"] isEqualToString:@"success"]) {
+            
+            id results = [[userInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
+            
+            
+            if ([[results class] isSubclassOfClass:[NSDictionary class]]) {
+                
+                NSDictionary *myDictionary = [NSDictionary dictionaryWithDictionary:results];
+                
+                if ([[myDictionary valueForKey:@"MerchantId"] intValue] == self.myMerchant.merchantId) {
+                    self.recurringDonationDictionary = [NSDictionary dictionaryWithDictionary:myDictionary];
+                    self.recurringAmount = [[self.recurringDonationDictionary valueForKey:@"Amount"] doubleValue] + [[self.recurringDonationDictionary valueForKey:@"Gratuity"] doubleValue];
+                }
+                
+            }else if ([[results class] isSubclassOfClass:[NSArray class]]) {
+                
+                NSArray *myArray = [NSArray arrayWithArray:results];
+                
+                for (int i = 0; i < [myArray count]; i++) {
+                    NSDictionary *myDictionary = [myArray objectAtIndex:i];
+                    
+                    if ([[myDictionary valueForKey:@"MerchantId"] intValue] == self.myMerchant.merchantId) {
+                        
+                        self.recurringDonationDictionary = [NSDictionary dictionaryWithDictionary:myDictionary];
+                        self.recurringAmount = [[self.recurringDonationDictionary valueForKey:@"Amount"] doubleValue] + [[self.recurringDonationDictionary valueForKey:@"Gratuity"] doubleValue];
+                        break;
+                    }
+                    
+                }
+                
+                
+            }else{
+                self.recurringAmount = 0.0;
+                
+            }
+            
+        }else{
+            self.recurringAmount = 0.0;
+            
+        }
+        
+        [self setRecurringLabels];
+    }
+    @catch (NSException *exception) {
+        [self setRecurringLabels];
+        [rSkybox sendClientLog:@"DefaultChurchView.doneRecurringPayments" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+
+    }
+   
+
 }
+
+
+-(NSString *)getRecurringString{
+    
+    @try {
+        NSString *type = [self.recurringDonationDictionary valueForKey:@"Type"];
+        
+        if ([type isEqualToString:@"MONTHLY"]) {
+            
+            NSString *dayOfMonth = [[self.recurringDonationDictionary valueForKey:@"Value"] stringValue];
+            
+            int dayOfMonthInt = [dayOfMonth intValue];
+            
+            NSString *suffix = @"";
+            
+            if (dayOfMonthInt == 1){
+                suffix = @"st";
+            }else if (dayOfMonthInt == 2){
+                suffix = @"nd";
+                
+            }else if (dayOfMonthInt == 3){
+                suffix = @"rd";
+            }else if (dayOfMonthInt == 21){
+                suffix = @"st";
+                
+            }else if (dayOfMonthInt == 22){
+                suffix = @"nd";
+                
+            }else if (dayOfMonthInt == 23){
+                suffix = @"rd";
+                
+            }else{
+                suffix = @"th";
+            }
+            return [NSString stringWithFormat:@"$%.2f, the %@%@ of every month", self.recurringAmount, dayOfMonth, suffix];
+            
+            
+        }else if ([type isEqualToString:@"WEEKLY"]){
+            
+            int dayOfWeekInt = [[self.recurringDonationDictionary valueForKey:@"Value"] intValue];
+            
+            NSString *day = @"";
+            if (dayOfWeekInt == 1) {
+                day = @"Monday";
+            }else if (dayOfWeekInt == 2){
+                day = @"Tuesday";
+                
+            }else if (dayOfWeekInt == 3){
+                day = @"Wednesday";
+                
+            }else if (dayOfWeekInt == 4){
+                day = @"Thursday";
+                
+            }else if (dayOfWeekInt == 5){
+                day = @"Friday";
+                
+            }else if (dayOfWeekInt == 6){
+                day = @"Saturday";
+                
+            }else if (dayOfWeekInt == 7){
+                day = @"Sunday";
+                
+            }
+            
+            return [NSString stringWithFormat:@"$%.2f, every %@", self.recurringAmount, day];
+            
+        }else{
+            return @"";
+        }
+    }
+    @catch (NSException *exception) {
+        return @"";
+        [rSkybox sendClientLog:@"DefaultChurchView.doneRecurringPayments" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+  
+}
+
 
 -(void)doneDeleteRecurringPayment:(NSNotification *)notification{
     
     
+    @try {
+        self.loadingViewController.view.hidden = YES;
+        
+        
+        NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
+        
+        if ([[userInfo valueForKey:@"status"] isEqualToString:@"success"]) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your recurring donation has been canceled." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            self.recurringAmount = 0.0;
+            [self setRecurringLabels];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"We encountered an error canceling your donation, please try again.  If the problem persists, please contact customer support." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    @catch (NSException *exception) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"We encountered an error canceling your donation, please try again.  If the problem persists, please contact customer support." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+        [rSkybox sendClientLog:@"DefaultChurchView.doneRecurringPayments" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
 }
 
 
--(void)doneCreateRecurringPayment:(NSNotification *)notification{
+
+
+
+
+
+- (IBAction)cancelRecurringDonation {
+    
+    self.loadingViewController.displayText.text = @"Removing...";
+    self.loadingViewController.view.hidden = NO;
+    
+    ArcClient *tmp = [[ArcClient alloc] init];
+    
+    [tmp deleteRecurringPayment:[self.recurringDonationDictionary valueForKey:@"Id"]];
     
     
 }
 
-
-
-
+- (IBAction)submitRecurringDonation {
+}
 @end

@@ -48,8 +48,7 @@
 
 +(NSString *)getCardTypeForNumber:(NSString *)cardNumber{
     
-    return @"";
-    /*
+    
     @try {
         
         if ([cardNumber length] > 0) {
@@ -62,25 +61,25 @@
             int numberLength = [cardNumber length];
 
             if ([firstOne isEqualToString:@"4"] && ((numberLength == 15) || (numberLength == 16))) {
-                return VISA;
+                return @"Visa";
             }
             
             double cardDigits = [firstTwo doubleValue];
             if ((cardDigits >= 51) && (cardDigits <= 55) && (numberLength == 16)) {
-                return MASTER_CARD;
+                return @"MasterCard";
             }
             
             if (([firstTwo isEqualToString:@"34"] || [firstTwo isEqualToString:@"37"]) && (numberLength == 15)) {
-                return AMERICAN_EXPRESS;
+                return @"Amex";
             }
             
             if (([firstTwo isEqualToString:@"65"] || [firstFour isEqualToString:@"6011"]) && (numberLength == 16)) {
-                return DISCOVER;
+                return @"Discover";
             }
             
             double threeDigits = [firstThree doubleValue];            
             if ((numberLength == 14) && ([firstTwo isEqualToString:@"36"] || [firstTwo isEqualToString:@"38"] || ((threeDigits >= 300) && (threeDigits <= 305) ))) {
-                return DINERS_CLUB;
+                return @"Diners";
             }
             
             return @"UNKOWN";
@@ -92,7 +91,7 @@
         [rSkybox sendClientLog:@"ArcUtility.getCardTypeForNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
  
-     */
+    
   
 }
 

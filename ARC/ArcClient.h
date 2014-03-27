@@ -66,7 +66,9 @@ typedef enum {
     GetCreditCards = 22,
     GetRecurringPayments = 23,
     DeleteRecurringPayment = 24,
-    CreateReucrringPayment = 25
+    CreateReucrringPayment = 25,
+    GetDeviceMessages = 26
+
 
 
 
@@ -173,5 +175,7 @@ typedef enum {
 -(void)getListOfRecurringPayments;
 -(void)deleteRecurringPayment:(NSString *)paymentId;
 -(void)createRecurringPayment:(NSDictionary *)pairs;
+
+-(void)getDeviceMessages;
 @end
 

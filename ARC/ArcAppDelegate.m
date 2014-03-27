@@ -226,6 +226,7 @@ BOOL isIos7;
     
     //Reachability
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name:kReachabilityChangedNotification object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneDeviceMessages:) name:@"getDeviceMessagesNotification" object:nil];
     
     //::Change to ARC Server
     hostReach = [Reachability reachabilityWithHostName: @"arc-stage.dagher.mobi"];
@@ -313,7 +314,7 @@ BOOL isIos7;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank you, your donation was sent successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
             }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank you! Your donation was sent anonymously.  If you would like to request an email receipt of your donation, you may do so in your 'Donation History', which is found in 'My Profile'." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank you! Your donation was sent anonymously.  If you would like to request an email receipt of your donation, you may do so in 'My Profile'." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
             }
             
@@ -502,6 +503,8 @@ BOOL isIos7;
     @catch (NSException *exception) {
         
     }
+    
+    [self getDeviceMessages];
   
     
 }
@@ -1183,6 +1186,48 @@ ofType:(NSString *)typeName
     
 }
 
+-(void)getDeviceMessages{
+    
+    ArcClient *tmp = [[ArcClient alloc] init];
+    [tmp getDeviceMessages];
+}
+
+-(void)doneDeviceMessages:(NSNotification *)notification{
+
+  
+    
+    NSString *message = @"";
+    
+    if ([[[notification valueForKey:@"userInfo"] valueForKey:@"Success"] boolValue]) {
+        
+        id results = [[notification valueForKey:@"userInfo"] valueForKey:@"Results"];
+
+        if ([[results class] isSubclassOfClass:[NSDictionary class]]) {
+            
+            message = [(NSDictionary *)results valueForKey:@"Message"];
+          
+        }else if ([[results class] isSubclassOfClass:[NSArray class]]) {
+            
+          
+            NSArray *resultsArray = [NSArray arrayWithArray:results];
+            
+            for (int i = 0; i < [resultsArray count]; i++) {
+                
+                NSDictionary *myDictionary = [resultsArray objectAtIndex:i];
+                
+                message = [message stringByAppendingFormat:@"- %@ \n \n", [myDictionary valueForKey:@"Message"]];
+            }
+            
+            
+        }
+        
+        if ([message length] > 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Message From Dono!" message:message delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+            [alert show];
+            
+        }
+    }
+}
 
 //Facebook
 /*

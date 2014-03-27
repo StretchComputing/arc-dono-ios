@@ -309,7 +309,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
       //  NSLog(@"URL: %@", getCustomerTokenUrl);
-      //  NSLog(@"Params: %@", requestString);
+        //NSLog(@"Params: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetGuestToken"];
@@ -343,7 +343,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         //NSLog(@"getMerchantList requestString = %@", requestString);
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants/list", _arcUrl, nil];
-      //  NSLog(@"GertMerchantList URL = %@", getMerchantListUrl);
+        //NSLog(@"GertMerchantList URL = %@", getMerchantListUrl);
         
         NSString *eventString = [NSString stringWithFormat:@"getMerchantList - URL: %@, request string: %@", getMerchantListUrl,requestString];
         [rSkybox addEventToSession:eventString];
@@ -358,7 +358,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
       //  NSLog(@"Request: %@", requestString);
         
-     //  NSLog(@"Auth Header: %@", [self authHeader]);
+       //NSLog(@"Auth Header: %@", [self authHeader]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -1067,7 +1067,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         
       //  NSLog(@"URL: %@", pingUrl);
-        NSLog(@"requestString: %@", requestString);
+      //  NSLog(@"requestString: %@", requestString);
        
       //  NSLog(@"Auth Header: %@", [self authHeader]);
         
@@ -1132,7 +1132,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.getListOfCreditCards" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.getListOfRecurringPayments" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -1143,7 +1143,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         api = DeleteRecurringPayment;
         
         
-        NSString *pingUrl = [NSString stringWithFormat:@"%@customers/creditcards/delete/%@", _arcUrl, paymentId];
+        NSString *pingUrl = [NSString stringWithFormat:@"%@customers/schedule/delete/%@", _arcUrl, paymentId];
        
         NSDictionary *pairs = @{@"AppInfo": [self getAppInfoDictionary]};
         
@@ -1152,7 +1152,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         
-        //  NSLog(@"URL: %@", pingUrl);
+       //   NSLog(@"URL: %@", pingUrl);
         // NSLog(@"requestString: %@", requestString);
         
         //  NSLog(@"Auth Header: %@", [self authHeader]);
@@ -1163,7 +1163,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
         
-        [request setHTTPMethod: @"SEARCH"];
+        [request setHTTPMethod: @"DELETE"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         [request setHTTPBody: requestData];
@@ -1174,7 +1174,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.getListOfCreditCards" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.deleteRecurringPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -1220,7 +1220,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.getListOfCreditCards" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.createRecurringPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -1257,6 +1257,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setHTTPBody: requestData];
         
         
+       // NSLog(@"Auth Header: %@", [self authHeader]);
+        //NSLog(@"Request: %@", requestString);
+        
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"sendEmailReceipt"];
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -1266,6 +1269,50 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     }
 }
 
+-(void)getDeviceMessages{
+    
+    @try {
+        
+        api = GetDeviceMessages;
+        
+        
+        NSString *pingUrl = [NSString stringWithFormat:@"%@customers/messages/list", _arcUrl];
+        
+        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+        
+        NSDictionary *pairs = @{@"AppInfo": [self getAppInfoDictionary], @"UserId":customerId};
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        
+        //  NSLog(@"URL: %@", pingUrl);
+        // NSLog(@"requestString: %@", requestString);
+        
+        //  NSLog(@"Auth Header: %@", [self authHeader]);
+        
+        NSString *eventString = [NSString stringWithFormat:@"getDeviceMessages - request url: %@", pingUrl];
+        [rSkybox addEventToSession:eventString];
+        
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
+        
+        [request setHTTPMethod: @"SEARCH"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        [request setHTTPBody: requestData];
+        
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"getDeviceMessages"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getDeviceMessages" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
@@ -1303,7 +1350,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
        // NSLog(@"API: %@", [self apiToString]);
-      // NSLog(@"ReturnString: %@", returnString);
+       // NSLog(@"ReturnString: %@", returnString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];
@@ -1497,6 +1544,14 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
                 responseInfo = [self createRecurringPaymentResponse:response];
             }
             
+            
+        }else if (api == GetDeviceMessages){
+            
+            if (response && httpSuccess) {
+                notificationType = @"getDeviceMessagesNotification";
+                
+                responseInfo = response;
+            }
             
         }
         
@@ -1704,6 +1759,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             notificationType = @"deleteRecurringPaymentNotification";
         }else if (api == CreateReucrringPayment){
             notificationType = @"createRecurringPaymentNotification";
+        }else if (api == GetDeviceMessages){
+            notificationType = @"getDeviceMessagesNotification";
         }
         
         
@@ -1867,8 +1924,25 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         case GetCreditCards:
             result = @"GetCreditCards";
             break;
+            
+        case GetRecurringPayments:
+            result = @"GetRecurringPayments";
+            break;
+            
+        case DeleteRecurringPayment:
+            result = @"DeleteRecurringPayment";
+            break;
+            
+        case CreateReucrringPayment:
+            result = @"CreateReucrringPayment";
+            break;
+            
+        case GetDeviceMessages:
+            result = @"GetDeviceMessages";
+            break;
 
             
+     
             
             
         default:
@@ -2127,7 +2201,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(NSDictionary *) getCreditCardResponse:(NSDictionary *)response {
     @try {
         //
-         NSLog(@"Response: %@", response);
+        // NSLog(@"Response: %@", response);
         
         BOOL success = [[response valueForKey:@"Success"] boolValue];
         

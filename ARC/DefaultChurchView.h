@@ -27,6 +27,8 @@
 @property (strong, nonatomic) IBOutlet SteelfishLabel *topLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *mainImage;
 
+@property (nonatomic, strong) NSDictionary *recurringDonationDictionary;
+
 @property (nonatomic, strong) NSMutableArray *creditCardArray;
 @property (strong, nonatomic) IBOutlet UIView *nameView;
 - (IBAction)makeDonation:(id)sender;
@@ -89,7 +91,7 @@
 
 @property (nonatomic, strong) UIAlertView *areYouSureAlert;
 
-
+@property BOOL isRecurring;
 @property (strong, nonatomic) IBOutlet UIView *anonymousAlertBackView;
 
 - (IBAction)anonymousCancelAction;
@@ -98,6 +100,18 @@
 @property (strong, nonatomic) IBOutlet UIImageView *anonymousCheckBox;
 - (IBAction)anonymousReminderCheckAction;
 @property BOOL anonymousReminderChecked;
+
+
+
+
+
+@property (strong, nonatomic) IBOutlet UIView *recurringDonationBackView;
+@property (strong, nonatomic) IBOutlet UIView *recurringDonationFrontView;
+
+
+- (IBAction)cancelRecurringDonation;
+
+- (IBAction)submitRecurringDonation;
 
 
 @end
