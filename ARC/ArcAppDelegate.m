@@ -473,8 +473,13 @@ BOOL isIos7;
 {
     //[FBAppCall handleDidBecomeActive];
 
-    
-    [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:6];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLaunch"] length] == 0) {
+        [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:9];
+
+    }else{
+        [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:1];
+
+    }
     
     
    // NSString *customerToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"];

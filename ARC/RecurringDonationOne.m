@@ -185,61 +185,68 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     
-    BOOL showedAlert = NO;
-    
-    if ([self.mainDetailText.text length] > 0) {
+    @try {
+        BOOL showedAlert = NO;
         
-        if (self.weeklyCheckImage.hidden == NO) {
+        if ([self.mainDetailText.text length] > 0) {
             
-            if (![self.daysOfWeek containsObject:[self.mainDetailText.text lowercaseString]]) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Day" message:@"You must pick a day of the week, Sunday through Saturday." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-                showedAlert = YES;
-            }
-            
-        }else if (self.monthlyCheckImage.hidden == NO){
-            
-            self.mainDetailText.text = [self.mainDetailText.text lowercaseString];
-            
-            self.mainDetailText.text = [self.mainDetailText.text stringByReplacingOccurrencesOfString:@"st" withString:@""];
-            self.mainDetailText.text = [self.mainDetailText.text stringByReplacingOccurrencesOfString:@"nd" withString:@""];
-            self.mainDetailText.text = [self.mainDetailText.text stringByReplacingOccurrencesOfString:@"rd" withString:@""];
-            self.mainDetailText.text = [self.mainDetailText.text stringByReplacingOccurrencesOfString:@"th" withString:@""];
-            
-            
-            int number = [self.mainDetailText.text intValue];
-
-            if (number < 1 || number > 28) {
+            if (self.weeklyCheckImage.hidden == NO) {
                 
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Day" message:@"Your day of the month must be a number, 1-28." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-                showedAlert = YES;
+                if (![self.daysOfWeek containsObject:[self.mainDetailText.text lowercaseString]]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Day" message:@"You must pick a day of the week, Sunday through Saturday." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    showedAlert = YES;
+                }
+                
+            }else if (self.monthlyCheckImage.hidden == NO){
+                
+                self.mainDetailText.text = [self.mainDetailText.text lowercaseString];
+                
+                self.mainDetailText.text = [self.mainDetailText.text stringByReplacingOccurrencesOfString:@"st" withString:@""];
+                self.mainDetailText.text = [self.mainDetailText.text stringByReplacingOccurrencesOfString:@"nd" withString:@""];
+                self.mainDetailText.text = [self.mainDetailText.text stringByReplacingOccurrencesOfString:@"rd" withString:@""];
+                self.mainDetailText.text = [self.mainDetailText.text stringByReplacingOccurrencesOfString:@"th" withString:@""];
+                
+                
+                int number = [self.mainDetailText.text intValue];
+                
+                if (number < 1 || number > 28) {
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Day" message:@"Your day of the month must be a number, 1-28." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    showedAlert = YES;
+                    
+                }else{
+                    self.mainDetailText.text = [NSString stringWithFormat:@"%d", number];
+                }
                 
             }else{
-                self.mainDetailText.text = [NSString stringWithFormat:@"%d", number];
+                //x of month
+                
+                if (![self.daysOfWeek containsObject:[self.mainDetailText.text lowercaseString]]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Day" message:@"You must pick a day of the week, Sunday through Saturday." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    showedAlert = YES;
+                }
+                
+                
+                
             }
-            
-        }else{
-            //x of month
-            
-            if (![self.daysOfWeek containsObject:[self.mainDetailText.text lowercaseString]]) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Day" message:@"You must pick a day of the week, Sunday through Saturday." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-                showedAlert = YES;
-            }
-            
-            
+        }
+        
+        
+        if (!showedAlert) {
+            [self.mainDetailText resignFirstResponder];
+            self.myTableView.hidden = YES;
             
         }
-    }
-
-    
-    if (!showedAlert) {
-        [self.mainDetailText resignFirstResponder];
-        self.myTableView.hidden = YES;
 
     }
-    
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"RecurringDonationOne.textFieldShouldReturn" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
     
     return NO;
     
@@ -251,37 +258,45 @@
 
 - (IBAction)continueAction {
     
-    if ([self.mainDetailText.text length] == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Details" message:@"Please fill out Step #2, the details of your recurring donation, before continuing." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-    }else{
-
-        if ([self.creditCards count] > 0) {
+    @try {
+        
+        if ([self.mainDetailText.text length] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Details" message:@"Please fill out Step #2, the details of your recurring donation, before continuing." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else{
             
-            self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-            
-            
-            for (int i = 0; i < [self.creditCards count]; i++) {
-                NSDictionary *tmpCard = [self.creditCards objectAtIndex:i];
+            if ([self.creditCards count] > 0) {
                 
-                NSString *type = [ArcUtility getCardTypeForNumber:[tmpCard valueForKey:@"Number"]];
+                self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
                 
-                [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", type, [tmpCard valueForKey:@"Number"]]];
-         
+                
+                for (int i = 0; i < [self.creditCards count]; i++) {
+                    NSDictionary *tmpCard = [self.creditCards objectAtIndex:i];
+                    
+                    NSString *type = [ArcUtility getCardTypeForNumber:[tmpCard valueForKey:@"Number"]];
+                    
+                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", type, [tmpCard valueForKey:@"Number"]]];
+                    
+                }
+                
+                [self.actionSheet addButtonWithTitle:@"+ New Card"];
+                [self.actionSheet addButtonWithTitle:@"Cancel"];
+                self.actionSheet.cancelButtonIndex = [self.creditCards count];
+                [self.actionSheet showInView:self.view];
+                
+                
+            }else{
+                [self performSegueWithIdentifier:@"newcard" sender:self];
             }
             
-            [self.actionSheet addButtonWithTitle:@"+ New Card"];
-            [self.actionSheet addButtonWithTitle:@"Cancel"];
-            self.actionSheet.cancelButtonIndex = [self.creditCards count];
-            [self.actionSheet showInView:self.view];
             
-            
-        }else{
-            [self performSegueWithIdentifier:@"newcard" sender:self];
         }
-        
-        
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"RecurringDonationOne.continueAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+  
 }
 
 

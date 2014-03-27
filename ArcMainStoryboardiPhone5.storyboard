@@ -2040,7 +2040,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mqn-Ee-Bzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="786" y="-830"/>
+            <point key="canvasLocation" x="888" y="-842"/>
         </scene>
         <!--Payment History View Controller-->
         <scene sceneID="pf1-ur-yMx">
@@ -3640,7 +3640,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Default-568h@2x.png" width="320" height="480"/>
+        <image name="Default-568h@2x.png" width="88" height="88"/>
         <image name="Divider.png" width="554" height="17"/>
         <image name="anonymousAlert.png" width="550" height="600"/>
         <image name="backarrow.png" width="88" height="88"/>
@@ -3676,7 +3676,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="jge-5Y-dQA"/>
         <segue reference="Pxq-hu-Ppt"/>
+        <segue reference="jge-5Y-dQA"/>
     </inferredMetricsTieBreakers>
 </document>

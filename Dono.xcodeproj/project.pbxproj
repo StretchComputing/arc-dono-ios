@@ -1168,6 +1168,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					90993F30159777BC00FC1D49 = {
+						DevelopmentTeam = STVH6D2UW3;
+					};
+				};
 			};
 			buildConfigurationList = 90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "Dono" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1467,8 +1472,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "9991076F-3C93-42F9-90D0-59F5BACFBC91";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9991076F-3C93-42F9-90D0-59F5BACFBC91";
+				PROVISIONING_PROFILE = "AD83A1FB-0173-4A3B-8BCA-3B943D4E457B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AD83A1FB-0173-4A3B-8BCA-3B943D4E457B";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1537,8 +1542,8 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = Dono;
-				PROVISIONING_PROFILE = "9991076F-3C93-42F9-90D0-59F5BACFBC91";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9991076F-3C93-42F9-90D0-59F5BACFBC91";
+				PROVISIONING_PROFILE = "AD83A1FB-0173-4A3B-8BCA-3B943D4E457B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AD83A1FB-0173-4A3B-8BCA-3B943D4E457B";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1552,6 +1557,7 @@
 					armv7s,
 					armv7,
 				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -1622,7 +1628,7 @@
 					armv7s,
 					armv7,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: tyler mendoza (8VDW7T8787)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: tyler mendoza (STVH6D2UW3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

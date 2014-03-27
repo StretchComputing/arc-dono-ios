@@ -116,7 +116,7 @@
         }
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"RecurringDonationOne.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"RecurringDonationNewCard.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -197,26 +197,37 @@
 
 - (BOOL) luhnCheck:(NSString *)stringToTest {
     
-    stringToTest = [stringToTest stringByReplacingOccurrencesOfString:@" " withString:@""];
-	NSMutableArray *stringAsChars = [stringToTest toCharArray];
     
-	BOOL isOdd = YES;
-	int oddSum = 0;
-	int evenSum = 0;
-    
-	for (int i = [stringToTest length] - 1; i >= 0; i--) {
+    @try {
+        stringToTest = [stringToTest stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSMutableArray *stringAsChars = [stringToTest toCharArray];
         
-		int digit = [(NSString *)[stringAsChars objectAtIndex:i] intValue];
+        BOOL isOdd = YES;
+        int oddSum = 0;
+        int evenSum = 0;
         
-		if (isOdd)
-			oddSum += digit;
-		else
-			evenSum += digit/5 + (2*digit) % 10;
+        for (int i = [stringToTest length] - 1; i >= 0; i--) {
+            
+            int digit = [(NSString *)[stringAsChars objectAtIndex:i] intValue];
+            
+            if (isOdd)
+                oddSum += digit;
+            else
+                evenSum += digit/5 + (2*digit) % 10;
+            
+            isOdd = !isOdd;
+        }
         
-		isOdd = !isOdd;
-	}
-    
-	return ((oddSum + evenSum) % 10 == 0);
+        return ((oddSum + evenSum) % 10 == 0);
+    }
+    @catch (NSException *exception) {
+        
+        [rSkybox sendClientLog:@"RecurringDonationNewCard.luhnCheck" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+        return NO;
+    }
+  
+  
 }
 
 

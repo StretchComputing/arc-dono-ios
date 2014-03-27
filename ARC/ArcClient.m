@@ -207,6 +207,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
 
+       // NSLog(@"Request: %@", requestString);
+        
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"UpdateGuestCustomer"];
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -1280,6 +1282,14 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
         
+        if ([customerId length] == 0) {
+            customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }
+        
+        if ([customerId length] == 0) {
+            return;
+        }
+        
         NSDictionary *pairs = @{@"AppInfo": [self getAppInfoDictionary], @"UserId":customerId};
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
@@ -1350,7 +1360,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
        // NSLog(@"API: %@", [self apiToString]);
-       // NSLog(@"ReturnString: %@", returnString);
+        //NSLog(@"ReturnString: %@", returnString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];
@@ -2008,7 +2018,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         if (success){
             
             @try {
-                if ([[response valueForKey:@"ErrorCodes"] count] > 0) {
+                if ([[response valueForKey:@"ErrorCodes"] count] > 0 && [[response valueForKey:@"Results"] length] == 0) {
                     NSString *status = @"error";
                     int errorCode = [self getErrorCode:response];
                     responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};

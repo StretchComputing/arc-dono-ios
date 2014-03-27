@@ -32,7 +32,7 @@
     self.myImageView.image = mygif;
 
      
-    [self performSelector:@selector(finishSetup) withObject:nil afterDelay:2.2];
+    [self performSelector:@selector(finishSetup) withObject:nil afterDelay:3.2];
 
 }
 
