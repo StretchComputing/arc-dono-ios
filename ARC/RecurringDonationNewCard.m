@@ -11,6 +11,7 @@
 #import "RecurringDonationFinal.h"
 #import "rSkybox.h"
 #import "NSString+CharArray.h"
+#import "MFSideMenu.h"
 
 @interface RecurringDonationNewCard ()
 
@@ -18,7 +19,12 @@
 
 @implementation RecurringDonationNewCard
 
+-(void)viewWillDisappear:(BOOL)animated{
+    self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+
+}
 -(void)viewWillAppear:(BOOL)animated{
+    self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
 
     self.titleLabel.text = self.myMerchant.name;
 }
@@ -38,6 +44,7 @@
     self.addCardButton.layer.borderColor = [dutchOrangeColor CGColor];
     
     [self.myTableView reloadData];
+    
 }
 
 
@@ -168,7 +175,8 @@
         
         
         
-        
+        [self setUpToolBars];
+
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -461,6 +469,54 @@
 }
 
 
-
+-(void)setUpToolBars{
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+    [toolbar sizeToFit];
+    UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
+    doneButton.tintColor = [UIColor whiteColor];
+    
+    NSArray *itemsArray = [NSArray arrayWithObjects:flexButton, doneButton, nil];
+    [toolbar setItems:itemsArray];
+    [self.creditCardNumberText setInputAccessoryView:toolbar];
+    
+    
+    UIToolbar *toolbar1 = [[UIToolbar alloc] init];
+    [toolbar1 setBarStyle:UIBarStyleBlackTranslucent];
+    [toolbar1 sizeToFit];
+    UIBarButtonItem *flexButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *doneButton1 =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
+    doneButton1.tintColor = [UIColor whiteColor];
+    
+    NSArray *itemsArray1 = [NSArray arrayWithObjects:flexButton1, doneButton1, nil];
+    [toolbar1 setItems:itemsArray1];
+    [self.creditCardSecurityCodeText setInputAccessoryView:toolbar];
+    
+    
+    
+    UIToolbar *toolbar2 = [[UIToolbar alloc] init];
+    [toolbar2 setBarStyle:UIBarStyleBlackTranslucent];
+    [toolbar2 sizeToFit];
+    UIBarButtonItem *flexButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *doneButton2 =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
+    doneButton2.tintColor = [UIColor whiteColor];
+    
+    NSArray *itemsArray2 = [NSArray arrayWithObjects:flexButton2, doneButton2, nil];
+    [toolbar2 setItems:itemsArray2];
+    [self.expirationText setInputAccessoryView:toolbar2];
+    
+    
+    
+    
+}
+-(void)resignKeyboard{
+    
+    [self.creditCardNumberText resignFirstResponder];
+    [self.creditCardSecurityCodeText resignFirstResponder];
+    [self.expirationText resignFirstResponder];
+    
+}
 
 @end

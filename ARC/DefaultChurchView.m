@@ -18,6 +18,8 @@
 #import "ArcClient.h"
 #import "DonateWebViewController.h"
 #import "RecurringDonationOne.h"
+#import "MFSideMenu.h"
+
 @interface DefaultChurchView ()
 
 @end
@@ -53,7 +55,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     @try {
-        
+        self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+
         
         self.didGetRecurring = NO;
         

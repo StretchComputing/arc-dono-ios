@@ -12,7 +12,7 @@
 #import "RecurringDonationNewCard.h"
 #import "RecurringDonationFinal.h"
 #import "ArcUtility.h"
-
+#import "MFSideMenu.h"
 @interface RecurringDonationOne ()
 
 @end
@@ -20,11 +20,16 @@
 @implementation RecurringDonationOne
 
 -(void)viewWillDisappear:(BOOL)animated{
+    self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
+
     self.titleLabel.text = self.myMerchant.name;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
@@ -39,8 +44,13 @@
     if (!self.isChangingKeyboard) {
         [UIView animateWithDuration:0.3 animations:^(void){
             
+            int x = 130;
+            if (self.view.frame.size.height < 500) {
+                x = 180;
+            }
+            
             CGRect frame = self.view.frame;
-            frame.origin.y -= 130;
+            frame.origin.y -= x;
             self.view.frame = frame;
             
         }];
@@ -254,7 +264,33 @@
 }
 
 
-
+-(BOOL)isValidEntry{
+    
+    @try {
+        
+        int number = [self.mainDetailText.text intValue];
+        
+        if (number < 1 || number > 28) {
+            
+          
+            
+        }else{
+            return YES;
+        }
+        
+        
+        if ([self.daysOfWeek containsObject:[self.mainDetailText.text lowercaseString]]) {
+            return  YES;
+        }
+        
+        return NO;
+    }
+    @catch (NSException *exception) {
+        return NO;
+    }
+   
+    
+}
 
 - (IBAction)continueAction {
     
@@ -263,7 +299,12 @@
         if ([self.mainDetailText.text length] == 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Details" message:@"Please fill out Step #2, the details of your recurring donation, before continuing." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
+        }else if (![self isValidEntry]){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Details" message:@"Please enter a valid number or day in Step #2 before continuing." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
         }else{
+            
             
             if ([self.creditCards count] > 0) {
                 
@@ -435,6 +476,7 @@
                 for (int i = 0; i < [self.daysOfWeek count]; i++) {
                     
                     NSString *dayOfWeek = [self.daysOfWeek objectAtIndex:i];
+               
                     
                     if ([[dayOfWeek substringToIndex:[self.mainDetailText.text length]] isEqualToString:self.mainDetailText.text]) {
                         [self.matchingDays addObject:dayOfWeek];
@@ -443,8 +485,10 @@
                 
                 if ([self.matchingDays count] > 0) {
                     self.myTableView.hidden = NO;
-                    [self.myTableView reloadData];
                 }
+                
+                [self.myTableView reloadData];
+                
                 
             }else{
                 self.myTableView.hidden = YES;
@@ -459,7 +503,7 @@
     }
     @catch (NSException *exception) {
         self.myTableView.hidden = YES;
-        NSLog(@"E: %@",exception);
+       // NSLog(@"E: %@",exception);
     }
    
     
@@ -505,12 +549,18 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    self.mainDetailText.text = [[self.matchingDays objectAtIndex:indexPath.row] capitalizedString];
-    
-    [self.mainDetailText resignFirstResponder];
-    
-    self.matchingDays = [NSMutableArray array];
-    self.myTableView.hidden = YES;
+    @try {
+        self.mainDetailText.text = [[self.matchingDays objectAtIndex:indexPath.row] capitalizedString];
+        
+        [self.mainDetailText resignFirstResponder];
+        
+        self.matchingDays = [NSMutableArray array];
+        self.myTableView.hidden = YES;
+    }
+    @catch (NSException *exception) {
+        
+    }
+   
     
   
     

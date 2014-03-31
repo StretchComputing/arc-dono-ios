@@ -344,7 +344,7 @@ var ARC = (function (r, $) {
 			}else{
 				//success, going back to iOS
 				 $('#donePayment').show();
-		   		 $('div.finalMessage').text("Your Dono web session has ended, please close this tab return to the app to proceed.  Refreshing this page may cause duplicate transactions.");
+		   		 $('div.finalMessage').text("Thank you!  Your dono web session has ended.");
 		   			
 		   		 window.location = returnUrl;
 

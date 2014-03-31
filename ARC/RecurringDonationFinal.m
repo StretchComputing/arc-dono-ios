@@ -12,7 +12,7 @@
 #import "ArcClient.h"
 #import "DefaultChurchView.h"
 #import "rSkybox.h"
-
+#import "MFSideMenu.h"
 @interface RecurringDonationFinal ()
 
 @end
@@ -20,12 +20,18 @@
 @implementation RecurringDonationFinal
 
 -(void)viewWillDisappear:(BOOL)animated{
+    
+    self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)viewWillAppear:(BOOL)animated{
     
     
     @try {
+        
+        self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
+
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneCreateRecurringPayment:) name:@"createRecurringPaymentNotification" object:nil];
@@ -328,7 +334,7 @@
             self.loadingViewController.view.hidden = NO;
             
             
-            NSLog(@"Dictionary: %@", loginDict);
+            //NSLog(@"Dictionary: %@", loginDict);
             
             [client createRecurringPayment:loginDict];
             
