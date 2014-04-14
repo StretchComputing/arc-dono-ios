@@ -13,6 +13,7 @@
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
 #import "ArcIdentifier.h"
+#import "GetPasscodeViewController.h"
 
 @interface InitHelpPageViewController ()
 
@@ -53,9 +54,21 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotificationGuest" object:nil];
     
+   // if (self.showLogin) {
+        self.skipButton.hidden = YES;
+        self.loginButton.hidden = NO;
+        self.registerButton.hidden = NO;
+    [self.myScrollView setContentOffset:CGPointMake(0, 0)];
+   // }else{
+     //   self.skipButton.hidden = NO;
+    //    self.loginButton.alpha = 0.0;
+    //    self.registerButton.alpha = 0.0;
+        
+   // }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerComplete:) name:@"registerNotification" object:nil];
     //self.loadingViewController.view.hidden = NO;
     //self.loadingViewController.displayText.text = @"
     
@@ -69,7 +82,7 @@
     
     loginDict = tempDictionary;
     ArcClient *client = [[ArcClient alloc] init];
-    [client getGuestToken:loginDict];
+   // [client getGuestToken:loginDict];
     
     
     
@@ -84,10 +97,20 @@
 }
 - (void)viewDidLoad
 {
-    
+    self.loginRegisterFrontView.layer.cornerRadius = 5.0;
+    self.loginRegisterFrontView.layer.masksToBounds = YES;
+
     self.skipButton.layer.cornerRadius = 12.0;
     self.skipButton.layer.borderColor = [dutchRedColor CGColor];
     self.skipButton.layer.borderWidth = 2.0;
+    
+    self.loginButton.layer.cornerRadius = 12.0;
+    self.loginButton.layer.borderColor = [dutchRedColor CGColor];
+    self.loginButton.layer.borderWidth = 2.0;
+    
+    self.registerButton.layer.cornerRadius = 12.0;
+    self.registerButton.layer.borderColor = [dutchRedColor CGColor];
+    self.registerButton.layer.borderWidth = 2.0;
     
     self.termsButton.text = @"Terms of Use";
     self.termsButton.tintColor = dutchDarkBlueColor;
@@ -187,10 +210,11 @@
     }else if (offset == 320){
         self.pageControl.currentPage = 1;
     }else if (offset == 640){
-        self.pageControl.currentPage = 3;
+        self.pageControl.currentPage = 2;
     }else if (offset == 960){
-        self.pageControl.currentPage = 4;
-        [self.skipButton setTitle:@"Get Started!" forState:UIControlStateNormal];
+        self.pageControl.currentPage = 3;
+        [self fadeToLogin];
+        //[self.skipButton setTitle:@"Get Started!" forState:UIControlStateNormal];
     }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -241,8 +265,40 @@
 
 }
 
+- (IBAction)registerAction {
+    self.isLogin = NO;
+    self.loginRegisterBackView.hidden = NO;
+    self.loginRegisterTitleText.text = @"New Account";
+    self.nameText.hidden = NO;
+    [self.emailText becomeFirstResponder];
+    self.forgotPasswordButton.hidden = YES;
+}
+
+- (IBAction)loginAction {
+    
+    self.isLogin = YES;
+    self.loginRegisterBackView.hidden = NO;
+    self.loginRegisterTitleText.text = @"Log In";
+    self.nameText.hidden = YES;
+    [self.emailText becomeFirstResponder];
+    self.forgotPasswordButton.hidden = NO;
+
+}
+
+-(void)fadeToLogin{
+    
+    [UIView animateWithDuration:0.4 animations:^(void){
+       
+        self.skipButton.alpha = 0.0;
+        self.registerButton.alpha = 1.0;
+        self.loginButton.alpha = 1.0;
+    }];
+}
 -(void)startUsingAction{
     
+    [self fadeToLogin];
+
+    /*
     if (self.didFailToken) {
         
         NSString *identifier = [ArcIdentifier getArcIdentifier];
@@ -310,46 +366,228 @@
 
     }
        
+     */
+}
+
+- (IBAction)forgotPasswordAction {
+    
+    if (self.loggedOut) {
+        UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"reset"];
+        [self.navigationController pushViewController:tmp animated:YES];
+    }else{
+        
+        
+        UINavigationController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"resetNav"];
+        GetPasscodeViewController *passcode = [[tmp viewControllers] objectAtIndex:0];
+        passcode.isInitial = YES;
+        [self presentViewController:tmp animated:YES completion:nil];
+    }
+   
+    
+}
+
+- (IBAction)endText {
+}
+
+
+
+- (IBAction)loginRegisterNoThanksAction {
+    self.loginRegisterBackView.hidden = YES;
+    
+    [self.emailText resignFirstResponder];
+    [self.passwordText resignFirstResponder];
+    [self.nameText resignFirstResponder];
+}
+
+- (IBAction)loginRegisterSubmitAction {
+    
+    @try {
+        if ([self.emailText.text length] == 0 || [self.passwordText.text length] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"Please fill out both email and password before submitting." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else if (!self.isLogin && [self.passwordText.text length] < 5){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Too Short" message:@"Password must be at least 5 characters." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            
+        }else if (!self.isLogin && ![self validateEmail:self.emailText.text]){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email" message:@"Please enter a valid email address." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            
+        }else if (!self.isLogin && [self.nameText.text length] == 0){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Name" message:@"Please enter your name.  Your name will only be used to give you credit for your donations, if you choose to not donate anonymously." delegate:Nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+        }else{
+            if (self.isLogin) {
+                //run login
+                [self runLogin];
+            }else{
+                // run register
+                [self runRegister];
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InitHelpPageVC.doneAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+}
+
+
+-(void)runLogin{
+    @try {
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        [ tempDictionary setObject:self.emailText.text forKey:@"userName"];
+        [ tempDictionary setObject:self.passwordText.text forKey:@"password"];
+        
+        [self.loadingViewController startSpin];
+        self.loadingViewController.displayText.text = @"Logging In...";
+        
+        
+        loginDict = tempDictionary;
+        ArcClient *client = [[ArcClient alloc] init];
+        [client getCustomerToken:loginDict];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InitHelpPageVC.runLogin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+    
+}
+
+-(void)runRegister{
+    
+    
+    
+    @try{
+        
+        [self.loadingViewController startSpin];
+        self.loadingViewController.displayText.text = @"Registering...";
+        
+        NSString *firstName = @"";
+        NSString *lastName = @"";
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+		NSDictionary *loginDict = [[NSDictionary alloc] init];
+        
+        NSArray *nameArray = [self.nameText.text componentsSeparatedByString:@" "];
+        
+        if ([nameArray count] > 0) {
+            
+            firstName = [nameArray objectAtIndex:0];
+            
+            for (int i = 1; i < [nameArray count]; i++) {
+                
+                if ([lastName length] == 0) {
+                    lastName = [lastName stringByAppendingFormat:@"%@", [nameArray objectAtIndex:i]];
+
+                }else{
+                    lastName = [lastName stringByAppendingFormat:@" %@", [nameArray objectAtIndex:i]];
+
+                }
+            }
+        }
+      
+        
+		[ tempDictionary setObject:firstName forKey:@"FirstName"];
+		[ tempDictionary setObject:lastName forKey:@"LastName"];
+		[ tempDictionary setObject:self.emailText.text forKey:@"eMail"];
+		[ tempDictionary setObject:self.passwordText.text forKey:@"Password"];
+        [ tempDictionary setObject:@"Phone" forKey:@"Source"];
+        
+        [ tempDictionary setObject:[NSNumber numberWithBool:NO] forKey:@"IsGuest"];
+        
+        
+        
+        //[ tempDictionary setObject:genderString forKey:@"Gender"];
+        
+        // TODO hard coded for now
+        [ tempDictionary setObject:@"123" forKey:@"PassPhrase"];
+        
+        
+        
+        //[ tempDictionary setObject:birthDayString forKey:@"BirthDate"];
+        [ tempDictionary setObject:@(YES) forKey:@"AcceptTerms"];
+        [ tempDictionary setObject:@(YES) forKey:@"Notifications"];
+        [ tempDictionary setObject:@(NO) forKey:@"Facebook"];
+        [ tempDictionary setObject:@(NO) forKey:@"Twitter"];
+        
+		loginDict = tempDictionary;
+        ArcClient *client = [[ArcClient alloc] init];
+        [client createCustomer:loginDict];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InitHelpPageVC.runRegister" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+
+
+
+
+- (BOOL) validateEmail: (NSString *) candidate {
+    
+    @try {
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+        
+        return [emailTest evaluateWithObject:candidate];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ProfileNewViewController.validateEmail" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return NO;
+        
+    }
+    
+    
 }
 
 
 -(void)signInComplete:(NSNotification *)notification{
     @try {
         
-        
         self.loadingViewController.view.hidden = YES;
+        
+        
+        
+        
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-        // NSLog(@"Response Info: %@", responseInfo);
+        //NSLog(@"Response Info: %@", responseInfo);
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
         
         NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
-            //success            
-            self.didFailToken = NO;
-            if (self.didPushStart) {
-                
-                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
-                home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                [self presentModalViewController:home animated:YES];
-                
-                
-            }else{
-                self.doesHaveGuestToken = YES;
-            }
+            //success
+            [[NSUserDefaults standardUserDefaults] setValue:self.emailText.text forKey:@"customerEmail"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
-            //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
-            //[self presentModalViewController:home animated:NO];
+            ArcClient *client = [[ArcClient alloc] init];
+            [client getServer];
+            
+            ArcClient *tmp = [[ArcClient alloc] init];
+            [tmp updatePushToken];
             
             
             
-            //[self goHomePage];
-            //[[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didJustLogin"];
-            //[[NSUserDefaults standardUserDefaults] synchronize];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully signed in." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
             
-            // [self performSelector:@selector(checkPayment) withObject:nil afterDelay:1.5];
+            
+            [self handleSuccess];
+            
+            
+            
             
             //Do the next thing (go home?)
         } else if([status isEqualToString:@"error"]){
@@ -366,22 +604,121 @@
         }
         
         if([errorMsg length] > 0) {
-            
-            self.didFailToken = YES;
             //self.errorLabel.text = errorMsg;
-            
-            self.guestTokenError = YES;
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading Error" message:@"We experienced an error loading your guest account, please try again!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
         
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"InitialHelpPageVC.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"InitHelpPageVC.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
         
     }
     
 }
+
+-(void)registerComplete:(NSNotification *)notification{
+    @try {
+        self.loadingViewController.view.hidden = YES;
+        
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            [[NSUserDefaults standardUserDefaults] setValue:self.emailText.text forKey:@"customerEmail"];
+            NSString *firstName = @"";
+            NSString *lastName = @"";
+            
+    
+            
+            NSArray *nameArray = [self.nameText.text componentsSeparatedByString:@" "];
+            
+            if ([nameArray count] > 0) {
+                
+                firstName = [nameArray objectAtIndex:0];
+                
+                for (int i = 1; i < [nameArray count]; i++) {
+                    
+                    if ([lastName length] == 0) {
+                        lastName = [lastName stringByAppendingFormat:@"%@", [nameArray objectAtIndex:i]];
+                        
+                    }else{
+                        lastName = [lastName stringByAppendingFormat:@" %@", [nameArray objectAtIndex:i]];
+                        
+                    }
+                }
+            }
+
+            
+            
+            
+            [[NSUserDefaults standardUserDefaults] setValue:firstName forKey:@"customerFirstName"];
+            [[NSUserDefaults standardUserDefaults] setValue:lastName forKey:@"customerLastName"];
+            
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            ArcClient *client = [[ArcClient alloc] init];
+            [client getServer];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully registered." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+            
+            
+            
+            [self handleSuccess];
+            
+            
+            
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == USER_ALREADY_EXISTS) {
+                errorMsg = @"Email Address already used.";
+            }else if (errorCode == NETWORK_ERROR){
+                
+                errorMsg = @"dono is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                
+            }else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            //self.activityView.hidden = NO;
+            //self.errorLabel.hidden = NO;
+            //self.errorLabel.text = errorMsg;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+        }
+    }
+    @catch (NSException *e) {
+        
+        [self.loadingViewController stopSpin];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:@"We encountered an error processing your request, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        
+        [rSkybox sendClientLog:@"InitHelpPageVC.registerComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+-(void)handleSuccess{
+    
+    if (self.loggedOut) {
+        [self.navigationController popViewControllerAnimated:NO];
+    }else{
+        self.loginRegisterBackView.hidden = YES;
+        UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
+        home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentModalViewController:home animated:YES];
+    }
+   
+}
+
+
 @end

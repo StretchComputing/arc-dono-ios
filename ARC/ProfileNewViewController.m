@@ -23,7 +23,7 @@
 #import "RegisterViewNew.h"
 #import "ArcIdentifier.h"
 #import "PaymentOptionsWebViewController.h"
-
+#import "InitHelpPageViewController.h"
 
 @interface ProfileNewViewController ()
 
@@ -142,7 +142,7 @@
         // [self.view insertSubview:translucentView aboveSubview:self.orangeView];
         
         
-        self.profileImage.layer.cornerRadius = 35.0;
+        self.profileImage.layer.cornerRadius = 25.0;
         self.profileImage.layer.borderWidth = 3.0;
         self.profileImage.layer.masksToBounds = YES;
         self.profileImage.layer.borderColor = [[UIColor whiteColor] CGColor];
@@ -169,35 +169,37 @@
 - (IBAction)logoutAction {
     
     @try {
+        
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+        
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *customerId = [prefs stringForKey:@"customerId"];
         
         
-        NSString *guestId = [prefs stringForKey:@"guestId"];
-        NSString *guestToken = [prefs stringForKey:@"guestToken"];
+        NSString *keyString = [NSString stringWithFormat:@"%@noPaymentKey", customerId];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:keyString];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"arcLoginType"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"customerEmail"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"autoPostFacebook"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"autoPostTwitter"];
         
-        if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
-            
-            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-            mainDelegate.logout = @"true";
-            [self.navigationController popToRootViewControllerAnimated:NO];
-            
-        }else{
-            //Get the Guest Token, then push to InitHelpPage
-            NSString *identifier = [ArcIdentifier getArcIdentifier];
-            
-            NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-            NSDictionary *loginDict = [[NSDictionary alloc] init];
-            [ tempDictionary setObject:identifier forKey:@"userName"];
-            [ tempDictionary setObject:identifier forKey:@"password"];
-            
-            loginDict = tempDictionary;
-            ArcClient *client = [[ArcClient alloc] init];
-            
-            self.loadingViewController.view.hidden = NO;
-            self.loadingViewController.displayText.text = @"Logging Out";
-            [client getGuestToken:loginDict];
-            
-        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        //[self.navigationController dismissModalViewControllerAnimated:YES];
+        
+        InitHelpPageViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+        home.loggedOut = YES;
+        [self.navigationController pushViewController:home animated:NO];
+        
+        
 
     }
     @catch (NSException *exception) {
@@ -267,7 +269,7 @@
                 [self runLogin];
             }else{
                 // run register
-                [self runRegister];
+               // [self runRegister];
             }
         }
     }
@@ -368,12 +370,12 @@
     
 }
 
--(void)runRegister{
+-(void)updateName{
     
     @try {
        
         [self.loadingViewController startSpin];
-        self.loadingViewController.displayText.text = @"Registering...";
+        self.loadingViewController.displayText.text = @"Updating...";
         
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
@@ -381,9 +383,8 @@
         
         
         
-        [tempDictionary setValue:self.emailText.text forKey:@"eMail"];
-        [tempDictionary setValue:self.passwordText.text forKey:@"Password"];
-        [tempDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"IsGuest"];
+        [tempDictionary setValue:self.firstNameTextField.text forKey:@"FirstName"];
+        [tempDictionary setValue:self.lastNameTextField.text forKey:@"LastName"];
         
         
         NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -394,7 +395,7 @@
         [tmp updateGuestCustomer:loginDict];
     }
     @catch (NSException *exception) {
-         [rSkybox sendClientLog:@"ProfileNewViewController.runRegister" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+         [rSkybox sendClientLog:@"ProfileNewViewController.updateName" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
   
     
@@ -577,44 +578,18 @@
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
-        BOOL isAlreadyRegistered = NO;
         
         NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
-            //NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] objectAtIndex:0];
+    
             
-            
-            NSString *newToken = [responseInfo valueForKey:@"Results"];
-            
-            
-            //NSLog(@"NewToken: %@", newToken);
-            
-            //Successful conversion from guest->customer
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Thank your for registering, email receipts will now be sent to your address." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your name has been updated." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
+         
+            [[NSUserDefaults standardUserDefaults] setValue:self.firstNameTextField.text forKey:@"customerFirstName"];
+            [[NSUserDefaults standardUserDefaults] setValue:self.lastNameTextField.text forKey:@"customerLastName"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            NSString *guestId = [prefs valueForKey:@"guestId"];
-            //NSString *guestToken = [prefs valueForKey:@"guestToken"];
-            
-            
-            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-            [mainDelegate insertCustomerWithId:guestId andToken:newToken];
-            
-            
-            //Convert Guest Id/Token to customer Id/Token
-            
-            [prefs setValue:self.emailText.text forKey:@"customerEmail"];
-            [prefs setValue:guestId forKey:@"customerId"];
-            [prefs setValue:newToken forKey:@"customerToken"];
-            
-            [prefs setValue:@"" forKey:@"guestId"];
-            [prefs setValue:@"" forKey:@"guestToken"];
-            
-            [prefs synchronize];
-            
-            [self handleSuccess];
             
             
         } else if([status isEqualToString:@"error"]){
@@ -622,29 +597,25 @@
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             
             if(errorCode == 103 || errorCode == 106) {
-                isAlreadyRegistered = YES;
+                //isAlreadyRegistered = YES;
             } else {
-                errorMsg = @"Unable to register account, please try again.";
+                errorMsg = @"Unable to update account, please try again.";
             }
             
             
         } else {
             // must be failure -- user notification handled by ArcClient
-            errorMsg = @"Unable to register account, please try again.";
+            errorMsg = @"Unable to update account, please try again.";
         }
         
-        if (isAlreadyRegistered) {
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email In Use" message:@"The email address you entered is already being used.  If you already have an account, please sign in." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-        }else{
+        
             if([errorMsg length] > 0) {
                 // self.errorLabel.text = errorMsg;
                 
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
             }
-        }
+        
         
     }
     @catch (NSException *e) {
@@ -710,13 +681,40 @@
 
 
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 2;
+    
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
 	
     
+    
         return 2;
     
+}
+
+-(void)saveName{
+    
+    if ([self.firstNameTextField.text length] > 0 && [self.lastNameTextField.text length] > 0) {
+        [self.firstNameTextField resignFirstResponder];
+        [self.lastNameTextField resignFirstResponder];
+        
+        [self updateName];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Name" message:@"Please fill out both first name and last name before saving." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+    
+}
+
+-(void)cancelName{
+    
+    [self.firstNameTextField resignFirstResponder];
+    [self.lastNameTextField resignFirstResponder];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -728,47 +726,111 @@
         UITableViewCell *cell;
         
        
-        cell = [tableView dequeueReusableCellWithIdentifier:@"supportCell"];
-                
-       
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-        
-       if (section == 0){
-            SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+        if (section == 0) {
             
-            if (row == 1) {
-                supportLabel.text = @"Donation History";
-            }else if (row == 0){
-                supportLabel.text = @"Payment Options";
-            }else{
-                /*
-                supportLabel.text = @"Donation Subscription";
+            cell = [tableView dequeueReusableCellWithIdentifier:@"nameCell"];
+
+            SteelfishInputText *textField = (SteelfishInputText *)[cell.contentView viewWithTag:1];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            if (row == 0) {
+                textField.placeholder = @"First Name";
+                self.firstNameTextField = textField;
                 
-                self.recurringAmountLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
-                self.recurringStringLabel = (SteelfishLabel *)[cell.contentView viewWithTag:3];
-                self.recurringActivityIndicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:4];
+                UIToolbar *toolbar = [[UIToolbar alloc] init];
+                [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+                [toolbar sizeToFit];
+                UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+                UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveName)];
+                UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelName)];
                 
-                if (self.didGetRecurring) {
-                    
-                    self.recurringActivityIndicator.hidden = YES;
-                    self.recurringAmountLabel.hidden = NO;
-                    self.recurringStringLabel.hidden = NO;
-                    
-                    
-                    
-                    
+                doneButton.tintColor = [UIColor whiteColor];
+                cancelButton.tintColor = [UIColor whiteColor];
+                NSArray *itemsArray = [NSArray arrayWithObjects:cancelButton, flexButton, doneButton, nil];
+                [toolbar setItems:itemsArray];
+                [self.firstNameTextField setInputAccessoryView:toolbar];
+                
+                
+                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerFirstName"] length] > 0) {
+                    self.firstNameTextField.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerFirstName"];
                 }else{
-                    self.recurringActivityIndicator.hidden = NO;
-                    self.recurringAmountLabel.hidden = YES;
-                    self.recurringStringLabel.hidden = YES;
-                    
+                    self.firstNameTextField.text = @"";
                 }
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                */
-            };
+                
+            }else{
+                textField.placeholder = @"Last Name";
+                self.lastNameTextField = textField;
+                
+                UIToolbar *toolbar = [[UIToolbar alloc] init];
+                [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+                [toolbar sizeToFit];
+                UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+                UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveName)];
+                UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelName)];
+
+                doneButton.tintColor = [UIColor whiteColor];
+                cancelButton.tintColor = [UIColor whiteColor];
+                NSArray *itemsArray = [NSArray arrayWithObjects:cancelButton, flexButton, doneButton, nil];
+                [toolbar setItems:itemsArray];
+                [self.lastNameTextField setInputAccessoryView:toolbar];
+                
+                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerLastName"] length] > 0) {
+                    self.lastNameTextField.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerLastName"];
+                }else{
+                    self.lastNameTextField.text = @"";
+                }
+                
+                
+                
+            }
+
+        }else{
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"supportCell"];
+            
+            
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+            
+            if (section == 1){
+                SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+                
+                if (row == 1) {
+                    supportLabel.text = @"Donation History";
+                }else if (row == 0){
+                    supportLabel.text = @"Payment Options";
+                }else{
+                    /*
+                     supportLabel.text = @"Donation Subscription";
+                     
+                     self.recurringAmountLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
+                     self.recurringStringLabel = (SteelfishLabel *)[cell.contentView viewWithTag:3];
+                     self.recurringActivityIndicator = (UIActivityIndicatorView *)[cell.contentView viewWithTag:4];
+                     
+                     if (self.didGetRecurring) {
+                     
+                     self.recurringActivityIndicator.hidden = YES;
+                     self.recurringAmountLabel.hidden = NO;
+                     self.recurringStringLabel.hidden = NO;
+                     
+                     
+                     
+                     
+                     }else{
+                     self.recurringActivityIndicator.hidden = NO;
+                     self.recurringAmountLabel.hidden = YES;
+                     self.recurringStringLabel.hidden = YES;
+                     
+                     }
+                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                     */
+                };
+                
+            }
+            
             
         }
+  
         
         
         
@@ -793,6 +855,9 @@
     
     @try {
         
+        if (indexPath.section == 0) {
+            return;
+        }
         NSUInteger row = indexPath.row;
         
             if (row == 1) {
@@ -868,4 +933,6 @@
 
 
 
+- (IBAction)endText {
+}
 @end

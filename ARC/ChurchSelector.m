@@ -20,6 +20,7 @@
 #import "LeftViewController.h"
 #import "SteelfishLabel.h"
 #import "ILTranslucentView.h"
+#import <Crashlytics/Crashlytics.h>
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -69,6 +70,15 @@
     
  
     @try {
+        
+        @try {
+            [Crashlytics setUserEmail:[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"]];
+            
+        }
+        @catch (NSException *exception) {
+            
+        }
+        
         
         
         if (self.isSearchShowing) {
@@ -158,7 +168,7 @@
 }
 -(void)logOut{
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account Deactivated" message:@"For security purposes, your account has been remotely deactivated.  If this was done in error, please contact dutch support." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account Deactivated" message:@"For security purposes, your account has been remotely deactivated.  If this was done in error, please contact dono support." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     
     
@@ -199,7 +209,7 @@
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out.  You may continue to use dono as a guest." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+            //[alert show];
             
             mainDelegate.logout = @"";
             
@@ -220,7 +230,7 @@
 
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-           // [self.navigationController dismissModalViewControllerAnimated:NO];
+            [self.navigationController dismissModalViewControllerAnimated:NO];
             
         }
         
@@ -876,7 +886,7 @@
         merchImage.image = [UIImage imageNamed:@"defaultLogo"];
        // merchImage.layer.borderColor = [[UIColor colorWithRed:30.0/255.0 green:30.0/255.0 blue:30.0/255.0 alpha:1.0] CGColor];
         //merchImage.layer.borderWidth = 1.0;
-        merchImage.layer.cornerRadius = 1.0;
+        merchImage.layer.cornerRadius = 3.0;
         
         
         //Images
@@ -888,9 +898,9 @@
         
         
         /*
-        if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]]) {
+        if ([mainDelegate.logoDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]]) {
             
-            NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
+            NSData *imageData = [mainDelegate.logoDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
             
             merchImage.image = [UIImage imageWithData:imageData];
             
@@ -915,7 +925,7 @@
                         merchImage.image = logoImage;
                         
                         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                        [mainDelegate.imageDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
+                        [mainDelegate.logoDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
                     }
                 });
             });
@@ -923,24 +933,24 @@
         }
         */
         
-        if (tmpMerchant.merchantId == 16) {
+        if (tmpMerchant.merchantId == 2116) {
             merchImage.image = [UIImage imageNamed:@"Evangelical"];
             
-        }else if (tmpMerchant.merchantId == 17) {
+        }else if (tmpMerchant.merchantId == 2117) {
             
             merchImage.image = [UIImage imageNamed:@"LivingWaters"];
             
-        }else if (tmpMerchant.merchantId == 15) {
+        }else if (tmpMerchant.merchantId == 2115) {
             merchImage.image = [UIImage imageNamed:@"StPaul"];
             
-        }else if (tmpMerchant.merchantId == 18) {
+        }else if (tmpMerchant.merchantId == 2118) {
             merchImage.image = [UIImage imageNamed:@"Browning"];
             
-        }else if (tmpMerchant.merchantId == 20) {
+        }else if (tmpMerchant.merchantId == 2120) {
             
             merchImage.image = [UIImage imageNamed:@"testChurch"];
             
-        }else if (tmpMerchant.merchantId == 21) {
+        }else if (tmpMerchant.merchantId == 2121) {
             
             merchImage.image = [UIImage imageNamed:@"21"];
             
@@ -954,18 +964,21 @@
             NSString *serverUrl = [tmp getCurrentUrl];
             ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
             
-            if ([mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]]) {
+            if ([mainDelegate.logoDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]]) {
                 
-                NSData *imageData = [mainDelegate.imageDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
+                NSData *imageData = [mainDelegate.logoDictionary valueForKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
                 
                 merchImage.image = [UIImage imageWithData:imageData];
                 
             }else{
                 
                 
-                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Promo/%d.png", serverUrl, tmpMerchant.merchantId];
+                //NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Promo/%d.png", serverUrl, tmpMerchant.merchantId];
+                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, tmpMerchant.merchantId];
+
                 logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
                 
+
                 dispatch_async(dispatch_get_global_queue(0,0), ^{
                     
                     NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
@@ -982,7 +995,7 @@
                             merchImage.image = logoImage;
                             
                             ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                            [mainDelegate.imageDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
+                            [mainDelegate.logoDictionary setValue:data forKey:[NSString stringWithFormat:@"%d", tmpMerchant.merchantId]];
                         }
                     });
                 });

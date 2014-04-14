@@ -207,7 +207,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
 
-       // NSLog(@"Request: %@", requestString);
+        NSLog(@"Request: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"UpdateGuestCustomer"];
@@ -1290,7 +1290,11 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             return;
         }
         
+        NSLog(@"CustomerId: %@", customerId);
+        
         NSDictionary *pairs = @{@"AppInfo": [self getAppInfoDictionary], @"UserId":customerId};
+        
+        NSLog(@"Pairs: %@", pairs);
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         
@@ -1360,7 +1364,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
        // NSLog(@"API: %@", [self apiToString]);
-        //NSLog(@"ReturnString: %@", returnString);
+       // NSLog(@"ReturnString: %@", returnString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];
@@ -2052,6 +2056,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(NSDictionary *) getCustomerTokenResponse:(NSDictionary *)response {
     @try {
         
+       // NSLog(@"Response: %@", response);
+        
         BOOL success = [[response valueForKey:@"Success"] boolValue];
         
         NSDictionary *responseInfo;
@@ -2063,12 +2069,32 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             BOOL admin = [[customer valueForKey:@"Admin"] boolValue];
             //admin = YES; // for testing admin role
             
+            NSString *firstName = @"";
+            NSString *lastName = @"";
+            
+            if ([[customer valueForKey:@"FirstName"] length] > 0) {
+                firstName = [customer valueForKey:@"FirstName"];
+            }
+            
+            if ([[customer valueForKey:@"LastName"] length] > 0) {
+                lastName = [customer valueForKey:@"LastName"];
+            }
+
+            
+            
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             
             [prefs setObject:customerId forKey:@"customerId"];
             [prefs setObject:customerToken forKey:@"customerToken"];
             NSNumber *adminAsNum = [NSNumber numberWithBool:admin];
             [prefs setObject:adminAsNum forKey:@"admin"];
+            
+            [prefs setValue:firstName forKey:@"customerFirstName"];
+            [prefs setValue:lastName forKey:@"customerLastName"];
+            
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            
             [prefs synchronize];
             
             //Add this customer to the DB

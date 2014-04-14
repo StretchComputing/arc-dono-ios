@@ -13,6 +13,8 @@
 #import "ArcIdentifier.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "UIImage+animatedGIF.h"
+#import "InitHelpPageViewController.h"
+
 @interface InitialController ()
 
 @end
@@ -53,30 +55,9 @@
     NSString *guestId = [prefs stringForKey:@"guestId"];
     NSString *guestToken = [prefs stringForKey:@"guestToken"];
     
-    
+    BOOL wasGuest = NO;
     if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
-        //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
-        //self.autoSignIn = YES;
-        
-        if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
-            
-            
-        }else{
-            
-            // NSString *identifier = [ArcIdentifier getArcIdentifier];
-            
-            
-            // NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-            // NSDictionary *loginDict = [[NSDictionary alloc] init];
-            // [ tempDictionary setObject:identifier forKey:@"userName"];
-            //[ tempDictionary setObject:identifier forKey:@"password"];
-            
-            // loginDict = tempDictionary;
-            //ArcClient *client = [[ArcClient alloc] init];
-            //[client getGuestToken:loginDict];
-            
-        }
-        
+   
         
         ArcClient *tmp = [[ArcClient alloc] init];
         [tmp updatePushToken];
@@ -87,40 +68,23 @@
     }else{
         
         if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil) && [[[NSUserDefaults standardUserDefaults] valueForKey:@"didAgreeTerms"] length] > 0) {
-            //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
-            //[self presentModalViewController:home animated:NO];
+       
             
-            //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
-            // [self presentModalViewController:home animated:NO];
-            
-            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
-            home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            [self presentModalViewController:home animated:YES];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Sign In" message:@"Dono no longer supports using the app as a guest.  Please register or log in to continue.  We apologize for any inconvenience." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            wasGuest = YES;
             
         }else{
-            
-            
-            //Go to initHelpPage, where GuestTOken is retrieved
-            
-            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
-            [self presentModalViewController:home animated:NO];
-            
-            // self.loadingView.hidden = NO;
-            
-            // NSString *identifier = [ArcIdentifier getArcIdentifier];
-            
-            
-            // NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-            // NSDictionary *loginDict = [[NSDictionary alloc] init];
-            // [ tempDictionary setObject:identifier forKey:@"userName"];
-            // [ tempDictionary setObject:identifier forKey:@"password"];
-            
-            // loginDict = tempDictionary;
-            // ArcClient *client = [[ArcClient alloc] init];
-            // [client getGuestToken:loginDict];
+        
             
             
         }
+        
+        InitHelpPageViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+        home.showLogin = wasGuest;
+        [self presentModalViewController:home animated:NO];
+        
+        
         
     }
     

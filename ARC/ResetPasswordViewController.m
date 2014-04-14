@@ -100,9 +100,15 @@
             [alert show];
             
             
-            NSArray *views = [self.navigationController viewControllers];
-            UIViewController *tmp = [views objectAtIndex:[views count] - 3];
-            [self.navigationController popToViewController:tmp animated:YES];
+            if (self.isInitial) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+               
+            }else{
+                NSArray *views = [self.navigationController viewControllers];
+                UIViewController *tmp = [views objectAtIndex:[views count] - 3];
+                [self.navigationController popToViewController:tmp animated:YES];
+            }
+           
             
             
             

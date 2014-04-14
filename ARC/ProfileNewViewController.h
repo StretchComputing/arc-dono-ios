@@ -14,12 +14,15 @@
 #import "SteelfishBoldButton.h"
 #import "SteelfishBoldLabel.h"
 #import "LatoRegularLabel.h"
+#import "SteelfishInputText.h"
 
 @class LoadingViewController;
 
 @interface ProfileNewViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 
+@property (nonatomic, strong) SteelfishInputText *firstNameTextField;
+@property (nonatomic, strong) SteelfishInputText *lastNameTextField;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UIButton *logoutButton;
@@ -67,6 +70,7 @@
 @property (nonatomic, strong) UIAlertView *subscriptionAlert;
 
 
+- (IBAction)endText;
 
 
 

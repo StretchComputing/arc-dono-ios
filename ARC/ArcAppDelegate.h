@@ -38,6 +38,8 @@ extern BOOL isIos7;
 }
 
 @property (nonatomic, strong) NSMutableDictionary *imageDictionary;
+@property (nonatomic, strong) NSMutableDictionary *logoDictionary;
+
 @property (nonatomic, strong) NSMutableArray *allMerchants;
 //TrackEvent
 @property (nonatomic, strong) NSMutableArray *trackEventArray;

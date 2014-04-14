@@ -9,7 +9,6 @@
 #import "ArcAppDelegate.h"
 #import "CreditCard.h"
 #import "FBEncryptorAES.h"
-#import <CrashReporter/CrashReporter.h>
 #import "UIDevice-Hardware.h"
 #import "rSkybox.h"
 #import "Reachability.h"
@@ -19,6 +18,7 @@
 //#import <FacebookSDK/FacebookSDK.h>
 //#import <FacebookSDK/FBSessionTokenCachingStrategy.h>
 #import "URLParser.h"
+#import <Crashlytics/Crashlytics.h>
 
 UIColor *dutchRedColor;
 UIColor *dutchOrangeColor;UIColor *dutchDarkBlueColor;
@@ -135,9 +135,11 @@ BOOL isIos7;
   
 
     self.imageDictionary = [NSMutableDictionary dictionary];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"savedImageDictionary"]) {
-        self.imageDictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedImageDictionary"];
-    }
+    self.logoDictionary = [NSMutableDictionary dictionary];
+
+    //if ([[NSUserDefaults standardUserDefaults] objectForKey:@"savedImageDictionary"]) {
+        //self.imageDictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedImageDictionary"];
+   // }
    
     
     
@@ -242,18 +244,7 @@ BOOL isIos7;
 	[self updateInterfaceWithReachability: wifiReach];
     
     
-    // *** for rSkybox
-    PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter]; NSError *error;
-    /* Check if we previously crashed */
-    if ([crashReporter hasPendingCrashReport]) {
-    
-        [self handleCrashReport];
-    }
-    
-    if (![crashReporter enableCrashReporterAndReturnError: &error]){
-        //NSLog(@"*************************Warning: Could not enable crash reporter: %@", error);
-    }
-    // ***
+  
     
     // Override point for customization after application launch.
     [self initManagedDocument];
@@ -273,6 +264,7 @@ BOOL isIos7;
         
     }
   
+    [Crashlytics startWithAPIKey:@"c572f3260210edf4b81f7bef249c3083b8c3bc4b"];
     
     return YES;
 }
@@ -561,67 +553,15 @@ BOOL isIos7;
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     
-    [[NSUserDefaults standardUserDefaults] setObject:self.imageDictionary forKey:@"savedImageDictionary"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    //[[NSUserDefaults standardUserDefaults] setObject:self.imageDictionary forKey:@"savedImageDictionary"];
+   // [[NSUserDefaults standardUserDefaults] synchronize];
     
    // [FBSession.activeSession close];
 
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-// *** for rSkybox
-- (void) handleCrashReport {
 
-    
-    @try {
-        PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-        NSData *crashData;
-        NSError *error;
-        self.crashDetectDate = [NSDate date];
-        self.crashStackData = nil;
-        //self.crashUserName = mainDelegate.token;
-        /* Try loading the crash report */
-        bool isNil = false;
-        crashData = [crashReporter loadPendingCrashReportDataAndReturnError: &error];
-        
-        if (crashData == nil) {
-            //NSLog(@"Could not load crash report: %@", error);
-            isNil = true;
-        }
-        
-        if(!isNil) {
-            PLCrashReport *report = [[PLCrashReport alloc] initWithData:crashData error:&error];
-            bool thisIsNil = false;
-            if(report == nil) {
-                self.crashSummary = @"Could not parse crash report";
-                [self performSelectorInBackground:@selector(sendCrashDetect) withObject:nil];
-                thisIsNil = true;
-            }
-            
-            if(!thisIsNil) {
-                @try {
-                    NSString *platform = [[UIDevice currentDevice] platformString];
-                    self.crashSummary = [NSString stringWithFormat:@"Crashed with signal=%@, app version=%@,osversion=%@, hardware=%@", report.signalInfo.name, report.applicationInfo.applicationVersion, report.systemInfo.operatingSystemVersion, platform];
-                    self.crashStackData = [crashReporter loadPendingCrashReportDataAndReturnError: &error];
-                    [self performSelectorInBackground:@selector(sendCrashDetect) withObject:nil];
-                }
-                @catch (NSException *exception) { }
-            }else{
-                [crashReporter purgePendingCrashReport]; return;
-            }
-        } else{
-            [crashReporter purgePendingCrashReport]; return;
-        }
-
-    }
-    @catch (NSException *exception) {
-        
-        
-    }
-   
-    
-   
-}
 
 - (id)init {
     [rSkybox initiateSession];
@@ -647,14 +587,6 @@ BOOL isIos7;
     return self;
 }
 
--(void)sendCrashDetect {
-    @autoreleasepool {
-        // send crash detect to GAE
-        [rSkybox sendCrashDetect:self.crashSummary theStackData:self.crashStackData];
-        PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-        [crashReporter purgePendingCrashReport];
-    }
-}
 
 -(void)saveUserInfo{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -1194,44 +1126,50 @@ ofType:(NSString *)typeName
 -(void)getDeviceMessages{
     
     ArcClient *tmp = [[ArcClient alloc] init];
-    [tmp getDeviceMessages];
+   // [tmp getDeviceMessages];
 }
 
 -(void)doneDeviceMessages:(NSNotification *)notification{
 
   
     
-    NSString *message = @"";
-    
-    if ([[[notification valueForKey:@"userInfo"] valueForKey:@"Success"] boolValue]) {
+    @try {
+        NSString *message = @"";
         
-        id results = [[notification valueForKey:@"userInfo"] valueForKey:@"Results"];
-
-        if ([[results class] isSubclassOfClass:[NSDictionary class]]) {
+        if ([[[notification valueForKey:@"userInfo"] valueForKey:@"Success"] boolValue]) {
             
-            message = [(NSDictionary *)results valueForKey:@"Message"];
-          
-        }else if ([[results class] isSubclassOfClass:[NSArray class]]) {
+            id results = [[notification valueForKey:@"userInfo"] valueForKey:@"Results"];
             
-          
-            NSArray *resultsArray = [NSArray arrayWithArray:results];
-            
-            for (int i = 0; i < [resultsArray count]; i++) {
+            if ([[results class] isSubclassOfClass:[NSDictionary class]]) {
                 
-                NSDictionary *myDictionary = [resultsArray objectAtIndex:i];
+                message = [(NSDictionary *)results valueForKey:@"Message"];
                 
-                message = [message stringByAppendingFormat:@"- %@ \n \n", [myDictionary valueForKey:@"Message"]];
+            }else if ([[results class] isSubclassOfClass:[NSArray class]]) {
+                
+                
+                NSArray *resultsArray = [NSArray arrayWithArray:results];
+                
+                for (int i = 0; i < [resultsArray count]; i++) {
+                    
+                    NSDictionary *myDictionary = [resultsArray objectAtIndex:i];
+                    
+                    message = [message stringByAppendingFormat:@"- %@ \n \n", [myDictionary valueForKey:@"Message"]];
+                }
+                
+                
             }
             
-            
-        }
-        
-        if ([message length] > 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Message From Dono!" message:message delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
-            [alert show];
-            
+            if ([message length] > 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Message From Dono!" message:message delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+                [alert show];
+                
+            }
         }
     }
+    @catch (NSException *exception) {
+        
+    }
+   
 }
 
 //Facebook

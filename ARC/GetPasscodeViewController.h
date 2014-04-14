@@ -24,5 +24,5 @@
 @property (strong, nonatomic) IBOutlet UIButton *backAction;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *submitButton;
 - (IBAction)goBackAction;
-
+@property BOOL isInitial;
 @end

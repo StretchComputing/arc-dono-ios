@@ -35,7 +35,13 @@
     [self.emailText becomeFirstResponder];
 }
 -(void)cancel{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.isInitial) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
+
 }
 -(void)viewDidLoad{
     
@@ -153,6 +159,7 @@
         if ([[segue identifier] isEqualToString:@"goReset"]) {
             
             ResetPasswordViewController *detailViewController = [segue destinationViewController];
+            detailViewController.isInitial = self.isInitial;
             detailViewController.emailAddress = self.emailText.text;
             
             
@@ -167,6 +174,12 @@
 
 
 - (IBAction)goBackAction {
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    if (self.isInitial) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }
 }
 @end

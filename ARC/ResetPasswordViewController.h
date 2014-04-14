@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordText;
 @property (weak, nonatomic) IBOutlet UITextField *confirmText;
 - (IBAction)submitAction;
-
+@property BOOL isInitial;
 @property (strong, nonatomic) IBOutlet UIView *backView;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
 

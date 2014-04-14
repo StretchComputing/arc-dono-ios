@@ -35,6 +35,8 @@
 
 -(void)setDonationSubLabel{
     
+    self.donatingAsLabel.text = @"";
+    return;
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
         self.donatingAsLabel.text = [NSString stringWithFormat:@"Donating as: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"]];
     }else{
@@ -1396,6 +1398,8 @@
     @try {
         NSString *type = [self.recurringDonationDictionary valueForKey:@"Type"];
         
+        NSLog(@"Type; %@", type);
+        
         if ([type isEqualToString:@"MONTHLY"]) {
             
             NSString *dayOfMonth = [[self.recurringDonationDictionary valueForKey:@"Value"] stringValue];
@@ -1455,6 +1459,52 @@
             
             return [NSString stringWithFormat:@"$%.2f, every %@", self.recurringAmount, day];
             
+        }else if ([type isEqualToString:@"XOFMONTH"]){
+            
+            int dayOfWeekInt = [[self.recurringDonationDictionary valueForKey:@"Value"] intValue];
+            
+            NSString *day = @"";
+            if (dayOfWeekInt == 1) {
+                day = @"Monday";
+            }else if (dayOfWeekInt == 2){
+                day = @"Tuesday";
+                
+            }else if (dayOfWeekInt == 3){
+                day = @"Wednesday";
+                
+            }else if (dayOfWeekInt == 4){
+                day = @"Thursday";
+                
+            }else if (dayOfWeekInt == 5){
+                day = @"Friday";
+                
+            }else if (dayOfWeekInt == 6){
+                day = @"Saturday";
+                
+            }else if (dayOfWeekInt == 7){
+                day = @"Sunday";
+                
+            }
+            
+            
+            int prefixInt = [[self.recurringDonationDictionary valueForKey:@"xOfMonth"] intValue];
+            NSString *prefix = @"";
+            if (prefixInt == 1) {
+                prefix = @"1st";
+            }else if (prefixInt == 2){
+                prefix = @"2nd";
+                
+            }else if (prefixInt == 3){
+                prefix = @"3rd";
+                
+            }else if (prefixInt == 4){
+                prefix = @"4th";
+                
+            }
+            
+            return [NSString stringWithFormat:@"$%.2f, the %@ %@ of every month", self.recurringAmount, prefix, day];
+            
+
         }else{
             return @"";
         }
