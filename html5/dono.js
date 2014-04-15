@@ -29,9 +29,11 @@ var ARC = (function (r, $) {
 	r.isNewCardDropdown = "";
 	r.cardArray=[];
 	r.saveCard = "";
+	r.isAnonymous = "";
 	r.ccToken = "";
 	r.multipleItems = [];
 	r.selectedItems = [];
+	r.paymentNotes = "";
 
 	r.getCardTypeFromNumber = function GetCardType(number)
         {            
@@ -122,9 +124,10 @@ var ARC = (function (r, $) {
 				"FundSourceAccount": ARC.ccNumber,
 				"Expiration": ARC.expirationDate,
 				"Pin": ARC.ccv,
-				"Anonymous": r.urlParameters['anonymous'],
+				"Anonymous": r.isAnonymous,
 				"CreateBTAccount": ARC.saveCard,
 				"CCToken": ARC.ccToken,
+				"Notes": ARC.paymentNotes,
 				"Items": r.buildFinalItems()
 			};
 			//RSKYBOX.log.debug("createPayment jsonData = " + JSON.stringify(jsonData));
@@ -924,6 +927,7 @@ $(document).on('click', '.addCard', function(e){
 		
 			// show the ConfirmPayment page
 			$('#confirmPaymentPage').show();
+			
 			$('#addCardPage').hide();
 			$('#donePayment').hide();
 
@@ -990,6 +994,7 @@ $(document).on('click', '.addCard', function(e){
 			
 			// show the ConfirmPayment page
 			$('#confirmPaymentPage').show();
+
 			$('#addCardPage').hide();
 			$('#donePayment').hide();
 
@@ -1172,15 +1177,39 @@ $(document).on('click', '.confirm', function(e){
 	
 	
 	
-	$('#addLoadPage').show();
+	
+	
+	ARC.paymentNotes = $('#paymentNotesText').val();
+
+	if (ARC.paymentNotes.length == 0){
+		ARC.paymentNotes = "";
+	}
+	
+	if (ARC.paymentNotes.length > 499){
+	
+		alert("Payment notes has a 500 character limit.");
+	}else{
+		
+		
+		$('#addLoadPage').show();
 	$('#confirmPaymentPage').hide();
 	$('#addCardPage').hide();
 	$('#howMuchPage').hide();
-
-	ARC.saveCard = document.getElementById("saveCheck").checked;
+	
+	
+		 ARC.saveCard = document.getElementById("saveCheck").checked;
                 
-	e.preventDefault();
-	ARC.createPayment();
+         ARC.isAnonymous = document.getElementById("anonymousCheck").checked;
+
+                
+		e.preventDefault();
+		ARC.createPayment();
+	
+	}
+	
+	
+	
+	
 });
 
 

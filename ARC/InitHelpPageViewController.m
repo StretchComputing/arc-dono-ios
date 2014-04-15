@@ -272,6 +272,7 @@
     self.nameText.hidden = NO;
     [self.emailText becomeFirstResponder];
     self.forgotPasswordButton.hidden = YES;
+    self.passwordText.text = @"";
 }
 
 - (IBAction)loginAction {
@@ -282,6 +283,7 @@
     self.nameText.hidden = YES;
     [self.emailText becomeFirstResponder];
     self.forgotPasswordButton.hidden = NO;
+    self.passwordText.text = @"";
 
 }
 

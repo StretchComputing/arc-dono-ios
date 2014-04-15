@@ -242,13 +242,13 @@ div.quickOutter{
 
 select.selecter{
 
-	width:200px;
+	width:250px;
 	font-size:20px;
 	
 }
 div.dropdown{
 
-	width: 200px;
+	width: 250px;
 	margin: 0 auto;
 	
 }
@@ -507,9 +507,18 @@ input.expirationDate{
 
 }
 
+div.anonymousDiv{
+	
+	width:240px;
+	margin: 0 auto;
+	color:#646464;
+
+}
+
+
 div.saveCard{
 	
-	width:230px;
+	width:240px;
 	margin: 0 auto;
 	color:#646464;
 
@@ -529,6 +538,15 @@ input.saveCheck{
 
 
 }
+
+input.anonymousCheck{
+	color:#646464;
+
+		float:left;
+
+
+}
+
 
 input[type=checkbox] {
     -webkit-transform: scale(1.5,1.5);
@@ -568,6 +586,37 @@ div.cardInfo
   margin-right: auto;
 }
 
+div.paymentNotes
+{
+  font-family:latoLight;
+  font-size: 20px;
+
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+ 
+textarea.paymentNotesText{
+
+	font-size: 17px;
+    font-family:latoLight;
+    width: 235px;
+    height: 50px;
+    border-radius:4px;
+    padding: 3px 3px;
+    max-width:325px;
+    
+
+}
+
+
+div.subtext
+{
+  font-family:latoLight;
+  font-size: 14px;
+
+ 
+}
 
 
 

@@ -74,6 +74,11 @@
             [alert show];
             wasGuest = YES;
             
+            
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"guestId"];
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"guestToken"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+
         }else{
         
             

@@ -102,9 +102,9 @@
     }else if (offset == 320){
         self.pageControl.currentPage = 1;
     }else if (offset == 640){
-        self.pageControl.currentPage = 3;
+        self.pageControl.currentPage = 2;
     }else if (offset == 960){
-        self.pageControl.currentPage = 4;
+        self.pageControl.currentPage = 3;
     }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

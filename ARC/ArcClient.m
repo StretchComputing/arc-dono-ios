@@ -1612,7 +1612,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         // TODO make logType a function of the restaurant/location -- not sure the best way to do this yet
         NSString *logName = [NSString stringWithFormat:@"api.%@.%@ - %@", [self apiToString], [self readableErrorCode:error], urlString];
         
-        if (api != PingServer) {
+        if (api != PingServer && api != GetServer) {
             [rSkybox sendClientLog:logName logMessage:error.localizedDescription logLevel:@"error" exception:nil];
         }
         
